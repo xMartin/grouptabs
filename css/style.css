@@ -9,4 +9,5 @@ body {
 .link {
 	color: #1020EE;
 	text-decoration: underline;
+	cursor: pointer;
 }

@@ -1,7 +1,7 @@
 define({
 
 getData: function(){
-	return JSON.parse(localStorage.getItem("badminton"))
+	return dojo.fromJson(localStorage.getItem("badminton"))
 },
 
 refreshData: function(){

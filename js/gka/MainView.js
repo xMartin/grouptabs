@@ -1,6 +1,7 @@
 define([
-	"gka/_View"
-], function(){
+	"gka/_View",
+	"gka/app"
+], function(_View, app){
 
 return dojo.declare(
 	"gka.MainView",
@@ -9,6 +10,10 @@ return dojo.declare(
 	templateString: dojo.cache("gka", "templates/MainView.html"),
 	
 	name: "main",
+	
+	_onRefreshDataClick: function(){
+		app.refreshData()
+	},
 	
 	_onNewEntryClick: function(){
 		this.close(this, "newEntry")

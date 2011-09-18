@@ -16,6 +16,9 @@ return dojo.declare(
 			tableNode, rowNode, cellNode, textNode,
 			amount
 		accounts = app.getData()
+		if(!accounts){
+			return
+		}
 		accounts = app.getAccounts(accounts.transactions)
 		tableNode = document.createElement("TABLE")
 		rowNode = document.createElement("TR")

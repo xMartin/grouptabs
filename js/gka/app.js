@@ -6,7 +6,7 @@ getData: function(){
 
 refreshData: function(){
 	var xhr = new XMLHttpRequest()
-	xhr.open("GET", "localStorage/Badminton.json", true);
+	xhr.open("GET", "data/badminton.json", true);
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			localStorage.setItem("badminton", xhr.responseText)

@@ -15,6 +15,10 @@ return dojo.declare(
 		app.refreshData()
 	},
 	
+	_onSaveDataClick: function(){
+		app.postData()
+	},
+	
 	_onNewEntryClick: function(){
 		this.close(this, "newEntry")
 	},

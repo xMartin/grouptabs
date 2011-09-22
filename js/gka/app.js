@@ -6,7 +6,7 @@ getData: function(){
 
 refreshData: function(){
 	var xhr = new XMLHttpRequest()
-	xhr.open("GET", "data/badminton.json", true);
+	xhr.open("GET", "data/badminton.json?nocache=" + (new Date()).getTime(), true);
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			localStorage.setItem("badminton", xhr.responseText)
@@ -14,6 +14,24 @@ refreshData: function(){
 		}
 	}
 	xhr.send()
+},
+
+postData: function(){
+	dojo.xhrPost({
+		url: "save.php",
+		postData: "data=" + localStorage.getItem("badminton"),
+		handleAs: "text",
+		load: function(data){
+			if(data == "success"){
+				alert("Uploaded successfully.")
+			}else{
+				alert("Error.")
+			}
+		},
+		error: function(error){
+			alert("Error: " + error)
+		}
+	})
 },
 
 getAccounts: function(transactions){

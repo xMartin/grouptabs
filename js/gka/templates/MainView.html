@@ -1,7 +1,13 @@
 <div class="view">
 	<h2>Gruppenkasse</h2>
-	<div data-dojo-attach-event="onclick:_onNewEntryClick" class="link">Neuer Posten</div>
-	<div data-dojo-attach-event="onclick:_onSummaryClick" class="link">Gesamtübersicht</div>
+	<div class="row">
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onclick:_onNewEntryClick">Neuer Posten</span>
+	</div>
+	<div class="row">
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onclick:_onSummaryClick">Gesamtübersicht</span>
+	</div>
 	<hr>
-	<div data-dojo-attach-event="onclick:_onRefreshDataClick" class="link">Daten auffrischen</div>
+	<div class="row">
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onclick:_onRefreshDataClick">Daten auffrischen</span>
+	</div>
 </div>

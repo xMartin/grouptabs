@@ -1,13 +1,12 @@
-body {
-	font-family: sans-serif;
-}
-
 .view {
-	
+	padding: 1em;
 }
 
-.link {
-	color: #1020EE;
-	text-decoration: underline;
-	cursor: pointer;
+.form-row {
+	padding: .3em;
+}
+
+.form-hint {
+	font-size: .7em;
+	color: gray;
 }

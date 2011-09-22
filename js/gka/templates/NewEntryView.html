@@ -1,4 +1,45 @@
 <div class="view">
 	<h2>Neuer Posten</h2>
-	<div data-dojo-attach-event="onclick:_onOkClick" class="link">Ok</div>
+	<div class="form">
+		<div class="form-row">
+			<div class="form-row-label">
+				<label for="newEntryTitle">Titel:</label>
+			</div>
+			<div class="form-row-input">
+				<input id="newEntryTitle" name="title" data-dojo-type="dijit.form.ValidationTextBox">
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-row-label">
+				<label for="newEntryDate">Datum:</label>
+			</div>
+			<div class="form-row-input">
+				<input id="newEntryDate" name="date" data-dojo-type="dijit.form.DateTextBox">
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-row-label">
+				<label for="newEntryParticipants">Teilnehmer:</label>
+			</div>
+			<div class="form-row-input">
+				<input id="newEntryParticipants" name="participants" data-dojo-type="dijit.form.ValidationTextBox">
+			</div>
+			<div class="form-row-hint">
+				<span class="form-hint">(mit Kommas getrennte Werte)</span>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-row-label">
+				<label for="newEntryPayments">Zahlungsvorgänge:</label>
+			</div>
+			<div class="form-row-input">
+				<input id="newEntryPayments" name="payments" data-dojo-type="dijit.form.ValidationTextBox">
+			</div>
+			<div class="form-row-hint">
+				<span class="form-hint">(z.B.: Dominik:30,Julius:12.5)</span>
+			</div>
+		</div>
+	</div>
+	<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onclick:_onCancelClick">abbrechen</span>
+	<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onclick:_onOkClick">OK</span>
 </div>

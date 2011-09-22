@@ -12,6 +12,19 @@ return dojo.declare(
 	name: "summary",
 	
 	postCreate: function(){
+		this._renderSummary()
+	},
+	
+	onShow: function(){
+		this.refreshSummary()
+	},
+	
+	refreshSummary: function(){
+		this._clearSummary()
+		this._renderSummary()
+	},
+	
+	_renderSummary: function(){
 		var accounts, account,
 			tableNode, rowNode, cellNode, textNode,
 			amount
@@ -34,11 +47,15 @@ return dojo.declare(
 		for(account in accounts){
 			cellNode = document.createElement("TD")
 			rowNode.appendChild(cellNode)
-			amount = Math.round(accounts[account]) + " €"
+			amount = accounts[account].toFixed(2) + " €"
 			textNode = document.createTextNode(amount)
 			cellNode.appendChild(textNode)
 		}
-		this.domNode.appendChild(tableNode)
+		this.summaryNode.appendChild(tableNode)
+	},
+	
+	_clearSummary: function(){
+		dojo.empty(this.summaryNode)
 	},
 	
 	_onBackClick: function(){

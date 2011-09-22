@@ -10,6 +10,7 @@ refreshData: function(){
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			localStorage.setItem("badminton", xhr.responseText)
+			alert("Data refreshed successfully.")
 		}
 	}
 	xhr.send()

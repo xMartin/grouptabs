@@ -1,5 +1,7 @@
 define([
-	"gka/_View"
+	"gka/_View",
+	"dijit/form/ValidationTextBox",
+	"dijit/form/DateTextBox"
 ], function(){
 
 return dojo.declare(
@@ -11,9 +13,15 @@ return dojo.declare(
 	name: "newEntry",
 	
 	_onOkClick: function(){
+		var params = this.get("value")
+		this.reset()
+		this.close(this, "main", params)
+	},
+	
+	_onCancelClick: function(){
+		this.reset()
 		this.close(this, "main")
 	}
-
 })
 
 })

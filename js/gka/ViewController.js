@@ -15,6 +15,26 @@ var getViewByName = function(viewName){
 	return view
 }
 
+var saveEntry = function(data){
+	console.log(data)
+	var participants = data.participants.split(",")
+	var payments = []
+	data.payments.split(",").forEach(function(payment){
+		var p = payment.split(":")
+		payments.push({participant: p[0], amount: parseFloat(p[1])})
+	})
+	
+	var transactions = dojo.fromJson(localStorage.getItem("badminton")).transactions
+	transactions.push({
+		type: "spending",
+		title: data.title,
+		date: data.date,
+		participants: participants,
+		payments: payments
+	})
+	localStorage.setItem("badminton", dojo.toJson({transactions: transactions}))
+}
+
 return {
 	addView: function(view){
 		view.placeAt(dojo.byId("views"))
@@ -29,17 +49,16 @@ return {
 			view = getViewByName(view)
 		}
 		dojo.style(view.domNode, "display", "")
+		view.onShow()
 		window.viewController.selectedView = view
 	},
 	
-	onViewClosed: function(view, message){
+	onViewClosed: function(view, message, params){
 		switch(view.name){
-			case "XXX":
-				break;
-			default:
-				console.log("Select view '" + message + "'.")
-				this.selectView(message)
+			case "newEntry":
+				params && saveEntry(params)
 		}
+		this.selectView(message)
 	}
 }
 

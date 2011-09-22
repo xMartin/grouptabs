@@ -1,3 +1,6 @@
+@import url(../../dijit/themes/claro/claro.css);
+@import url(../../dijit/themes/claro/document.css);
+
 .view {
 	padding: 1em;
 }

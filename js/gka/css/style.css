@@ -1,8 +1,16 @@
 @import url(../../dijit/themes/claro/claro.css);
 @import url(../../dijit/themes/claro/document.css);
 
+.claro {
+	font-size: 1em;
+}
+
 .view {
 	padding: 1em;
+}
+
+.view h2 {
+	margin-top: 0;
 }
 
 .form-row {

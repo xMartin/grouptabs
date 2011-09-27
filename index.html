@@ -6,7 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="js/release/dojo/gka/css/style.css">
 	<script data-dojo-config="async:true" type="text/javascript" src="js/release/dojo/dojo/dojo.js"></script>
 	<script type="text/javascript">
-		require(["gka/ViewController", "gka/MainView", "gka/NewEntryView", "gka/SummaryView"], function(viewController, MainView, NewEntryView, SummaryView){
+		require(["gka/viewController", "gka/MainView", "gka/NewEntryView", "gka/SummaryView"], function(viewController, MainView, NewEntryView, SummaryView){
 			dojo.ready(function(){
 				var mainView = new MainView({controller: viewController})
 				viewController.addView(mainView)

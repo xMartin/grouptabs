@@ -9,7 +9,7 @@ dependencies = {
 			name: "dojo.js",
 			dependencies: [
 				"dojo.selector.acme",
-				"gka.ViewController",
+				"gka.viewController",
 				"gka.MainView",
 				"gka.NewEntryView",
 				"gka.SummaryView"

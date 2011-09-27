@@ -4,10 +4,8 @@ define([
 	"dojo/text!./templates/MainView.html"
 ], function(_View, app, template){
 
-return dojo.declare(
-	"gka.MainView",
-	[gka._View],
-{
+return dojo.declare(_View, {
+	
 	templateString: template,
 	
 	name: "main",

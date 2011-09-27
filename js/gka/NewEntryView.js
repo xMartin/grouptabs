@@ -5,10 +5,8 @@ define([
 	"dojo/text!./templates/NewEntryView.html"
 ], function(_View, ValidationTextBox, DateTextBox, template){
 
-return dojo.declare(
-	"gka.NewEntryView",
-	[gka._View],
-{
+return dojo.declare(_View, {
+	
 	templateString: template,
 	
 	name: "newEntry",

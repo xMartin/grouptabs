@@ -25,33 +25,24 @@ return dojo.declare(
 	},
 	
 	_renderSummary: function(){
-		var accounts, account,
-			tableNode, rowNode, cellNode, textNode,
-			amount
+		var accounts, account, rowCount = 0, html, amount
 		accounts = app.getData()
 		if(!accounts){
 			return
 		}
 		accounts = app.getAccounts(accounts.transactions)
-		tableNode = document.createElement("TABLE")
-		rowNode = document.createElement("TR")
-		tableNode.appendChild(rowNode)
+		html = "<table>"
 		for(account in accounts){
-			cellNode = document.createElement("TH")
-			rowNode.appendChild(cellNode)
-			textNode = document.createTextNode(account)
-			cellNode.appendChild(textNode)
-		}
-		rowNode = document.createElement("TR")
-		tableNode.appendChild(rowNode)
-		for(account in accounts){
-			cellNode = document.createElement("TD")
-			rowNode.appendChild(cellNode)
 			amount = accounts[account].toFixed(2) + " €"
-			textNode = document.createTextNode(amount)
-			cellNode.appendChild(textNode)
+			html +=
+				"<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>"
+				+ "<th class='account'>" + account + ": </th>"
+				+ "<td class='amount'>" + amount + "</td>"
+				+ "</tr>"
+			rowCount++
 		}
-		this.summaryNode.appendChild(tableNode)
+		html += "</table>"
+		this.summaryNode.appendChild(dojo._toDom(html))
 	},
 	
 	_clearSummary: function(){

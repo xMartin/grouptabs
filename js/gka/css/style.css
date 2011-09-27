@@ -21,3 +21,13 @@
 	font-size: .7em;
 	color: gray;
 }
+
+table {
+	width: 100%;
+}
+tr.even {
+	background: #ddd;
+}
+td.amount {
+	text-align: right;
+}

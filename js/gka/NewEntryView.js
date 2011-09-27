@@ -1,14 +1,15 @@
 define([
 	"gka/_View",
 	"dijit/form/ValidationTextBox",
-	"dijit/form/DateTextBox"
-], function(){
+	"dijit/form/DateTextBox",
+	"dojo/text!./templates/NewEntryView.html"
+], function(_View, ValidationTextBox, DateTextBox, template){
 
 return dojo.declare(
 	"gka.NewEntryView",
 	[gka._View],
 {
-	templateString: dojo.cache("gka", "templates/NewEntryView.html"),
+	templateString: template,
 	
 	name: "newEntry",
 	

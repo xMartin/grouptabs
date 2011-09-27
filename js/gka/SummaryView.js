@@ -1,13 +1,14 @@
 define([
 	"gka/_View",
-	"gka/app"
-], function(_View, app){
+	"gka/app",
+	"dojo/text!./templates/SummaryView.html"
+], function(_View, app, template){
 
 return dojo.declare(
 	"gka.SummaryView",
 	[gka._View],
 {
-	templateString: dojo.cache("gka", "templates/SummaryView.html"),
+	templateString: template,
 	
 	name: "summary",
 	

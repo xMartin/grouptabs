@@ -1,13 +1,14 @@
 define([
 	"gka/_View",
-	"gka/app"
-], function(_View, app){
+	"gka/app",
+	"dojo/text!./templates/MainView.html"
+], function(_View, app, template){
 
 return dojo.declare(
 	"gka.MainView",
 	[gka._View],
 {
-	templateString: dojo.cache("gka", "templates/MainView.html"),
+	templateString: template,
 	
 	name: "main",
 	

@@ -12,7 +12,8 @@ dependencies = {
 				"gka.viewController",
 				"gka.MainView",
 				"gka.NewEntryView",
-				"gka.SummaryView"
+				"gka.SummaryView",
+				"gka.ListView"
 			]
 		}
 	]

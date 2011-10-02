@@ -24,6 +24,10 @@ return dojo.declare(_View, {
 	
 	_onSummaryClick: function(){
 		this.close(this, "summary")
+	},
+	
+	_onListClick: function(){
+		this.close(this, "list")
 	}
 })
 

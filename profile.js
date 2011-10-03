@@ -1,5 +1,4 @@
 dependencies = {
-	version: "1.7.0dev",
 	prefixes: [
 		[ "dijit", "../dijit" ],
 		[ "gka", "../gka" ]

@@ -34,7 +34,7 @@ return dojo.declare(_View, {
 		transactions.forEach(function(transaction){
 			html +=
 				"<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>"
-				+ "<td class='date'>" + transaction.date + "</td>"
+				+ "<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"
 				+ "<td class='title'>" + transaction.title + "</td>"
 				+ "</tr>"
 			rowCount++

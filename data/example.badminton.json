@@ -1,467 +1,467 @@
 {
-	"transactions": [
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "31.01.2011",
-			"participants": [
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Dominik",
-					"amount": 10
-				},
-				{
-					"participant": "Simon",
-					"amount": 3
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "07.02.2011",
-			"participants": [
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Dominik",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "14.02.2011",
-			"participants": [
-				"Martin",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "21.02.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "28.02.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Dominik",
-					"amount": 6.25
-				},
-				{
-					"participant": "Simon",
-					"amount": 6.25
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "14.03.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "22.03.2011",
-			"participants": [
-				"Martin",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 21.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "30.03.2011",
-			"participants": [
-				"Julius",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 8.5
-				},
-				{
-					"participant": "Dominik",
-					"amount": 5
-				},
-				{
-					"participant": "Simon",
-					"amount": 8
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "04.04.2011",
-			"participants": [
-				"Martin",
-				"Dominik"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "11.04.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 27
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "19.04.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 21.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Bälle",
-			"date": "19.04.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 13
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "02.05.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 21.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "09.05.2011",
-			"participants": [
-				"Martin",
-				"Dominik"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 2.5
-				},
-				{
-					"participant": "Dominik",
-					"amount": 11
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "16.05.2011",
-			"participants": [
-				"Julius",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 13.5
-				},
-				{
-					"participant": "Dominik",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Bälle",
-			"date": "16.05.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 13
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "23.05.2011",
-			"participants": [
-				"Julius",
-				"Martin"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "30.05.2011",
-			"participants": [
-				"Julius",
-				"Martin"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "06.06.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 13.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "20.06.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 27
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "25.07.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 12.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "01.08.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 12.5
-				},
-				{
-					"participant": "Simon",
-					"amount": 12.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "08.08.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 12.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "16.08.2011",
-			"participants": [
-				"Julius",
-				"Martin"
-			],
-			"payments": [
-				{
-					"participant": "Julius",
-					"amount": 8
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "29.08.2011",
-			"participants": [
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Simon",
-					"amount": 12.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "02.09.2011",
-			"participants": [
-				"Martin",
-				"Dominik"
-			],
-			"payments": [
-				{
-					"participant": "Dominik",
-					"amount": 12.5
-				}
-			]
-		},
-		{
-			"type": "spending",
-			"title": "Badminton",
-			"date": "05.09.2011",
-			"participants": [
-				"Julius",
-				"Martin",
-				"Dominik",
-				"Simon"
-			],
-			"payments": [
-				{
-					"participant": "Martin",
-					"amount": 25
-				}
-			]
-		}
-	]	
+  "transactions": [
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 30 Jan 2011 23:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Dominik",
+          "amount": 10
+        },
+        {
+          "participant": "Simon",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 06 Feb 2011 23:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Dominik",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 13 Feb 2011 23:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 20 Feb 2011 23:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 27 Feb 2011 23:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Dominik",
+          "amount": 6.25
+        },
+        {
+          "participant": "Simon",
+          "amount": 6.25
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 13 Mar 2011 23:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Mon, 21 Mar 2011 23:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 21.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Tue, 29 Mar 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 8.5
+        },
+        {
+          "participant": "Dominik",
+          "amount": 5
+        },
+        {
+          "participant": "Simon",
+          "amount": 8
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 03 Apr 2011 22:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Dominik"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 10 Apr 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 27
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Mon, 18 Apr 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 21.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Bälle",
+      "date": "Mon, 18 Apr 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 13
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 01 May 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 21.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 08 May 2011 22:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Dominik"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 2.5
+        },
+        {
+          "participant": "Dominik",
+          "amount": 11
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 15 May 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 13.5
+        },
+        {
+          "participant": "Dominik",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Bälle",
+      "date": "Sun, 15 May 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 13
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 22 May 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 29 May 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 05 Jun 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 13.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 19 Jun 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 27
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 24 Jul 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 12.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 31 Jul 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 12.5
+        },
+        {
+          "participant": "Simon",
+          "amount": 12.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 07 Aug 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 12.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Mon, 15 Aug 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin"
+      ],
+      "payments": [
+        {
+          "participant": "Julius",
+          "amount": 8
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 28 Aug 2011 22:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Simon",
+          "amount": 12.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Thu, 01 Sep 2011 22:00:00 GMT",
+      "participants": [
+        "Martin",
+        "Dominik"
+      ],
+      "payments": [
+        {
+          "participant": "Dominik",
+          "amount": 12.5
+        }
+      ]
+    },
+    {
+      "type": "spending",
+      "title": "Badminton",
+      "date": "Sun, 04 Sep 2011 22:00:00 GMT",
+      "participants": [
+        "Julius",
+        "Martin",
+        "Dominik",
+        "Simon"
+      ],
+      "payments": [
+        {
+          "participant": "Martin",
+          "amount": 25
+        }
+      ]
+    }
+  ]
 }

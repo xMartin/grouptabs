@@ -28,7 +28,7 @@ var saveEntry = function(data){
 	transactions.push({
 		type: "spending",
 		title: data.title,
-		date: data.date,
+		date: data.date.toUTCString(),
 		participants: participants,
 		payments: payments
 	})

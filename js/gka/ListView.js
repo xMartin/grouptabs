@@ -1,8 +1,9 @@
 define([
 	"gka/_View",
 	"gka/app",
+	"dijit/form/Button",
 	"dojo/text!./templates/ListView.html"
-], function(_View, app, template){
+], function(_View, app, Button, template){
 
 return dojo.declare(_View, {
 	
@@ -24,7 +25,7 @@ return dojo.declare(_View, {
 	},
 	
 	_renderList: function(){
-		var accounts, transactions, rowCount = 0, tableNode, rowNode, deleteNode
+		var accounts, transactions, rowCount = 0, tableNode, rowNode, deleteNode, deleteButton
 		accounts = app.getData()
 		if(!accounts){
 			return
@@ -35,9 +36,11 @@ return dojo.declare(_View, {
 			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
 			rowNode.appendChild(dojo._toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
 			rowNode.appendChild(dojo._toDom("<td class='title'>" + transaction.title + "</td>"))
-			deleteNode = dojo._toDom("<td class='delete'>löschen</td>")
-			deleteNode.tid = idx
-			deleteNode.addEventListener("click", dojo.hitch(this, this._onDeleteClick))
+			deleteNode = dojo._toDom("<td class='delete'></td>")
+			deleteButton = new Button({label: "löschen"}).placeAt(deleteNode)
+			this.connect(deleteButton, "onClick", function(evt){
+				this._onDeleteClick(evt, idx)
+			})
 			rowNode.appendChild(deleteNode)
 			tableNode.appendChild(rowNode)
 			rowCount++
@@ -53,8 +56,8 @@ return dojo.declare(_View, {
 		this.close(this, "main")
 	},
 	
-	_onDeleteClick: function(evt){
-		this._deleteEntry(evt.target.tid)
+	_onDeleteClick: function(evt, id){
+		this._deleteEntry(id)
 		this.refreshList()
 	},
 	

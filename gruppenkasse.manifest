@@ -8,8 +8,6 @@ js/release/dojo/dojo/cldr/nls/en/gregorian.js
 js/release/dojo/dojo/cldr/nls/de/gregorian.js
 js/release/dojo/dijit/form/nls/de/validate.js
 js/release/dojo/dojo/resources/blank.gif
-js/release/dojo/dijit/themes/claro/images/tooltipGradient.png
-js/release/dojo/dijit/themes/claro/images/tooltip.png
 js/release/dojo/dijit/themes/claro/form/images/button.png
 js/release/dojo/dijit/themes/claro/form/images/formHighlight.png
 js/release/dojo/dijit/themes/claro/form/images/commonFormArrows.png
@@ -17,7 +15,6 @@ js/release/dojo/dijit/themes/claro/form/images/textBox_back.png
 js/release/dojo/dijit/themes/claro/images/calendarContainerImages.png
 js/release/dojo/dijit/themes/claro/images/calendarArrows.png
 js/release/dojo/dijit/themes/claro/form/images/buttonArrows.png
-js/release/dojo/dijit/themes/claro/images/calendarContainerImages.png
 
 NETWORK:
 *

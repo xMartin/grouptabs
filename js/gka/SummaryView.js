@@ -24,12 +24,11 @@ return dojo.declare(_View, {
 	},
 	
 	_renderSummary: function(){
-		var accounts, account, rowCount = 0, html, amount
-		accounts = app.getData()
-		if(!accounts){
+		var store = app.store, accounts, account, rowCount = 0, html, amount
+		if(!store){
 			return
 		}
-		accounts = app.getAccounts(accounts.transactions)
+		accounts = app.getAccounts(store.data)
 		html = "<table>"
 		for(account in accounts){
 			amount = accounts[account].toFixed(2) + " €"

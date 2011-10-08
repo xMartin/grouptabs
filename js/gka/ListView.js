@@ -25,21 +25,20 @@ return dojo.declare(_View, {
 	},
 	
 	_renderList: function(){
-		var accounts, transactions, rowCount = 0, tableNode, rowNode, deleteNode, deleteButton
-		accounts = app.getData()
-		if(!accounts){
+		var store = app.store, transactions, rowCount = 0, tableNode, rowNode, deleteNode, deleteButton
+		if(!store){
 			return
 		}
-		transactions = accounts.transactions
+		transactions = store.query(function(){return true}, {"sort": [{"attribute": "date", "descending": false}]})
 		tableNode = document.createElement("TABLE")
-		transactions.forEach(function(transaction, idx){
+		transactions.forEach(function(transaction){
 			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
 			rowNode.appendChild(dojo._toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
 			rowNode.appendChild(dojo._toDom("<td class='title'>" + transaction.title + "</td>"))
 			deleteNode = dojo._toDom("<td class='delete'></td>")
 			deleteButton = new Button({label: "löschen"}).placeAt(deleteNode)
 			this.connect(deleteButton, "onClick", function(evt){
-				this._onDeleteClick(evt, idx)
+				this._onDeleteClick(evt, transaction.id)
 			})
 			rowNode.appendChild(deleteNode)
 			tableNode.appendChild(rowNode)
@@ -57,21 +56,9 @@ return dojo.declare(_View, {
 	},
 	
 	_onDeleteClick: function(evt, id){
-		this._deleteEntry(id)
+		app.deleteEntry(id)
 		this.refreshList()
-	},
-	
-	_deleteEntry: function(id){
-		var transactions = dojo.fromJson(localStorage.getItem("badminton")).transactions,
-			newArr = []
-		transactions.forEach(function(t, idx){
-			if(idx != id){
-				newArr.push(t)
-			}
-		})
-		localStorage.setItem("badminton", dojo.toJson({transactions: newArr}))
 	}
-
 })
 
 })

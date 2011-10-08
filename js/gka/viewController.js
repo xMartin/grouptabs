@@ -1,4 +1,6 @@
-define(function(){
+define([
+	"gka/app"
+], function(app){
 
 var viewController = {
 	views: []
@@ -13,26 +15,6 @@ var getViewByName = function(viewName){
 		}
 	})
 	return view
-}
-
-var saveEntry = function(data){
-	console.log(data)
-	var participants = data.participants.split(",")
-	var payments = []
-	data.payments.split(",").forEach(function(payment){
-		var p = payment.split(":")
-		payments.push({participant: p[0], amount: parseFloat(p[1])})
-	})
-	
-	var transactions = dojo.fromJson(localStorage.getItem("badminton")).transactions
-	transactions.push({
-		type: "spending",
-		title: data.title,
-		date: data.date.getTime(),
-		participants: participants,
-		payments: payments
-	})
-	localStorage.setItem("badminton", dojo.toJson({transactions: transactions}))
 }
 
 return {
@@ -57,8 +39,8 @@ return {
 	
 	onViewClosed: function(view, message, params){
 		switch(view.name){
-			case "newEntry":
-				params && saveEntry(params)
+//			case "newEntry":
+//				params && app.saveEntry(params)
 		}
 		this.selectView(message)
 	}

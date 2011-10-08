@@ -17,7 +17,7 @@ return {
 				data = xhr.responseText
 				store.setData(JSON.parse(data).transactions)
 				localStorage.setItem("badminton", data)
-				alert("Data refreshed successfully.")
+				alert("Daten erfolgreich geladen.")
 			}
 		}
 		xhr.send()
@@ -30,13 +30,13 @@ return {
 			handleAs: "text",
 			load: function(data){
 				if(data == "success"){
-					alert("Uploaded successfully.")
+					alert("Erfolgreich hochgeladen.")
 				}else{
-					alert("Error.")
+					alert("Fehler.")
 				}
 			},
 			error: function(error){
-				alert("Error: " + error)
+				alert("Fehler: " + error)
 			}
 		})
 	},

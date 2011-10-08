@@ -3,7 +3,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 30 Jan 2011 23:00:00 GMT",
+      "date": 1296428400000,
       "participants": [
         "Martin",
         "Dominik",
@@ -23,7 +23,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 06 Feb 2011 23:00:00 GMT",
+      "date": 1297033200000,
       "participants": [
         "Martin",
         "Dominik",
@@ -39,7 +39,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 13 Feb 2011 23:00:00 GMT",
+      "date": 1297638000000,
       "participants": [
         "Martin",
         "Simon"
@@ -54,7 +54,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 20 Feb 2011 23:00:00 GMT",
+      "date": 1298242800000,
       "participants": [
         "Julius",
         "Martin",
@@ -70,7 +70,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 27 Feb 2011 23:00:00 GMT",
+      "date": 1298847600000,
       "participants": [
         "Julius",
         "Martin",
@@ -91,7 +91,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 13 Mar 2011 23:00:00 GMT",
+      "date": 1300057200000,
       "participants": [
         "Julius",
         "Martin",
@@ -108,7 +108,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Mon, 21 Mar 2011 23:00:00 GMT",
+      "date": 1300748400000,
       "participants": [
         "Martin",
         "Simon"
@@ -123,7 +123,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Tue, 29 Mar 2011 22:00:00 GMT",
+      "date": 1301436000000,
       "participants": [
         "Julius",
         "Dominik",
@@ -147,7 +147,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 03 Apr 2011 22:00:00 GMT",
+      "date": 1301868000000,
       "participants": [
         "Martin",
         "Dominik"
@@ -162,7 +162,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 10 Apr 2011 22:00:00 GMT",
+      "date": 1302472800000,
       "participants": [
         "Julius",
         "Martin",
@@ -179,7 +179,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Mon, 18 Apr 2011 22:00:00 GMT",
+      "date": 1303164000000,
       "participants": [
         "Julius",
         "Martin",
@@ -196,7 +196,7 @@
     {
       "type": "spending",
       "title": "Bälle",
-      "date": "Mon, 18 Apr 2011 22:00:00 GMT",
+      "date": 1303164000000,
       "participants": [
         "Julius",
         "Martin",
@@ -213,7 +213,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 01 May 2011 22:00:00 GMT",
+      "date": 1304287200000,
       "participants": [
         "Julius",
         "Martin",
@@ -230,7 +230,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 08 May 2011 22:00:00 GMT",
+      "date": 1304892000000,
       "participants": [
         "Martin",
         "Dominik"
@@ -249,7 +249,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 15 May 2011 22:00:00 GMT",
+      "date": 1305496800000,
       "participants": [
         "Julius",
         "Dominik",
@@ -269,7 +269,7 @@
     {
       "type": "spending",
       "title": "Bälle",
-      "date": "Sun, 15 May 2011 22:00:00 GMT",
+      "date": 1305496800000,
       "participants": [
         "Julius",
         "Martin",
@@ -286,7 +286,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 22 May 2011 22:00:00 GMT",
+      "date": 1306101600000,
       "participants": [
         "Julius",
         "Martin"
@@ -301,7 +301,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 29 May 2011 22:00:00 GMT",
+      "date": 1306706400000,
       "participants": [
         "Julius",
         "Martin"
@@ -316,7 +316,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 05 Jun 2011 22:00:00 GMT",
+      "date": 1307311200000,
       "participants": [
         "Julius",
         "Martin",
@@ -332,7 +332,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 19 Jun 2011 22:00:00 GMT",
+      "date": 1308520800000,
       "participants": [
         "Julius",
         "Martin",
@@ -349,7 +349,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 24 Jul 2011 22:00:00 GMT",
+      "date": 1311544800000,
       "participants": [
         "Julius",
         "Martin",
@@ -366,7 +366,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 31 Jul 2011 22:00:00 GMT",
+      "date": 1312149600000,
       "participants": [
         "Julius",
         "Martin",
@@ -387,7 +387,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 07 Aug 2011 22:00:00 GMT",
+      "date": 1312754400000,
       "participants": [
         "Julius",
         "Martin",
@@ -403,7 +403,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Mon, 15 Aug 2011 22:00:00 GMT",
+      "date": 1313445600000,
       "participants": [
         "Julius",
         "Martin"
@@ -418,7 +418,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 28 Aug 2011 22:00:00 GMT",
+      "date": 1314568800000,
       "participants": [
         "Martin",
         "Dominik",
@@ -434,7 +434,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Thu, 01 Sep 2011 22:00:00 GMT",
+      "date": 1314914400000,
       "participants": [
         "Martin",
         "Dominik"
@@ -449,7 +449,7 @@
     {
       "type": "spending",
       "title": "Badminton",
-      "date": "Sun, 04 Sep 2011 22:00:00 GMT",
+      "date": 1315173600000,
       "participants": [
         "Julius",
         "Martin",

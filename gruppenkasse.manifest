@@ -2,19 +2,20 @@ CACHE MANIFEST
 # vdev
 
 CACHE:
-js/release/dojo/gka/css/style.css
-js/release/dojo/dojo/dojo.js
-js/release/dojo/dojo/cldr/nls/en/gregorian.js
-js/release/dojo/dojo/cldr/nls/de/gregorian.js
-js/release/dojo/dijit/form/nls/de/validate.js
-js/release/dojo/dojo/resources/blank.gif
-js/release/dojo/dijit/themes/claro/form/images/button.png
-js/release/dojo/dijit/themes/claro/form/images/formHighlight.png
-js/release/dojo/dijit/themes/claro/form/images/commonFormArrows.png
-js/release/dojo/dijit/themes/claro/form/images/textBox_back.png
-js/release/dojo/dijit/themes/claro/images/calendarContainerImages.png
-js/release/dojo/dijit/themes/claro/images/calendarArrows.png
-js/release/dojo/dijit/themes/claro/form/images/buttonArrows.png
+js/release/gka/css/style.css
+js/release/dojo/dojo.js
+js/release/dojo/cldr/nls/en/gregorian.js
+js/release/dojo/cldr/nls/de/gregorian.js
+js/release/dijit/form/nls/de/validate.js
+js/release/dojo/resources/blank.gif
+js/release/dijit/themes/claro/form/images/button.png
+js/release/dijit/themes/claro/form/images/formHighlight.png
+js/release/dijit/themes/claro/form/images/commonFormArrows.png
+js/release/dijit/themes/claro/form/images/textBox_back.png
+js/release/dijit/themes/claro/images/calendarContainerImages.png
+js/release/dijit/themes/claro/images/calendarArrows.png
+js/release/dijit/themes/claro/form/images/buttonArrows.png
+js/release/dijit/themes/claro/images/commonHighlight.png
 
 NETWORK:
 *

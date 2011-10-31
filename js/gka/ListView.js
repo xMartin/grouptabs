@@ -25,7 +25,7 @@ return dojo.declare(_View, {
 	},
 	
 	_renderList: function(){
-		var store = app.store, transactions, rowCount = 0, tableNode, rowNode, deleteNode, deleteButton
+		var store = app.store, transactions, rowCount = 0, tableNode, rowNode, detailsNode, detailsButton
 		if(!store){
 			return
 		}
@@ -35,12 +35,12 @@ return dojo.declare(_View, {
 			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
 			rowNode.appendChild(dojo._toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
 			rowNode.appendChild(dojo._toDom("<td class='title'>" + transaction.title + "</td>"))
-			deleteNode = dojo._toDom("<td class='delete'></td>")
-			deleteButton = new Button({label: "löschen"}).placeAt(deleteNode)
-			this.connect(deleteButton, "onClick", function(evt){
-				this._onDeleteClick(evt, transaction.id)
+			detailsNode = dojo._toDom("<td class='details'></td>")
+			detailsButton = new Button({label: "Details"}).placeAt(detailsNode)
+			this.connect(detailsButton, "onClick", function(evt){
+				this._onDetailsClick(evt, transaction.id)
 			})
-			rowNode.appendChild(deleteNode)
+			rowNode.appendChild(detailsNode)
 			tableNode.appendChild(rowNode)
 			rowCount++
 		}, this)
@@ -55,9 +55,8 @@ return dojo.declare(_View, {
 		this.close(this, "main")
 	},
 	
-	_onDeleteClick: function(evt, id){
-		app.deleteEntry(id)
-		this.refreshList()
+	_onDetailsClick: function(evt, id){
+		this.close(this, "details", {entryId: id})
 	}
 })
 

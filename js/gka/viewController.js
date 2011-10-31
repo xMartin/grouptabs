@@ -25,7 +25,7 @@ return {
 		viewController.views.push(view)
 	},
 
-	selectView: function(view){
+	selectView: function(view, params){
 		viewController.views.forEach(function(_view){
 			dojo.style(_view.domNode, "display", "none")
 		})
@@ -33,16 +33,12 @@ return {
 			view = getViewByName(view)
 		}
 		dojo.style(view.domNode, "display", "")
-		view.onShow()
+		view.onShow(params)
 		viewController.selectedView = view
 	},
 	
 	onViewClosed: function(view, message, params){
-		switch(view.name){
-//			case "newEntry":
-//				params && app.saveEntry(params)
-		}
-		this.selectView(message)
+		this.selectView(message, params)
 	}
 }
 

@@ -21,7 +21,8 @@ var profile = {
 				"gka/MainView",
 				"gka/NewEntryView",
 				"gka/SummaryView",
-				"gka/ListView"
+				"gka/ListView",
+				"gka/DetailsView"
 			]
 		}
 	}

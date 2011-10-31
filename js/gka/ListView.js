@@ -34,14 +34,11 @@ return dojo.declare(_View, {
 		tableNode = document.createElement("TABLE")
 		transactions.forEach(function(transaction){
 			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
-			rowNode.appendChild(dojo._toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
-			rowNode.appendChild(dojo._toDom("<td class='title'>" + transaction.title + "</td>"))
-			detailsNode = dojo._toDom("<td class='details'></td>")
-			detailsButton = new Button({label: "Details"}).placeAt(detailsNode)
-			this.connect(detailsButton, "onClick", function(evt){
+			this.connect(rowNode, "onclick", function(evt){
 				this._onDetailsClick(evt, transaction.id)
 			})
-			rowNode.appendChild(detailsNode)
+			rowNode.appendChild(dojo._toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
+			rowNode.appendChild(dojo._toDom("<td class='title'>" + transaction.title + "</td>"))
 			tableNode.appendChild(rowNode)
 			rowCount++
 		}, this)
@@ -49,10 +46,6 @@ return dojo.declare(_View, {
 	},
 	
 	_clearList: function(){
-		// Destroy widgets that are part of the list (e.g. details buttons).
-		widgetRegistry.findWidgets(this.listNode).forEach(function(widget){
-			widget.destroyRecursive()
-		})
 		dojo.empty(this.listNode)
 	},
 	

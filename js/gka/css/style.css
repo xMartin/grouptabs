@@ -26,7 +26,14 @@ table {
 	width: 100%;
 }
 tr.even {
+	background: #eee;
+}
+tr:hover {
+	cursor: pointer;
 	background: #ddd;
+}
+td {
+	padding: .3em;
 }
 td.amount {
 	text-align: right;

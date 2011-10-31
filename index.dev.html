@@ -8,8 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="js/gka/css/style.css">
 	<script data-dojo-config="async:true" type="text/javascript" src="js/dojo/dojo.js"></script>
 	<script type="text/javascript">
-		require(["gka/viewController", "gka/MainView", "gka/NewEntryView", "gka/SummaryView", "gka/ListView"], function(viewController, MainView, NewEntryView, SummaryView, ListView){
-			dojo.ready(function(){
+		require(["dojo/ready", "gka/viewController", "gka/MainView", "gka/NewEntryView", "gka/SummaryView", "gka/ListView"], function(ready, viewController, MainView, NewEntryView, SummaryView, ListView){
+			ready(function(){
 				var mainView = new MainView({controller: viewController})
 				viewController.addView(mainView)
 				viewController.addView(new NewEntryView({controller: viewController}))

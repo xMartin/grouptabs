@@ -22,18 +22,24 @@
 	color: gray;
 }
 
+.newEntryView .form,
+.listView table,
+.summaryView table {
+	margin-bottom: 1em;
+}
+
 table {
 	width: 100%;
 }
 tr.even {
 	background: #eee;
 }
-tr:hover {
+.listView tr:hover {
 	cursor: pointer;
 	background: #ddd;
 }
-td {
-	padding: .3em;
+td, th {
+	padding: .4em;
 }
 td.amount {
 	text-align: right;

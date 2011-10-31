@@ -1,19 +1,28 @@
-dependencies = {
-	prefixes: [
-		[ "dijit", "../dijit" ],
-		[ "gka", "../gka" ]
-	],
-	layers: [
+var profile = {
+	packages: [
 		{
-			name: "dojo.js",
-			dependencies: [
-				"dojo.selector.acme",
-				"gka.viewController",
-				"gka.MainView",
-				"gka.NewEntryView",
-				"gka.SummaryView",
-				"gka.ListView"
+			name: "dojo",
+			location: "js/dojo"
+		},
+		{
+			name: "dijit",
+			location: "js/dijit"
+		},
+		{
+			name: "gka",
+			location: "js/gka"
+		},
+	],
+	layers: {
+		"dojo/dojo": {
+			include: [
+				"dojo/selector/acme",
+				"gka/viewController",
+				"gka/MainView",
+				"gka/NewEntryView",
+				"gka/SummaryView",
+				"gka/ListView"
 			]
 		}
-	]
+	}
 }

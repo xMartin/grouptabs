@@ -1,9 +1,10 @@
 define([
 	"gka/_View",
 	"gka/app",
+	"dijit/registry",
 	"dijit/form/Button",
 	"dojo/text!./templates/ListView.html"
-], function(_View, app, Button, template){
+], function(_View, app, widgetRegistry, Button, template){
 
 return dojo.declare(_View, {
 	
@@ -48,6 +49,10 @@ return dojo.declare(_View, {
 	},
 	
 	_clearList: function(){
+		// Destroy widgets that are part of the list (e.g. details buttons).
+		widgetRegistry.findWidgets(this.listNode).forEach(function(widget){
+			widget.destroyRecursive()
+		})
 		dojo.empty(this.listNode)
 	},
 	

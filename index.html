@@ -8,16 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="js/release/gka/css/style.css">
 	<script data-dojo-config="async:true" type="text/javascript" src="js/release/dojo/dojo.js"></script>
 	<script type="text/javascript">
-		require(["dojo/ready", "gka/viewController", "gka/MainView", "gka/NewEntryView", "gka/SummaryView", "gka/ListView", "gka/DetailsView"], function(ready, viewController, MainView, NewEntryView, SummaryView, ListView, DetailsView){
-			ready(function(){
-				var mainView = new MainView({controller: viewController})
-				viewController.addView(mainView)
-				viewController.addView(new NewEntryView({controller: viewController}))
-				viewController.addView(new SummaryView({controller: viewController}))
-				viewController.addView(new ListView({controller: viewController}))
-				viewController.addView(new DetailsView({controller: viewController}))
-				viewController.selectView(mainView)
-			})
+		require(["dojo/ready", "gka/app"], function(ready, app){
+			ready(app.init)
 		})
 	</script>
 	<title>Gruppenkasse</title>

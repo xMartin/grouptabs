@@ -1,6 +1,4 @@
-define([
-	"gka/app"
-], function(app){
+define(function(){
 
 var viewController = {
 	views: []

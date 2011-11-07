@@ -1,8 +1,7 @@
 define([
 	"gka/_View",
-	"gka/app",
 	"dojo/text!./templates/SummaryView.html"
-], function(_View, app, template){
+], function(_View, template){
 
 return dojo.declare(_View, {
 	
@@ -24,11 +23,8 @@ return dojo.declare(_View, {
 	},
 	
 	_renderSummary: function(){
-		var store = app.store, accounts, account, rowCount = 0, html, amount
-		if(!store){
-			return
-		}
-		accounts = app.getAccounts(store.data)
+		var accounts, account, rowCount = 0, html, amount
+		accounts = this.app.getAccounts()
 		html = "<table>"
 		for(account in accounts){
 			amount = accounts[account].toFixed(2) + " €"

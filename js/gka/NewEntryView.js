@@ -1,10 +1,9 @@
 define([
 	"gka/_View",
-	"gka/app",
 	"dijit/form/ValidationTextBox",
 	"dijit/form/DateTextBox",
 	"dojo/text!./templates/NewEntryView.html"
-], function(_View, app, ValidationTextBox, DateTextBox, template){
+], function(_View, ValidationTextBox, DateTextBox, template){
 
 return dojo.declare(_View, {
 	
@@ -31,8 +30,9 @@ return dojo.declare(_View, {
 			var p = payment.split(":")
 			payments.push({participant: p[0], amount: parseFloat(p[1])})
 		})
-		app.saveEntry({
-			id: new Date().getTime(),
+		this.app.saveEntry({
+			id: "" + new Date().getTime(),
+			box: this.app.box,
 			type: "spending",
 			title: data.title,
 			date: data.date.getTime(),

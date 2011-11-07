@@ -1,10 +1,9 @@
 define([
 	"gka/_View",
-	"gka/app",
 	"dijit/registry",
 	"dijit/form/Button",
 	"dojo/text!./templates/ListView.html"
-], function(_View, app, widgetRegistry, Button, template){
+], function(_View, widgetRegistry, Button, template){
 
 return dojo.declare(_View, {
 	
@@ -26,11 +25,11 @@ return dojo.declare(_View, {
 	},
 	
 	_renderList: function(){
-		var store = app.store, transactions, rowCount = 0, tableNode, rowNode, detailsNode, detailsButton
+		var store = this.app.store, transactions, rowCount = 0, tableNode, rowNode, detailsNode, detailsButton
 		if(!store){
 			return
 		}
-		transactions = store.query(function(){return true}, {"sort": [{"attribute": "date", "descending": false}]})
+		transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": false}]})
 		tableNode = document.createElement("TABLE")
 		transactions.forEach(function(transaction){
 			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")

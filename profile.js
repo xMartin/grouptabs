@@ -17,12 +17,7 @@ var profile = {
 		"dojo/dojo": {
 			include: [
 				"dojo/selector/acme",
-				"gka/viewController",
-				"gka/MainView",
-				"gka/NewEntryView",
-				"gka/SummaryView",
-				"gka/ListView",
-				"gka/DetailsView"
+				"gka/app"
 			]
 		}
 	}

@@ -1,10 +1,9 @@
 define([
 	"gka/_View",
-	"gka/app",
 	"gka/DetailsDisplay",
 	"dijit/form/Button",
 	"dojo/text!./templates/DetailsView.html"
-], function(_View, app, DetailsDisplay, Button, template){
+], function(_View, DetailsDisplay, Button, template){
 
 return dojo.declare(_View, {
 	
@@ -18,6 +17,7 @@ return dojo.declare(_View, {
 	
 	onShow: function(params){
 		this.entryId = params.entryId
+		params.app = this.app
 		this.detailsDisplay = new DetailsDisplay(params).placeAt(this.detailsDisplayNode)
 	},
 	
@@ -27,7 +27,7 @@ return dojo.declare(_View, {
 	},
 	
 	_onDeleteClick: function(){
-		app.deleteEntry(this.entryId)
+		this.app.deleteEntry(this.entryId)
 		this._cleanup()
 		this.close(this, "list")		
 	},

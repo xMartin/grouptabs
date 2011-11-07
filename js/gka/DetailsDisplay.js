@@ -1,9 +1,8 @@
 define([
 	"dijit/_Widget",
 	"dijit/_TemplatedMixin",
-	"gka/app",
 	"dojo/text!./templates/DetailsDisplay.html"
-], function(Widget, _Templated, app, template){
+], function(Widget, _Templated, template){
 
 return dojo.declare([Widget, _Templated], {
 	
@@ -12,7 +11,7 @@ return dojo.declare([Widget, _Templated], {
 	entryId: "",
 	
 	postMixInProperties: function(){
-		var data = app.store.get(this.entryId),
+		var data = this.app.store.get(this.entryId),
 			participants = "",
 			payments = ""
 		this.tplVars = {

@@ -1,26 +1,51 @@
 define([
-	"gka/store/LocalStorageAdapter"
-], function(LSA){
+	"gka/store/LocalStorageAdapter",
+	"gka/viewController",
+	"gka/BoxView",
+	"gka/MainView",
+	"gka/NewEntryView",
+	"gka/SummaryView",
+	"gka/ListView",
+	"gka/DetailsView",
+	"dojo/_base/xhr",
+	"dojo/json"
+], function(LSA, viewController, BoxView, MainView, NewEntryView, SummaryView, ListView, DetailsView, xhr, json){
 
 var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}).store
 
-return {
+var obj = {
 	
+	box: "",
+
 	store: store,
+
+	init: function(){
+		var boxView = new BoxView({app: obj, controller: viewController})
+		viewController.addView(boxView)
+		viewController.addView(new MainView({app: obj, controller: viewController}))
+		viewController.addView(new NewEntryView({app: obj, controller: viewController}))
+		viewController.addView(new SummaryView({app: obj, controller: viewController}))
+		viewController.addView(new ListView({app: obj, controller: viewController}))
+		viewController.addView(new DetailsView({app: obj, controller: viewController}))
+		viewController.selectView(boxView)
+	},
 	
 	refreshData: function(){
-		var xhr = new XMLHttpRequest()
-		xhr.open("GET", "data/badminton.json?nocache=" + (new Date()).getTime(), true);
-		xhr.onreadystatechange = function(){
-			var data
-			if(xhr.readyState == 4 && xhr.status == 200){
-				data = xhr.responseText
-				store.setData(JSON.parse(data).transactions)
+		var def = xhr.get({
+			url: "data/badminton.json",
+			preventCache: true,
+			load: function(data){
+				store.setData(json.parse(data).transactions)
 				localStorage.setItem("badminton", data)
-				alert("Daten erfolgreich geladen.")
 			}
-		}
-		xhr.send()
+		})
+		def.addCallback(function(){
+			alert("Daten erfolgreich geladen.")
+		})
+		def.addErrback(function(){
+			alert("Fehler beim Daten laden.")
+		})
+		return def
 	},
 	
 	postData: function(){
@@ -43,7 +68,7 @@ return {
 	
 	getAccounts: function(transactions){
 		var costs = 0, share = 0, accounts = {}
-		transactions.forEach(function(transaction){
+		store.query({"box": obj.box}).forEach(function(transaction){
 			transaction.payments.forEach(function(payment){
 				costs += payment.amount
 				share = payment.amount / transaction.participants.length
@@ -67,5 +92,7 @@ return {
 		store.remove(id)
 	}
 }
+
+return obj
 
 })

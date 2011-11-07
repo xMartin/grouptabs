@@ -1,5 +1,5 @@
 <div class="view">
-	<h2>Gruppenkasse</h2>
+	<h2>Kasse „<span data-dojo-attach-point="boxNameNode"></span>“</h2>
 	<div class="row">
 		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onNewEntryClick">neuer Posten</span>
 	</div>
@@ -11,9 +11,6 @@
 	</div>
 	<hr>
 	<div class="row">
-		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onRefreshDataClick">Daten von Server laden</span>
-	</div>
-	<div class="row">
-		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onSaveDataClick">Daten auf Server sichern</span>
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onChangeBoxClick">andere Kasse auswählen</span>
 	</div>
 </div>

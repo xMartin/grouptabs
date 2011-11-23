@@ -29,7 +29,7 @@ return dojo.declare(_View, {
 		if(!store){
 			return
 		}
-		transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": false}]})
+		transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}]})
 		tableNode = document.createElement("TABLE")
 		transactions.forEach(function(transaction){
 			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")

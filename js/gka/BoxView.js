@@ -30,10 +30,6 @@ return dojo.declare(_View, {
 		this._createBoxChooser()
 	},
 	
-	getChildren: function(){
-		return this.inherited(arguments)
-	},
-	
 	_createBoxChooser: function(){
 		this._boxOptionInsertNode = this.boxChooserHeadingNode
 		this._boxOptionCount = 0

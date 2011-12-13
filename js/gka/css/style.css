@@ -44,3 +44,7 @@ td, th {
 td.amount {
 	text-align: right;
 }
+
+.dijitRadio {
+	margin: .6em !important;
+}

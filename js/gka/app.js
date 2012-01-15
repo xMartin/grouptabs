@@ -14,18 +14,25 @@ var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}
 
 var obj = {
 	
-	box: "",
+	box: localStorage.getItem("box") || "",
 
 	store: store,
 
 	init: function(){
-		var boxView = new BoxView({app: obj, controller: viewController})
-		viewController.addView(boxView)
-		viewController.addView(new MainView({app: obj, controller: viewController}))
-		viewController.addView(new NewEntryView({app: obj, controller: viewController}))
-		viewController.addView(new ListView({app: obj, controller: viewController}))
-		viewController.addView(new DetailsView({app: obj, controller: viewController}))
-		viewController.selectView(boxView)
+		var viewName, view,
+			views = {
+				"box": new BoxView({app: obj, controller: viewController}),
+				"main": new MainView({app: obj, controller: viewController}),
+				"newEntry": new NewEntryView({app: obj, controller: viewController}),
+				"list": new ListView({app: obj, controller: viewController}),
+				"details": new DetailsView({app: obj, controller: viewController})
+			}
+		
+		for(viewName in views){
+			view = views[viewName]
+			viewController.addView(view)
+		}
+		viewController.selectView(obj.box ? views["main"] : views["box"])
 	},
 	
 	refreshData: function(){
@@ -80,6 +87,11 @@ var obj = {
 			})
 		})
 		return accounts
+	},
+	
+	setBox: function(boxName){
+		obj.box = boxName
+		localStorage.setItem("box", boxName)
 	},
 	
 	saveEntry: function(data){

@@ -46,6 +46,7 @@ return dojo.declare(_View, {
 	_addBoxOption: function(boxName){
 		var rowNode = dojo.create("div", {"class": "row _dynamic"})
 		var radioButton = new dijit.form.RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
+		this.app.box == boxName && radioButton.set("checked", true)
 		dojo.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
 		dojo.place(rowNode, this._boxOptionInsertNode, "after")
 		this._boxOptionsConnects.push(
@@ -76,7 +77,7 @@ return dojo.declare(_View, {
 	},
 	
 	_setBox: function(boxName){
-		this.app.box = boxName
+		this.app.setBox(boxName)
 	},
 	
 	_onOkClick: function(){

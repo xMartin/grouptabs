@@ -28,7 +28,7 @@ return dojo.declare(_View, {
 				w.destroy()
 			}
 		})
-		dojo.forEach(this._boxOptionsConnects, function(c){
+		this._boxOptionsConnects.forEach(function(c){
 			dojo.disconnect(c)
 		})
 		domQuery(".row._dynamic").forEach(function(n){

@@ -52,6 +52,10 @@ return dojo.declare(_View, {
 		this.close(this, "main")
 	},
 	
+	_onNewEntryClick: function(){
+		this.close(this, "newEntry")
+	},
+	
 	_onDetailsClick: function(evt, id){
 		this.close(this, "details", {entryId: id})
 	}

@@ -14,6 +14,10 @@ return dojo.declare(_View, {
 	
 	name: "box",
 	
+	constructor: function(){
+		this._boxOptionsConnects = []
+	},
+	
 	postCreate: function(){
 		this._createBoxChooser()
 	},
@@ -23,6 +27,9 @@ return dojo.declare(_View, {
 			if(w.id.indexOf("boxRadioButton_") === 0){
 				w.destroy()
 			}
+		})
+		dojo.forEach(this._boxOptionsConnects, function(c){
+			dojo.disconnect(c)
 		})
 		domQuery(".row._dynamic").forEach(function(n){
 			domConstruct.destroy(n)
@@ -38,9 +45,14 @@ return dojo.declare(_View, {
 	
 	_addBoxOption: function(boxName){
 		var rowNode = dojo.create("div", {"class": "row _dynamic"})
-		new dijit.form.RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
+		var radioButton = new dijit.form.RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
 		dojo.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
 		dojo.place(rowNode, this._boxOptionInsertNode, "after")
+		this._boxOptionsConnects.push(
+			dojo.connect(rowNode, "onclick", function(evt){
+				radioButton._onClick(evt)
+			})
+		)
 		this._boxOptionInsertNode = rowNode
 		this._boxOptionCount++
 	},

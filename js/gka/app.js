@@ -4,12 +4,11 @@ define([
 	"gka/BoxView",
 	"gka/MainView",
 	"gka/NewEntryView",
-	"gka/SummaryView",
 	"gka/ListView",
 	"gka/DetailsView",
 	"dojo/_base/xhr",
 	"dojo/json"
-], function(LSA, viewController, BoxView, MainView, NewEntryView, SummaryView, ListView, DetailsView, xhr, json){
+], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, xhr, json){
 
 var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}).store
 
@@ -24,7 +23,6 @@ var obj = {
 		viewController.addView(boxView)
 		viewController.addView(new MainView({app: obj, controller: viewController}))
 		viewController.addView(new NewEntryView({app: obj, controller: viewController}))
-		viewController.addView(new SummaryView({app: obj, controller: viewController}))
 		viewController.addView(new ListView({app: obj, controller: viewController}))
 		viewController.addView(new DetailsView({app: obj, controller: viewController}))
 		viewController.selectView(boxView)

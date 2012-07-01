@@ -6,9 +6,9 @@ define([
 	"gka/NewEntryView",
 	"gka/ListView",
 	"gka/DetailsView",
-	"dojo/_base/xhr",
+	"dojo/request",
 	"dojo/json"
-], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, xhr, json){
+], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, request, json){
 
 var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}).store
 
@@ -36,38 +36,30 @@ var obj = {
 	},
 	
 	refreshData: function(){
-		var def = xhr.get({
-			url: "data/badminton.json",
-			preventCache: true,
-			load: function(data){
-				store.setData(json.parse(data).transactions)
-				localStorage.setItem("badminton", data)
-			}
-		})
-		def.addCallback(function(){
+		var req = request("data/badminton.json", {
+			preventCache: true
+		}).then(function(data){
+			store.setData(json.parse(data).transactions)
+			localStorage.setItem("badminton", data)
 			alert("Daten erfolgreich geladen.")
-		})
-		def.addErrback(function(){
+		}, function(){
 			alert("Fehler beim Daten laden.")
 		})
-		return def
+		return req
 	},
 	
 	postData: function(){
-		dojo.xhrPost({
-			url: "save.php",
-			postData: "data=" + localStorage.getItem("badminton"),
-			handleAs: "text",
-			load: function(data){
-				if(data == "success"){
-					alert("Erfolgreich hochgeladen.")
-				}else{
-					alert("Fehler.")
-				}
-			},
-			error: function(error){
-				alert("Fehler: " + error)
+		request("save.php", {
+			method: "post",
+			data: "data=" + localStorage.getItem("badminton")
+		}).then(function(data){
+			if(data == "success"){
+				alert("Erfolgreich hochgeladen.")
+			}else{
+				alert("Fehler.")
 			}
+		}, function(error){
+			alert("Fehler: " + error)
 		})
 	},
 	

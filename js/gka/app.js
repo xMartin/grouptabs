@@ -5,10 +5,8 @@ define([
 	"gka/MainView",
 	"gka/NewEntryView",
 	"gka/ListView",
-	"gka/DetailsView",
-	"dojo/request",
-	"dojo/json"
-], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, request, json){
+	"gka/DetailsView"
+], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
 
 var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}).store
 
@@ -33,34 +31,6 @@ var obj = {
 			viewController.addView(view)
 		}
 		viewController.selectView(obj.box ? views["main"] : views["box"])
-	},
-	
-	refreshData: function(){
-		var req = request("data/badminton.json", {
-			preventCache: true
-		}).then(function(data){
-			store.setData(json.parse(data).transactions)
-			localStorage.setItem("badminton", data)
-			alert("Daten erfolgreich geladen.")
-		}, function(){
-			alert("Fehler beim Daten laden.")
-		})
-		return req
-	},
-	
-	postData: function(){
-		request("save.php", {
-			method: "post",
-			data: "data=" + localStorage.getItem("badminton")
-		}).then(function(data){
-			if(data == "success"){
-				alert("Erfolgreich hochgeladen.")
-			}else{
-				alert("Fehler.")
-			}
-		}, function(error){
-			alert("Fehler: " + error)
-		})
 	},
 	
 	getAccounts: function(transactions){

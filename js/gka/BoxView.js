@@ -4,9 +4,8 @@ define([
 	"dijit/form/ValidationTextBox",
 	"dojo/query",
 	"dojo/dom-construct",
-	"dojo/_base/lang",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, RadioButton, ValidationTextBox, domQuery, domConstruct, lang, template){
+], function(_View, RadioButton, ValidationTextBox, domQuery, domConstruct, template){
 
 return dojo.declare(_View, {
 	
@@ -91,14 +90,6 @@ return dojo.declare(_View, {
 			this._setBox(values.box)
 		}
 		this.close(this, "main")
-	},
-	
-	_onRefreshDataClick: function(){
-		this.app.refreshData().then(lang.hitch(this, this.refresh))
-	},
-	
-	_onSaveDataClick: function(){
-		this.app.postData()
 	}
 })
 

@@ -8,7 +8,7 @@ define([
 	"gka/DetailsView"
 ], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
 
-var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}).store
+var store = new LSA({prefix: "gka_transaction_"}).store
 
 var obj = {
 	

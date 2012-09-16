@@ -19,6 +19,7 @@ return dojo.declare(_View, {
 	
 	postCreate: function(){
 		this._createBoxChooser()
+		this.dropBoxButtonsContainerNode.style.display = "none"
 	},
 	
 	refresh: function(){
@@ -90,6 +91,36 @@ return dojo.declare(_View, {
 			this._setBox(values.box)
 		}
 		this.close(this, "main")
+	},
+
+	_onDropboxLoginClick: function(){
+		var boxView = this
+		var client = new Dropbox.Client({
+			key: "XXX",
+			secret: "XXX",
+			sandbox: true
+		})
+		client.authDriver(new Dropbox.Drivers.Popup({receiverUrl: location.protocol + "//" + location.host + "/oauth.receiver.html"}))
+		client.authenticate(function(error, client){
+			client.getUserInfo(function(error, userInfo){
+				boxView.dropboxUserNameNode.innerHTML = "Logged-in to Dropbox as " + userInfo.name
+				boxView.dropboxLoginButtonNode.style.display = "none"
+				boxView.dropBoxButtonsContainerNode.style.display = ""
+			})
+		})
+		this.dropboxClient = client
+	},
+
+	_onDropboxSyncClick: function(){
+		var client = this.dropboxClient
+		function fileWrittenCallback(error, stat){
+			console.log("File '" + stat.name + "' saved as revision " + stat.revisionTag + ".")
+		}
+		for(var i in localStorage){
+			if(i.indexOf("gka_transaction_") === 0){
+				client.writeFile(i + ".json", localStorage.getItem(i), fileWrittenCallback)
+			}
+		}
 	}
 })
 

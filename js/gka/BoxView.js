@@ -2,10 +2,12 @@ define([
 	"gka/_View",
 	"dijit/form/RadioButton",
 	"dijit/form/ValidationTextBox",
+	"dojo/_base/lang",
 	"dojo/query",
 	"dojo/dom-construct",
+	"./dropboxSyncer",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, RadioButton, ValidationTextBox, domQuery, domConstruct, template){
+], function(_View, RadioButton, ValidationTextBox, lang, domQuery, domConstruct, dropboxSyncer, template){
 
 return dojo.declare(_View, {
 	
@@ -94,34 +96,17 @@ return dojo.declare(_View, {
 	},
 
 	_onDropboxLoginClick: function(){
-		var boxView = this
-		var client = new Dropbox.Client({
-			key: "XXX",
-			secret: "XXX",
-			sandbox: true
-		})
-		client.authDriver(new Dropbox.Drivers.Popup({receiverUrl: location.protocol + "//" + location.host + "/oauth.receiver.html"}))
-		client.authenticate(function(error, client){
-			client.getUserInfo(function(error, userInfo){
-				boxView.dropboxUserNameNode.innerHTML = "Logged-in to Dropbox as " + userInfo.name
-				boxView.dropboxLoginButtonNode.style.display = "none"
-				boxView.dropBoxButtonsContainerNode.style.display = ""
-			})
-		})
-		this.dropboxClient = client
+		dropboxSyncer.login(lang.hitch(this, function(){
+			this.dropboxUserNameNode.innerHTML = "Logged-in to Dropbox as " + dropboxSyncer.getUserInfo().name
+			this.dropboxLoginButtonNode.style.display = "none"
+			this.dropBoxButtonsContainerNode.style.display = ""
+		}))
 	},
 
 	_onDropboxSyncClick: function(){
-		var client = this.dropboxClient
-		function fileWrittenCallback(error, stat){
-			console.log("File '" + stat.name + "' saved as revision " + stat.revisionTag + ".")
-		}
-		for(var i in localStorage){
-			if(i.indexOf("gka_transaction_") === 0){
-				client.writeFile(i + ".json", localStorage.getItem(i), fileWrittenCallback)
-			}
-		}
+		dropboxSyncer.sync()
 	}
+
 })
 
 })

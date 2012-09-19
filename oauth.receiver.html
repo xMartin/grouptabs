@@ -8,9 +8,9 @@
           opener = window.parent;
         }
         if (opener) {
-          var query = window.location.href;
+          var url = window.location.href;
           try {
-            opener.postMessage(query, '*');
+            opener.postMessage(url, '*');
           } catch(e) {
             // IE doesn't support opener.postMessage for popups.
           }

@@ -994,11 +994,19 @@
       var fragments;
       if (options) {
         if (options.receiverUrl) {
-          return options.receiverUrl;
+          if (options.noFragment || options.receiverUrl.indexOf('#') !== -1) {
+            return options.receiverUrl;
+          } else {
+            return options.receiverUrl + '#';
+          }
         } else if (options.receiverFile) {
           fragments = DropboxPopupDriver.currentLocation().split('/');
           fragments[fragments.length - 1] = options.receiverFile;
-          return fragments.join('/') + '#';
+          if (options.noFragment) {
+            return fragments.join('/');
+          } else {
+            return fragments.join('/') + '#';
+          }
         }
       }
       return DropboxPopupDriver.currentLocation();
@@ -1030,8 +1038,8 @@
         var match;
         match = tokenRe.exec(event.data.toString());
         if (match && decodeURIComponent(match[2]) === token) {
-          callback();
-          return window.removeEventListener('message', listener);
+          window.removeEventListener('message', listener);
+          return callback();
         }
       };
       return window.addEventListener('message', listener, false);

@@ -1,8 +1,9 @@
 define([
 	"dojo/_base/declare",
 	"dojo/_base/connect",
-	"dojo/store/Memory"
-], function(declare, connect, memoryStore){
+	"dojo/store/Memory",
+	"../remoteStorageModule"
+], function(declare, connect, memoryStore, remoteStorageModule){
 
 
 return declare(null, {
@@ -14,14 +15,7 @@ return declare(null, {
 	dataArrayKey: "",
 	
 	constructor: function(args){
-		var prefix = this.prefix = args.prefix
-		var items = []
-		for(var i = 0, l = localStorage.length; i < l; ++i){
-			var key = localStorage.key(i)
-			if(key.indexOf(prefix) === 0){
-				items.push(JSON.parse(localStorage.getItem(key)))
-			}
-		}
+		var items = remoteStorageModule.getTransactions()
 		this.store = new memoryStore({data: items})
 		this._connects = [
 			connect.connect(this.store, "put", this, "put"),
@@ -30,11 +24,11 @@ return declare(null, {
 	},
 	
 	put: function(data){
-		localStorage.setItem(this.prefix + data.id, JSON.stringify(data))
+		remoteStorageModule.saveTransaction(data.id, JSON.stringify(data))
 	},
 	
 	remove: function(id){
-		localStorage.removeItem(this.prefix + id)
+		remoteStorageModule.removeTransaction(id)
 	}
 
 })

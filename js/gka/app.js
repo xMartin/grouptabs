@@ -1,14 +1,15 @@
 define([
-	"gka/store/LocalStorageAdapter",
+	"gka/store/RemoteStorageAdapter",
 	"gka/viewController",
 	"gka/BoxView",
 	"gka/MainView",
 	"gka/NewEntryView",
 	"gka/ListView",
-	"gka/DetailsView"
-], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
+	"gka/DetailsView",
+	"remote-storage/remoteStorage"
+], function(RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, remoteStorage){
 
-var store = new LSA({prefix: "gka_transaction_"}).store
+var store = new RemoteStorageAdapter().store
 
 var obj = {
 	
@@ -31,6 +32,10 @@ var obj = {
 			viewController.addView(view)
 		}
 		viewController.selectView(obj.box ? views["main"] : views["box"])
+
+		// init remote storage
+		remoteStorage.claimAccess("gruppenkasse-simple")
+		remoteStorage.displayWidget("remotestorage-connect")
 	},
 	
 	getAccounts: function(transactions){

@@ -12,6 +12,10 @@ var profile = {
 			name: "gka",
 			location: "js/gka"
 		},
+		{
+			name: "remote-storage",
+			location: "js/remote-storage"
+		}
 	],
 	layers: {
 		"dojo/dojo": {

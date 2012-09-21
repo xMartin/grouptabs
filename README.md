@@ -1,4 +1,8 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.8. Your `js/` directory should look like this:
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.8.
+
+Additionally you need [my branch of remoteStorage.js](https://github.com/xMartin/remoteStorage.js/tree/pure-amd-compat). Copy the `src/` directory and rename it to `remote-storage`.
+
+Your `js/` directory should look like this:
 
 ```
 root/
@@ -7,6 +11,7 @@ root/
   + dojo/
   + dojox/
   + gka/
+  + remote-storage/
   + util/
 ```
 

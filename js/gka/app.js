@@ -36,6 +36,12 @@ var obj = {
 		// init remote storage
 		remoteStorage.claimAccess("gruppenkasse-simple")
 		remoteStorage.displayWidget("remotestorage-connect")
+		remoteStorage["gruppenkasse-simple"].on("change", function(event){
+			if(true || event.origin == "remote"){
+				console.log("on change", event.origin)
+				console.dir(event)
+			}
+		})
 	},
 	
 	getAccounts: function(transactions){

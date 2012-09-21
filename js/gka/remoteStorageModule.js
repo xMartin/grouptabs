@@ -13,6 +13,17 @@ remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 		name: moduleName,
 		
 		exports: {
+
+			// remoteStorage["gruppenkasse-simple"].on("change", function(changeEvent){
+			//   if(changeEvent.newValue && changeEvent.oldValue){
+			//    changeEvent.origin:
+			//      * window - event come from current window
+			//            -> ignore it
+			//      * device - same device, other tab (/window/...)
+			//      * remote - not related to this app's instance, some other app updated something on remoteStorage
+			//   }
+			// })
+			on: privateClient.on,
 			
 			getTransactions: function(){
 				var prefix = "transactions/"

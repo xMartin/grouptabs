@@ -1,4 +1,8 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.8. Your `js/` directory should look like this:
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.8.
+
+Additionally you need the [dropbox.js library](https://github.com/dropbox/dropbox-js) (HEAD of master at this point, 1.6.1 should work fine, too).
+
+Your `js/` directory should look like this:
 
 ```
 root/
@@ -8,6 +12,8 @@ root/
   + dojox/
   + gka/
   + util/
+    dropbox.js
+    dropbox.min.js
 ```
 
 Use `index.dev.html` for development.

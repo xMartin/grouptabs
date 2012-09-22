@@ -3,3 +3,5 @@ js/dojo/
 js/dojox/
 js/util/
 js/release/
+js/dropbox.js
+js/dropbox.min.js

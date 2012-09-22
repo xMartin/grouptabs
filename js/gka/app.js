@@ -5,8 +5,9 @@ define([
 	"gka/MainView",
 	"gka/NewEntryView",
 	"gka/ListView",
-	"gka/DetailsView"
-], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
+	"gka/DetailsView",
+	"./dropboxSyncer"
+], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, dropboxSyncer){
 
 var store = new LSA({prefix: "gka_transaction_"}).store
 
@@ -30,7 +31,16 @@ var obj = {
 			view = views[viewName]
 			viewController.addView(view)
 		}
-		viewController.selectView(obj.box ? views["main"] : views["box"])
+		
+		// Are we just logged-in to Dropbox?
+		if(/&oauth_token=/.test(location.hash)){
+			obj.dropboxLogin()
+			location.hash = ""
+			viewController.selectView(views["box"])
+		}
+		else {
+			viewController.selectView(obj.box ? views["main"] : views["box"])
+		}
 	},
 	
 	getAccounts: function(transactions){
@@ -62,7 +72,18 @@ var obj = {
 	
 	deleteEntry: function(id){
 		store.remove(id)
+	},
+
+	dropboxLogin: function(){
+		dropboxSyncer.login(function(){
+			viewController.getView("box").onDropboxLogin({userName: dropboxSyncer.getUserInfo().name})
+		})
+	},
+
+	dropboxSync: function(){
+		dropboxSyncer.sync()
 	}
+
 }
 
 return obj

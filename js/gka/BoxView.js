@@ -5,9 +5,8 @@ define([
 	"dojo/_base/lang",
 	"dojo/query",
 	"dojo/dom-construct",
-	"./dropboxSyncer",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, RadioButton, ValidationTextBox, lang, domQuery, domConstruct, dropboxSyncer, template){
+], function(_View, RadioButton, ValidationTextBox, lang, domQuery, domConstruct, template){
 
 return dojo.declare(_View, {
 	
@@ -96,15 +95,17 @@ return dojo.declare(_View, {
 	},
 
 	_onDropboxLoginClick: function(){
-		dropboxSyncer.login(lang.hitch(this, function(){
-			this.dropboxUserNameNode.innerHTML = "Logged-in to Dropbox as " + dropboxSyncer.getUserInfo().name
-			this.dropboxLoginButtonNode.style.display = "none"
-			this.dropBoxButtonsContainerNode.style.display = ""
-		}))
+		this.app.dropboxLogin()
 	},
 
 	_onDropboxSyncClick: function(){
-		dropboxSyncer.sync()
+		this.app.dropboxSync()
+	},
+	
+	onDropboxLogin: function(info){
+		this.dropboxUserNameNode.innerHTML = "Logged-in to Dropbox as " + info.userName
+		this.dropboxLoginButtonNode.style.display = "none"
+		this.dropBoxButtonsContainerNode.style.display = ""
 	}
 
 })

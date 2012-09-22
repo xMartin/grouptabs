@@ -9,7 +9,7 @@ function login(callback){
 		secret: "XXX",
 		sandbox: true
 	})
-	client.authDriver(new Dropbox.Drivers.Popup({receiverUrl: location.protocol + "//" + location.host + "/oauth.receiver.html"}))
+	client.authDriver(new Dropbox.Drivers.Redirect())
 	client.authenticate(function(error){
 		client.getUserInfo(function(error, data){
 			userInfo = data

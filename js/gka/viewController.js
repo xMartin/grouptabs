@@ -16,7 +16,7 @@ var getViewByName = function(viewName){
 }
 
 return {
-	viewController: viewController,
+	getView: getViewByName,
 	
 	addView: function(view){
 		view.placeAt(dojo.byId("views"))

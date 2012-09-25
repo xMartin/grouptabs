@@ -17,6 +17,12 @@ var getViewByName = function(viewName){
 
 return {
 	viewController: viewController,
+
+	refreshAll: function(){
+		viewController.views.forEach(function(view){
+			view.refresh && view.refresh()
+		})
+	},
 	
 	addView: function(view){
 		view.placeAt(dojo.byId("views"))

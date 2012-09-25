@@ -30,6 +30,10 @@ return dojo.declare(_View, {
 	},
 	
 	onShow: function(){
+		this.refresh()
+	},
+
+	refresh: function(){
 		this.boxNameNode.innerHTML = this.app.box
 		this.refreshSummary()
 	},

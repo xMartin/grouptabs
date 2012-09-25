@@ -37,9 +37,17 @@ var obj = {
 		remoteStorage.claimAccess("gruppenkasse-simple")
 		remoteStorage.displayWidget("remotestorage-connect")
 		remoteStorage["gruppenkasse-simple"].on("change", function(event){
-			if(true || event.origin == "remote"){
-				console.log("on change", event.origin)
-				console.dir(event)
+			console.log(event.origin, "event")
+			if(event.newValue && event.oldValue){
+				console.log(event.path + " was updated")
+			}else if(event.newValue){
+				console.log(event.path + " was created")
+			}else if(event.oldValue){
+				console.log(event.path + " was deleted")
+			}
+			if(event.origin == "remote"){
+				store.setData(remoteStorage["gruppenkasse-simple"].getTransactions())
+				viewController.refreshAll()
 			}
 		})
 	},

@@ -24,7 +24,7 @@ return declare(null, {
 	},
 	
 	put: function(data){
-		remoteStorageModule.saveTransaction(data.id, JSON.stringify(data))
+		remoteStorageModule.saveTransaction(data.id, data)
 	},
 	
 	remove: function(id){

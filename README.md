@@ -9,7 +9,6 @@ root/
 + js/
   + dijit/
   + dojo/
-  + dojox/
   + gka/
   + remote-storage/
   + util/

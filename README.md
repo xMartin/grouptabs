@@ -5,7 +5,6 @@ root/
 + js/
   + dijit/
   + dojo/
-  + dojox/
   + gka/
   + util/
 ```

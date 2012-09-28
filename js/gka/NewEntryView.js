@@ -5,6 +5,9 @@ define([
 	"dojo/text!./templates/NewEntryView.html"
 ], function(_View, ValidationTextBox, DateTextBox, template){
 
+var commaSeparatorRegex = /\s*,\s*/
+var colonSeparatorRegex = /\s*:\s*/
+
 return dojo.declare(_View, {
 	
 	templateString: template,
@@ -24,10 +27,10 @@ return dojo.declare(_View, {
 	
 	_saveEntry: function(){
 		var data = this.get("value")
-		var participants = data.participants.split(",")
+		var participants = data.participants.split(commaSeparatorRegex)
 		var payments = []
-		data.payments.split(",").forEach(function(payment){
-			var p = payment.split(":")
+		data.payments.split(commaSeparatorRegex).forEach(function(payment){
+			var p = payment.split(colonSeparatorRegex)
 			payments.push({participant: p[0], amount: parseFloat(p[1])})
 		})
 		this.app.saveEntry({

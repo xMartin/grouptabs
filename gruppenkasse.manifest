@@ -1,14 +1,12 @@
 CACHE MANIFEST
-# version: dev1
+# version: dev2
 
 CACHE:
 js/release/gka/css/style.css
 js/release/dojo/dojo.js
-js/release/dojo/nls/dojo_ROOT.js
+js/release/dojo/nls/dojo_de.js
 js/release/dojo/resources/blank.gif
 js/release/dijit/themes/claro/form/images/commonFormArrows.png
-js/release/dijit/themes/claro/form/images/textBox_back.png
-js/release/dijit/themes/claro/images/calendarContainerImages.png
 js/release/dijit/themes/claro/images/calendarArrows.png
 js/release/dijit/themes/claro/form/images/buttonArrows.png
 js/release/dijit/themes/claro/form/images/checkboxRadioButtonStates.png

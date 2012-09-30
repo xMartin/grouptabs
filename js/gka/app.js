@@ -34,7 +34,7 @@ var obj = {
 		viewController.selectView(obj.box ? views["main"] : views["box"])
 
 		// init remote storage
-		remoteStorage.claimAccess("gruppenkasse-simple")
+		remoteStorage.claimAccess("gruppenkasse-simple", "rw")
 		remoteStorage.displayWidget("remotestorage-connect")
 		remoteStorage["gruppenkasse-simple"].on("change", function(event){
 			console.log(event.origin, "event")

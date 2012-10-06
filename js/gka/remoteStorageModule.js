@@ -2,7 +2,7 @@ define([
 	"remote-storage/remoteStorage"
 ], function(remoteStorage){
 
-var moduleName = "gruppenkasse-simple"
+var moduleName = "gruppenkasse"
 
 remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 	
@@ -14,7 +14,7 @@ remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 		
 		exports: {
 
-			// remoteStorage["gruppenkasse-simple"].on("change", function(changeEvent){
+			// remoteStorage.gruppenkasse.on("change", function(changeEvent){
 			//   if(changeEvent.newValue && changeEvent.oldValue){
 			//    changeEvent.origin:
 			//      * window - event come from current window

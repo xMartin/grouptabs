@@ -34,9 +34,9 @@ var obj = {
 		viewController.selectView(obj.box ? views["main"] : views["box"])
 
 		// init remote storage
-		remoteStorage.claimAccess("gruppenkasse-simple", "rw")
+		remoteStorage.claimAccess("gruppenkasse", "rw")
 		remoteStorage.displayWidget("remotestorage-connect")
-		remoteStorage["gruppenkasse-simple"].on("change", function(event){
+		remoteStorage.gruppenkasse.on("change", function(event){
 			console.log(event.origin, "event")
 			if(event.newValue && event.oldValue){
 				console.log(event.path + " was updated")
@@ -46,7 +46,7 @@ var obj = {
 				console.log(event.path + " was deleted")
 			}
 			if(event.origin == "remote"){
-				store.setData(remoteStorage["gruppenkasse-simple"].getTransactions())
+				store.setData(remoteStorage.gruppenkasse.getTransactions())
 				viewController.refreshAll()
 			}
 		})

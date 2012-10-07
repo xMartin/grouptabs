@@ -25,6 +25,15 @@ var obj = {
 				"newEntry": new NewEntryView({app: obj, controller: viewController}),
 				"list": new ListView({app: obj, controller: viewController}),
 				"details": new DetailsView({app: obj, controller: viewController})
+			},
+			refreshData = function(){
+				store.setData(remoteStorage.gruppenkasse.getTransactions())
+				viewController.refreshAll()
+			},
+			emptyData = function(){
+				store.setData([])
+				viewController.refreshAll()
+				viewController.selectView(views["box"])
 			}
 		
 		for(viewName in views){
@@ -32,10 +41,13 @@ var obj = {
 			viewController.addView(view)
 		}
 		viewController.selectView(obj.box ? views["main"] : views["box"])
-
+		
 		// init remote storage
 		remoteStorage.claimAccess("gruppenkasse", "rw")
 		remoteStorage.displayWidget("remotestorage-connect")
+		
+		refreshData()
+		
 		remoteStorage.gruppenkasse.on("change", function(event){
 			console.log(event.origin, "event")
 			if(event.newValue && event.oldValue){
@@ -45,11 +57,15 @@ var obj = {
 			}else if(event.oldValue){
 				console.log(event.path + " was deleted")
 			}
-			if(event.origin == "remote"){
-				store.setData(remoteStorage.gruppenkasse.getTransactions())
-				viewController.refreshAll()
+			refreshData()
+		})
+		
+		remoteStorage.onWidget("state", function(state){
+			if(state == "disconnected"){
+				emptyData()
 			}
 		})
+
 	},
 	
 	getAccounts: function(transactions){

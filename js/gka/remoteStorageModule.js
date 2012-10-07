@@ -6,7 +6,7 @@ var moduleName = "gruppenkasse"
 
 remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 	
-	privateClient.sync("")
+	privateClient.use("")
 	
 	return {
 		

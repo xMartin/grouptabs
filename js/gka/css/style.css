@@ -48,3 +48,13 @@ td.amount {
 .dijitRadio {
 	margin: .6em !important;
 }
+
+/* new entry view */
+.participantInput .dijitComboBox {
+	width: 140px;
+	margin-right: 8px;
+}
+.participantInput .dijitNumberTextBox {
+	width: 54px;
+	margin-right: 8px;
+}

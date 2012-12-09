@@ -12,9 +12,15 @@ return dojo.declare(_View, {
 	
 	name: "newEntry",
 	
+	constructor: function(){
+		this._participantFormWidgets = []
+	},
+	
 	onShow: function(){
 		this._updateParticipants()
-		this._addParticipantFormWidget()
+		if(!this._participantFormWidgets.length){
+			this._addParticipantFormWidget()
+		}
 	},
 	
 	_updateParticipants: function(){
@@ -27,17 +33,21 @@ return dojo.declare(_View, {
 	},
 	
 	_addParticipantFormWidget: function(){
-		new ParticipantFormWidget({
+		var widget = new ParticipantFormWidget({
 			name: "participants",
 			participants: this._participants,
 			parent: this,
 			onRemoveClick: dojo.hitch(this, this._removeParticipantFormWidget)
 		}).placeAt(this.participantsNode)
+		this._participantFormWidgets.push(widget)
 	},
 	
 	_removeParticipantFormWidget: function(widget){
 		this.participantsNode.removeChild(widget.domNode)
 		widget.destroy()
+		this._participantFormWidgets = dojo.filter(this._participantFormWidgets, function(_widget){
+			return _widget !== widget
+		})
 	},
 	
 	_onPlusParticipantClick: function(){
@@ -78,6 +88,17 @@ return dojo.declare(_View, {
 			participants: participants,
 			payments: payments
 		})
+	},
+	
+	reset: function(){
+		this.inherited(arguments)
+		dojo.forEach(this._participantFormWidgets, function(widget, i){
+			if(i === 0){
+				widget.reset()
+			}else{
+				this._removeParticipantFormWidget(widget)
+			}
+		}, this)
 	}
 
 })

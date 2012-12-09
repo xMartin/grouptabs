@@ -49,6 +49,11 @@ return dojo.declare([_Widget], {
 	
 	_onTextBoxChange: function(){
 		this.value.amount = this.textBox.get("value")
+	},
+	
+	reset: function(){
+		this.comboBox.reset()
+		this.textBox.reset()
 	}
 	
 })

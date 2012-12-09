@@ -27,8 +27,14 @@ var obj = {
 				"details": new DetailsView({app: obj, controller: viewController})
 			},
 			refreshData = function(){
-				store.setData(remoteStorage.gruppenkasse.getTransactions())
-				viewController.refreshAll()
+				remoteStorage.gruppenkasse.getTransactions().then(function(data){
+					var items = []
+					for(var id in data){
+						items.push(data[id])
+					}
+					store.setData(items)
+					viewController.refreshAll()
+				})
 			},
 			emptyData = function(){
 				store.setData([])

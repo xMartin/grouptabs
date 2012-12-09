@@ -6,8 +6,6 @@ var moduleName = "gruppenkasse"
 
 remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 	
-	privateClient.use("")
-	
 	return {
 		
 		name: moduleName,
@@ -26,11 +24,7 @@ remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 			on: privateClient.on,
 			
 			getTransactions: function(){
-				var prefix = "transactions/"
-				var keys = privateClient.getListing(prefix)
-				return keys.map(function(key){
-					return privateClient.getObject(prefix + key)
-				})
+				return privateClient.getAll("transactions/")
 			},
 			
 			saveTransaction: function(key, data){

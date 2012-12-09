@@ -1,7 +1,8 @@
 define([
+	"dojo/currency",
 	"gka/_View",
 	"dojo/text!./templates/MainView.html"
-], function(_View, template){
+], function(currency, _View, template){
 
 return dojo.declare(_View, {
 	
@@ -44,7 +45,7 @@ return dojo.declare(_View, {
 		accounts = this.app.getAccounts()
 		html = "<table>"
 		for(account in accounts){
-			amount = accounts[account].toFixed(2) + " €"
+			amount = currency.format(accounts[account], {currency: "EUR"})
 			html +=
 				"<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>"
 				+ "<th class='account'>" + account + ": </th>"

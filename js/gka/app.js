@@ -49,27 +49,27 @@ var obj = {
 		viewController.selectView(obj.box ? views["main"] : views["box"])
 		
 		// init remote storage
-		remoteStorage.claimAccess("gruppenkasse", "rw")
-		remoteStorage.displayWidget("remotestorage-connect")
-		
-		refreshData()
-		
-		remoteStorage.gruppenkasse.on("change", function(event){
-			console.log(event.origin, "event")
-			if(event.newValue && event.oldValue){
-				console.log(event.path + " was updated")
-			}else if(event.newValue){
-				console.log(event.path + " was created")
-			}else if(event.oldValue){
-				console.log(event.path + " was deleted")
-			}
+		remoteStorage.claimAccess("gruppenkasse", "rw").then(function(){
+			remoteStorage.displayWidget("remotestorage-connect")
 			refreshData()
-		})
-		
-		remoteStorage.onWidget("state", function(state){
-			if(state == "disconnected"){
-				emptyData()
-			}
+			
+			remoteStorage.gruppenkasse.on("change", function(event){
+				console.log(event.origin, "event")
+				if(event.newValue && event.oldValue){
+					console.log(event.path + " was updated")
+				}else if(event.newValue){
+					console.log(event.path + " was created")
+				}else if(event.oldValue){
+					console.log(event.path + " was deleted")
+				}
+				refreshData()
+			})
+			
+			remoteStorage.onWidget("state", function(state){
+				if(state == "disconnected"){
+					emptyData()
+				}
+			})
 		})
 
 	},

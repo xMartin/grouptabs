@@ -64,6 +64,13 @@ return dojo.declare(_View, {
 	_getBoxes: function(){
 		var boxes = []
 		this.app.store.query(function(){return true}).forEach(function(t){
+			if(typeof(t)=='string'){
+				try{
+					t = JSON.parse(t)
+				}catch (e){
+					console.log('unparseable string transaction!')
+				}
+			}
 			if(t.box && boxes.indexOf(t.box) === -1){
 				boxes.push(t.box)
 			}

@@ -1,8 +1,9 @@
 define([
+	"dojo/dom-construct",
 	"dojo/currency",
 	"gka/_View",
 	"dojo/text!./templates/MainView.html"
-], function(currency, _View, template){
+], function(domConstruct, currency, _View, template){
 
 return dojo.declare(_View, {
 	
@@ -58,11 +59,11 @@ return dojo.declare(_View, {
 			rowCount++
 		}
 		html += "</table>"
-		this.summaryNode.appendChild(dojo._toDom(html))
+		this.summaryNode.appendChild(domConstruct.toDom(html))
 	},
 	
 	_clearSummary: function(){
-		dojo.empty(this.summaryNode)
+		domConstruct.empty(this.summaryNode)
 	}
 })
 

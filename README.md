@@ -1,4 +1,4 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.8.
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9.
 
 Additionally you need [master of remoteStorage.js](https://github.com/RemoteStorage/remoteStorage.js). Copy the `src/` directory and rename it to `remote-storage`.
 

@@ -1,4 +1,7 @@
-define(function(){
+define([
+	"dojo/dom",
+	"dojo/dom-style"
+], function(dom, domStyle){
 
 var viewController = {
 	views: []
@@ -19,18 +22,18 @@ return {
 	viewController: viewController,
 	
 	addView: function(view){
-		view.placeAt(dojo.byId("views"))
+		view.placeAt(dom.byId("views"))
 		viewController.views.push(view)
 	},
 
 	selectView: function(view, params){
 		viewController.views.forEach(function(_view){
-			dojo.style(_view.domNode, "display", "none")
+			domStyle.set(_view.domNode, "display", "none")
 		})
 		if(typeof view == "string"){
 			view = getViewByName(view)
 		}
-		dojo.style(view.domNode, "display", "")
+		domStyle.set(view.domNode, "display", "")
 		view.onShow(params)
 		viewController.selectedView = view
 	},

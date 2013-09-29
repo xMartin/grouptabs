@@ -1,12 +1,14 @@
 define([
 	"gka/_View",
+	"dijit/registry",
 	"dijit/form/RadioButton",
 	"dijit/form/ValidationTextBox",
+	"dojo/_base/connect",
 	"dojo/query",
 	"dojo/dom-construct",
 	"dojo/_base/lang",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, RadioButton, ValidationTextBox, domQuery, domConstruct, lang, template){
+], function(_View, dijitRegistry, RadioButton, ValidationTextBox, connect, domQuery, domConstruct, lang, template){
 
 return dojo.declare(_View, {
 	
@@ -29,7 +31,7 @@ return dojo.declare(_View, {
 			}
 		})
 		this._boxOptionsConnects.forEach(function(c){
-			dojo.disconnect(c)
+			connect.disconnect(c)
 		})
 		domQuery(".row._dynamic").forEach(function(n){
 			domConstruct.destroy(n)
@@ -44,13 +46,13 @@ return dojo.declare(_View, {
 	},
 	
 	_addBoxOption: function(boxName){
-		var rowNode = dojo.create("div", {"class": "row _dynamic"})
-		var radioButton = new dijit.form.RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
+		var rowNode = domConstruct.create("div", {"class": "row _dynamic"})
+		var radioButton = new RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
 		this.app.box == boxName && radioButton.set("checked", true)
-		dojo.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
-		dojo.place(rowNode, this._boxOptionInsertNode, "after")
+		domConstruct.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
+		domConstruct.place(rowNode, this._boxOptionInsertNode, "after")
 		this._boxOptionsConnects.push(
-			dojo.connect(rowNode, "onclick", function(evt){
+			connect.connect(rowNode, "onclick", function(evt){
 				radioButton._onClick(evt)
 			})
 		)
@@ -59,7 +61,7 @@ return dojo.declare(_View, {
 	},
 	
 	_selectNewBox: function(){
-		dijit.byId("newBoxOption").set("checked", true)
+		dijitRegistry.byId("newBoxOption").set("checked", true)
 	},
 	
 	_getBoxes: function(){
@@ -85,8 +87,8 @@ return dojo.declare(_View, {
 		if(values.box == "newBox"){
 			this._addBoxOption(values.newBoxName)
 			this._setBox(values.newBoxName)
-			dijit.byId("boxRadioButton_" + (this._boxOptionCount - 1)).set("checked", true)
-			dijit.byId("newBoxInput").set("value", "")
+			dijitRegistry.byId("boxRadioButton_" + (this._boxOptionCount - 1)).set("checked", true)
+			dijitRegistry.byId("newBoxInput").set("value", "")
 		}else{
 			this._setBox(values.box)
 		}

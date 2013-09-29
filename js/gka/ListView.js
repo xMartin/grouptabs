@@ -1,9 +1,10 @@
 define([
 	"gka/_View",
+	"dojo/dom-construct",
 	"dijit/registry",
 	"dijit/form/Button",
 	"dojo/text!./templates/ListView.html"
-], function(_View, widgetRegistry, Button, template){
+], function(_View, domConstruct, widgetRegistry, Button, template){
 
 return dojo.declare(_View, {
 	
@@ -32,12 +33,12 @@ return dojo.declare(_View, {
 		transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}]})
 		tableNode = document.createElement("TABLE")
 		transactions.forEach(function(transaction){
-			rowNode = dojo._toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
+			rowNode = domConstruct.toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
 			this.connect(rowNode, "onclick", function(evt){
 				this._onDetailsClick(evt, transaction.id)
 			})
-			rowNode.appendChild(dojo._toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
-			rowNode.appendChild(dojo._toDom("<td class='title'>" + transaction.title + "</td>"))
+			rowNode.appendChild(domConstruct.toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
+			rowNode.appendChild(domConstruct.toDom("<td class='title'>" + transaction.title + "</td>"))
 			tableNode.appendChild(rowNode)
 			rowCount++
 		}, this)
@@ -45,7 +46,7 @@ return dojo.declare(_View, {
 	},
 	
 	_clearList: function(){
-		dojo.empty(this.listNode)
+		domConstruct.empty(this.listNode)
 	},
 	
 	_onBackClick: function(){

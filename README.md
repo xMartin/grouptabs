@@ -1,4 +1,4 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.8. Your `js/` directory should look like this:
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9. Your `js/` directory should look like this:
 
 ```
 root/

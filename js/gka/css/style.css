@@ -30,6 +30,7 @@
 
 table {
 	width: 100%;
+	table-layout: fixed;
 }
 tr.even {
 	background: #eee;
@@ -40,6 +41,8 @@ tr.even {
 }
 td, th {
 	padding: .4em;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 td.amount {
 	text-align: right;

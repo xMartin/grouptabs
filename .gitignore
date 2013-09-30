@@ -5,3 +5,4 @@ js/util/
 js/release/
 js/remotestorage.js
 js/remotestorage.min.js
+node_modules/

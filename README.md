@@ -19,6 +19,10 @@ Use `index.dev.html` for development.
 
 To do a build run
 
+    npm install
+
+(only the very first time) and
+
     ./build.sh
 
-You need [Node.js](http://nodejs.org/) or Java 6 for that. Then you can use `index.html`.
+You need [Node.js](http://nodejs.org/) for that. Then you can use `index.html`.

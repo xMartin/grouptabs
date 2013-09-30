@@ -3,5 +3,6 @@ js/dojo/
 js/dojox/
 js/util/
 js/release/
+node_modules/
 data/badminton.json
 data/bak/

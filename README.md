@@ -1,4 +1,8 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9. Your `js/` directory should look like this:
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9.
+
+Additionally you need [remoteStorage.js 0.8](http://remotestorage.io/integrate/).
+
+Your `js/` directory should look like this:
 
 ```
 root/
@@ -7,6 +11,8 @@ root/
   + dojo/
   + gka/
   + util/
+    remotestorage.js
+    remotestorage.min.js
 ```
 
 Use `index.dev.html` for development.

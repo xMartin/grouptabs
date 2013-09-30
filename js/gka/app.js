@@ -1,16 +1,15 @@
 define([
-	"gka/store/LocalStorageAdapter",
+	"gka/store/RemoteStorageAdapter",
 	"gka/viewController",
 	"gka/BoxView",
 	"gka/MainView",
 	"gka/NewEntryView",
 	"gka/ListView",
-	"gka/DetailsView",
-	"dojo/request",
-	"dojo/json"
-], function(LSA, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, request, json){
+	"gka/DetailsView"
+], function(RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
 
-var store = new LSA({localStorageKey: "badminton", dataArrayKey: "transactions"}).store
+var remoteStorageAdapter = new RemoteStorageAdapter()
+var store = remoteStorageAdapter.store
 
 var obj = {
 	
@@ -26,6 +25,21 @@ var obj = {
 				"newEntry": new NewEntryView({app: obj, controller: viewController}),
 				"list": new ListView({app: obj, controller: viewController}),
 				"details": new DetailsView({app: obj, controller: viewController})
+			},
+			refreshData = function(){
+				remoteStorage.gruppenkasse.getTransactions().then(function(data){
+					var items = []
+					for(var id in data){
+						items.push(data[id])
+					}
+					store.setData(items)
+					viewController.refreshAll()
+				})
+			},
+			emptyData = function(){
+				store.setData([])
+				viewController.refreshAll()
+				viewController.selectView(views["box"])
 			}
 		
 		for(viewName in views){
@@ -33,34 +47,30 @@ var obj = {
 			viewController.addView(view)
 		}
 		viewController.selectView(obj.box ? views["main"] : views["box"])
-	},
-	
-	refreshData: function(){
-		var req = request("data/badminton.json", {
-			preventCache: true
-		}).then(function(data){
-			store.setData(json.parse(data).transactions)
-			localStorage.setItem("badminton", data)
-			alert("Daten erfolgreich geladen.")
-		}, function(){
-			alert("Fehler beim Daten laden.")
-		})
-		return req
-	},
-	
-	postData: function(){
-		request("save.php", {
-			method: "post",
-			data: "data=" + localStorage.getItem("badminton")
-		}).then(function(data){
-			if(data == "success"){
-				alert("Erfolgreich hochgeladen.")
-			}else{
-				alert("Fehler.")
+		
+		// init remote storage
+		remoteStorage.access.claim("gruppenkasse", "rw")
+		remoteStorage.displayWidget()
+		remoteStorage.gruppenkasse.init()
+		remoteStorageAdapter.init()
+		remoteStorage.gruppenkasse.on("change", function(event){
+			console.log(event.origin, "event")
+			if(event.newValue && event.oldValue){
+				console.log(event.path + " was updated")
+			}else if(event.newValue){
+				console.log(event.path + " was created")
+			}else if(event.oldValue){
+				console.log(event.path + " was deleted")
 			}
-		}, function(error){
-			alert("Fehler: " + error)
+			refreshData()
 		})
+		remoteStorage.on("features-loaded", function(){
+			refreshData()
+			remoteStorage.on("disconnect", function(){
+				emptyData()
+			})
+		})
+
 	},
 	
 	getAccounts: function(transactions){

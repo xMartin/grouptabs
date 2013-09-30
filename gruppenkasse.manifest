@@ -1,8 +1,9 @@
 CACHE MANIFEST
-# version: dev4
+# version: dev5
 
 CACHE:
 js/release/gka/css/style.css
+js/remotestorage.min.js
 js/release/dojo/dojo.js
 js/release/dojo/nls/dojo_de.js
 js/release/dojo/resources/blank.gif

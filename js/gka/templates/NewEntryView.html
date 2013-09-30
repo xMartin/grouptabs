@@ -1,13 +1,13 @@
 <div class="view newEntryView">
 	<div class="row">
-		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onCancelClick">abbrechen</span>
-		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick">hinzufügen</span>
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onCancelClick">Cancel</span>
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick">Save</span>
 	</div>
-	<h2>Neuer Posten</h2>
+	<h2>New entry</h2>
 	<div class="form">
 		<div class="form-row">
 			<div class="form-row-label">
-				<label for="newEntryTitle">Titel:</label>
+				<label for="newEntryTitle">Title:</label>
 			</div>
 			<div class="form-row-input">
 				<input id="newEntryTitle" name="title" data-dojo-type="dijit.form.ValidationTextBox">
@@ -15,7 +15,7 @@
 		</div>
 		<div class="form-row">
 			<div class="form-row-label">
-				<label for="newEntryDate">Datum:</label>
+				<label for="newEntryDate">Date:</label>
 			</div>
 			<div class="form-row-input">
 				<input id="newEntryDate" name="date" data-dojo-type="dijit.form.DateTextBox" data-dojo-props="value: new Date()">
@@ -23,7 +23,7 @@
 		</div>
 		<div class="form-row">
 			<div class="form-row-label">
-				<label>Teilnehmer (Zahlung):</label>
+				<label>Participants (Amount):</label>
 			</div>
 			<div class="form-row-input" data-dojo-attach-point="participantsNode">
 				

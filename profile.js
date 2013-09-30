@@ -11,7 +11,7 @@ var profile = {
 		{
 			name: "gka",
 			location: "js/gka"
-		},
+		}
 	],
 	layers: {
 		"dojo/dojo": {

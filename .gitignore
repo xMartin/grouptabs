@@ -3,6 +3,6 @@ js/dojo/
 js/dojox/
 js/util/
 js/release/
+js/remotestorage.js
+js/remotestorage.min.js
 node_modules/
-data/badminton.json
-data/bak/

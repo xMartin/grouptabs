@@ -6,24 +6,23 @@ define([
 	"dojo/_base/connect",
 	"dojo/query",
 	"dojo/dom-construct",
-	"dojo/_base/lang",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, dijitRegistry, RadioButton, ValidationTextBox, connect, domQuery, domConstruct, lang, template){
+], function(_View, dijitRegistry, RadioButton, ValidationTextBox, connect, domQuery, domConstruct, template){
 
 return dojo.declare(_View, {
-	
+
 	templateString: template,
-	
+
 	name: "box",
-	
+
 	constructor: function(){
 		this._boxOptionsConnects = []
 	},
-	
+
 	postCreate: function(){
 		this._createBoxChooser()
 	},
-	
+
 	refresh: function(){
 		this.getChildren().forEach(function(w){
 			if(w.id.indexOf("boxRadioButton_") === 0){
@@ -38,13 +37,13 @@ return dojo.declare(_View, {
 		})
 		this._createBoxChooser()
 	},
-	
+
 	_createBoxChooser: function(){
 		this._boxOptionInsertNode = this.boxChooserHeadingNode
 		this._boxOptionCount = 0
 		this._getBoxes().forEach(this._addBoxOption, this)
 	},
-	
+
 	_addBoxOption: function(boxName){
 		var rowNode = domConstruct.create("div", {"class": "row _dynamic"})
 		var radioButton = new RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
@@ -59,11 +58,11 @@ return dojo.declare(_View, {
 		this._boxOptionInsertNode = rowNode
 		this._boxOptionCount++
 	},
-	
+
 	_selectNewBox: function(){
 		dijitRegistry.byId("newBoxOption").set("checked", true)
 	},
-	
+
 	_getBoxes: function(){
 		var boxes = []
 		this.app.store.query(function(){return true}).forEach(function(t){
@@ -73,15 +72,15 @@ return dojo.declare(_View, {
 		})
 		return this._boxes = boxes
 	},
-	
+
 	_addBox: function(boxName){
 		this._boxes.push(boxName)
 	},
-	
+
 	_setBox: function(boxName){
 		this.app.setBox(boxName)
 	},
-	
+
 	_onOkClick: function(){
 		var values = this.getValues()
 		if(values.box == "newBox"){
@@ -93,14 +92,6 @@ return dojo.declare(_View, {
 			this._setBox(values.box)
 		}
 		this.close(this, "main")
-	},
-	
-	_onRefreshDataClick: function(){
-		this.app.refreshData().then(lang.hitch(this, this.refresh))
-	},
-	
-	_onSaveDataClick: function(){
-		this.app.postData()
 	}
 })
 

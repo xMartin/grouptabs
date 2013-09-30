@@ -17,6 +17,10 @@ return dojo.declare(_View, {
 	},
 	
 	onShow: function(){
+		this.refresh()
+	},
+
+	refresh: function(){
 		this.refreshList()
 	},
 	

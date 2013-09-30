@@ -15,8 +15,11 @@ return declare(null, {
 	dataArrayKey: "",
 	
 	constructor: function(args){
+		this.store = new memoryStore
+	},
+
+	init: function(){
 		var _this = this
-		_this.store = new memoryStore
 		_this._connects = [
 			connect.connect(_this.store, "put", _this, "put"),
 			connect.connect(_this.store, "remove", _this, "remove")

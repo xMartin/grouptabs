@@ -1,6 +1,6 @@
 To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9.
 
-Additionally you need [master of remoteStorage.js](https://github.com/RemoteStorage/remoteStorage.js). Copy the `src/` directory and rename it to `remote-storage`.
+Additionally you need [remoteStorage.js 0.8](http://remotestorage.io/integrate/).
 
 Your `js/` directory should look like this:
 
@@ -10,8 +10,9 @@ root/
   + dijit/
   + dojo/
   + gka/
-  + remote-storage/
   + util/
+    remotestorage.js
+    remotestorage.min.js
 ```
 
 Use `index.dev.html` for development.

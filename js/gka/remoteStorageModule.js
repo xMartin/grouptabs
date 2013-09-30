@@ -1,16 +1,18 @@
-define([
-	"remote-storage/remoteStorage"
-], function(remoteStorage){
+define(function(){
 
 var moduleName = "gruppenkasse"
 
-remoteStorage.defineModule(moduleName, function(privateClient, publicClient){
-	
+RemoteStorage.defineModule(moduleName, function(privateClient, publicClient){
+
 	return {
 		
 		name: moduleName,
 		
 		exports: {
+
+			init: function() {
+				privateClient.cache("", true)
+			},
 
 			// remoteStorage.gruppenkasse.on("change", function(changeEvent){
 			//   if(changeEvent.newValue && changeEvent.oldValue){

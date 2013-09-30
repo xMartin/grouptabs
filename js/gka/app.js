@@ -5,11 +5,11 @@ define([
 	"gka/MainView",
 	"gka/NewEntryView",
 	"gka/ListView",
-	"gka/DetailsView",
-	"remote-storage/remoteStorage"
-], function(RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView, remoteStorage){
+	"gka/DetailsView"
+], function(RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
 
-var store = new RemoteStorageAdapter().store
+var remoteStorageAdapter = new RemoteStorageAdapter()
+var store = remoteStorageAdapter.store
 
 var obj = {
 	
@@ -49,26 +49,25 @@ var obj = {
 		viewController.selectView(obj.box ? views["main"] : views["box"])
 		
 		// init remote storage
-		remoteStorage.claimAccess("gruppenkasse", "rw").then(function(){
-			remoteStorage.displayWidget("remotestorage-connect")
+		remoteStorage.access.claim("gruppenkasse", "rw")
+		remoteStorage.displayWidget()
+		remoteStorage.gruppenkasse.init()
+		remoteStorageAdapter.init()
+		remoteStorage.gruppenkasse.on("change", function(event){
+			console.log(event.origin, "event")
+			if(event.newValue && event.oldValue){
+				console.log(event.path + " was updated")
+			}else if(event.newValue){
+				console.log(event.path + " was created")
+			}else if(event.oldValue){
+				console.log(event.path + " was deleted")
+			}
 			refreshData()
-			
-			remoteStorage.gruppenkasse.on("change", function(event){
-				console.log(event.origin, "event")
-				if(event.newValue && event.oldValue){
-					console.log(event.path + " was updated")
-				}else if(event.newValue){
-					console.log(event.path + " was created")
-				}else if(event.oldValue){
-					console.log(event.path + " was deleted")
-				}
-				refreshData()
-			})
-			
-			remoteStorage.onWidget("state", function(state){
-				if(state == "disconnected"){
-					emptyData()
-				}
+		})
+		remoteStorage.on("features-loaded", function(){
+			refreshData()
+			remoteStorage.on("disconnect", function(){
+				emptyData()
 			})
 		})
 

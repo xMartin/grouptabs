@@ -40,6 +40,7 @@ return dojo.declare(_View, {
 			onRemoveClick: dojo.hitch(this, this._removeParticipantFormWidget)
 		}).placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		return widget
 	},
 	
 	_removeParticipantFormWidget: function(widget){
@@ -50,6 +51,12 @@ return dojo.declare(_View, {
 		})
 	},
 	
+	_removeParticipantFormWidgets: function(){
+		this._participantFormWidgets.forEach(function(widget){
+			this._removeParticipantFormWidget(widget)
+		}, this)
+	},
+
 	_onPlusParticipantClick: function(){
 		this._addParticipantFormWidget()
 	},
@@ -65,6 +72,15 @@ return dojo.declare(_View, {
 		this.close(this, "main")
 	},
 	
+	_onAllClick: function(){
+		this._removeParticipantFormWidgets()
+		var accounts = this.app.getAccounts()
+		for(var account in accounts){
+			var widget = this._addParticipantFormWidget()
+			widget.comboBox.set("value", account)
+		}
+	},
+
 	_saveEntry: function(){
 		var data = this.get("value")
 		var participants = dojo.filter(data.participants, function(participant){

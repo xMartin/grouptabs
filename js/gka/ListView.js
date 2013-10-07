@@ -1,10 +1,13 @@
 define([
 	"gka/_View",
+	"dojo/_base/lang",
+	"dojo/on",
+	"dojo/touch",
 	"dojo/dom-construct",
 	"dijit/registry",
 	"dijit/form/Button",
 	"dojo/text!./templates/ListView.html"
-], function(_View, domConstruct, widgetRegistry, Button, template){
+], function(_View, lang, on, touch, domConstruct, widgetRegistry, Button, template){
 
 return dojo.declare(_View, {
 	
@@ -38,9 +41,9 @@ return dojo.declare(_View, {
 		tableNode = document.createElement("TABLE")
 		transactions.forEach(function(transaction){
 			rowNode = domConstruct.toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
-			this.connect(rowNode, "onclick", function(evt){
+			on(rowNode, touch.press, lang.hitch(this, function(evt){
 				this._onDetailsClick(evt, transaction.id)
-			})
+			}))
 			rowNode.appendChild(domConstruct.toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
 			rowNode.appendChild(domConstruct.toDom("<td class='title'>" + transaction.title + "</td>"))
 			tableNode.appendChild(rowNode)

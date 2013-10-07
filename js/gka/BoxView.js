@@ -1,13 +1,14 @@
 define([
 	"gka/_View",
+	"dojo/on",
+	"dojo/touch",
 	"dijit/registry",
 	"dijit/form/RadioButton",
 	"dijit/form/ValidationTextBox",
-	"dojo/_base/connect",
 	"dojo/query",
 	"dojo/dom-construct",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, dijitRegistry, RadioButton, ValidationTextBox, connect, domQuery, domConstruct, template){
+], function(_View, on, touch, dijitRegistry, RadioButton, ValidationTextBox, domQuery, domConstruct, template){
 
 return dojo.declare(_View, {
 
@@ -29,9 +30,6 @@ return dojo.declare(_View, {
 				w.destroy()
 			}
 		})
-		this._boxOptionsConnects.forEach(function(c){
-			connect.disconnect(c)
-		})
 		domQuery(".row._dynamic").forEach(function(n){
 			domConstruct.destroy(n)
 		})
@@ -51,7 +49,7 @@ return dojo.declare(_View, {
 		domConstruct.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
 		domConstruct.place(rowNode, this._boxOptionInsertNode, "after")
 		this._boxOptionsConnects.push(
-			connect.connect(rowNode, "onclick", function(evt){
+			on(rowNode, touch.press, function(evt){
 				radioButton._onClick(evt)
 			})
 		)

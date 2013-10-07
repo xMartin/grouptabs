@@ -18,7 +18,8 @@ var profile = {
 			include: [
 				"dojo/selector/acme",
 				"gka/app"
-			]
+			],
+			includeLocales: ["en", "en-us", "de"]
 		}
 	}
 }

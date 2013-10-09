@@ -49,7 +49,7 @@ return dojo.declare(_View, {
 		domConstruct.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
 		domConstruct.place(rowNode, this._boxOptionInsertNode, "after")
 		this._boxOptionsConnects.push(
-			on(rowNode, touch.press, function(evt){
+			on(rowNode, touch.release, function(evt){
 				radioButton._onClick(evt)
 			})
 		)

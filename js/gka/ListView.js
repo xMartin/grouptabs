@@ -41,7 +41,7 @@ return dojo.declare(_View, {
 		tableNode = document.createElement("TABLE")
 		transactions.forEach(function(transaction){
 			rowNode = domConstruct.toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
-			on(rowNode, touch.press, lang.hitch(this, function(evt){
+			on(rowNode, touch.release, lang.hitch(this, function(evt){
 				this._onDetailsClick(evt, transaction.id)
 			}))
 			rowNode.appendChild(domConstruct.toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))

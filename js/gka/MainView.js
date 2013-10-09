@@ -46,18 +46,28 @@ return dojo.declare(_View, {
 	},
 	
 	_renderSummary: function(){
-		var accounts, account, rowCount = 0, html, amount
-		accounts = this.app.getAccounts()
-		html = "<table>"
-		for(account in accounts){
-			amount = currency.format(accounts[account], {currency: "EUR"})
+		var accounts = (function(accountsObj){
+			var result = []
+			for(var accountName in accountsObj){
+				var resultObj = {}
+				resultObj.account = accountName
+				resultObj.amount = accountsObj[accountName]
+				result.push(resultObj)
+			}
+			result.sort(function(a, b){
+				return a.amount < b.amount ? -1 : 1
+			})
+			return result
+		})(this.app.getAccounts())
+		var html = "<table>"
+		accounts.forEach(function(accountObj, idx){
+			var amount = currency.format(accountObj.amount, {currency: "EUR"})
 			html +=
-				"<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>"
-				+ "<th class='account'>" + account + ": </th>"
+				"<tr class='" + (idx % 2 == 0 ? "even" : "odd") + "'>"
+				+ "<th class='account'>" + accountObj.account + ": </th>"
 				+ "<td class='amount'>" + amount + "</td>"
 				+ "</tr>"
-			rowCount++
-		}
+		})
 		html += "</table>"
 		this.summaryNode.appendChild(domConstruct.toDom(html))
 	},

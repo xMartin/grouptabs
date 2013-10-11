@@ -59,11 +59,30 @@ return dojo.declare(_View, {
 			})
 			return result
 		})(this.app.getAccounts())
+		var maxAmount = (function(){
+			var result = 0
+			accounts.forEach(function(account){
+				var amount = Math.abs(account.amount)
+				if(amount > result){
+					result = amount
+				}
+			})
+			return result
+		})()
+		var cssColor = function(amount){
+			var isNegative = amount < 0
+			amount = Math.abs(amount)
+			var factor = amount / maxAmount
+			var saturation = 0.6
+			var color = 255 - Math.round(255 * factor * saturation)
+			var rgb = isNegative ? [255, color, color] : [color, 255, color]
+			return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")"
+		}
 		var html = "<table>"
-		accounts.forEach(function(accountObj, idx){
+		accounts.forEach(function(accountObj){
 			var amount = currency.format(accountObj.amount, {currency: "EUR"})
 			html +=
-				"<tr class='" + (idx % 2 == 0 ? "even" : "odd") + "'>"
+				"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
 				+ "<th class='account'>" + accountObj.account + ": </th>"
 				+ "<td class='amount'>" + amount + "</td>"
 				+ "</tr>"

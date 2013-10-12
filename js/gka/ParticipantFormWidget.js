@@ -28,7 +28,7 @@ return dojo.declare([_Widget], {
 		}).placeAt(domNode)
 		this.textBox = new NumberTextBox({
 			name: "amount",
-			placeholder: dojo.number.format(0, {places: 2}),
+			placeholder: dojo.number.format(0, {fractional: false}),
 			onChange: dojo.hitch(this, this._onTextBoxChange)
 		}).placeAt(domNode)
 		new Button({

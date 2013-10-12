@@ -1,8 +1,9 @@
 define([
+	"dojo/number",
 	"dijit/_Widget",
 	"dijit/_TemplatedMixin",
 	"dojo/text!./templates/DetailsDisplay.html"
-], function(Widget, _Templated, template){
+], function(number, Widget, _Templated, template){
 
 return dojo.declare([Widget, _Templated], {
 	
@@ -25,7 +26,7 @@ return dojo.declare([Widget, _Templated], {
 		this.tplVars.participants = participants
 		data.payments.forEach(function(payment, idx){
 			idx && (payments += ", ")
-			payments += payment.participant + ": " + payment.amount.toFixed(2) + " €"
+			payments += payment.participant + ": " + number.format(payment.amount, {fractional: false})
 		})
 		this.tplVars.payments = payments
 		this.inherited(arguments)

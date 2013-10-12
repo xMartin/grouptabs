@@ -1,9 +1,9 @@
 define([
 	"dojo/dom-construct",
-	"dojo/currency",
+	"dojo/number",
 	"gka/_View",
 	"dojo/text!./templates/MainView.html"
-], function(domConstruct, currency, _View, template){
+], function(domConstruct, number, _View, template){
 
 return dojo.declare(_View, {
 	
@@ -80,7 +80,7 @@ return dojo.declare(_View, {
 		}
 		var html = "<table>"
 		accounts.forEach(function(accountObj){
-			var amount = currency.format(accountObj.amount, {currency: "EUR"})
+			var amount = number.format(accountObj.amount, {fractional: false})
 			html +=
 				"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
 				+ "<th class='account'>" + accountObj.account + ": </th>"

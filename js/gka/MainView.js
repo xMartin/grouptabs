@@ -70,13 +70,17 @@ return dojo.declare(_View, {
 			return result
 		})()
 		var cssColor = function(amount){
+			if(!maxAmount){
+				'transparent'
+			}
 			var isNegative = amount < 0
 			amount = Math.abs(amount)
 			var factor = amount / maxAmount
-			var saturation = 0.6
-			var color = 255 - Math.round(255 * factor * saturation)
-			var rgb = isNegative ? [255, color, color] : [color, 255, color]
-			return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")"
+			var hue = isNegative ? 5 : 115  // red: 360, green: 120
+			var saturation = '75%'
+			var levelFactor = 0.9
+			var level = (100 - factor * 50) * levelFactor + '%'  // 50% is full color
+			return "hsl(" + hue + ", " + saturation + ", " + level + ")"
 		}
 		var html = "<table>"
 		accounts.forEach(function(accountObj){

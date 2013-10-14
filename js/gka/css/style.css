@@ -2,7 +2,7 @@
 @import url(../../dijit/themes/claro/document.css);
 
 body {
-	padding-top: 50px;
+	padding-top: 40px;
 }
 
 .claro {
@@ -57,11 +57,14 @@ td.amount {
 }
 
 /* new entry view */
+.newEntryView .dijitTextBox {
+	width: 17em;
+}
 .participantInput .dijitComboBox {
-	width: 140px;
+	width: 150px;
 	margin-right: 8px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 54px;
+	width: 74px;
 	margin-right: 8px;
 }

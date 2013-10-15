@@ -76,13 +76,13 @@ return dojo.declare(_View, {
 			var isNegative = amount < 0
 			amount = Math.abs(amount)
 			var factor = amount / maxAmount
-			var hue = isNegative ? 7 : 117  // red: 360, green: 120
-			var saturation = '75%'
-			var levelFactor = 0.8
+			var hue = isNegative ? 19 : 98  // red: 360, green: 120
+			var saturation = isNegative ? '77%' : '88%'
+			var levelFactor = isNegative ? 0.99 : 0.93
 			var level = Math.round(100 - factor * 50 * (1 - levelFactor + 1)) + '%'  // 50% is full color
 			return "hsl(" + hue + ", " + saturation + ", " + level + ")"
 		}
-		var html = "<table>"
+		var html = "<table id='balance'>"
 		accounts.forEach(function(accountObj){
 			var amount = currency.format(accountObj.amount, {currency: "EUR"})
 			html +=

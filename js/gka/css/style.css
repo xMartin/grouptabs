@@ -68,3 +68,7 @@ td.amount {
 	width: 74px;
 	margin-right: 8px;
 }
+
+#balance {
+	border-collapse: collapse;
+}

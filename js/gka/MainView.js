@@ -87,7 +87,7 @@ return dojo.declare(_View, {
 			var amount = currency.format(accountObj.amount, {currency: "EUR"})
 			html +=
 				"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
-				+ "<th class='account'>" + accountObj.account + ": </th>"
+				+ "<th class='account'>" + accountObj.account + "</th>"
 				+ "<td class='amount'>" + amount + "</td>"
 				+ "</tr>"
 		})

@@ -1,10 +1,6 @@
 @import url(../../dijit/themes/claro/claro.css);
 @import url(../../dijit/themes/claro/document.css);
 
-body {
-	padding-top: 40px;
-}
-
 .claro {
 	font-size: 1em;
 }
@@ -15,6 +11,8 @@ body {
 
 .view h2 {
 	margin-top: 0;
+	text-align: center;
+	display: inline-block;
 }
 
 .form-row {
@@ -56,6 +54,36 @@ td.amount {
 	margin: .6em !important;
 }
 
+.dijitButton.full-width {
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.dijitButton.full-width .dijitButtonNode {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row.toggle {
+	margin-top: 1em;
+	overflow: hidden;  /* clear */
+}
+.row.toggle .dijitButton {
+	float: left;
+	margin: 0;
+	width: 50%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.row.toggle .dijitButton .dijitButtonNode {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 /* new entry view */
 .newEntryView .dijitTextBox {
 	width: 17em;
@@ -69,6 +97,15 @@ td.amount {
 	margin-right: 8px;
 }
 
-#balance {
+.boxView .dijitTextBox {
+	width: 201px;
+}
+.boxView .row.boxes {
+	margin: 1em 0;
+}
+
+#summary table,
+#transactions table {
 	border-collapse: collapse;
+	margin: 1em 0 0;
 }

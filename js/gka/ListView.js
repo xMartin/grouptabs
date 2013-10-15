@@ -24,6 +24,7 @@ return dojo.declare(_View, {
 	},
 
 	refresh: function(){
+		this.boxNameNode.innerHTML = this.app.box
 		this.refreshList()
 	},
 	
@@ -56,7 +57,11 @@ return dojo.declare(_View, {
 		domConstruct.empty(this.listNode)
 	},
 	
-	_onBackClick: function(){
+	_onChangeBoxClick: function(){
+		this.close(this, "box")
+	},
+	
+	_onPeopleClick: function(){
 		this.close(this, "main")
 	},
 	

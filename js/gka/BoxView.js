@@ -1,14 +1,11 @@
 define([
 	"gka/_View",
-	"dojo/on",
-	"dojo/touch",
-	"dijit/registry",
-	"dijit/form/RadioButton",
+	"dojo/_base/lang",
+	"dojo/dom-class",
+	"dijit/form/Button",
 	"dijit/form/ValidationTextBox",
-	"dojo/query",
-	"dojo/dom-construct",
 	"dojo/text!./templates/BoxView.html"
-], function(_View, on, touch, dijitRegistry, RadioButton, ValidationTextBox, domQuery, domConstruct, template){
+], function(_View, lang, domClass, Button, ValidationTextBox, template){
 
 return dojo.declare(_View, {
 
@@ -17,48 +14,31 @@ return dojo.declare(_View, {
 	name: "box",
 
 	constructor: function(){
-		this._boxOptionsConnects = []
+		this._boxButtons = []
 	},
 
 	postCreate: function(){
-		this._createBoxChooser()
+		this._createBoxButtons()
 	},
 
 	refresh: function(){
-		this.getChildren().forEach(function(w){
-			if(w.id.indexOf("boxRadioButton_") === 0){
-				w.destroy()
-			}
+		this._boxButtons.forEach(function(boxButton){
+			boxButton.destroy()
 		})
-		domQuery(".row._dynamic").forEach(function(n){
-			domConstruct.destroy(n)
-		})
-		this._createBoxChooser()
+		this._boxButtons = []
+		this._createBoxButtons()
 	},
 
-	_createBoxChooser: function(){
-		this._boxOptionInsertNode = this.boxChooserHeadingNode
-		this._boxOptionCount = 0
-		this._getBoxes().forEach(this._addBoxOption, this)
-	},
-
-	_addBoxOption: function(boxName){
-		var rowNode = domConstruct.create("div", {"class": "row _dynamic"})
-		var radioButton = new RadioButton({id: "boxRadioButton_" + this._boxOptionCount, name: "box", value: boxName}).placeAt(rowNode)
-		this.app.box == boxName && radioButton.set("checked", true)
-		domConstruct.create("label", {"for": "boxRadioButton_" + this._boxOptionCount, innerHTML: boxName}, rowNode)
-		domConstruct.place(rowNode, this._boxOptionInsertNode, "after")
-		this._boxOptionsConnects.push(
-			on(rowNode, touch.release, function(evt){
-				radioButton._onClick(evt)
+	_createBoxButtons: function(){
+		this._getBoxes().forEach(function(boxName){
+			var button = new Button({label: boxName})
+			domClass.add(button.domNode, "full-width")
+			button.onClick = lang.hitch(this, function(){
+				this._onBoxClick(boxName)
 			})
-		)
-		this._boxOptionInsertNode = rowNode
-		this._boxOptionCount++
-	},
-
-	_selectNewBox: function(){
-		dijitRegistry.byId("newBoxOption").set("checked", true)
+			button.placeAt(this.boxesNode)
+			this._boxButtons.push(button)
+		}, this)
 	},
 
 	_getBoxes: function(){
@@ -71,24 +51,19 @@ return dojo.declare(_View, {
 		return this._boxes = boxes
 	},
 
-	_addBox: function(boxName){
-		this._boxes.push(boxName)
-	},
-
 	_setBox: function(boxName){
 		this.app.setBox(boxName)
 	},
 
+	_onBoxClick: function(boxName){
+		this._setBox(boxName)
+		this.close(this, "main")
+	},
+
 	_onOkClick: function(){
-		var values = this.getValues()
-		if(values.box == "newBox"){
-			this._addBoxOption(values.newBoxName)
-			this._setBox(values.newBoxName)
-			dijitRegistry.byId("boxRadioButton_" + (this._boxOptionCount - 1)).set("checked", true)
-			dijitRegistry.byId("newBoxInput").set("value", "")
-		}else{
-			this._setBox(values.box)
-		}
+		var newBoxName = this.newBoxTextBox.get("value")
+		this._setBox(newBoxName)
+		this.newBoxTextBox.set("value", "")
 		this.close(this, "main")
 	}
 })

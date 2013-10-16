@@ -1,10 +1,6 @@
 @import url(../../dijit/themes/claro/claro.css);
 @import url(../../dijit/themes/claro/document.css);
 
-body {
-	padding-top: 40px;
-}
-
 .claro {
 	font-size: 1em;
 }
@@ -15,15 +11,12 @@ body {
 
 .view h2 {
 	margin-top: 0;
+	text-align: center;
+	display: inline-block;
 }
 
 .form-row {
 	padding: .3em;
-}
-
-.form-hint {
-	font-size: .7em;
-	color: gray;
 }
 
 .newEntryView .form,
@@ -35,9 +28,6 @@ body {
 table {
 	width: 100%;
 	table-layout: fixed;
-}
-tr.even {
-	background: #eee;
 }
 .listView tr:hover {
 	cursor: pointer;
@@ -56,12 +46,88 @@ td.amount {
 	margin: .6em !important;
 }
 
+.dijitButton.full-width {
+	display: block;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.dijitButton.full-width .dijitButtonNode {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.row.toggle {
+	margin-top: 1em;
+	overflow: hidden;  /* clear */
+}
+.row.toggle .dijitButton {
+	float: left;
+	margin: 0;
+	width: 50%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.row.toggle .dijitButton .dijitButtonNode {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 /* new entry view */
+.newEntryView .dijitTextBox {
+	width: 17em;
+}
 .participantInput .dijitComboBox {
-	width: 140px;
+	width: 150px;
 	margin-right: 8px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 54px;
+	width: 74px;
 	margin-right: 8px;
+}
+
+.boxView .dijitTextBox {
+	width: 201px;
+}
+.boxView .row.boxes {
+	margin: 1em 0;
+}
+
+#summary table {
+	border-collapse: collapse;
+	margin: 1em 0 0;
+}
+
+#transactions {
+	margin: 1em 0 0;
+}
+#transactions .transaction {
+	padding: .5em 0;
+	border-bottom: 1px solid #ddd;
+}
+#transactions .transaction:first-child {
+	border-top: 1px solid #ddd;
+}
+#transactions .transaction .title,
+#transactions .transaction date {
+	display: table-cell;
+	vertical-align: top;
+}
+#transactions .transaction .title {
+	width: 100%;
+	line-height: 1.1em;
+}
+#transactions .transaction date {
+	padding-left: 1em;
+	white-space: nowrap;
+}
+#transactions .transaction .payments {
+	margin-top: .5em;
+}
+#transactions .transaction date,
+#transactions .transaction .payments {
+	font-size: x-small;
 }

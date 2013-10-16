@@ -19,11 +19,6 @@
 	padding: .3em;
 }
 
-.form-hint {
-	font-size: .7em;
-	color: gray;
-}
-
 .newEntryView .form,
 .listView table,
 .summaryView table {
@@ -33,9 +28,6 @@
 table {
 	width: 100%;
 	table-layout: fixed;
-}
-tr.even {
-	background: #eee;
 }
 .listView tr:hover {
 	cursor: pointer;
@@ -104,8 +96,38 @@ td.amount {
 	margin: 1em 0;
 }
 
-#summary table,
-#transactions table {
+#summary table {
 	border-collapse: collapse;
 	margin: 1em 0 0;
+}
+
+#transactions {
+	margin: 1em 0 0;
+}
+#transactions .transaction {
+	padding: .5em 0;
+	border-bottom: 1px solid #ddd;
+}
+#transactions .transaction:first-child {
+	border-top: 1px solid #ddd;
+}
+#transactions .transaction .title,
+#transactions .transaction date {
+	display: table-cell;
+	vertical-align: top;
+}
+#transactions .transaction .title {
+	width: 100%;
+	line-height: 1.1em;
+}
+#transactions .transaction date {
+	padding-left: 1em;
+	white-space: nowrap;
+}
+#transactions .transaction .payments {
+	margin-top: .5em;
+}
+#transactions .transaction date,
+#transactions .transaction .payments {
+	font-size: x-small;
 }

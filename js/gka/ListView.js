@@ -2,18 +2,21 @@ define([
 	"gka/_View",
 	"dojo/_base/lang",
 	"dojo/on",
-	"dojo/touch",
-	"dojo/dom-construct",
-	"dijit/registry",
+	"dijit/a11yclick",
 	"dijit/form/Button",
+	"./ListItem",
 	"dojo/text!./templates/ListView.html"
-], function(_View, lang, on, touch, domConstruct, widgetRegistry, Button, template){
+], function(_View, lang, on, a11yclick, Button, ListItem, template){
 
 return dojo.declare(_View, {
 	
 	templateString: template,
 	
 	name: "list",
+
+	constructor: function(){
+		this._listItems = []
+	},
 	
 	postCreate: function(){
 		this._renderList()
@@ -34,27 +37,26 @@ return dojo.declare(_View, {
 	},
 	
 	_renderList: function(){
-		var store = this.app.store, transactions, rowCount = 0, tableNode, rowNode, detailsNode, detailsButton
+		var store = this.app.store
 		if(!store){
 			return
 		}
-		transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}]})
-		tableNode = document.createElement("TABLE")
+		var transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}]})
 		transactions.forEach(function(transaction){
-			rowNode = domConstruct.toDom("<tr class='" + (rowCount % 2 == 0 ? "even" : "odd") + "'>")
-			on(rowNode, touch.release, lang.hitch(this, function(evt){
-				this._onDetailsClick(evt, transaction.id)
+			var listItem = new ListItem({app: this.app, entryId: transaction.id})
+			on(listItem.domNode, a11yclick, lang.hitch(this, function(){
+				this._onDetailsClick(transaction.id)
 			}))
-			rowNode.appendChild(domConstruct.toDom("<td class='date'>" + new Date(transaction.date).toLocaleDateString() + "</td>"))
-			rowNode.appendChild(domConstruct.toDom("<td class='title'>" + transaction.title + "</td>"))
-			tableNode.appendChild(rowNode)
-			rowCount++
+			listItem.placeAt(this.listNode)
+			this._listItems.push(listItem)
 		}, this)
-		this.listNode.appendChild(tableNode)
 	},
 	
 	_clearList: function(){
-		domConstruct.empty(this.listNode)
+		this._listItems.forEach(function(listItem){
+			listItem.destroy()
+		})
+		this._listItems = []
 	},
 	
 	_onChangeBoxClick: function(){
@@ -69,7 +71,7 @@ return dojo.declare(_View, {
 		this.close(this, "newEntry")
 	},
 	
-	_onDetailsClick: function(evt, id){
+	_onDetailsClick: function(id){
 		this.close(this, "details", {entryId: id})
 	}
 })

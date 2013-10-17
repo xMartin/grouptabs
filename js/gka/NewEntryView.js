@@ -1,10 +1,11 @@
 define([
 	"gka/_View",
+	"dijit/registry",
 	"dijit/form/ValidationTextBox",
 	"dijit/form/DateTextBox",
 	"./ParticipantFormWidget",
 	"dojo/text!./templates/NewEntryView.html"
-], function(_View, ValidationTextBox, DateTextBox, ParticipantFormWidget, template){
+], function(_View, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, template){
 
 return dojo.declare(_View, {
 	
@@ -16,11 +17,32 @@ return dojo.declare(_View, {
 		this._participantFormWidgets = []
 	},
 	
-	onShow: function(){
+	onShow: function(entryId){
 		this._updateParticipants()
-		if(!this._participantFormWidgets.length){
+		if(entryId !== undefined){
+			this._editEntry = entryId
+			this._prefill(entryId)
+			this._showDeleteButton()
+		}else if(!this._participantFormWidgets.length){
+			this._hideDeleteButton()
 			this._addParticipantFormWidget()
 		}
+	},
+
+	_prefill: function(entryId){
+		var data = this.app.store.get(entryId)
+		dijitRegistry.byId("newEntryTitle").set("value", data.title)
+		dijitRegistry.byId("newEntryDate").set("value", new Date(data.date))
+		this._removeParticipantFormWidgets()
+		data.participants.forEach(function(participant){
+			var widget = this._addParticipantFormWidget()
+			widget.comboBox.set("value", participant)
+			data.payments.forEach(function(payment){
+				if(payment.participant == participant){
+					widget.textBox.set("value", payment.amount)
+				}
+			})
+		}, this)
 	},
 	
 	_updateParticipants: function(){
@@ -63,8 +85,17 @@ return dojo.declare(_View, {
 	
 	_onOkClick: function(){
 		this._saveEntry()
+		if(this._editEntry !== undefined){
+			this.app.deleteEntry(this._editEntry)
+		}
 		this.reset()
 		this.close(this, "main")
+	},
+
+	_onDeleteClick: function(){
+		this.app.deleteEntry(this._editEntry)
+		this.reset()
+		this.close(this, "list")
 	},
 	
 	_onCancelClick: function(){
@@ -105,9 +136,19 @@ return dojo.declare(_View, {
 			payments: payments
 		})
 	},
+
+	_showDeleteButton: function(){
+		this.deleteButtonNode.style.display = ""
+	},
+
+	_hideDeleteButton: function(){
+		this.deleteButtonNode.style.display = "none"
+	},
 	
 	reset: function(){
 		this.inherited(arguments)
+		delete this._editEntry
+		this._hideDeleteButton()
 		dojo.forEach(this._participantFormWidgets, function(widget, i){
 			if(i === 0){
 				widget.reset()

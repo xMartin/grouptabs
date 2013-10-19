@@ -198,5 +198,5 @@ td.amount {
 }
 #transactions .transaction date,
 #transactions .transaction .payments {
-	font-size: x-small;
+	font-size: 68%;
 }

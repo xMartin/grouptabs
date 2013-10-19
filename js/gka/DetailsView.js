@@ -26,10 +26,9 @@ return dojo.declare(_View, {
 		this.close(this, "list")
 	},
 	
-	_onDeleteClick: function(){
-		this.app.deleteEntry(this.entryId)
+	_onEditClick: function(){
 		this._cleanup()
-		this.close(this, "list")		
+		this.close(this, "newEntry", this.entryId)
 	},
 	
 	_cleanup: function(){

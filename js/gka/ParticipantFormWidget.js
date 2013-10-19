@@ -22,6 +22,7 @@ return dojo.declare([_Widget], {
 		var domNode = this.domNode
 		this.comboBox = new ComboBox({
 			name: "participant",
+			placeholder: "Name",
 			store: new MemoryStore({data: this.participants}),
 			searchAttr: "id",
 			onChange: dojo.hitch(this, this._onComboBoxChange)

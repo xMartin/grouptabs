@@ -59,6 +59,10 @@ td.amount {
 	margin-right: 0;
 }
 
+.dijitButton.destructive * {
+	color: #f32;
+}
+
 .row.toggle {
 	margin-top: 1em;
 	overflow: hidden;  /* clear */
@@ -87,6 +91,9 @@ td.amount {
 .participantInput .dijitNumberTextBox {
 	width: 74px;
 	margin-right: 8px;
+}
+.newEntryView .destructive {
+	margin-top: .5em;
 }
 
 .boxView .dijitTextBox {

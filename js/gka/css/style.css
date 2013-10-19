@@ -46,6 +46,36 @@ td.amount {
 	margin: .6em !important;
 }
 
+.dj_gecko .claro .dijitTextBox .dijitInputInner,
+.claro .dijitTextBox .dijitInputInner,
+.claro .dijitTextBox .dijitPlaceHolder,
+.claro .dijitButton .dijitButtonNode {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 10px !important;
+}
+
+.claro .dijitButton .dijitButtonNode {
+	background: #f8f8f8;
+	box-shadow: none;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+}
+
+.claro .dijitButton.create .dijitButtonNode {
+	background: #ddd;
+	border: 2px solid #ccc;
+}
+
+.claro .dijitButton.delete .dijitButtonNode {
+	background: #f44;
+	border: 2px solid #c11;
+	color: #fff;
+}
+
 .dijitButton.full-width {
 	display: block;
 	-moz-box-sizing: border-box;

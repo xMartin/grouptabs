@@ -6,7 +6,7 @@
 }
 
 .view {
-	padding: 1em;
+	padding: .5em;
 }
 
 .view h2 {
@@ -144,14 +144,14 @@ td.amount {
 
 /* new entry view */
 .newEntryView .dijitTextBox {
-	width: 17em;
+	width: 18em;
 }
 .participantInput .dijitComboBox {
-	width: 140px;
+	width: 146px;
 	margin-right: 8px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 68px;
+	width: 74px;
 	margin-right: 8px;
 }
 .newEntryView .destructive {
@@ -159,7 +159,7 @@ td.amount {
 }
 
 .boxView .dijitTextBox {
-	width: 187px;
+	width: 201px;
 }
 .boxView .row.boxes {
 	margin: 1em 0;

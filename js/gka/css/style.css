@@ -115,11 +115,11 @@ td.amount {
 	width: 17em;
 }
 .participantInput .dijitComboBox {
-	width: 150px;
+	width: 140px;
 	margin-right: 8px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 74px;
+	width: 68px;
 	margin-right: 8px;
 }
 .newEntryView .destructive {
@@ -127,7 +127,7 @@ td.amount {
 }
 
 .boxView .dijitTextBox {
-	width: 201px;
+	width: 187px;
 }
 .boxView .row.boxes {
 	margin: 1em 0;

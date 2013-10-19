@@ -1,10 +1,11 @@
 define([
+	"dojo/dom-class",
 	"dijit/_Widget",
 	"dijit/form/ComboBox",
 	"dijit/form/NumberTextBox",
 	"dijit/form/Button",
 	"dojo/store/Memory"
-], function(_Widget, ComboBox, NumberTextBox, Button, MemoryStore){
+], function(domClass, _Widget, ComboBox, NumberTextBox, Button, MemoryStore){
 
 return dojo.declare([_Widget], {
 	
@@ -32,10 +33,12 @@ return dojo.declare([_Widget], {
 			placeholder: dojo.number.format(0, {places: 2}),
 			onChange: dojo.hitch(this, this._onTextBoxChange)
 		}).placeAt(domNode)
-		new Button({
+		var deleteButton = new Button({
 			label: "-",
 			onClick: dojo.hitch(this, this._onRemoveClick)
-		}).placeAt(domNode)
+		})
+		domClass.add(deleteButton.domNode, "delete")
+		deleteButton.placeAt(domNode)
 	},
 	
 	_onRemoveClick: function(){

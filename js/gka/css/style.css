@@ -13,11 +13,15 @@
 	padding: .5em;
 	background: #eee;
 }
-
 .header h2 {
 	position: absolute;
 	top: 18px;
 	margin-left: 12px;
+}
+.header #logo {
+	position: relative;
+	top: 9px;
+	left: 4px;
 }
 
 .view {

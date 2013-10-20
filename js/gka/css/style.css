@@ -3,21 +3,22 @@
 
 .claro {
 	font-size: 1em;
+	background: #f2f2f2;
 }
 
 .header {
 	width: 100%;
-	min-height: 50px;
+	height: 44px;
 	margin-bottom: 1em;
-	background: #eee;
+	background: #e6e6e6;
 }
 .header h2 {
 	position: absolute;
-	top: 10px;
+	top: 7px;
 	margin-left: 12px;
 }
 .header .dijitButton {
-	margin: 1px;
+	margin: 0;
 }
 
 .view h2 {
@@ -82,7 +83,7 @@ td.amount {
 }
 .claro .dijitComboBox .dijitButtonNode {
 	padding: 12px 14px !important;
-	background: #f2f2f2;
+	background: #ddd;
 	border: none;
 }
 .claro .dijitComboBox .dijitArrowButtonInner {
@@ -93,37 +94,41 @@ td.amount {
 .claro .dijitButton .dijitButtonNode {
 	background: #fff;
 	box-shadow: none;
-	border: 2px solid #ddd;
-	border-radius: 4px;
+	border: none;
+	border-radius: 0;
+}
+.claro .dijitButton .dijitButtonNode {
+	background: #ddd;
 }
 .claro .dijitButton .dijitButtonNode:hover,
 .claro .dijitButton .dijitButtonNode:focus,
 .claro .dijitButton .dijitButtonNode:active {
-	background: #eee;
-	border: 2px solid #ccc;
+	background: #d6d6d6;
+	border-color: #ccc;
 }
 
 .claro .dijitButton.create .dijitButtonNode {
-	background: #eee;
-	border: 2px solid #ddd;
+	background: #aaa;
+	color: #fff;
+	border-color: #ddd;
 }
 .claro .dijitButton.create .dijitButtonNode:hover,
 .claro .dijitButton.create .dijitButtonNode:focus,
 .claro .dijitButton.create .dijitButtonNode:active {
-	background: #ddd;
-	border: 2px solid #ccc;
+	background: #a6a6a6;
+	border-color: #ccc;
 }
 
 .claro .dijitButton.delete .dijitButtonNode {
 	background: #f44;
-	border: 2px solid #c11;
+	border-color: #c11;
 	color: #fff;
 }
 .claro .dijitButton.delete .dijitButtonNode:hover,
 .claro .dijitButton.delete .dijitButtonNode:focus,
 .claro .dijitButton.delete .dijitButtonNode:active {
 	background: #d33;
-	border: 2px solid #b00;
+	border-color: #b00;
 }
 
 .dijitButton.full-width {
@@ -131,12 +136,16 @@ td.amount {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.dijitButton.full-width .dijitButtonNode {
+.claro .dijitTextBox.full-width,
+.claro .dijitButton.full-width .dijitButtonNode {
 	width: 100%;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	margin-left: 0;
 	margin-right: 0;
+	border-right: none;
+	border-left: none;
+	border-radius: 0;
 }
 
 .dijitButton.destructive * {
@@ -179,12 +188,23 @@ td.amount {
 	margin-top: .5em;
 }
 
-.boxView .dijitTextBox {
-	width: 222px;
-}
+
 .boxView .row.boxes {
 	margin: 1em 0;
 }
+.boxView .dijitTextBox {
+	width: 222px;
+}
+.boxView .dijitButton.create {
+	position: relative;
+	float: right;
+	top: -48px;
+}
+.boxView .dijitButton.create .dijitButtonNode {
+	border-radius: 0;
+	border: none;
+}
+
 
 #summary table {
 	border-collapse: collapse;
@@ -222,6 +242,10 @@ td.amount {
 	font-size: 68%;
 }
 
+
+.detailsView .detailsViewContent {
+	padding: 0 8px;
+}
 .detailsView h3 {
 	font-weight: bold;
 }
@@ -231,7 +255,7 @@ td.amount {
 
 
 #remotestorage-widget {
-	right: 6px !important;
-	top: 5px !important;
+	right: 4px !important;
+	top: 1px !important;
 }
 

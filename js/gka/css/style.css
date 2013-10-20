@@ -209,7 +209,8 @@ td.amount {
 	box-sizing: border-box;
 	padding: .5em 0;
 	border-top: 1px solid #ddd;
-	height: 44px;
+	min-height: 44px;
+	cursor: pointer;
 }
 #transactions .transaction:first-child {
 	border-top: none;

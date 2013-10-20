@@ -189,15 +189,25 @@ td.amount {
 	width: 100%;
 }
 .participantInput .dijitComboBox {
-	width: 172px;
-	margin-right: 2px;
+	width: 170px;
+	margin-right: 4px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 100px;
-	margin-right: 2px;
+	width: 98px;
+	margin-right: 4px;
 }
 .newEntryView .destructive {
 	margin-top: .5em;
+}
+.newEntryView .participantAdd .dijitButtonNode,
+.newEntryView .participantAddAll .dijitButtonNode {
+	width: 100%;
+}
+.newEntryView .participantAdd {
+	width: 230px;
+}
+.newEntryView .participantAddAll {
+	width: 84px;
 }
 
 

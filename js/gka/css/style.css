@@ -13,11 +13,15 @@
 	padding: .5em;
 	background: #eee;
 }
-
 .header h2 {
 	position: absolute;
 	top: 18px;
 	margin-left: 12px;
+}
+.header #logo {
+	position: relative;
+	top: 9px;
+	left: 4px;
 }
 
 .view {
@@ -156,6 +160,15 @@ td.amount {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.row.toggle .dijitButtonDisabled .dijitButtonNode {
+	color: #000;
+	font-weight: bold;
+	border: 2px solid #bbb;
+	border-bottom: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
 
 /* new entry view */
 .newEntryView .dijitTextBox {
@@ -182,18 +195,25 @@ td.amount {
 
 #summary table {
 	border-collapse: collapse;
-	margin: 1em 0 0;
+}
+#summary tr {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 44px;
 }
 
-#transactions {
-	margin: 1em 0 0;
-}
 #transactions .transaction {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	padding: .5em 0;
-	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	min-height: 44px;
+	cursor: pointer;
 }
 #transactions .transaction:first-child {
-	border-top: 1px solid #ddd;
+	border-top: none;
 }
 #transactions .transaction .title,
 #transactions .transaction date {
@@ -216,9 +236,19 @@ td.amount {
 	font-size: 68%;
 }
 
+
 .detailsView h3 {
 	font-weight: bold;
 }
 .detailsView date {
 	font-size: 70%;
+}
+
+
+/* remove click outlines */
+* {
+	outline: none;
+}
+::-moz-focus-inner {
+	border: 0;
 }

@@ -35,7 +35,7 @@
 .dijitButton,
 .dijitDropDownButton,
 .dijitComboButton {
-	margin: 3px 0;
+	margin: 1px 0;
 }
 
 .newEntryView .form,
@@ -108,14 +108,14 @@ td.amount {
 }
 
 .claro .dijitButton.create .dijitButtonNode {
-	background: #aaa;
+	background: #44f;
 	color: #fff;
 	border-color: #ddd;
 }
 .claro .dijitButton.create .dijitButtonNode:hover,
 .claro .dijitButton.create .dijitButtonNode:focus,
 .claro .dijitButton.create .dijitButtonNode:active {
-	background: #a6a6a6;
+	background: #33e;
 	border-color: #ccc;
 }
 
@@ -127,7 +127,7 @@ td.amount {
 .claro .dijitButton.delete .dijitButtonNode:hover,
 .claro .dijitButton.delete .dijitButtonNode:focus,
 .claro .dijitButton.delete .dijitButtonNode:active {
-	background: #d33;
+	background: #e33;
 	border-color: #b00;
 }
 
@@ -192,13 +192,13 @@ td.amount {
 .boxView .row.boxes {
 	margin: 1em 0;
 }
-.boxView .dijitTextBox {
-	width: 222px;
+.claro .boxView .dijitTextBox .dijitInputInner {
+	padding-right: 90px !important;
 }
 .boxView .dijitButton.create {
 	position: relative;
 	float: right;
-	top: -48px;
+	top: -45px;
 }
 .boxView .dijitButton.create .dijitButtonNode {
 	border-radius: 0;

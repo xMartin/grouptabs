@@ -3,29 +3,27 @@
 
 .claro {
 	font-size: 1em;
+	background: #f2f2f2;
 }
 
 .header {
 	width: 100%;
-	min-height: 50px;
-	margin: -.5em;
+	height: 44px;
 	margin-bottom: 1em;
-	padding: .5em;
-	background: #eee;
 }
 .header h2 {
 	position: absolute;
-	top: 18px;
+	top: 7px;
 	margin-left: 12px;
 }
-.header #logo {
-	position: relative;
-	top: 9px;
-	left: 4px;
+.header .dijitButton {
+	margin: 0;
 }
-
-.view {
-	padding: .5em;
+.header .dijitButton .dijitButtonText {
+	margin-top: -4px;
+}
+.header #logo {
+	width: 44px;
 }
 
 .view h2 {
@@ -35,7 +33,14 @@
 }
 
 .form-row {
-	padding: .3em;
+	padding: 3px 0;
+}
+
+.dijitToggleButton,
+.dijitButton,
+.dijitDropDownButton,
+.dijitComboButton {
+	margin: 1px 0;
 }
 
 .newEntryView .form,
@@ -83,7 +88,7 @@ td.amount {
 }
 .claro .dijitComboBox .dijitButtonNode {
 	padding: 12px 14px !important;
-	background: #f2f2f2;
+	background: #ddd;
 	border: none;
 }
 .claro .dijitComboBox .dijitArrowButtonInner {
@@ -94,37 +99,41 @@ td.amount {
 .claro .dijitButton .dijitButtonNode {
 	background: #fff;
 	box-shadow: none;
-	border: 2px solid #ddd;
-	border-radius: 4px;
+	border: none;
+	border-radius: 0;
+}
+.claro .dijitButton .dijitButtonNode {
+	background: #ddd;
 }
 .claro .dijitButton .dijitButtonNode:hover,
 .claro .dijitButton .dijitButtonNode:focus,
 .claro .dijitButton .dijitButtonNode:active {
-	background: #eee;
-	border: 2px solid #ccc;
+	background: #d6d6d6;
+	border-color: #ccc;
 }
 
 .claro .dijitButton.create .dijitButtonNode {
-	background: #eee;
-	border: 2px solid #ddd;
+	background: #44f;
+	color: #fff;
+	border-color: #ddd;
 }
 .claro .dijitButton.create .dijitButtonNode:hover,
 .claro .dijitButton.create .dijitButtonNode:focus,
 .claro .dijitButton.create .dijitButtonNode:active {
-	background: #ddd;
-	border: 2px solid #ccc;
+	background: #33e;
+	border-color: #ccc;
 }
 
 .claro .dijitButton.delete .dijitButtonNode {
 	background: #f44;
-	border: 2px solid #c11;
+	border-color: #c11;
 	color: #fff;
 }
 .claro .dijitButton.delete .dijitButtonNode:hover,
 .claro .dijitButton.delete .dijitButtonNode:focus,
 .claro .dijitButton.delete .dijitButtonNode:active {
-	background: #d33;
-	border: 2px solid #b00;
+	background: #e33;
+	border-color: #b00;
 }
 
 .dijitButton.full-width {
@@ -132,12 +141,16 @@ td.amount {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-.dijitButton.full-width .dijitButtonNode {
+.claro .dijitTextBox.full-width,
+.claro .dijitButton.full-width .dijitButtonNode {
 	width: 100%;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	margin-left: 0;
 	margin-right: 0;
+	border-right: none;
+	border-left: none;
+	border-radius: 0;
 }
 
 .dijitButton.destructive * {
@@ -163,35 +176,57 @@ td.amount {
 .row.toggle .dijitButtonDisabled .dijitButtonNode {
 	color: #000;
 	font-weight: bold;
-	border: 2px solid #bbb;
-	border-bottom: none;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+	border: none;
+	background: transparent;
 }
 
 
 /* new entry view */
 .newEntryView .dijitTextBox {
-	width: 18em;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
 }
 .participantInput .dijitComboBox {
-	width: 146px;
-	margin-right: 8px;
+	width: 170px;
+	margin-right: 4px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 74px;
-	margin-right: 8px;
+	width: 98px;
+	margin-right: 4px;
 }
 .newEntryView .destructive {
 	margin-top: .5em;
 }
-
-.boxView .dijitTextBox {
-	width: 201px;
+.newEntryView .participantAdd .dijitButtonNode,
+.newEntryView .participantAddAll .dijitButtonNode {
+	width: 100%;
 }
+.newEntryView .participantAdd {
+	width: 230px;
+}
+.newEntryView .participantAddAll {
+	width: 84px;
+}
+
+
 .boxView .row.boxes {
 	margin: 1em 0;
 }
+.claro .boxView .dijitTextBox .dijitInputInner {
+	padding-right: 90px !important;
+}
+.boxView .dijitButton.create {
+	position: relative;
+	float: right;
+	top: -45px;
+}
+.boxView .dijitButton.create .dijitButtonNode {
+	border-radius: 0;
+	border: none;
+}
+
 
 #summary table {
 	border-collapse: collapse;
@@ -207,7 +242,7 @@ td.amount {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: .5em 0;
+	padding: 8px;
 	border-top: 1px solid #ddd;
 	min-height: 44px;
 	cursor: pointer;
@@ -237,6 +272,9 @@ td.amount {
 }
 
 
+.detailsView .detailsViewContent {
+	padding: 0 8px;
+}
 .detailsView h3 {
 	font-weight: bold;
 }
@@ -245,6 +283,11 @@ td.amount {
 }
 
 
+#remotestorage-widget {
+	right: 4px !important;
+	top: 1px !important;
+}
+
 /* remove click outlines */
 * {
 	outline: none;
@@ -252,3 +295,4 @@ td.amount {
 ::-moz-focus-inner {
 	border: 0;
 }
+

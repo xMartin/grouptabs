@@ -156,6 +156,15 @@ td.amount {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.row.toggle .dijitButtonDisabled .dijitButtonNode {
+	color: #000;
+	font-weight: bold;
+	border: 2px solid #bbb;
+	border-bottom: none;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
 
 /* new entry view */
 .newEntryView .dijitTextBox {

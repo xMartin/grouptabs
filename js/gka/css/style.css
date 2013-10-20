@@ -171,10 +171,10 @@ td.amount {
 
 #transactions .transaction {
 	padding: .5em 0;
-	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #ddd;
 }
 #transactions .transaction:first-child {
-	border-top: 1px solid #ddd;
+	border-top: none;
 }
 #transactions .transaction .title,
 #transactions .transaction date {

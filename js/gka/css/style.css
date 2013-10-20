@@ -196,3 +196,12 @@ td.amount {
 #transactions .transaction .payments {
 	font-size: 68%;
 }
+
+
+/* remove click outlines */
+* {
+	outline: none;
+}
+::-moz-focus-inner {
+	border: 0;
+}

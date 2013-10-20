@@ -1,10 +1,11 @@
 <div class="view boxView">
 	<div class="header">
+		<img id="logo" src="images/favicon-touch.png" alt=""/>
 		<h2>Grouptabs</h2>
 	</div>
 	<div class="row boxes" data-dojo-attach-point="boxesNode"></div>
 	<div class="row">
-		<input data-dojo-type="dijit.form.ValidationTextBox" data-dojo-attach-point="newBoxTextBox" placeholder="New tab …">
+		<input class="full-width" data-dojo-type="dijit.form.ValidationTextBox" data-dojo-attach-point="newBoxTextBox" placeholder="New tab …">
 		<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick" class="create">Create</span>
 	</div>
 </div>

@@ -41,7 +41,7 @@ return dojo.declare(_View, {
 		if(!store){
 			return
 		}
-		var transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}]})
+		var transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}, {"attribute": "id", "descending": true}]})
 		transactions.forEach(function(transaction){
 			var listItem = new ListItem({app: this.app, entryId: transaction.id})
 			on(listItem.domNode, a11yclick, lang.hitch(this, function(){

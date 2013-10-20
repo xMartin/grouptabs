@@ -26,7 +26,7 @@ var obj = {
 				"list": new ListView({app: obj, controller: viewController}),
 				"details": new DetailsView({app: obj, controller: viewController})
 			},
-			refreshData = function(){
+			initData = function(){
 				remoteStorage.gruppenkasse.getTransactions().then(function(data){
 					var items = []
 					for(var id in data){
@@ -35,6 +35,14 @@ var obj = {
 					store.setData(items)
 					viewController.refreshAll()
 				})
+			},
+			addData = function(data){
+				store.put(data)
+				viewController.refreshAll()
+			},
+			removeData = function(data){
+				store.remove(data.id)
+				viewController.refreshAll()
 			},
 			emptyData = function(){
 				store.setData([])
@@ -54,18 +62,20 @@ var obj = {
 		remoteStorage.gruppenkasse.init()
 		remoteStorageAdapter.init()
 		remoteStorage.gruppenkasse.on("change", function(event){
-			console.log(event.origin, "event")
 			if(event.newValue && event.oldValue){
-				console.log(event.path + " was updated")
+				// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
+				// There's no update for now anyway.
+				//console.log(event.path + " was updated")
 			}else if(event.newValue){
 				console.log(event.path + " was created")
+				addData(event.newValue)
 			}else if(event.oldValue){
 				console.log(event.path + " was deleted")
+				removeData(event.oldValue)
 			}
-			refreshData()
 		})
 		remoteStorage.on("features-loaded", function(){
-			refreshData()
+			initData()
 			remoteStorage.on("disconnect", function(){
 				emptyData()
 			})

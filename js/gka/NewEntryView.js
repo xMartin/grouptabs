@@ -23,8 +23,10 @@ return dojo.declare(_View, {
 			this._editEntry = entryId
 			this._prefill(entryId)
 			this._showDeleteButton()
+			this.headingNode.innerHTML = "Edit transaction"
 		}else{
 			this._hideDeleteButton()
+			this.headingNode.innerHTML = "New transaction"
 			this._addParticipantFormWidget()
 			this._addParticipantFormWidget()
 		}

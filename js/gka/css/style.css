@@ -22,8 +22,8 @@
 }
 .header #logo {
 	position: relative;
-	top: 9px;
-	left: 4px;
+	top: 6px;
+	left: 5px;
 }
 
 .view h2 {
@@ -176,10 +176,8 @@ td.amount {
 .row.toggle .dijitButtonDisabled .dijitButtonNode {
 	color: #000;
 	font-weight: bold;
-	border: 2px solid #bbb;
-	border-bottom: none;
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
+	border: none;
+	background: transparent;
 }
 
 
@@ -234,7 +232,7 @@ td.amount {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: .5em 0;
+	padding: 8px;
 	border-top: 1px solid #ddd;
 	min-height: 44px;
 	cursor: pointer;

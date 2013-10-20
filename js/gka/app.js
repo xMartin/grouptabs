@@ -54,15 +54,17 @@ var obj = {
 		remoteStorage.gruppenkasse.init()
 		remoteStorageAdapter.init()
 		remoteStorage.gruppenkasse.on("change", function(event){
-			console.log(event.origin, "event")
 			if(event.newValue && event.oldValue){
-				console.log(event.path + " was updated")
+				// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
+				// There's no update for now anyway.
+				//console.log(event.path + " was updated")
 			}else if(event.newValue){
 				console.log(event.path + " was created")
+				refreshData()
 			}else if(event.oldValue){
 				console.log(event.path + " was deleted")
+				refreshData()
 			}
-			refreshData()
 		})
 		remoteStorage.on("features-loaded", function(){
 			refreshData()

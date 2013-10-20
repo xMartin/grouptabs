@@ -5,6 +5,21 @@
 	font-size: 1em;
 }
 
+.header {
+	width: 100%;
+	min-height: 50px;
+	margin: -.5em;
+	margin-bottom: 1em;
+	padding: .5em;
+	background: #eee;
+}
+
+.header h2 {
+	position: absolute;
+	top: 18px;
+	margin-left: 12px;
+}
+
 .view {
 	padding: .5em;
 }
@@ -195,6 +210,14 @@ td.amount {
 #transactions .transaction date,
 #transactions .transaction .payments {
 	font-size: 68%;
+}
+
+
+.detailsView h3 {
+	font-weight: bold;
+}
+.detailsView date {
+	font-size: 70%;
 }
 
 

@@ -26,7 +26,7 @@ var obj = {
 				"list": new ListView({app: obj, controller: viewController}),
 				"details": new DetailsView({app: obj, controller: viewController})
 			},
-			refreshData = function(){
+			initData = function(){
 				remoteStorage.gruppenkasse.getTransactions().then(function(data){
 					var items = []
 					for(var id in data){
@@ -35,6 +35,14 @@ var obj = {
 					store.setData(items)
 					viewController.refreshAll()
 				})
+			},
+			addData = function(data){
+				store.put(data)
+				viewController.refreshAll()
+			},
+			removeData = function(data){
+				store.remove(data.id)
+				viewController.refreshAll()
 			},
 			emptyData = function(){
 				store.setData([])
@@ -60,14 +68,14 @@ var obj = {
 				//console.log(event.path + " was updated")
 			}else if(event.newValue){
 				console.log(event.path + " was created")
-				refreshData()
+				addData(event.newValue)
 			}else if(event.oldValue){
 				console.log(event.path + " was deleted")
-				refreshData()
+				removeData(event.oldValue)
 			}
 		})
 		remoteStorage.on("features-loaded", function(){
-			refreshData()
+			initData()
 			remoteStorage.on("disconnect", function(){
 				emptyData()
 			})

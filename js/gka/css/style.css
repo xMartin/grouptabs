@@ -23,9 +23,7 @@
 	margin-top: -4px;
 }
 .header #logo {
-	position: relative;
-	top: 6px;
-	left: 5px;
+	width: 44px;
 }
 
 .view h2 {

@@ -8,20 +8,16 @@
 .header {
 	width: 100%;
 	min-height: 50px;
-	margin: -.5em;
 	margin-bottom: 1em;
-	padding: .5em;
 	background: #eee;
 }
-
 .header h2 {
 	position: absolute;
-	top: 18px;
+	top: 10px;
 	margin-left: 12px;
 }
-
-.view {
-	padding: .5em;
+.header .dijitButton {
+	margin: 1px;
 }
 
 .view h2 {
@@ -31,7 +27,14 @@
 }
 
 .form-row {
-	padding: .3em;
+	padding: 3px 0;
+}
+
+.dijitToggleButton,
+.dijitButton,
+.dijitDropDownButton,
+.dijitComboButton {
+	margin: 3px 0;
 }
 
 .newEntryView .form,
@@ -159,22 +162,25 @@ td.amount {
 
 /* new entry view */
 .newEntryView .dijitTextBox {
-	width: 18em;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 100%;
 }
 .participantInput .dijitComboBox {
-	width: 146px;
-	margin-right: 8px;
+	width: 172px;
+	margin-right: 2px;
 }
 .participantInput .dijitNumberTextBox {
-	width: 74px;
-	margin-right: 8px;
+	width: 100px;
+	margin-right: 2px;
 }
 .newEntryView .destructive {
 	margin-top: .5em;
 }
 
 .boxView .dijitTextBox {
-	width: 201px;
+	width: 222px;
 }
 .boxView .row.boxes {
 	margin: 1em 0;
@@ -189,7 +195,7 @@ td.amount {
 	margin: 1em 0 0;
 }
 #transactions .transaction {
-	padding: .5em 0;
+	padding: .5em;
 	border-bottom: 1px solid #ddd;
 }
 #transactions .transaction:first-child {
@@ -222,3 +228,10 @@ td.amount {
 .detailsView date {
 	font-size: 70%;
 }
+
+
+#remotestorage-widget {
+	right: 6px !important;
+	top: 5px !important;
+}
+

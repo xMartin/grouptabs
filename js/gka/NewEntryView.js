@@ -23,8 +23,9 @@ return dojo.declare(_View, {
 			this._editEntry = entryId
 			this._prefill(entryId)
 			this._showDeleteButton()
-		}else if(!this._participantFormWidgets.length){
+		}else{
 			this._hideDeleteButton()
+			this._addParticipantFormWidget()
 			this._addParticipantFormWidget()
 		}
 	},
@@ -150,11 +151,7 @@ return dojo.declare(_View, {
 		delete this._editEntry
 		this._hideDeleteButton()
 		dojo.forEach(this._participantFormWidgets, function(widget, i){
-			if(i === 0){
-				widget.reset()
-			}else{
-				this._removeParticipantFormWidget(widget)
-			}
+			this._removeParticipantFormWidget(widget)
 		}, this)
 	}
 

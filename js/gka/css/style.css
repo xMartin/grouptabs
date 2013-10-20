@@ -5,8 +5,23 @@
 	font-size: 1em;
 }
 
+.header {
+	width: 100%;
+	min-height: 50px;
+	margin: -.5em;
+	margin-bottom: 1em;
+	padding: .5em;
+	background: #eee;
+}
+
+.header h2 {
+	position: absolute;
+	top: 18px;
+	margin-left: 12px;
+}
+
 .view {
-	padding: 1em;
+	padding: .5em;
 }
 
 .view h2 {
@@ -46,6 +61,68 @@ td.amount {
 	margin: .6em !important;
 }
 
+.dj_gecko .claro .dijitTextBox .dijitInputInner,
+.claro .dijitTextBox .dijitInputInner,
+.claro .dijitTextBox .dijitPlaceHolder,
+.claro .dijitButton .dijitButtonNode,
+.dijitButtonNode.dijitDownArrowButton {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	min-width: 44px;
+	min-height: 44px;
+	padding: 10px !important;
+}
+
+.claro .dijitTextBox .dijitInputField {
+	padding: 0;
+}
+.claro .dijitComboBox .dijitButtonNode {
+	padding: 12px 14px !important;
+	background: #f2f2f2;
+	border: none;
+}
+.claro .dijitComboBox .dijitArrowButtonInner {
+	border: none;
+}
+
+.claro .dijitTextBox,
+.claro .dijitButton .dijitButtonNode {
+	background: #fff;
+	box-shadow: none;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+}
+.claro .dijitButton .dijitButtonNode:hover,
+.claro .dijitButton .dijitButtonNode:focus,
+.claro .dijitButton .dijitButtonNode:active {
+	background: #eee;
+	border: 2px solid #ccc;
+}
+
+.claro .dijitButton.create .dijitButtonNode {
+	background: #eee;
+	border: 2px solid #ddd;
+}
+.claro .dijitButton.create .dijitButtonNode:hover,
+.claro .dijitButton.create .dijitButtonNode:focus,
+.claro .dijitButton.create .dijitButtonNode:active {
+	background: #ddd;
+	border: 2px solid #ccc;
+}
+
+.claro .dijitButton.delete .dijitButtonNode {
+	background: #f44;
+	border: 2px solid #c11;
+	color: #fff;
+}
+.claro .dijitButton.delete .dijitButtonNode:hover,
+.claro .dijitButton.delete .dijitButtonNode:focus,
+.claro .dijitButton.delete .dijitButtonNode:active {
+	background: #d33;
+	border: 2px solid #b00;
+}
+
 .dijitButton.full-width {
 	display: block;
 	-moz-box-sizing: border-box;
@@ -82,10 +159,10 @@ td.amount {
 
 /* new entry view */
 .newEntryView .dijitTextBox {
-	width: 17em;
+	width: 18em;
 }
 .participantInput .dijitComboBox {
-	width: 150px;
+	width: 146px;
 	margin-right: 8px;
 }
 .participantInput .dijitNumberTextBox {
@@ -136,5 +213,12 @@ td.amount {
 }
 #transactions .transaction date,
 #transactions .transaction .payments {
-	font-size: x-small;
+	font-size: 68%;
+}
+
+.detailsView h3 {
+	font-weight: bold;
+}
+.detailsView date {
+	font-size: 70%;
 }

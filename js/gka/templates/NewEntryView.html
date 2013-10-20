@@ -1,7 +1,7 @@
 <div class="view newEntryView">
-	<div class="row">
+	<div class="header">
 		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onCancelClick">Cancel</span>
-		<h2>New entry</h2>
+		<h2>New transaction</h2>
 	</div>
 	<div class="form">
 		<div class="form-row">
@@ -18,14 +18,14 @@
 			<div class="form-row-input" data-dojo-attach-point="participantsNode">
 				
 			</div>
-			<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onPlusParticipantClick">+</span>
+			<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onPlusParticipantClick" class="create">+</span>
 			<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onAllClick">All</span>
 		</div>
 	</div>
 	<div class="row">
-		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick" class="full-width">Save</span>
+		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick" class="full-width create">Save</span>
 	</div>
 	<div class="row" data-dojo-attach-point="deleteButtonNode">
-		<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onDeleteClick" class="full-width destructive">Delete</span>
+		<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onDeleteClick" class="full-width delete">Delete</span>
 	</div>
 </div>

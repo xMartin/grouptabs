@@ -167,12 +167,8 @@ td.amount {
 
 #summary table {
 	border-collapse: collapse;
-	margin: 1em 0 0;
 }
 
-#transactions {
-	margin: 1em 0 0;
-}
 #transactions .transaction {
 	padding: .5em 0;
 	border-bottom: 1px solid #ddd;

@@ -1,13 +1,17 @@
 define([
-	"dojo/dom-class",
+	"dojo/_base/lang",
 	"dijit/_Widget",
-	"dijit/form/ComboBox",
+	"dijit/_TemplatedMixin",
+	"dijit/_WidgetsInTemplateMixin",
+	"dijit/form/CheckBox",
 	"dijit/form/NumberTextBox",
-	"dijit/form/Button",
-	"dojo/store/Memory"
-], function(domClass, _Widget, ComboBox, NumberTextBox, Button, MemoryStore){
+	"dojo/number",
+	"dojo/text!./templates/ParticipantFormWidget.html"
+], function(lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, CheckBox, NumberTextBox, number, template){
 
-return dojo.declare([_Widget], {
+return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
+
+	templateString: template,
 	
 	baseClass: "participantInput",
 	
@@ -15,49 +19,26 @@ return dojo.declare([_Widget], {
 	value: null,
 	name: "",
 	
-	constructor: function(){
-		this.value = {}
-	},
-	
 	postCreate: function(){
-		var domNode = this.domNode
-		this.comboBox = new ComboBox({
-			name: "participant",
-			placeholder: "Name",
-			store: new MemoryStore({data: this.participants}),
-			searchAttr: "id",
-			onChange: dojo.hitch(this, this._onComboBoxChange)
-		}).placeAt(domNode)
-		this.textBox = new NumberTextBox({
-			name: "amount",
-			placeholder: dojo.number.format(0, {places: 2}),
-			onChange: dojo.hitch(this, this._onTextBoxChange)
-		}).placeAt(domNode)
-		var deleteButton = new Button({
-			label: "-",
-			onClick: dojo.hitch(this, this._onRemoveClick)
-		})
-		domClass.add(deleteButton.domNode, "delete")
-		deleteButton.placeAt(domNode)
+		this._setValue()
+		this.participantNode.innerHTML = this.participant
+		this.amountInput.set("placeholder", number.format(0, {places: 2}))
+		if(this.amount){
+			this.amountInput.set("value", this.amount)
+		}
+		this.amountInput.onChange = lang.hitch(this, "_setValue")
+		this.checkBox.onChange = lang.hitch(this, "_setValue")
 	},
-	
-	_onRemoveClick: function(){
-		this.onRemoveClick(this)
-	},
-	
-	onRemoveClick: function(widget){},
-	
-	_onComboBoxChange: function(){
-		this.value.participant = this.comboBox.get("value")
-	},
-	
-	_onTextBoxChange: function(){
-		this.value.amount = this.textBox.get("value")
-	},
-	
-	reset: function(){
-		this.comboBox.reset()
-		this.textBox.reset()
+
+	_setValue: function(){
+		if(this.checkBox.get("value")){
+			this.value = {
+				participant: this.participant,
+				amount: this.amountInput.get("value") || 0
+			}
+		}else{
+			this.value = {}
+		}
 	}
 	
 })

@@ -18,74 +18,69 @@ return dojo.declare(_View, {
 	},
 	
 	onShow: function(entryId){
-		this._updateParticipants()
 		if(entryId !== undefined){
+			var data = this.app.store.get(entryId)
+			this._createParticipantFormWidgets(data)
+			this._prefill(data)
 			this._editEntry = entryId
-			this._prefill(entryId)
 			this._showDeleteButton()
 			this.headingNode.innerHTML = "Edit transaction"
 		}else{
+			this._createParticipantFormWidgets()
 			this._hideDeleteButton()
 			this.headingNode.innerHTML = "New transaction"
-			this._addParticipantFormWidget()
-			this._addParticipantFormWidget()
 		}
 	},
 
-	_prefill: function(entryId){
-		var data = this.app.store.get(entryId)
+	_prefill: function(data){
 		dijitRegistry.byId("newEntryTitle").set("value", data.title)
 		dijitRegistry.byId("newEntryDate").set("value", new Date(data.date))
-		this._removeParticipantFormWidgets()
-		data.participants.forEach(function(participant){
-			var widget = this._addParticipantFormWidget()
-			widget.comboBox.set("value", participant)
-			data.payments.forEach(function(payment){
-				if(payment.participant == participant){
-					widget.textBox.set("value", payment.amount)
-				}
-			})
-		}, this)
 	},
 	
-	_updateParticipants: function(){
-		var participants = []
+	_createParticipantFormWidgets: function(data){
 		var accounts = this.app.getAccounts()
 		for(var account in accounts){
-			participants.push({id: account})
+			this._createParticipantFormWidget(account, data)
 		}
-		this._participants = participants
-	},
-	
-	_addParticipantFormWidget: function(){
-		var widget = new ParticipantFormWidget({
-			name: "participants",
-			participants: this._participants,
-			parent: this,
-			onRemoveClick: dojo.hitch(this, this._removeParticipantFormWidget)
-		}).placeAt(this.participantsNode)
-		this._participantFormWidgets.push(widget)
-		return widget
-	},
-	
-	_removeParticipantFormWidget: function(widget){
-		this.participantsNode.removeChild(widget.domNode)
-		widget.destroy()
-		this._participantFormWidgets = dojo.filter(this._participantFormWidgets, function(_widget){
-			return _widget !== widget
-		})
-	},
-	
-	_removeParticipantFormWidgets: function(){
-		this._participantFormWidgets.forEach(function(widget){
-			this._removeParticipantFormWidget(widget)
-		}, this)
 	},
 
-	_onPlusParticipantClick: function(){
-		this._addParticipantFormWidget()
+	_createParticipantFormWidget: function(participant, data, isChecked){
+		var widgetParams = {
+			name: "participants",
+			participant: participant
+		}
+		if(data){
+			data.payments.forEach(function(payment){
+				if(payment.participant == participant){
+					widgetParams.amount = payment.amount
+				}
+			})
+		}
+		var widget = new ParticipantFormWidget(widgetParams)
+		if(isChecked || data && data.participants.indexOf(participant) !== -1){
+			widget.checkBox.set("checked", true)
+		}
+		widget.placeAt(this.participantsNode)
+		this._participantFormWidgets.push(widget)
 	},
-	
+
+	_removeParticipantFormWidgets: function(){
+		this._participantFormWidgets.forEach(function(widget){
+			this.participantsNode.removeChild(widget.domNode)
+			widget.destroy()
+		}, this)
+		this._participantFormWidgets = []
+	},
+
+	_onNewParticipantClick: function(){
+		this._createParticipantFormWidget(this.newParticipantInput.get("value"), null, true)
+		this.newParticipantInput.set("value", "")
+	},
+
+	_onNewParticipantInput: function(){
+		this.addNewParticipantButton.set("disabled", !this.newParticipantInput.get("value"))
+	},
+
 	_onOkClick: function(){
 		this._saveEntry()
 		if(this._editEntry !== undefined){
@@ -106,15 +101,6 @@ return dojo.declare(_View, {
 		this.close(this, "main")
 	},
 	
-	_onAllClick: function(){
-		this._removeParticipantFormWidgets()
-		var accounts = this.app.getAccounts()
-		for(var account in accounts){
-			var widget = this._addParticipantFormWidget()
-			widget.comboBox.set("value", account)
-		}
-	},
-
 	_saveEntry: function(){
 		var data = this.get("value")
 		var participants = dojo.filter(data.participants, function(participant){
@@ -151,10 +137,9 @@ return dojo.declare(_View, {
 	reset: function(){
 		this.inherited(arguments)
 		delete this._editEntry
+		this.addNewParticipantButton.set("disabled", true)
 		this._hideDeleteButton()
-		dojo.forEach(this._participantFormWidgets, function(widget, i){
-			this._removeParticipantFormWidget(widget)
-		}, this)
+		this._removeParticipantFormWidgets()
 	}
 
 })

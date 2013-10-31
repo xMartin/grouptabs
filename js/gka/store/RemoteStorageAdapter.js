@@ -18,26 +18,13 @@ return declare(null, {
 		this.store = new memoryStore
 	},
 
-	init: function(){
-		var _this = this
-		_this._connects = [
-			connect.connect(_this.store, "put", _this, "put"),
-			connect.connect(_this.store, "remove", _this, "remove")
-		]
-		remoteStorageModule.getTransactions().then(function(data){
-			var items = []
-			for(var id in data){
-				items.push(data[id])
-			}
-			_this.store.setData(items)
-		})
-	},
-	
 	put: function(data){
+		this.store.put(data)
 		remoteStorageModule.saveTransaction(data.id, data)
 	},
 	
 	remove: function(id){
+		this.store.remove(id)
 		remoteStorageModule.removeTransaction(id)
 	}
 

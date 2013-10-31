@@ -60,7 +60,6 @@ var obj = {
 		remoteStorage.access.claim("gruppenkasse", "rw")
 		remoteStorage.displayWidget()
 		remoteStorage.gruppenkasse.init()
-		remoteStorageAdapter.init()
 		remoteStorage.gruppenkasse.on("change", function(event){
 			if(event.newValue && event.oldValue){
 				// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
@@ -107,11 +106,11 @@ var obj = {
 	},
 	
 	saveEntry: function(data){
-		store.put(data)
+		remoteStorageAdapter.put(data)
 	},
 	
 	deleteEntry: function(id){
-		store.remove(id)
+		remoteStorageAdapter.remove(id)
 	}
 }
 

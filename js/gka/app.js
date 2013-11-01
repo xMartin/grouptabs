@@ -34,6 +34,20 @@ var obj = {
 					}
 					store.setData(items)
 					viewController.refreshAll()
+
+					remoteStorage.gruppenkasse.on("change", function(event){
+						if(event.newValue && event.oldValue){
+							// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
+							// There's no update for now anyway.
+							//console.log(event.path + " was updated")
+						}else if(event.newValue){
+							console.log(event.path + " was created")
+							addData(event.newValue)
+						}else if(event.oldValue){
+							console.log(event.path + " was deleted")
+							removeData(event.oldValue)
+						}
+					})
 				})
 			},
 			addData = function(data){
@@ -60,19 +74,6 @@ var obj = {
 		remoteStorage.access.claim("gruppenkasse", "rw")
 		remoteStorage.displayWidget()
 		remoteStorage.gruppenkasse.init()
-		remoteStorage.gruppenkasse.on("change", function(event){
-			if(event.newValue && event.oldValue){
-				// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
-				// There's no update for now anyway.
-				//console.log(event.path + " was updated")
-			}else if(event.newValue){
-				console.log(event.path + " was created")
-				addData(event.newValue)
-			}else if(event.oldValue){
-				console.log(event.path + " was deleted")
-				removeData(event.oldValue)
-			}
-		})
 		remoteStorage.on("features-loaded", function(){
 			initData()
 			remoteStorage.on("disconnect", function(){

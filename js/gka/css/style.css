@@ -182,32 +182,29 @@ td.amount {
 
 
 /* new entry view */
+.newEntryView .dijitCheckBox {
+	margin: 14px;
+}
 .newEntryView .dijitTextBox {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 100%;
 }
-.participantInput .dijitComboBox {
-	width: 170px;
+.participantInput .participant {
+	display: inline-block;
+	width: 159px;
 	margin-right: 4px;
 }
 .participantInput .dijitNumberTextBox {
 	width: 98px;
 	margin-right: 4px;
 }
-.newEntryView .destructive {
-	margin-top: .5em;
+.newEntryView .newParticipantInput {
+	width: 212px;
 }
-.newEntryView .participantAdd .dijitButtonNode,
-.newEntryView .participantAddAll .dijitButtonNode {
-	width: 100%;
-}
-.newEntryView .participantAdd {
-	width: 230px;
-}
-.newEntryView .participantAddAll {
-	width: 84px;
+.newEntryView .participantAdd .dijitButtonNode {
+	width: 98px;
 }
 
 

@@ -15,15 +15,17 @@
 			</div>
 		</div>
 		<div class="form-row">
-			<div class="form-row-input" data-dojo-attach-point="participantsNode">
-				
+			<div class="form-row-input" data-dojo-attach-point="participantsNode"></div>
+		</div>
+		<div class="for-row">
+			<div class="form-row-input" data-dojo-attach-point="newParticipantsNode">
+				<input data-dojo-type="dijit.form.TextBox" data-dojo-attach-point="newParticipantInput" data-dojo-attach-event="onKeyUp:_onNewParticipantInput" class="newParticipantInput" placeholder="New participant …">
+				<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onNewParticipantClick" data-dojo-attach-point="addNewParticipantButton" class="participantAdd" disabled>Add</span>
 			</div>
-			<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onPlusParticipantClick" class="participantAdd">+</span>
-			<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onAllClick" class="participantAddAll">All</span>
 		</div>
 	</div>
 	<div class="row">
-		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick" class="full-width create">Save</span>
+		<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onOkClick" class="full-width create">Save</span>
 	</div>
 	<div class="row" data-dojo-attach-point="deleteButtonNode">
 		<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onDeleteClick" class="full-width delete">Delete</span>

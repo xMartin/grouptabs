@@ -191,6 +191,12 @@ td.amount {
 	box-sizing: border-box;
 	width: 100%;
 }
+.participantInput {
+	color: #999;
+}
+.participantInput.selected {
+	color: inherit;
+}
 .participantInput .participant {
 	display: inline-block;
 	width: 159px;

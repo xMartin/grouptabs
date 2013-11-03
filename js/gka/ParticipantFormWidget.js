@@ -6,8 +6,9 @@ define([
 	"dijit/form/CheckBox",
 	"dijit/form/NumberTextBox",
 	"dojo/number",
+	"dojo/dom-class",
 	"dojo/text!./templates/ParticipantFormWidget.html"
-], function(lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, CheckBox, NumberTextBox, number, template){
+], function(lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, CheckBox, NumberTextBox, number, domClass, template){
 
 return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
@@ -18,6 +19,15 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 	// make this a form-compatible widget
 	value: null,
 	name: "",
+
+	selected: false,
+
+	_setSelectedAttr: function(isSelected){
+		domClass.toggle(this.domNode, "selected", isSelected)
+		if(!isSelected){
+			this.amountInput.set("value", "")
+		}
+	},
 	
 	postCreate: function(){
 		this._setValue()
@@ -31,13 +41,21 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 	},
 
 	_setValue: function(){
-		if(this.checkBox.get("value")){
+		var checked = this.checkBox.get("value")
+		this.set("selected", checked)
+		if(checked){
 			this.value = {
 				participant: this.participant,
 				amount: this.amountInput.get("value") || 0
 			}
 		}else{
 			this.value = {}
+		}
+	},
+
+	_onAmountInput: function(){
+		if(this.amountInput.get("value") && !this.checkBox.get("value")){
+			this.checkBox.set("value", true)
 		}
 	}
 	

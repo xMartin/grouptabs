@@ -13,8 +13,7 @@ return dojo.declare([Widget, _Templated], {
 	postMixInProperties: function(){
 		var data = this.app.store.get(this.entryId)
 		this.tplVars = {
-			title: data.title,
-			date: new Date(data.date).toLocaleDateString()
+			title: data.title
 		}
 		var paymentsList = Array.prototype.slice.call(data.payments)
 		paymentsList.sort(function(a, b){

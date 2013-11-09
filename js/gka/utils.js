@@ -23,6 +23,19 @@ var obj = {
 		})
 	},
 
+	removeTab: function(box){
+		if(!box){
+			return
+		}
+		remoteStorage.gruppenkasse.getTransactions().then(function(transactions){
+			for(var id in transactions){
+				if(transactions[id].box == box){
+					app.deleteEntry(id)
+				}
+			}
+		})
+	},
+
 	importFromJson: function(data){
 		// data: JSON string like
 		// | '{

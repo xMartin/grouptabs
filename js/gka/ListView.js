@@ -51,7 +51,6 @@ return dojo.declare(_View, {
 				domConstruct.place(dateString, this.listNode)
 				day = currentDay
 			}
-			console.log(transaction)
 			var listItem = new ListItem({app: this.app, entryId: transaction.id})
 			on(listItem.domNode, a11yclick, lang.hitch(this, function(){
 				this._onDetailsClick(transaction.id)

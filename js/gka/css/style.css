@@ -212,6 +212,9 @@ td.amount {
 .newEntryView .participantAdd .dijitButtonNode {
 	width: 98px;
 }
+.newEntryView .dijitButton.delete {
+	margin-top: 1em;
+}
 
 
 .boxView .row.boxes {

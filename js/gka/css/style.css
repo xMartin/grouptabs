@@ -212,6 +212,9 @@ td.amount {
 .newEntryView .participantAdd .dijitButtonNode {
 	width: 98px;
 }
+.newEntryView .dijitButton.delete {
+	margin-top: 1em;
+}
 
 
 .boxView .row.boxes {
@@ -253,23 +256,18 @@ td.amount {
 #transactions .transaction:first-child {
 	border-top: none;
 }
-#transactions .transaction .title,
-#transactions .transaction date {
-	display: table-cell;
-	vertical-align: top;
+#transactions .dategroup {
+	background: #ddd;
+	margin: 8px 0 0;
+	padding: 2px 8px;
 }
 #transactions .transaction .title {
 	width: 100%;
 	line-height: 1.1em;
 }
-#transactions .transaction date {
-	padding-left: 1em;
-	white-space: nowrap;
-}
 #transactions .transaction .payments {
 	margin-top: .5em;
 }
-#transactions .transaction date,
 #transactions .transaction .payments {
 	font-size: 68%;
 }

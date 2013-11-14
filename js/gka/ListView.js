@@ -2,11 +2,12 @@ define([
 	"gka/_View",
 	"dojo/_base/lang",
 	"dojo/on",
+	"dojo/dom-construct",
 	"dijit/a11yclick",
 	"dijit/form/Button",
 	"./ListItem",
 	"dojo/text!./templates/ListView.html"
-], function(_View, lang, on, a11yclick, Button, ListItem, template){
+], function(_View, lang, on, domConstruct, a11yclick, Button, ListItem, template){
 
 return dojo.declare(_View, {
 	
@@ -42,7 +43,14 @@ return dojo.declare(_View, {
 			return
 		}
 		var transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}, {"attribute": "id", "descending": true}]})
+		var day
 		transactions.forEach(function(transaction){
+			var currentDay = new Date(transaction.date).toLocaleDateString()
+			if(currentDay != day){
+				var dateString = "<div class='dategroup'>" + currentDay + "</div>"
+				domConstruct.place(dateString, this.listNode)
+				day = currentDay
+			}
 			var listItem = new ListItem({app: this.app, entryId: transaction.id})
 			on(listItem.domNode, a11yclick, lang.hitch(this, function(){
 				this._onDetailsClick(transaction.id)
@@ -56,6 +64,7 @@ return dojo.declare(_View, {
 		this._listItems.forEach(function(listItem){
 			listItem.destroy()
 		})
+		this.listNode.innerHTML = ""
 		this._listItems = []
 	},
 	

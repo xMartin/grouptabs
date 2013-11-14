@@ -23,7 +23,7 @@ return dojo.declare([Widget, _Templated], {
 		var payments = ""
 		paymentsList.forEach(function(payment, idx){
 			idx && (payments += ", ")
-			payments += payment.participant + ": " + number.format(payment.amount, {fractional: false})
+			payments += payment.participant + ": " + number.format(payment.amount, {places: 2})
 		})
 		this.tplVars.payments = payments
 		this.inherited(arguments)

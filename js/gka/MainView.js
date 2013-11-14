@@ -84,7 +84,7 @@ return dojo.declare(_View, {
 		}
 		var html = "<table id='balance'>"
 		accounts.forEach(function(accountObj){
-			var amount = number.format(accountObj.amount, {fractional: false})
+			var amount = number.format(accountObj.amount, {places: 2})
 			html +=
 				"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
 				+ "<th class='account'>" + accountObj.account + "</th>"

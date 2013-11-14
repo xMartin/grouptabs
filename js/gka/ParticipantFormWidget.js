@@ -32,7 +32,7 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 	postCreate: function(){
 		this._setValue()
 		this.participantNode.innerHTML = this.participant
-		this.amountInput.set("placeholder", number.format(0, {fractional: false}))
+		this.amountInput.set("placeholder", number.format(0, {places: 2}))
 		if(this.amount){
 			this.amountInput.set("value", this.amount)
 		}

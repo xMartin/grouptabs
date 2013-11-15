@@ -205,6 +205,7 @@ td.amount {
 .participantInput .dijitNumberTextBox {
 	width: 98px;
 	margin-right: 4px;
+	text-align: right;
 }
 .newEntryView .newParticipantInput {
 	width: 212px;

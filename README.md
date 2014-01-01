@@ -1,6 +1,6 @@
 To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9.
 
-Additionally you need [remoteStorage.js 0.8](http://remotestorage.io/integrate/).
+Additionally you need [remoteStorage.js 0.8 or 0.9](http://remotestorage.io/integrate/).
 
 Your `js/` directory should look like this:
 

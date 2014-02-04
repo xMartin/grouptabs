@@ -43,6 +43,8 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		if(this.amount){
 			this.amountInput.set("value", this.amount)
 		}
+		// dijit doesn't support "onInput" so do it natively
+		this.amountInput.textbox.addEventListener("input", lang.hitch(this, this._onAmountInput))
 		this.amountInput.onChange = lang.hitch(this, "_setValue")
 		this.checkBox.onChange = lang.hitch(this, "_setValue")
 	},
@@ -60,8 +62,9 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		}
 	},
 
-	_onAmountInput: function(){
-		if(this.amountInput.get("value") && !this.checkBox.get("value")){
+	_onAmountInput: function(event){
+		// take value of text field from event as the event is fired before the field is updated
+		if(event.target.value && !this.checkBox.get("value")){
 			this.checkBox.set("value", true)
 		}
 	},

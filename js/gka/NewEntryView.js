@@ -1,11 +1,12 @@
 define([
+	"dojo/_base/lang",
 	"gka/_View",
 	"dijit/registry",
 	"dijit/form/ValidationTextBox",
 	"dijit/form/DateTextBox",
 	"./ParticipantFormWidget",
 	"dojo/text!./templates/NewEntryView.html"
-], function(_View, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, template){
+], function(lang, _View, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, template){
 
 return dojo.declare(_View, {
 	
@@ -15,6 +16,11 @@ return dojo.declare(_View, {
 	
 	constructor: function(){
 		this._participantFormWidgets = []
+	},
+
+	postCreate: function(){
+		// dijit doesn't support "onInput" so do it natively
+		this.newParticipantInput.textbox.addEventListener("input", lang.hitch(this, this._onNewParticipantInput))
 	},
 	
 	onShow: function(entryId){
@@ -85,8 +91,9 @@ return dojo.declare(_View, {
 		this.newParticipantInput.set("value", "")
 	},
 
-	_onNewParticipantInput: function(){
-		this.addNewParticipantButton.set("disabled", !this.newParticipantInput.get("value"))
+	_onNewParticipantInput: function(event){
+		// take value of text field from event as the event is fired before the field is updated
+		this.addNewParticipantButton.set("disabled", !event.target.value)
 	},
 
 	_onOkClick: function(){

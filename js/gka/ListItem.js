@@ -21,16 +21,25 @@ return dojo.declare([Widget, _Templated], {
 			return a.amount > b.amount ? -1 : 1
 		})
 		var payments = ""
+		var total = 0
 		paymentsList.forEach(function(payment, idx){
 			idx && (payments += ", ")
 			payments += payment.participant + ": " + number.format(payment.amount, {places: 2})
-		})
-		this.tplVars.payments = payments
-		var total = 0.0
-		paymentsList.forEach(function(payment, idx){
 			total += payment.amount
 		})
+		this.tplVars.payments = payments
 		this.tplVars.total = number.format(total, {places: 2})
+		var participantsList = Array.prototype.slice.call(data.participants)
+		var participants = ""
+		participantsList.forEach(function(participant){
+			for(var i = 0, l = paymentsList.length; i < l; ++i){
+				if(paymentsList[i].participant == participant){
+					return
+				}
+			}
+			participants += ", " + participant
+		})
+		this.tplVars.participants = participants
 		this.inherited(arguments)
 	}
 	

@@ -7,6 +7,7 @@ js/remotestorage.min.js
 js/release/dojo/dojo.js
 js/release/dojo/resources/blank.gif
 images/favicon-touch.png
+images/arrow.svg
 js/release/dijit/themes/claro/form/images/commonFormArrows.png
 js/release/dijit/themes/claro/images/calendarArrows.png
 js/release/dijit/themes/claro/form/images/buttonArrows.png

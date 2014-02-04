@@ -26,6 +26,11 @@ return dojo.declare([Widget, _Templated], {
 			payments += payment.participant + ": " + number.format(payment.amount, {places: 2})
 		})
 		this.tplVars.payments = payments
+		var total = 0.0
+		paymentsList.forEach(function(payment, idx){
+			total += payment.amount
+		})
+		this.tplVars.total = number.format(total, {places: 2})
 		this.inherited(arguments)
 	}
 	

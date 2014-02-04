@@ -246,6 +246,17 @@ td.amount {
 .boxView .row.boxes {
 	margin: 1em 0;
 }
+.boxes .dijitButton {
+	border: 0 solid #ddd;
+	border-bottom-width: 1px;
+}
+.boxes .dijitButton:first-child {
+	border-top-width: 1px;
+}
+.claro .boxes .dijitButton .dijitButtonNode {
+	background: transparent url(../../../images/arrow.svg) right 10px center no-repeat;
+	text-align: left;
+}
 .claro .boxView .dijitTextBox .dijitInputInner {
 	padding-right: 90px !important;
 }

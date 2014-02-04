@@ -17,9 +17,11 @@
 		<div class="form-row">
 			<div class="form-row-input" data-dojo-attach-point="participantsNode"></div>
 		</div>
-		<div class="for-row">
+		<div class="form-row">
 			<div class="form-row-input" data-dojo-attach-point="newParticipantsNode">
-				<input data-dojo-type="dijit.form.TextBox" data-dojo-attach-point="newParticipantInput" data-dojo-attach-event="onKeyUp:_onNewParticipantInput" class="newParticipantInput" placeholder="New participant …">
+				<div class="newParticipantInput">
+					<input data-dojo-type="dijit.form.TextBox" data-dojo-attach-point="newParticipantInput" data-dojo-attach-event="onKeyUp:_onNewParticipantInput" placeholder="New participant …">
+				</div>
 				<span data-dojo-type="dijit.form.Button" data-dojo-attach-event="onClick:_onNewParticipantClick" data-dojo-attach-point="addNewParticipantButton" class="participantAdd" disabled>Add</span>
 			</div>
 		</div>

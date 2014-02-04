@@ -215,6 +215,7 @@ td.amount {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 	padding: 0 94px 0 44px;
+	cursor: pointer;
 }
 .participantInput .dijitNumberTextBox {
 	position: absolute;

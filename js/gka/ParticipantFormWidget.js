@@ -64,6 +64,10 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		if(this.amountInput.get("value") && !this.checkBox.get("value")){
 			this.checkBox.set("value", true)
 		}
+	},
+
+	_onParticipantClick: function(){
+		this.checkBox.set("value", !this.checkBox.get("value"))
 	}
 	
 })

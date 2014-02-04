@@ -39,8 +39,16 @@ return dojo.declare(_View, {
 	
 	_createParticipantFormWidgets: function(data){
 		var accounts = this.app.getAccounts()
+		var accountCount = (function(){
+			var count = 0
+			for(var key in accounts){
+				count++
+			}
+			return count
+		})()
+		var isChecked = !data && accountCount == 2
 		for(var account in accounts){
-			this._createParticipantFormWidget(account, data)
+			this._createParticipantFormWidget(account, data, isChecked)
 		}
 	},
 

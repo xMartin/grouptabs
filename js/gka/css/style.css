@@ -57,10 +57,6 @@ table {
 	width: 100%;
 	table-layout: fixed;
 }
-.listView tr:hover {
-	cursor: pointer;
-	background: #ddd;
-}
 td, th {
 	padding: .4em;
 	overflow: hidden;
@@ -291,9 +287,21 @@ td.amount {
 	margin: 8px 0 0;
 	padding: 2px 8px;
 }
-#transactions .transaction .title {
+#transactions .transaction table {
+	table-layout: auto;
+	border-collapse: collapse;
 	width: 100%;
+	margin: 0;
+}
+#transactions .transaction .title {
 	line-height: 1.1em;
+	width: 100%;
+	padding: 0;
+}
+#transactions .transaction .total {
+	line-height: 1.1em;
+	white-space: nowrap;
+	padding: 0;
 }
 #transactions .transaction .payments {
 	margin-top: .5em;

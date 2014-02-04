@@ -204,13 +204,14 @@ td.amount {
 	left: 0;
 }
 .participantInput .participant {
+	position: absolute;
 	width: 100%;
 	height: 100%;
 	line-height: 44px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 0 94px 0 44px;
+	padding: 0 102px 0 44px;
 	cursor: pointer;
 }
 .participantInput .dijitNumberTextBox {

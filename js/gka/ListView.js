@@ -81,7 +81,7 @@ return dojo.declare(_View, {
 	},
 	
 	_onDetailsClick: function(id){
-		this.close(this, "details", {entryId: id})
+		this.close(this, "newEntry", id)
 	}
 })
 

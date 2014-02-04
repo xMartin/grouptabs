@@ -4,9 +4,8 @@ define([
 	"gka/BoxView",
 	"gka/MainView",
 	"gka/NewEntryView",
-	"gka/ListView",
-	"gka/DetailsView"
-], function(RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView, DetailsView){
+	"gka/ListView"
+], function(RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView){
 
 var remoteStorageAdapter = new RemoteStorageAdapter()
 var store = remoteStorageAdapter.store
@@ -23,8 +22,7 @@ var obj = {
 				"box": new BoxView({app: obj, controller: viewController}),
 				"main": new MainView({app: obj, controller: viewController}),
 				"newEntry": new NewEntryView({app: obj, controller: viewController}),
-				"list": new ListView({app: obj, controller: viewController}),
-				"details": new DetailsView({app: obj, controller: viewController})
+				"list": new ListView({app: obj, controller: viewController})
 			},
 			initData = function(){
 				remoteStorage.gruppenkasse.getTransactions().then(function(data){

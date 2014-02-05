@@ -3,13 +3,13 @@
 
 @font-face {
 	font-family: SourceSansPro-Regular;
-	src: url(../../../fonts/SourceSansPro-Regular.ttf) format('truetype');
+	src: url(/fonts/SourceSansPro-Regular.ttf) format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
 @font-face {
 	font-family: SourceSansPro-Semibold;
-	src: url(../../../fonts/SourceSansPro-Semibold.ttf) format('truetype');
+	src: url(/fonts/SourceSansPro-Semibold.ttf) format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -291,7 +291,7 @@ td.amount {
 	border-top-width: 1px;
 }
 .claro .boxes .dijitButton .dijitButtonNode {
-	background: transparent url(../../../images/arrow.svg) right center no-repeat;
+	background: transparent url(/images/arrow.svg) right center no-repeat;
 	text-align: left;
 }
 .claro .boxView .dijitTextBox .dijitInputInner {
@@ -330,7 +330,7 @@ td.amount {
 	border-top: 1px solid #ddd;
 	min-height: 44px;
 	cursor: pointer;
-	background: url(../../../images/arrow.svg) right center no-repeat;
+	background: url(/images/arrow.svg) right center no-repeat;
 }
 #transactions .transaction:first-child {
 	border-top: none;

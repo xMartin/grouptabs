@@ -1,9 +1,23 @@
 @import url(../../dijit/themes/claro/claro.css);
 @import url(../../dijit/themes/claro/document.css);
 
+@font-face {
+	font-family: SourceSansPro-Regular;
+	src: url(../../../fonts/SourceSansPro-Regular.ttf) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: SourceSansPro-Semibold;
+	src: url(../../../fonts/SourceSansPro-Semibold.ttf) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 .claro {
-	font-size: 1em;
+	font-size: 18px;
 	background: #f2f2f2;
+	font-family: SourceSansPro-Regular, sans-serif;
 }
 
 .header {
@@ -15,6 +29,7 @@
 	position: absolute;
 	top: 7px;
 	margin-left: 12px;
+	font-size: 22px;
 }
 .header .dijitButton {
 	margin: 0;
@@ -44,7 +59,20 @@
 .dijitButton,
 .dijitDropDownButton,
 .dijitComboButton {
-	margin: 1px 0;
+	margin: 0;
+}
+
+.dijitPlaceHolder {
+	font-style: normal;
+}
+
+.dijitButtonContents {
+	line-height: 100%;
+	margin-top: -1px;
+}
+
+.claro .dijitButtonText {
+	padding: 2px 0 0;
 }
 
 .newEntryView .form,
@@ -175,13 +203,21 @@ td.amount {
 }
 .row.toggle .dijitButtonDisabled .dijitButtonNode {
 	color: #000;
-	font-weight: bold;
+	font-family: SourceSansPro-Semibold, sans-serif;
 	border: none;
 	background: transparent;
 }
 
 
 /* new entry view */
+.newEntryView .header .dijitButtonNode {
+	font-size: 28px;
+	line-height: 100%;
+	color: #666;
+	padding: 6px 0 0 !important;
+	width: 44px;
+}
+
 .newEntryView .dijitCheckBox {
 	margin: 14px;
 }
@@ -264,7 +300,7 @@ td.amount {
 .boxView .dijitButton.create {
 	position: relative;
 	float: right;
-	top: -45px;
+	top: -44px;
 }
 .boxView .dijitButton.create .dijitButtonNode {
 	border-radius: 0;
@@ -281,12 +317,16 @@ td.amount {
 	box-sizing: border-box;
 	height: 44px;
 }
+#summary th,
+#summary td {
+	padding: 10px;
+}
 
 #transactions .transaction {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 8px 35px 8px 8px;
+	padding: 8px 35px 8px 10px;
 	border-top: 1px solid #ddd;
 	min-height: 44px;
 	cursor: pointer;
@@ -298,7 +338,8 @@ td.amount {
 #transactions .dategroup {
 	background: #ddd;
 	margin: 8px 0 0;
-	padding: 2px 8px;
+	padding: 2px 10px;
+	font-size: 12px;
 }
 #transactions .transaction table {
 	table-layout: auto;
@@ -315,14 +356,11 @@ td.amount {
 	line-height: 1.1em;
 	white-space: nowrap;
 	padding: 0;
+	vertical-align: middle;
 }
 #transactions .transaction .payments {
-	margin-top: .5em;
-}
-#transactions .transaction .payments {
-	font-size: 68%;
-}
-
+	margin-top: 2px;
+	font-size: 12px;
 }
 
 

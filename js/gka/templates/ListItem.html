@@ -1,9 +1,11 @@
 <div class="transaction">
 	<table>
 		<tr>
-			<td class="title">${tplVars.title}</td>
+			<td class="title">
+				${tplVars.title}
+				<div class="payments">${tplVars.payments}${tplVars.participants}</div>
+			</td>
 			<td class="total">${tplVars.total}</td>
 		</tr>
 	</table>
-	<div class="payments">${tplVars.payments}${tplVars.participants}</div>
 </div>

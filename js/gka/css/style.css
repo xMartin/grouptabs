@@ -110,6 +110,9 @@ td.amount {
 	min-height: 44px;
 	padding: 10px !important;
 }
+.dijitTextBox .dijitInputInner {
+	background: transparent;  /* firefox mobile has a gradient otherwise */
+}
 
 .claro .dijitTextBox .dijitInputField {
 	padding: 0;

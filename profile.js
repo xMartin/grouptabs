@@ -11,6 +11,10 @@ var profile = {
 		{
 			name: "gka",
 			location: "js/gka"
+		},
+		{
+			name: "remotestorage",
+			location: "js/remotestorage"
 		}
 	],
 	layers: {

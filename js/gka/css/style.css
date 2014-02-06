@@ -47,6 +47,13 @@
 	display: inline-block;
 }
 
+article {
+	padding: 10px;
+}
+article p {
+	margin: 0 0 1em;
+}
+
 .form-row {
 	padding: 3px 0;
 	position: relative;

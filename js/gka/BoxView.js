@@ -27,6 +27,11 @@ return dojo.declare(_View, {
 		})
 		this._boxButtons = []
 		this._createBoxButtons()
+		if(this._getBoxes().length){
+			this.noBoxesNode.style.display = 'none'
+		}else{
+			this.noBoxesNode.style.display = ''
+		}
 	},
 
 	_createBoxButtons: function(){

@@ -38,13 +38,25 @@ return dojo.declare(_View, {
 	refresh: function(){
 		this.boxNameNode.innerHTML = this.app.box
 		this.refreshSummary()
+		this._checkEmpty()
 	},
 	
 	refreshSummary: function(){
 		this._clearSummary()
 		this._renderSummary()
 	},
-	
+
+	_checkEmpty: function(){
+		var transactions = this.app.store.query({box: this.app.box})
+		if(transactions.length){
+			this.contentNode.style.display = ''
+			this.emptyNode.style.display = 'none'
+		}else{
+			this.contentNode.style.display = 'none'
+			this.emptyNode.style.display = ''
+		}
+	},
+
 	_renderSummary: function(){
 		var accounts = (function(accountsObj){
 			var result = []

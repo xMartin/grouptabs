@@ -83,7 +83,7 @@ return dojo.declare(_View, {
 		})()
 		var cssColor = function(amount){
 			if(!maxAmount){
-				'transparent'
+				return 'transparent'
 			}
 			var isNegative = amount < 0
 			amount = Math.abs(amount)

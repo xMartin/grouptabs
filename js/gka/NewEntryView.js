@@ -29,6 +29,10 @@ return dojo.declare(_View, {
 			this.headingNode.innerHTML = "Edit transaction"
 		}else{
 			this._createParticipantFormWidgets()
+			if(!this._participantFormWidgets.length){
+				this._createNewParticipantFormWidget()
+				this._createNewParticipantFormWidget()
+			}
 			this._hideDeleteButton()
 			this.headingNode.innerHTML = "New transaction"
 		}

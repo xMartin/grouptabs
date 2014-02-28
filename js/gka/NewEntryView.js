@@ -33,6 +33,9 @@ return dojo.declare(_View, {
 				this._createNewParticipantFormWidget()
 				this._createNewParticipantFormWidget()
 			}
+			if(this._participantFormWidgets.length < 3){
+				this.selectAllButton.domNode.style.display = "none"
+			}
 			this._hideDeleteButton()
 			this.headingNode.innerHTML = "New transaction"
 		}
@@ -168,6 +171,7 @@ return dojo.declare(_View, {
 		this.inherited(arguments)
 		delete this._editEntry
 		this._hideDeleteButton()
+		this.selectAllButton.domNode.style.display = ""
 		this._removeParticipantFormWidgets()
 	}
 

@@ -19,13 +19,6 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 	value: null,
 	name: "",
 
-	buildRendering: function(){
-		this.inherited(arguments)
-
-		// HACK set amount input dijit's input type to HTML5's "number"
-		this.amountInput.textbox.setAttribute("type", "number")
-	},
-		
 	postCreate: function(){
 		this._setValue()
 		this.amountInput.set("placeholder", number.format(0, {places: 2}))

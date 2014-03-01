@@ -23,7 +23,8 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 	selected: false,
 
 	_setSelectedAttr: function(isSelected){
-		domClass.toggle(this.domNode, "selected", isSelected)
+		domClass.toggle(this.domNode, "selected", !!isSelected)
+		this.checkBox.set("value", !!isSelected)
 		if(!isSelected){
 			this.amountInput.set("value", "")
 		}

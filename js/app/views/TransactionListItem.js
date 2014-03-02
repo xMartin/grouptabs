@@ -2,7 +2,7 @@ define([
 	"dojo/number",
 	"dijit/_Widget",
 	"dijit/_TemplatedMixin",
-	"dojo/text!./templates/ListItem.html"
+	"dojo/text!./templates/TransactionListItem.html"
 ], function(number, Widget, _Templated, template){
 
 return dojo.declare([Widget, _Templated], {

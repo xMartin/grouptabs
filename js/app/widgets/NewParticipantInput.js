@@ -4,7 +4,7 @@ define([
 	"dijit/_TemplatedMixin",
 	"dijit/_WidgetsInTemplateMixin",
 	"dojo/number",
-	"dojo/text!./templates/NewParticipantFormWidget.html",
+	"dojo/text!./templates/NewParticipantInput.html",
 	"dijit/form/TextBox",
 	"dijit/form/NumberTextBox"
 ], function(lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, number, template){

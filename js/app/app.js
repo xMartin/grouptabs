@@ -1,11 +1,11 @@
 define([
 	"remotestorage",
-	"./store/RemoteStorageAdapter",
-	"./viewController",
-	"./BoxView",
-	"./MainView",
-	"./NewEntryView",
-	"./ListView"
+	"./RemoteStorageStoreAdapter",
+	"./sceneController",
+	"./views/Tabs",
+	"./views/Main",
+	"./views/EditEntry",
+	"./views/TransactionList"
 ], function(remoteStorage, RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView){
 
 var remoteStorageAdapter = new RemoteStorageAdapter()
@@ -20,7 +20,7 @@ var obj = {
 	init: function(){
 		var viewName, view,
 			views = {
-				"box": new BoxView({app: obj, controller: viewController}),
+				"tabs": new BoxView({app: obj, controller: viewController}),
 				"main": new MainView({app: obj, controller: viewController}),
 				"newEntry": new NewEntryView({app: obj, controller: viewController}),
 				"list": new ListView({app: obj, controller: viewController})
@@ -60,14 +60,14 @@ var obj = {
 			emptyData = function(){
 				store.setData([])
 				viewController.refreshAll()
-				viewController.selectView(views["box"])
+				viewController.selectView(views["tabs"])
 			}
 		
 		for(viewName in views){
 			view = views[viewName]
 			viewController.addView(view)
 		}
-		viewController.selectView(obj.box ? views["main"] : views["box"])
+		viewController.selectView(obj.box ? views["main"] : views["tabs"])
 		
 		// init remote storage
 		remoteStorage.access.claim("gruppenkasse", "rw")

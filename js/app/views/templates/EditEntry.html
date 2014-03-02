@@ -1,4 +1,4 @@
-<div class="view newEntryView">
+<div class="view editEntryView">
 	<div class="header">
 		<span data-dojo-type ="dijit.form.Button" data-dojo-attach-event="onClick:_onCancelClick">×</span>
 		<h2 data-dojo-attach-point="headingNode"></h2>
@@ -6,12 +6,12 @@
 	<div class="form">
 		<div class="form-row">
 			<div class="form-row-input">
-				<input id="newEntryTitle" name="title" placeholder="Title" data-dojo-type="dijit.form.ValidationTextBox">
+				<input id="editEntryTitle" name="title" placeholder="Title" data-dojo-type="dijit.form.ValidationTextBox">
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="form-row-input">
-				<input id="newEntryDate" name="date" data-dojo-type="dijit.form.DateTextBox" data-dojo-props="value: new Date()">
+				<input id="editEntryDate" name="date" data-dojo-type="dijit.form.DateTextBox" data-dojo-props="value: new Date()">
 			</div>
 		</div>
 		<div class="form-row">

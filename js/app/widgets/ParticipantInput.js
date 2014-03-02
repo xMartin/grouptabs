@@ -7,7 +7,7 @@ define([
 	"dijit/form/NumberTextBox",
 	"dojo/number",
 	"dojo/dom-class",
-	"dojo/text!./templates/ParticipantFormWidget.html"
+	"dojo/text!./templates/ParticipantInput.html"
 ], function(lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, CheckBox, NumberTextBox, number, domClass, template){
 
 return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {

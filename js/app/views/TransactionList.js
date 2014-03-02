@@ -1,15 +1,15 @@
 define([
-	"./_View",
+	"./_Scene",
 	"dojo/_base/lang",
 	"dojo/on",
 	"dojo/dom-construct",
 	"dijit/a11yclick",
 	"dijit/form/Button",
-	"./ListItem",
-	"dojo/text!./templates/ListView.html"
-], function(_View, lang, on, domConstruct, a11yclick, Button, ListItem, template){
+	"./TransactionListItem",
+	"dojo/text!./templates/TransactionList.html"
+], function(_Scene, lang, on, domConstruct, a11yclick, Button, ListItem, template){
 
-return dojo.declare(_View, {
+return dojo.declare(_Scene, {
 	
 	templateString: template,
 	
@@ -69,7 +69,7 @@ return dojo.declare(_View, {
 	},
 	
 	_onChangeBoxClick: function(){
-		this.close(this, "box")
+		this.close(this, "tabs")
 	},
 	
 	_onPeopleClick: function(){
@@ -77,11 +77,11 @@ return dojo.declare(_View, {
 	},
 	
 	_onNewEntryClick: function(){
-		this.close(this, "newEntry")
+		this.close(this, "editEntry")
 	},
 	
 	_onDetailsClick: function(id){
-		this.close(this, "newEntry", id)
+		this.close(this, "editEntry", id)
 	}
 })
 

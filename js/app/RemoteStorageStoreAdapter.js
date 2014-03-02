@@ -2,7 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/connect",
 	"dojo/store/Memory",
-	"../remoteStorageModule"
+	"./remoteStorageModule"
 ], function(declare, connect, memoryStore, remoteStorageModule){
 
 

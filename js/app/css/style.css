@@ -82,7 +82,7 @@ article p {
 	padding: 2px 0 0;
 }
 
-.newEntryView .form,
+.editEntryView .form,
 .listView table,
 .summaryView table {
 	margin-bottom: 1em;
@@ -219,8 +219,8 @@ td.amount {
 }
 
 
-/* new entry view */
-.newEntryView .header .dijitButtonNode {
+/* edit entry view */
+.editEntryView .header .dijitButtonNode {
 	font-size: 28px;
 	line-height: 100%;
 	color: #666;
@@ -228,10 +228,10 @@ td.amount {
 	width: 44px;
 }
 
-.newEntryView .dijitCheckBox {
+.editEntryView .dijitCheckBox {
 	margin: 14px;
 }
-.newEntryView .dijitTextBox {
+.editEntryView .dijitTextBox {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -287,7 +287,7 @@ td.amount {
 	background: #ddd;
 	color: #000;
 }
-.newEntryView .dijitButton.delete {
+.editEntryView .dijitButton.delete {
 	margin-top: 1em;
 }
 

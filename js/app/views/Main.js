@@ -1,11 +1,11 @@
 define([
 	"dojo/dom-construct",
 	"dojo/number",
-	"./_View",
-	"dojo/text!./templates/MainView.html"
-], function(domConstruct, number, _View, template){
+	"./_Scene",
+	"dojo/text!./templates/Main.html"
+], function(domConstruct, number, _Scene, template){
 
-return dojo.declare(_View, {
+return dojo.declare(_Scene, {
 	
 	templateString: template,
 	
@@ -16,11 +16,11 @@ return dojo.declare(_View, {
 	},
 	
 	_onChangeBoxClick: function(){
-		this.close(this, "box")
+		this.close(this, "tabs")
 	},
 	
 	_onNewEntryClick: function(){
-		this.close(this, "newEntry")
+		this.close(this, "editEntry")
 	},
 	
 	_onSummaryClick: function(){

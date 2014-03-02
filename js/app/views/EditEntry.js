@@ -1,19 +1,19 @@
 define([
 	"dojo/_base/lang",
-	"./_View",
+	"./_Scene",
 	"dijit/registry",
 	"dijit/form/ValidationTextBox",
 	"dijit/form/DateTextBox",
-	"./ParticipantFormWidget",
-	"./NewParticipantFormWidget",
-	"dojo/text!./templates/NewEntryView.html"
-], function(lang, _View, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
+	"../widgets/ParticipantInput",
+	"../widgets/NewParticipantInput",
+	"dojo/text!./templates/EditEntry.html"
+], function(lang, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
 
-return dojo.declare(_View, {
+return dojo.declare(_Scene, {
 	
 	templateString: template,
 	
-	name: "newEntry",
+	name: "editEntry",
 	
 	constructor: function(){
 		this._participantFormWidgets = []
@@ -42,8 +42,8 @@ return dojo.declare(_View, {
 	},
 
 	_prefill: function(data){
-		dijitRegistry.byId("newEntryTitle").set("value", data.title)
-		dijitRegistry.byId("newEntryDate").set("value", new Date(data.date))
+		dijitRegistry.byId("editEntryTitle").set("value", data.title)
+		dijitRegistry.byId("editEntryDate").set("value", new Date(data.date))
 	},
 	
 	_createParticipantFormWidgets: function(data){

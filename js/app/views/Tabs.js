@@ -1,17 +1,17 @@
 define([
-	"./_View",
+	"./_Scene",
 	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dijit/form/Button",
 	"dijit/form/ValidationTextBox",
-	"dojo/text!./templates/BoxView.html"
-], function(_View, lang, domClass, Button, ValidationTextBox, template){
+	"dojo/text!./templates/Tabs.html"
+], function(_Scene, lang, domClass, Button, ValidationTextBox, template){
 
-return dojo.declare(_View, {
+return dojo.declare(_Scene, {
 
 	templateString: template,
 
-	name: "box",
+	name: "tabs",
 
 	constructor: function(){
 		this._boxButtons = []

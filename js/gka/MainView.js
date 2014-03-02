@@ -1,7 +1,7 @@
 define([
 	"dojo/dom-construct",
 	"dojo/number",
-	"gka/_View",
+	"./_View",
 	"dojo/text!./templates/MainView.html"
 ], function(domConstruct, number, _View, template){
 

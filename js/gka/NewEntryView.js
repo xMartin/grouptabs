@@ -1,6 +1,6 @@
 define([
 	"dojo/_base/lang",
-	"gka/_View",
+	"./_View",
 	"dijit/registry",
 	"dijit/form/ValidationTextBox",
 	"dijit/form/DateTextBox",

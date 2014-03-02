@@ -1,5 +1,5 @@
 define([
-	"gka/_View",
+	"./_View",
 	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dijit/form/Button",

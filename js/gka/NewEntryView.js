@@ -91,6 +91,8 @@ return dojo.declare(_View, {
 
 	_onNewParticipantClick: function(){
 		this._createNewParticipantFormWidget()
+		var widget = this._participantFormWidgets[this._participantFormWidgets.length - 1]
+		widget.set("focus", true)
 	},
 
 	_createNewParticipantFormWidget: function(){

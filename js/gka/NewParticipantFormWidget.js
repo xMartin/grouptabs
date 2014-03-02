@@ -40,6 +40,10 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		}
 	},
 
+	_setFocusAttr: function(focus){
+		focus && this.participantInput.focus()
+	},
+
 	_onRemoveClick: function(){
 		this.onRemove(this)
 	},

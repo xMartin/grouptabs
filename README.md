@@ -1,5 +1,7 @@
 To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9 (for debugging or creating an optimized build use the source distribution).
 
+You can use bower to install the Dojo packages.
+
 Your `js/` directory should look like this:
 
 ```
@@ -22,4 +24,4 @@ To do a build run
 
     ./build.sh
 
-You need [Node.js](http://nodejs.org/) for that. Then you can use `index.html`.
+You need [Node.js](http://nodejs.org/) for that and the `util` package (not available via bower). Then you can use `index.html`.

@@ -1,0 +1,11 @@
+{
+  "name": "grouptabs",
+  "version": "0.0.0",
+  "dependencies": {
+    "dojo": "~1.9.2",
+    "dijit": "~1.9.2"
+  },
+  "devDependencies": {
+
+  }
+}

@@ -1,4 +1,5 @@
 define([
+	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dijit/_Widget",
 	"dijit/_TemplatedMixin",
@@ -8,9 +9,9 @@ define([
 	"dojo/number",
 	"dojo/dom-class",
 	"dojo/text!./templates/ParticipantInput.html"
-], function(lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, CheckBox, NumberTextBox, number, domClass, template){
+], function(declare, lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, CheckBox, NumberTextBox, number, domClass, template){
 
-return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
+return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
 	templateString: template,
 	

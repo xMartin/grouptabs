@@ -1,5 +1,7 @@
 define([
+	"dojo/_base/declare",
 	"dojo/_base/lang",
+	"dojo/_base/array",
 	"./_Scene",
 	"dijit/registry",
 	"dijit/form/ValidationTextBox",
@@ -7,9 +9,9 @@ define([
 	"../widgets/ParticipantInput",
 	"../widgets/NewParticipantInput",
 	"dojo/text!./templates/EditEntry.html"
-], function(lang, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
+], function(declare, lang, array, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
 
-return dojo.declare(_Scene, {
+return declare(_Scene, {
 	
 	templateString: template,
 	
@@ -138,16 +140,16 @@ return dojo.declare(_Scene, {
 	
 	_saveEntry: function(){
 		var data = this.get("value")
-		var participants = dojo.filter(data.participants, function(participant){
+		var participants = array.filter(data.participants, function(participant){
 			return participant.participant
 		})
-		participants = dojo.map(participants, function(participant){
+		participants = array.map(participants, function(participant){
 			return participant.participant
 		})
-		var payments = dojo.filter(data.participants, function(participant){
+		var payments = array.filter(data.participants, function(participant){
 			return participant.participant && participant.amount
 		})
-		payments = dojo.map(payments, function(participant){
+		payments = array.map(payments, function(participant){
 			return {participant: participant.participant, amount: participant.amount}
 		})
 		this.app.saveEntry({

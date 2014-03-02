@@ -1,13 +1,14 @@
 define([
 	"./_Scene",
+	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom-class",
 	"dijit/form/Button",
 	"dijit/form/ValidationTextBox",
 	"dojo/text!./templates/Tabs.html"
-], function(_Scene, lang, domClass, Button, ValidationTextBox, template){
+], function(_Scene, declare, lang, domClass, Button, ValidationTextBox, template){
 
-return dojo.declare(_Scene, {
+return declare(_Scene, {
 
 	templateString: template,
 

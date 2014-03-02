@@ -1,11 +1,12 @@
 define([
+	"dojo/_base/declare",
 	"dojo/number",
 	"dijit/_Widget",
 	"dijit/_TemplatedMixin",
 	"dojo/text!./templates/TransactionListItem.html"
-], function(number, Widget, _Templated, template){
+], function(declare, number, Widget, _Templated, template){
 
-return dojo.declare([Widget, _Templated], {
+return declare([Widget, _Templated], {
 	
 	templateString: template,
 	

@@ -1,5 +1,6 @@
 define([
 	"./_Scene",
+	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/on",
 	"dojo/dom-construct",
@@ -7,9 +8,9 @@ define([
 	"dijit/form/Button",
 	"./TransactionListItem",
 	"dojo/text!./templates/TransactionList.html"
-], function(_Scene, lang, on, domConstruct, a11yclick, Button, ListItem, template){
+], function(_Scene, declare, lang, on, domConstruct, a11yclick, Button, ListItem, template){
 
-return dojo.declare(_Scene, {
+return declare(_Scene, {
 	
 	templateString: template,
 	

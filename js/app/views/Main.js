@@ -1,11 +1,12 @@
 define([
+	"dojo/_base/declare",
 	"dojo/dom-construct",
 	"dojo/number",
 	"./_Scene",
 	"dojo/text!./templates/Main.html"
-], function(domConstruct, number, _Scene, template){
+], function(declare, domConstruct, number, _Scene, template){
 
-return dojo.declare(_Scene, {
+return declare(_Scene, {
 	
 	templateString: template,
 	

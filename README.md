@@ -7,7 +7,7 @@ root/
 + js/
   + dijit/
   + dojo/
-  + gka/
+  + app/
   + remotestorage/
   + util/  (only part of Dojo source distribution)
 ```

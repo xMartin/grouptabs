@@ -9,8 +9,8 @@ var profile = {
 			location: "js/dijit"
 		},
 		{
-			name: "gka",
-			location: "js/gka"
+			name: "app",
+			location: "js/app"
 		},
 		{
 			name: "remotestorage",
@@ -21,7 +21,7 @@ var profile = {
 		"dojo/dojo": {
 			include: [
 				"dojo/selector/acme",
-				"gka/app"
+				"app/app"
 			],
 			includeLocales: ["en", "en-us", "de"]
 		}

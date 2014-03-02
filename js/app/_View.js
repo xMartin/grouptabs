@@ -9,10 +9,9 @@ define([
 
 return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _Container, _FormMixin], {
 	
-	// app: [gka.app]
 	app: null,
 	
-	// controller: [gka.ViewController]
+	// controller: [viewController]
 	controller: null,
 	
 	close: function(view, message, params){

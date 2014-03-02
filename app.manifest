@@ -2,7 +2,7 @@ CACHE MANIFEST
 # version: LET_DEPLOYMENT_DO_THIS
 
 CACHE:
-js/release/gka/css/style.css
+js/release/app/css/style.css
 js/release/dojo/dojo.js
 js/release/dojo/resources/blank.gif
 images/favicon-touch.png

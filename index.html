@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html manifest="gruppenkasse.manifest">
+<html manifest="app.manifest">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
@@ -14,10 +14,10 @@
 	<!-- iPhone -->
 	<link rel="apple-touch-startup-image" href="images/splash-460.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)">
 
-	<link rel="stylesheet" type="text/css" href="js/release/gka/css/style.css">
+	<link rel="stylesheet" type="text/css" href="js/release/app/css/style.css">
 	<script data-dojo-config="async:true, packages:[{name:'remotestorage', location:'../remotestorage'}]" type="text/javascript" src="js/release/dojo/dojo.js"></script>
 	<script type="text/javascript">
-		require(["dojo/ready", "gka/app"], function(ready, app){
+		require(["dojo/ready", "app/app"], function(ready, app){
 			ready(app.init)
 		})
 	</script>

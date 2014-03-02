@@ -283,6 +283,9 @@ td.amount {
 	width: 30px;
 	text-align: center;
 	line-height: 40px;
+	height: 100%;
+	background: #ddd;
+	color: #000;
 }
 .newEntryView .dijitButton.delete {
 	margin-top: 1em;

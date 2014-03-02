@@ -5,8 +5,9 @@ define([
 	"dijit/form/ValidationTextBox",
 	"dijit/form/DateTextBox",
 	"./ParticipantFormWidget",
+	"./NewParticipantFormWidget",
 	"dojo/text!./templates/NewEntryView.html"
-], function(lang, _View, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, template){
+], function(lang, _View, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
 
 return dojo.declare(_View, {
 	
@@ -18,11 +19,6 @@ return dojo.declare(_View, {
 		this._participantFormWidgets = []
 	},
 
-	postCreate: function(){
-		// dijit doesn't support "onInput" so do it natively
-		this.newParticipantInput.textbox.addEventListener("input", lang.hitch(this, this._onNewParticipantInput))
-	},
-	
 	onShow: function(entryId){
 		if(entryId !== undefined){
 			var data = this.app.store.get(entryId)
@@ -33,6 +29,13 @@ return dojo.declare(_View, {
 			this.headingNode.innerHTML = "Edit transaction"
 		}else{
 			this._createParticipantFormWidgets()
+			if(!this._participantFormWidgets.length){
+				this._createNewParticipantFormWidget()
+				this._createNewParticipantFormWidget()
+			}
+			if(this._participantFormWidgets.length < 3){
+				this.selectAllButton.domNode.style.display = "none"
+			}
 			this._hideDeleteButton()
 			this.headingNode.innerHTML = "New transaction"
 		}
@@ -80,20 +83,37 @@ return dojo.declare(_View, {
 
 	_removeParticipantFormWidgets: function(){
 		this._participantFormWidgets.forEach(function(widget){
-			this.participantsNode.removeChild(widget.domNode)
+//			this.participantsNode.removeChild(widget.domNode)
 			widget.destroy()
 		}, this)
 		this._participantFormWidgets = []
 	},
 
 	_onNewParticipantClick: function(){
-		this._createParticipantFormWidget(this.newParticipantInput.get("value"), null, true)
-		this.newParticipantInput.set("value", "")
+		this._createNewParticipantFormWidget()
+		var widget = this._participantFormWidgets[this._participantFormWidgets.length - 1]
+		widget.set("focus", true)
 	},
 
-	_onNewParticipantInput: function(event){
-		// take value of text field from event as the event is fired before the field is updated
-		this.addNewParticipantButton.set("disabled", !event.target.value)
+	_createNewParticipantFormWidget: function(){
+		var widget = new NewParticipantFormWidget({name: "participants"})
+		this.connect(widget, "onRemove", this._removeNewParticipantFormWidget)
+		widget.placeAt(this.participantsNode)
+		this._participantFormWidgets.push(widget)
+	},
+
+	_removeNewParticipantFormWidget: function(widget){
+		this._participantFormWidgets.forEach(function(_widget){
+			if(_widget == widget){
+				widget.destroy()
+			}
+		})
+	},
+
+	_onAllClick: function(){
+		this._participantFormWidgets.forEach(function(widget){
+			widget.set("selected", true)
+		})
 	},
 
 	_onOkClick: function(){
@@ -152,8 +172,8 @@ return dojo.declare(_View, {
 	reset: function(){
 		this.inherited(arguments)
 		delete this._editEntry
-		this.addNewParticipantButton.set("disabled", true)
 		this._hideDeleteButton()
+		this.selectAllButton.domNode.style.display = ""
 		this._removeParticipantFormWidgets()
 	}
 

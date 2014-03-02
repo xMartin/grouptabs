@@ -237,7 +237,8 @@ td.amount {
 	box-sizing: border-box;
 	width: 100%;
 }
-.participantInput {
+.participantInput,
+.newParticipantInput {
 	color: #999;
 	position: relative;
 	height: 44px;
@@ -248,6 +249,7 @@ td.amount {
 .participantInput .dijitCheckBox {
 	position: absolute;
 	left: 0;
+	z-index: 1;
 }
 .participantInput .participant {
 	position: absolute;
@@ -260,30 +262,30 @@ td.amount {
 	padding: 0 102px 0 44px;
 	cursor: pointer;
 }
-.participantInput .dijitNumberTextBox {
+.newParticipantInput .participant {
+	padding-right: 134px;
+}
+.participantInput .dijitNumberTextBox,
+.newParticipantInput .dijitNumberTextBox {
 	position: absolute;
 	right: 0;
 	top: 0;
+	z-index: 1;
 	width: 98px;
 	height: 100%;
 	text-align: right;
 }
-.newEntryView .newParticipantInput {
-	width: 100%;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	padding-right: 102px;
-}
-.newEntryView .participantAdd {
+.newParticipantInput .remove {
 	position: absolute;
-	right: 0;
+	right: 102px;
 	top: 0;
-	width: 98px;
-	margin: 0;
-}
-.newEntryView .participantAdd .dijitButtonNode {
-	width: 100%;
+	z-index: 1;
+	width: 30px;
+	text-align: center;
+	line-height: 40px;
+	height: 100%;
+	background: #ddd;
+	color: #000;
 }
 .newEntryView .dijitButton.delete {
 	margin-top: 1em;

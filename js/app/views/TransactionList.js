@@ -28,7 +28,7 @@ return dojo.declare(_Scene, {
 	},
 
 	refresh: function(){
-		this.boxNameNode.innerHTML = this.app.box
+		this.tabNameNode.innerHTML = this.app.tab
 		this.refreshList()
 	},
 	
@@ -42,7 +42,7 @@ return dojo.declare(_Scene, {
 		if(!store){
 			return
 		}
-		var transactions = store.query({"box": this.app.box}, {"sort": [{"attribute": "date", "descending": true}, {"attribute": "id", "descending": true}]})
+		var transactions = store.query({"box": this.app.tab}, {"sort": [{"attribute": "date", "descending": true}, {"attribute": "id", "descending": true}]})
 		var day
 		transactions.forEach(function(transaction){
 			var currentDay = new Date(transaction.date).toLocaleDateString()
@@ -68,7 +68,7 @@ return dojo.declare(_Scene, {
 		this._listItems = []
 	},
 	
-	_onChangeBoxClick: function(){
+	_onChangeTabClick: function(){
 		this.close(this, "tabs")
 	},
 	

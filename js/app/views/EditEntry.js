@@ -152,7 +152,7 @@ return dojo.declare(_Scene, {
 		})
 		this.app.saveEntry({
 			id: "" + new Date().getTime(),
-			box: this.app.box,
+			box: this.app.tab,
 			type: "spending",
 			title: data.title,
 			date: data.date.getTime(),

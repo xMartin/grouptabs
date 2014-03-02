@@ -3,49 +3,49 @@ define([
 	"dojo/dom-style"
 ], function(dom, domStyle){
 
-var viewController = {
-	views: []
+var sceneController = {
+	scenes: []
 }
 
-var getViewByName = function(viewName){
-	var view
-	viewController.views.forEach(function(_view){
-		if(_view.name == viewName){
-			view = _view
+var getSceneByName = function(sceneName){
+	var scene
+	sceneController.scenes.forEach(function(_scene){
+		if(_scene.name == sceneName){
+			scene = _scene
 			return
 		}
 	})
-	return view
+	return scene
 }
 
 return {
-	viewController: viewController,
+	sceneController: sceneController,
 
 	refreshAll: function(){
-		viewController.views.forEach(function(view){
-			view.refresh && view.refresh()
+		sceneController.scenes.forEach(function(scene){
+			scene.refresh && scene.refresh()
 		})
 	},
 	
-	addView: function(view){
-		view.placeAt(dom.byId("views"))
-		viewController.views.push(view)
+	addScene: function(scene){
+		scene.placeAt(dom.byId("scenes"))
+		sceneController.scenes.push(scene)
 	},
 
-	selectView: function(view, params){
-		viewController.views.forEach(function(_view){
-			domStyle.set(_view.domNode, "display", "none")
+	selectScene: function(scene, params){
+		sceneController.scenes.forEach(function(_scene){
+			domStyle.set(_scene.domNode, "display", "none")
 		})
-		if(typeof view == "string"){
-			view = getViewByName(view)
+		if(typeof scene == "string"){
+			scene = getSceneByName(scene)
 		}
-		domStyle.set(view.domNode, "display", "")
-		view.onShow(params)
-		viewController.selectedView = view
+		domStyle.set(scene.domNode, "display", "")
+		scene.onShow(params)
+		sceneController.selectedScene = scene
 	},
 	
-	onViewClosed: function(view, message, params){
-		this.selectView(message, params)
+	onSceneClosed: function(scene, message, params){
+		this.selectScene(message, params)
 	}
 }
 

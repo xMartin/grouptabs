@@ -14,8 +14,8 @@ return dojo.declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin, _Contain
 	// controller: [viewController]
 	controller: null,
 	
-	close: function(view, message, params){
-		this.controller.onViewClosed(view, message, params)
+	close: function(scene, message, params){
+		this.controller.onSceneClosed(scene, message, params)
 	},
 	
 	onShow: function(){}

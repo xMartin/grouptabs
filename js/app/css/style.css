@@ -41,7 +41,7 @@
 	width: 44px;
 }
 
-.view h2 {
+.scene h2 {
 	margin-top: 0;
 	text-align: center;
 	display: inline-block;
@@ -82,9 +82,9 @@ article p {
 	padding: 2px 0 0;
 }
 
-.editEntryView .form,
-.listView table,
-.summaryView table {
+.editEntryScene .form,
+.listScene table,
+.summaryScene table {
 	margin-bottom: 1em;
 }
 
@@ -219,8 +219,8 @@ td.amount {
 }
 
 
-/* edit entry view */
-.editEntryView .header .dijitButtonNode {
+/* edit entry scene */
+.editEntryScene .header .dijitButtonNode {
 	font-size: 28px;
 	line-height: 100%;
 	color: #666;
@@ -228,10 +228,10 @@ td.amount {
 	width: 44px;
 }
 
-.editEntryView .dijitCheckBox {
+.editEntryScene .dijitCheckBox {
 	margin: 14px;
 }
-.editEntryView .dijitTextBox {
+.editEntryScene .dijitTextBox {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -287,34 +287,34 @@ td.amount {
 	background: #ddd;
 	color: #000;
 }
-.editEntryView .dijitButton.delete {
+.editEntryScene .dijitButton.delete {
 	margin-top: 1em;
 }
 
 
-.boxView .row.boxes {
+.tabsScene .row.tabs {
 	margin: 1em 0;
 }
-.boxes .dijitButton {
+.tabs .dijitButton {
 	border: 0 solid #ddd;
 	border-bottom-width: 1px;
 }
-.boxes .dijitButton:first-child {
+.tabs .dijitButton:first-child {
 	border-top-width: 1px;
 }
-.claro .boxes .dijitButton .dijitButtonNode {
+.claro .tabs .dijitButton .dijitButtonNode {
 	background: transparent url(/images/arrow.svg) right center no-repeat;
 	text-align: left;
 }
-.claro .boxView .dijitTextBox .dijitInputInner {
+.claro .tabsScene .dijitTextBox .dijitInputInner {
 	padding-right: 90px !important;
 }
-.boxView .dijitButton.create {
+.tabsScene .dijitButton.create {
 	position: relative;
 	float: right;
 	top: -44px;
 }
-.boxView .dijitButton.create .dijitButtonNode {
+.tabsScene .dijitButton.create .dijitButtonNode {
 	border-radius: 0;
 	border: none;
 }

@@ -14,61 +14,61 @@ return dojo.declare(_Scene, {
 	name: "tabs",
 
 	constructor: function(){
-		this._boxButtons = []
+		this._tabButtons = []
 	},
 
 	postCreate: function(){
-		this._createBoxButtons()
+		this._createTabButtons()
 	},
 
 	refresh: function(){
-		this._boxButtons.forEach(function(boxButton){
-			boxButton.destroy()
+		this._tabButtons.forEach(function(tabButton){
+			tabButton.destroy()
 		})
-		this._boxButtons = []
-		this._createBoxButtons()
-		if(this._getBoxes().length){
-			this.noBoxesNode.style.display = 'none'
+		this._tabButtons = []
+		this._createTabButtons()
+		if(this._getTabs().length){
+			this.noTabsNode.style.display = 'none'
 		}else{
-			this.noBoxesNode.style.display = ''
+			this.noTabsNode.style.display = ''
 		}
 	},
 
-	_createBoxButtons: function(){
-		this._getBoxes().forEach(function(boxName){
-			var button = new Button({label: boxName})
+	_createTabButtons: function(){
+		this._getTabs().forEach(function(tabName){
+			var button = new Button({label: tabName})
 			domClass.add(button.domNode, "full-width")
 			button.onClick = lang.hitch(this, function(){
-				this._onBoxClick(boxName)
+				this._onTabClick(tabName)
 			})
-			button.placeAt(this.boxesNode)
-			this._boxButtons.push(button)
+			button.placeAt(this.tabsNode)
+			this._tabButtons.push(button)
 		}, this)
 	},
 
-	_getBoxes: function(){
-		var boxes = []
-		this.app.store.query(function(){return true}).forEach(function(t){
-			if(t.box && boxes.indexOf(t.box) === -1){
-				boxes.push(t.box)
+	_getTabs: function(){
+		var tabs = []
+		this.app.store.query(function(){return true}).forEach(function(transaction){
+			if(transaction.box && tabs.indexOf(transaction.box) === -1){
+				tabs.push(transaction.box)
 			}
 		})
-		return this._boxes = boxes
+		return this._tabs = tabs
 	},
 
-	_setBox: function(boxName){
-		this.app.setBox(boxName)
+	_setTab: function(tabName){
+		this.app.setTab(tabName)
 	},
 
-	_onBoxClick: function(boxName){
-		this._setBox(boxName)
+	_onTabClick: function(tabName){
+		this._setTab(tabName)
 		this.close(this, "main")
 	},
 
 	_onOkClick: function(){
-		var newBoxName = this.newBoxTextBox.get("value")
-		this._setBox(newBoxName)
-		this.newBoxTextBox.set("value", "")
+		var newTabName = this.newTabTextBox.get("value")
+		this._setTab(newTabName)
+		this.newTabTextBox.set("value", "")
 		this.close(this, "main")
 	}
 })

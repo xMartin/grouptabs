@@ -6,24 +6,24 @@ define([
 	"./views/Main",
 	"./views/EditEntry",
 	"./views/TransactionList"
-], function(remoteStorage, RemoteStorageAdapter, viewController, BoxView, MainView, NewEntryView, ListView){
+], function(remoteStorage, RemoteStorageAdapter, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
 
 var remoteStorageAdapter = new RemoteStorageAdapter()
 var store = remoteStorageAdapter.store
 
 var obj = {
 	
-	box: localStorage.getItem("box") || "",
+	tab: localStorage.getItem("box") || "",
 
 	store: store,
 
 	init: function(){
-		var viewName, view,
-			views = {
-				"tabs": new BoxView({app: obj, controller: viewController}),
-				"main": new MainView({app: obj, controller: viewController}),
-				"newEntry": new NewEntryView({app: obj, controller: viewController}),
-				"list": new ListView({app: obj, controller: viewController})
+		var sceneName, scene,
+			scenes = {
+				"tabs": new TabsScene({app: obj, controller: sceneController}),
+				"main": new MainScene({app: obj, controller: sceneController}),
+				"newEntry": new EditEntryScene({app: obj, controller: sceneController}),
+				"list": new TransactionListScene({app: obj, controller: sceneController})
 			},
 			initData = function(){
 				remoteStorage.gruppenkasse.getTransactions().then(function(data){
@@ -32,7 +32,7 @@ var obj = {
 						items.push(data[id])
 					}
 					store.setData(items)
-					viewController.refreshAll()
+					sceneController.refreshAll()
 
 					remoteStorage.gruppenkasse.on("change", function(event){
 						if(event.newValue && event.oldValue){
@@ -51,23 +51,23 @@ var obj = {
 			},
 			addData = function(data){
 				store.put(data)
-				viewController.refreshAll()
+				sceneController.refreshAll()
 			},
 			removeData = function(data){
 				store.remove(data.id)
-				viewController.refreshAll()
+				sceneController.refreshAll()
 			},
 			emptyData = function(){
 				store.setData([])
-				viewController.refreshAll()
-				viewController.selectView(views["tabs"])
+				sceneController.refreshAll()
+				sceneController.selectScene(scenes["tabs"])
 			}
 		
-		for(viewName in views){
-			view = views[viewName]
-			viewController.addView(view)
+		for(sceneName in scenes){
+			scene = scenes[sceneName]
+			sceneController.addScene(scene)
 		}
-		viewController.selectView(obj.box ? views["main"] : views["tabs"])
+		sceneController.selectScene(obj.tab ? scenes["main"] : scenes["tabs"])
 		
 		// init remote storage
 		remoteStorage.access.claim("gruppenkasse", "rw")
@@ -84,7 +84,7 @@ var obj = {
 	
 	getAccounts: function(transactions){
 		var costs = 0, share = 0, accounts = {}
-		store.query({"box": obj.box}).forEach(function(transaction){
+		store.query({"box": obj.tab}).forEach(function(transaction){
 			transaction.payments.forEach(function(payment){
 				costs += payment.amount
 				share = payment.amount / transaction.participants.length
@@ -100,9 +100,9 @@ var obj = {
 		return accounts
 	},
 	
-	setBox: function(boxName){
-		obj.box = boxName
-		localStorage.setItem("box", boxName)
+	setTab: function(tabName){
+		obj.tab = tabName
+		localStorage.setItem("box", tabName)
 	},
 	
 	saveEntry: function(data){

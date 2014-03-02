@@ -23,13 +23,13 @@ var obj = {
 		})
 	},
 
-	removeTab: function(box){
-		if(!box){
+	removeTab: function(tab){
+		if(!tab){
 			return
 		}
 		remoteStorage.gruppenkasse.getTransactions().then(function(transactions){
 			for(var id in transactions){
-				if(transactions[id].box == box){
+				if(transactions[id].box == tab){
 					app.deleteEntry(id)
 				}
 			}

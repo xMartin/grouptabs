@@ -15,7 +15,7 @@ return dojo.declare(_Scene, {
 		this._renderSummary()
 	},
 	
-	_onChangeBoxClick: function(){
+	_onChangeTabClick: function(){
 		this.close(this, "tabs")
 	},
 	
@@ -36,7 +36,7 @@ return dojo.declare(_Scene, {
 	},
 
 	refresh: function(){
-		this.boxNameNode.innerHTML = this.app.box
+		this.tabNameNode.innerHTML = this.app.tab
 		this.refreshSummary()
 		this._checkEmpty()
 	},
@@ -47,7 +47,7 @@ return dojo.declare(_Scene, {
 	},
 
 	_checkEmpty: function(){
-		var transactions = this.app.store.query({box: this.app.box})
+		var transactions = this.app.store.query({box: this.app.tab})
 		if(transactions.length){
 			this.contentNode.style.display = ''
 			this.emptyNode.style.display = 'none'

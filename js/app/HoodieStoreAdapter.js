@@ -1,31 +1,26 @@
 define([
 	"dojo/_base/declare",
 	"dojo/_base/connect",
-	"dojo/store/Memory",
-	"./remoteStorageModule"
-], function(declare, connect, memoryStore, remoteStorageModule){
+	"dojo/store/Memory"
+], function(declare, connect, memoryStore){
 
 
 return declare(null, {
-	
+
 	store: null,
-	
-	localStorageKey: "",
-	
-	dataArrayKey: "",
-	
+
 	constructor: function(args){
 		this.store = new memoryStore
 	},
 
 	put: function(data){
 		this.store.put(data)
-		remoteStorageModule.saveTransaction(data.id, data)
+		hoodie.store.add("transaction", data)
 	},
-	
+
 	remove: function(id){
 		this.store.remove(id)
-		remoteStorageModule.removeTransaction(id)
+		hoodie.store.remove("transaction", id)
 	}
 
 })

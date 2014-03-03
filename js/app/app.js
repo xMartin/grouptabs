@@ -1,15 +1,14 @@
 define([
-	"remotestorage",
-	"./RemoteStorageStoreAdapter",
+	"./HoodieStoreAdapter",
 	"./sceneController",
 	"./views/Tabs",
 	"./views/Main",
 	"./views/EditEntry",
 	"./views/TransactionList"
-], function(remoteStorage, RemoteStorageAdapter, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
+], function(HoodieStoreAdapter, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
 
-var remoteStorageAdapter = new RemoteStorageAdapter()
-var store = remoteStorageAdapter.store
+var hoodieStoreAdapter = new HoodieStoreAdapter()
+var store = hoodieStoreAdapter.store
 
 var obj = {
 	
@@ -26,27 +25,12 @@ var obj = {
 				"list": new TransactionListScene({app: obj, controller: sceneController})
 			},
 			initData = function(){
-				remoteStorage.gruppenkasse.getTransactions().then(function(data){
-					var items = []
-					for(var id in data){
-						items.push(data[id])
-					}
-					store.setData(items)
+				hoodie.store.findAll("transaction").then(function(data){
+					store.setData(data)
 					sceneController.refreshAll()
 
-					remoteStorage.gruppenkasse.on("change", function(event){
-						if(event.newValue && event.oldValue){
-							// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
-							// There's no update for now anyway.
-							//console.log(event.path + " was updated")
-						}else if(event.newValue){
-							console.log(event.path + " was created")
-							addData(event.newValue)
-						}else if(event.oldValue){
-							console.log(event.path + " was deleted")
-							removeData(event.oldValue)
-						}
-					})
+					hoodie.store.on("add:transaction", addData)
+					hoodie.store.on("remove:transaction", removeData)
 				})
 			},
 			addData = function(data){
@@ -69,17 +53,9 @@ var obj = {
 		}
 		sceneController.selectScene(obj.tab ? scenes["main"] : scenes["tabs"])
 		
-		// init remote storage
-		remoteStorage.access.claim("gruppenkasse", "rw")
-		remoteStorage.displayWidget()
-		remoteStorage.gruppenkasse.init()
-		remoteStorage.on("features-loaded", function(){
-			initData()
-			remoteStorage.on("disconnect", function(){
-				emptyData()
-			})
-		})
-
+		initData()
+		hoodie.account.on("signout", emptyData)
+		hoodie.account.on("signin", initData)
 	},
 	
 	getAccounts: function(transactions){
@@ -106,11 +82,11 @@ var obj = {
 	},
 	
 	saveEntry: function(data){
-		remoteStorageAdapter.put(data)
+		hoodieStoreAdapter.put(data)
 	},
 	
 	deleteEntry: function(id){
-		remoteStorageAdapter.remove(id)
+		hoodieStoreAdapter.remove(id)
 	}
 }
 

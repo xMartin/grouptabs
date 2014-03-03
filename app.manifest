@@ -15,6 +15,13 @@ js/release/dijit/themes/claro/form/images/error.png
 js/release/dijit/themes/claro/images/tooltip.png
 fonts/SourceSansPro-Regular.ttf
 fonts/SourceSansPro-Semibold.ttf
+assets/vendor/bootstrap/bootstrap.min.css
+assets/main.css
+assets/vendor/jquery-1.9.1.js
+assets/vendor/hoodie.min.js
+assets/vendor/bootstrap/bootstrap.js
+assets/vendor/hoodie.accountbar.bootstrap.js
+assets/vendor/bootstrap.modalform.js
 
 NETWORK:
 *

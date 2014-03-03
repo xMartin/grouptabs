@@ -5,34 +5,30 @@ define([
 var obj = {
 
 	exportAllTabs: function(){
-		remoteStorage.gruppenkasse.getTransactions().then(function(transactions){
-			var items = []
-			for(var id in transactions){
-				items.push(transactions[id])
-			}
+		hoodie.store.findAll("transaction").then(function(transactions){
 			var result = {transactions: items}
 			console.log(JSON.stringify(result))
 		})
 	},
 
 	removeAllTabs: function(){
-		remoteStorage.gruppenkasse.getTransactions().then(function(transactions){
-			for(var id in transactions){
-				app.deleteEntry(id)
-			}
+		hoodie.store.findAll("transaction").then(function(transactions){
+			transactions.forEach(function(transaction){
+				app.deleteEntry(transaction.id)
+			})
 		})
 	},
 
-	removeTab: function(tab){
-		if(!tab){
+	removeTab: function(box){
+		if(!box){
 			return
 		}
-		remoteStorage.gruppenkasse.getTransactions().then(function(transactions){
-			for(var id in transactions){
-				if(transactions[id].box == tab){
-					app.deleteEntry(id)
+		hoodie.store.findAll("transaction").then(function(transactions){
+			transactions.forEach(function(transaction){
+				if(transaction.box == box){
+					app.deleteEntry(transaction.id)
 				}
-			}
+			})
 		})
 	},
 

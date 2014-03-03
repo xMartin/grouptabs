@@ -1,3 +1,9 @@
+# Grouptabs Hoodie client
+
+## Run it
+
+Just make this the `www` dir of a [Hoodie](http://hood.ie) project.
+
 To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9 (for debugging or creating an optimized build use the source distribution).
 
 You can use bower to install the Dojo packages.
@@ -10,7 +16,6 @@ root/
   + dijit/
   + dojo/
   + app/
-  + remotestorage/
   + util/  (only part of Dojo source distribution)
 ```
 

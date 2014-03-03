@@ -14,16 +14,73 @@
 	<!-- iPhone 5 and 2012 iPod Touch -->
 	<link rel="apple-touch-startup-image" href="images/splash-1096.png" media="(max-device-width : 548px) and (-webkit-min-device-pixel-ratio : 2)">
 
+	<link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/main.css">
 	<link rel="stylesheet" type="text/css" href="js/app/css/style.css">
-	<script data-dojo-config="async:true, packages:[{name:'remotestorage', location:'../remotestorage'}]" type="text/javascript" src="js/dojo/dojo.js"></script>
+
+	<script src="assets/vendor/jquery-1.9.1.js"></script>
+	<script src="assets/vendor/hoodie.js"></script>
+	<script src="assets/vendor/bootstrap/bootstrap.js"></script>
+	<script src="assets/vendor/hoodie.accountbar.bootstrap.js"></script>
+    <script src="assets/vendor/bootstrap.modalform.js"></script>
+	<script>window.hoodie = new Hoodie()</script>
+
+	<script data-dojo-config="async:true" type="text/javascript" src="js/dojo/dojo.js"></script>
 	<script type="text/javascript">
 		require(["dojo/ready", "app/app"], function(ready, app){
 			ready(app.init)
 		})
 	</script>
+
 	<title>Grouptabs</title>
 </head>
 <body class="claro">
+
+	<div class="hoodie-accountbar">
+		<div class="hoodie-account-signedout">
+			<span class="btn-group">
+				<button class="btn btn-small btn-inverse" data-hoodie-action="signup">Sign Up</button>
+				<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right">
+					<li><a href="#" data-hoodie-action="signin">Sign In</a></li>
+					<li><a href="#" data-hoodie-action="resetpassword">Reset Password</a></li>
+					<li><a href="#" data-hoodie-action="destroy">Clear local data</a></li>
+				</ul>
+			</span>
+		</div><!-- /.hoodie-account-signedout -->
+
+		<div class="hoodie-account-signedin">
+			Hello,
+			<span class="hoodie-username"><!-- usern name will be filled in here --></span>
+			<span class="btn-group">
+				<button class="btn btn-small btn-inverse" data-hoodie-action="signout">Sign Out</button>
+				<button class="btn btn-small dropdown-toggle btn-inverse" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right">
+					<li><a href="#" data-hoodie-action="changepassword">Change Password</a></li>
+					<li><a href="#" data-hoodie-action="changeusername">Change Username</a></li>
+					<li><a href="#" data-hoodie-action="destroy">Destroy Account</a></li>
+				</ul>
+			</span>
+		</div><!-- /.hoodie-account-signedin -->
+		<div class="hoodie-account-error">
+			Hello,
+			<span class="hoodie-username"><!-- usern name will be filled in here --></span>.
+			<span class="btn-group">
+				<button class="btn btn-small btn-danger" data-hoodie-action="signin">Authentication error: Sign in again</button>
+				<button class="btn btn-small dropdown-toggle btn-danger" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu pull-right">
+					<li><a href="#" data-hoodie-action="signout">Sign out</a></li>
+				</ul>
+			</span>
+		</div><!-- /.hoodie-account-error -->
+	</div><!--/hoodieAccountBar -->
+
 	<div id="scenes"></div>
 </body>
 </html>

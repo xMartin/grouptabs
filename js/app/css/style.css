@@ -181,14 +181,11 @@ td.amount {
 }
 .claro .dijitTextBox.full-width,
 .claro .dijitButton.full-width .dijitButtonNode {
-	width: 100%;
+	width: 96%;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	margin-left: 0;
-	margin-right: 0;
-	border-right: none;
-	border-left: none;
-	border-radius: 0;
+	margin-left: 2%;
+	margin-right: 2%;
 }
 
 .dijitButton.destructive * {
@@ -288,7 +285,17 @@ td.amount {
 	color: #000;
 }
 .editEntryScene .dijitButton.delete {
-	margin-top: 1em;
+	width: 30%;
+}
+.editEntryScene .dijitButton.create:not(.full-width) {
+	width: 68%;
+	float: right;
+}
+.button-row {
+	margin: 0 2%;
+}
+.button-row .dijitButton .dijitButtonNode {
+	width: 100%;
 }
 
 

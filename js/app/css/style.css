@@ -186,7 +186,6 @@ td.amount {
 	box-sizing: border-box;
 	margin-left: 2%;
 	margin-right: 2%;
-	border-radius: 3px;
 }
 
 .dijitButton.destructive * {
@@ -286,7 +285,16 @@ td.amount {
 	color: #000;
 }
 .editEntryScene .dijitButton.delete {
-	margin-top: 1em;
+	width: 30%;
+}
+.editEntryScene .dijitButton.create {
+	width: 68%;
+}
+.button-row {
+	margin: 0 2%;
+}
+.button-row .dijitButton .dijitButtonNode {
+	width: 100%;
 }
 
 

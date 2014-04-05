@@ -1,6 +1,7 @@
 define([
+	"remotestorage",
 	"./app"
-], function(app){
+], function(remoteStorage, app){
 
 var obj = {
 

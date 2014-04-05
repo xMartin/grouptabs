@@ -75,7 +75,7 @@ var obj = {
 		remoteStorage.gruppenkasse.init()
 		remoteStorage.on("features-loaded", function(){
 			initData()
-			remoteStorage.on("disconnect", function(){
+			remoteStorage.on("disconnected", function(){
 				emptyData()
 			})
 		})

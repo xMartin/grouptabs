@@ -2,6 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/array",
+	"dojo/dom-class",
 	"./_Scene",
 	"dijit/registry",
 	"dijit/form/ValidationTextBox",
@@ -9,7 +10,7 @@ define([
 	"../widgets/ParticipantInput",
 	"../widgets/NewParticipantInput",
 	"dojo/text!./templates/EditEntry.html"
-], function(declare, lang, array, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
+], function(declare, lang, array, domClass, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
 
 return declare(_Scene, {
 	
@@ -164,11 +165,13 @@ return declare(_Scene, {
 	},
 
 	_showDeleteButton: function(){
-		this.deleteButtonNode.style.display = ""
+		this.deleteButton.domNode.style.display = ""
+		domClass.remove(this.saveButton.domNode, "full-width")
 	},
 
 	_hideDeleteButton: function(){
-		this.deleteButtonNode.style.display = "none"
+		this.deleteButton.domNode.style.display = "none"
+		domClass.add(this.saveButton.domNode, "full-width")
 	},
 	
 	reset: function(){

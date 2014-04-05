@@ -109,6 +109,7 @@ td.amount {
 .claro .dijitTextBox .dijitInputInner,
 .claro .dijitTextBox .dijitPlaceHolder,
 .claro .dijitButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode,
 .dijitButtonNode.dijitDownArrowButton {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -134,18 +135,23 @@ td.amount {
 }
 
 .claro .dijitTextBox,
-.claro .dijitButton .dijitButtonNode {
+.claro .dijitButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode {
 	background: #fff;
 	box-shadow: none;
 	border: none;
 	border-radius: 0;
 }
-.claro .dijitButton .dijitButtonNode {
+.claro .dijitButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode {
 	background: #ddd;
 }
 .claro .dijitButton .dijitButtonNode:hover,
 .claro .dijitButton .dijitButtonNode:focus,
-.claro .dijitButton .dijitButtonNode:active {
+.claro .dijitButton .dijitButtonNode:active,
+.claro .dijitToggleButton .dijitButtonNode:hover,
+.claro .dijitToggleButton .dijitButtonNode:focus,
+.claro .dijitToggleButton .dijitButtonNode:active {
 	background: #d6d6d6;
 	border-color: #ccc;
 }

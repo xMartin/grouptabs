@@ -283,6 +283,9 @@ td.amount {
 .newParticipantInput .joined-button {
 	width: 70px;  /* estimate auto width so we can use transition */
 	overflow: hidden;
+}
+.participantInput.ready .joined-button,
+.newParticipantInput.ready .joined-button {
 	-webkit-transition: width .3s;
 	-moz-transition: width .3s;
 	transition: width .3s;
@@ -295,6 +298,9 @@ td.amount {
 .newParticipantInput .dijitNumberTextBox {
 	width: 70px;
 	text-align: right;
+}
+.participantInput.ready .dijitNumberTextBox,
+.newParticipantInput.ready .dijitNumberTextBox {
 	-webkit-transition: width .3s;
 	-moz-transition: width .3s;
 	transition: width .3s;

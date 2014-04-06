@@ -85,6 +85,9 @@ return declare(_Scene, {
 		}
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		setTimeout(function(){
+			widget.set("ready", true)
+		}, 100)
 	},
 
 	_removeParticipantFormWidgets: function(){
@@ -107,6 +110,9 @@ return declare(_Scene, {
 		this.connect(widget, "onRemove", this._removeNewParticipantFormWidget)
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		setTimeout(function(){
+			widget.set("ready", true)
+		}, 100)
 	},
 
 	_removeNewParticipantFormWidget: function(widget){

@@ -23,12 +23,20 @@ return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 
 	selected: false,
 
+	// ready is set after the view has been created fully
+	ready: false,
+
 	_setSelectedAttr: function(isSelected){
 		domClass.toggle(this.domNode, "selected", !!isSelected)
 		this.joinedButton.set("checked", !!isSelected)
 		if(!isSelected){
 			this.amountInput.set("value", "")
 		}
+	},
+
+	_setReadyAttr: function(ready){console.log(ready)
+		this.ready = !!ready
+		domClass.toggle(this.domNode, "ready", !!ready)
 	},
 
 	postCreate: function(){
@@ -46,10 +54,10 @@ return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 			if(isPaidChecked){
 				this.joinedButton.set("checked", true)
 				domClass.add(this.joinedButton.domNode, "hidden")
-				this.amountInput.focusNode.focus()
+				this.get("ready") && this.amountInput.focusNode.focus()
 			}else{
 				domClass.remove(this.joinedButton.domNode, "hidden")
-				this.amountInput.focusNode.blur()
+				this.get("ready") && this.amountInput.focusNode.blur()
 			}
 			this._setValue()
 		})

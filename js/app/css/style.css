@@ -189,13 +189,25 @@ td.amount {
 	border-color: #b00;
 }
 
-.dijitButton.full-width {
+.dijitButton.full-width,
+.dijitButton.full-width-margin {
 	display: block;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
 .claro .dijitTextBox.full-width,
 .claro .dijitButton.full-width .dijitButtonNode {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-left: 0;
+	margin-right: 0;
+	border-right: none;
+	border-left: none;
+	border-radius: 0;
+}
+.claro .dijitTextBox.full-width-margin,
+.claro .dijitButton.full-width-margin .dijitButtonNode {
 	width: 96%;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -312,7 +324,7 @@ td.amount {
 .editEntryScene .dijitButton.delete {
 	width: 30%;
 }
-.editEntryScene .dijitButton.create:not(.full-width) {
+.editEntryScene .dijitButton.create:not(.full-width-margin) {
 	width: 68%;
 	float: right;
 }

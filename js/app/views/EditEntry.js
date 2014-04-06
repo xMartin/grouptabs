@@ -176,13 +176,13 @@ return declare(_Scene, {
 
 	_showDeleteButton: function(){
 		this.deleteButton.domNode.style.display = ""
-		domClass.remove(this.saveButton.domNode, "full-width")
+		domClass.remove(this.saveButton.domNode, "full-width-margin")
 		domClass.add(this.buttonRowNode, "button-row")
 	},
 
 	_hideDeleteButton: function(){
 		this.deleteButton.domNode.style.display = "none"
-		domClass.add(this.saveButton.domNode, "full-width")
+		domClass.add(this.saveButton.domNode, "full-width-margin")
 		domClass.remove(this.buttonRowNode, "button-row")
 	},
 	

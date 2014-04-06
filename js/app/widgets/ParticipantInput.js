@@ -45,10 +45,10 @@ return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 			domClass.toggle(this.amountInput.domNode, "hidden", !isPaidChecked)
 			if(isPaidChecked){
 				this.joinedButton.set("checked", true)
-				this.joinedButton.domNode.style.display = "none"
+				domClass.add(this.joinedButton.domNode, "hidden")
 				this.amountInput.focusNode.focus()
 			}else{
-				this.joinedButton.domNode.style.display = ""
+				domClass.remove(this.joinedButton.domNode, "hidden")
 				this.amountInput.focusNode.blur()
 			}
 			this._setValue()

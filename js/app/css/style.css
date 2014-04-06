@@ -269,6 +269,18 @@ td.amount {
 	text-align: right;
 	width: 210px;
 }
+.participantInput .joined-button,
+.newParticipantInput .joined-button {
+	width: 70px;  /* estimate auto width so we can use transition */
+	overflow: hidden;
+	-webkit-transition: width .3s;
+	-moz-transition: width .3s;
+	transition: width .3s;
+}
+.participantInput .joined-button.hidden,
+.newParticipantInput .joined-button.hidden {
+	width: 0;
+}
 .participantInput .dijitNumberTextBox,
 .newParticipantInput .dijitNumberTextBox {
 	width: 98px;

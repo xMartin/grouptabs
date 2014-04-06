@@ -230,6 +230,11 @@ td.amount {
 	background: transparent;
 }
 
+.decimals {
+	font-size: .7em;
+	position: relative;
+	top: -.5em;
+}
 
 /* edit entry scene */
 .editEntryScene .header .dijitButtonNode {

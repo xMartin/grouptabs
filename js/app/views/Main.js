@@ -1,10 +1,10 @@
 define([
 	"dojo/_base/declare",
 	"dojo/dom-construct",
-	"dojo/number",
 	"./_Scene",
+	"../widgets/AmountDisplay",
 	"dojo/text!./templates/Main.html"
-], function(declare, domConstruct, number, _Scene, template){
+], function(declare, domConstruct, _Scene, AmountDisplay, template){
 
 return declare(_Scene, {
 	
@@ -97,11 +97,11 @@ return declare(_Scene, {
 		}
 		var html = "<table id='balance'>"
 		accounts.forEach(function(accountObj){
-			var amount = number.format(accountObj.amount, {places: 2})
+			var amountDisplayHtml = new AmountDisplay({amount: accountObj.amount}).toHtml()
 			html +=
 				"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
 				+ "<th class='account'>" + accountObj.account + "</th>"
-				+ "<td class='amount'>" + amount + "</td>"
+				+ "<td class='amount'>" + amountDisplayHtml + "</td>"
 				+ "</tr>"
 		})
 		html += "</table>"

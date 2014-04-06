@@ -3,8 +3,9 @@ define([
 	"dojo/number",
 	"dijit/_Widget",
 	"dijit/_TemplatedMixin",
+	"../widgets/AmountDisplay",
 	"dojo/text!./templates/TransactionListItem.html"
-], function(declare, number, Widget, _Templated, template){
+], function(declare, number, Widget, _Templated, AmountDisplay, template){
 
 return declare([Widget, _Templated], {
 	
@@ -29,7 +30,7 @@ return declare([Widget, _Templated], {
 			total += payment.amount
 		})
 		this.tplVars.payments = payments
-		this.tplVars.total = number.format(total, {places: 2})
+		this._total = total
 		var participantsList = Array.prototype.slice.call(data.participants)
 		var participants = ""
 		participantsList.forEach(function(participant){
@@ -42,6 +43,10 @@ return declare([Widget, _Templated], {
 		})
 		this.tplVars.participants = participants
 		this.inherited(arguments)
+	},
+
+	postCreate: function(){
+		new AmountDisplay({amount: this._total}).placeAt(this.totalNode)
 	}
 	
 })

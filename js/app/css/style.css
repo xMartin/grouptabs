@@ -293,7 +293,7 @@ td.amount {
 }
 .participantInput .dijitNumberTextBox,
 .newParticipantInput .dijitNumberTextBox {
-	width: 98px;
+	width: 70px;
 	text-align: right;
 	-webkit-transition: width .3s;
 	-moz-transition: width .3s;

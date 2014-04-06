@@ -234,55 +234,46 @@ td.amount {
 	box-sizing: border-box;
 	width: 100%;
 }
+.editEntryScene .form-row-input {
+	display: table;
+	width: 100%;
+}
 .participantInput,
 .newParticipantInput {
 	color: #999;
-	position: relative;
 	height: 44px;
+	display: table-row;
+	width: 100%;
 }
 .participantInput.selected {
 	color: inherit;
 }
-.participantInput .dijitCheckBox {
-	position: absolute;
-	left: 0;
-	z-index: 1;
-}
 .participantInput .participant {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	line-height: 44px;
+	display: table-cell;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 0 102px 0 44px;
-	cursor: pointer;
 }
 .newParticipantInput .participant {
-	padding-right: 134px;
+	display: table-cell;
+}
+.participantInput .participationStatus,
+.newParticipantInput .participationStatus {
+	display: table-cell;
+	text-align: right;
+	width: 210px;
 }
 .participantInput .dijitNumberTextBox,
 .newParticipantInput .dijitNumberTextBox {
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: 1;
 	width: 98px;
-	height: 100%;
 	text-align: right;
+	-webkit-transition: width .3s;
+	-moz-transition: width .3s;
+	transition: width .3s;
 }
-.newParticipantInput .remove {
-	position: absolute;
-	right: 102px;
-	top: 0;
-	z-index: 1;
-	width: 30px;
-	text-align: center;
-	line-height: 40px;
-	height: 100%;
-	background: #ddd;
-	color: #000;
+.participantInput .dijitNumberTextBox.hidden,
+.newParticipantInput .dijitNumberTextBox.hidden {
+	width: 0;
 }
 .editEntryScene .dijitButton.delete {
 	width: 30%;

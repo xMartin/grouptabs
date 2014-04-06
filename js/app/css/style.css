@@ -82,6 +82,11 @@ article p {
 	padding: 2px 0 0;
 }
 
+.claro .dijitToggleButton.dijitToggleButtonChecked .dijitButtonNode {
+	background: #aaa;
+	color: #fff;
+}
+
 .editEntryScene .form,
 .listScene table,
 .summaryScene table {

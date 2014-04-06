@@ -316,6 +316,9 @@ td.amount {
 .button-row .dijitButton .dijitButtonNode {
 	width: 100%;
 }
+.participantsAllJoined {
+	float: right;
+}
 
 
 .tabsScene .row.tabs {

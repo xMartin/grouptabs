@@ -1,7 +1,10 @@
 <div>
-	<div class="participant">
+	<span class="participant">
 		<input data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="participantInput" data-dojo-attach-event="onBlur:_setValue" placeholder="Name …">
-	</div>
-	<div class="remove" data-dojo-attach-event="onclick:_onRemoveClick">x</div>
-	<input name="amount" data-dojo-type="dijit/form/NumberTextBox" data-dojo-attach-point="amountInput">
+	</span>
+	<span class="participationStatus">
+		<span data-dojo-type="dijit/form/ToggleButton" data-dojo-attach-point="joinedButton" class="joined-button">joined</span>
+		<span data-dojo-type="dijit/form/ToggleButton" data-dojo-attach-point="paidButton">paid</span>
+		<input name="amount" data-dojo-type="dijit/form/NumberTextBox" data-dojo-attach-point="amountInput" class="hidden">
+	</span>
 </div>

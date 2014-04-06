@@ -78,10 +78,16 @@ return declare(_Scene, {
 		}
 		var widget = new ParticipantFormWidget(widgetParams)
 		if(isChecked || data && data.participants.indexOf(participant) !== -1){
-			widget.checkBox.set("checked", true)
+			widget.joinedButton.set("checked", true)
+			if(widgetParams.amount){
+				widget.paidButton.set("checked", true)
+			}
 		}
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		setTimeout(function(){
+			widget.set("ready", true)
+		}, 100)
 	},
 
 	_removeParticipantFormWidgets: function(){
@@ -95,6 +101,7 @@ return declare(_Scene, {
 	_onNewParticipantClick: function(){
 		this._createNewParticipantFormWidget()
 		var widget = this._participantFormWidgets[this._participantFormWidgets.length - 1]
+		widget.joinedButton.set("checked", true)
 		widget.set("focus", true)
 	},
 
@@ -103,6 +110,9 @@ return declare(_Scene, {
 		this.connect(widget, "onRemove", this._removeNewParticipantFormWidget)
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		setTimeout(function(){
+			widget.set("ready", true)
+		}, 100)
 	},
 
 	_removeNewParticipantFormWidget: function(widget){

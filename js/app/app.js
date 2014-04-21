@@ -84,7 +84,7 @@ var obj = {
 
 	},
 	
-	getAccounts: function(transactions){
+	getAccounts: function(){
 		var costs = 0, share = 0, accounts = {}
 		store.query({"box": obj.tab}).forEach(function(transaction){
 			transaction.payments.forEach(function(payment){

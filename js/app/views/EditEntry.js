@@ -92,7 +92,6 @@ return declare(_Scene, {
 
 	_removeParticipantFormWidgets: function(){
 		this._participantFormWidgets.forEach(function(widget){
-//			this.participantsNode.removeChild(widget.domNode)
 			widget.destroy()
 		}, this)
 		this._participantFormWidgets = []

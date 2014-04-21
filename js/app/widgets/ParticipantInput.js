@@ -34,7 +34,7 @@ return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		}
 	},
 
-	_setReadyAttr: function(ready){console.log(ready)
+	_setReadyAttr: function(ready){
 		this.ready = !!ready
 		domClass.toggle(this.domNode, "ready", !!ready)
 	},

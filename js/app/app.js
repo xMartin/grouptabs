@@ -15,6 +15,8 @@ var obj = {
 	
 	tab: localStorage.getItem("box") || "",
 
+	homeView: "main",
+
 	store: store,
 
 	init: function(){
@@ -103,6 +105,10 @@ var obj = {
 	setTab: function(tabName){
 		obj.tab = tabName
 		localStorage.setItem("box", tabName)
+	},
+
+	setHomeView: function(viewName){
+		obj.homeView = viewName
 	},
 	
 	saveEntry: function(data){

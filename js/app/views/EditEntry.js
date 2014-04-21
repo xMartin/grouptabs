@@ -135,7 +135,7 @@ return declare(_Scene, {
 			this.app.deleteEntry(this._editEntry)
 		}
 		this.reset()
-		this.close(this, "main")
+		this.close(this, this.app.homeView)
 	},
 
 	_onDeleteClick: function(){
@@ -146,7 +146,7 @@ return declare(_Scene, {
 	
 	_onCancelClick: function(){
 		this.reset()
-		this.close(this, "main")
+		this.close(this, this.app.homeView)
 	},
 	
 	_saveEntry: function(){

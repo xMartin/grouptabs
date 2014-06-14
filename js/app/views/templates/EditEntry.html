@@ -19,15 +19,13 @@
 		</div>
 		<div class="form-row">
 			<div class="form-row-input">
-				<span data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:_onAllClick" data-dojo-attach-point="selectAllButton" class="participantAdd">✓ all</span>
 				<span data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:_onNewParticipantClick" data-dojo-attach-point="addNewParticipantButton" class="participantAdd">+ new participant</span>
+				<span data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:_onAllClick" data-dojo-attach-point="selectAllButton" class="participantsAllJoined">✓ all joined</span>
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<span data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:_onOkClick" class="full-width create">Save</span>
-	</div>
-	<div class="row" data-dojo-attach-point="deleteButtonNode">
-		<span data-dojo-type="dijit/form/Button" data-dojo-attach-event="onClick:_onDeleteClick" class="full-width delete">Delete</span>
+	<div class="row" data-dojo-attach-point="buttonRowNode">
+		<span data-dojo-type="dijit/form/Button" data-dojo-attach-point="deleteButton" data-dojo-attach-event="onClick:_onDeleteClick" class="delete">Delete</span>
+		<span data-dojo-type="dijit/form/Button" data-dojo-attach-point="saveButton" data-dojo-attach-event="onClick:_onOkClick" class="create full-width-margin">Save</span>
 	</div>
 </div>

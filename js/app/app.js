@@ -15,6 +15,8 @@ var obj = {
 	
 	tab: localStorage.getItem("box") || "",
 
+	homeView: "main",
+
 	store: store,
 
 	init: function(){
@@ -82,7 +84,7 @@ var obj = {
 
 	},
 	
-	getAccounts: function(transactions){
+	getAccounts: function(){
 		var costs = 0, share = 0, accounts = {}
 		store.query({"box": obj.tab}).forEach(function(transaction){
 			transaction.payments.forEach(function(payment){
@@ -103,6 +105,10 @@ var obj = {
 	setTab: function(tabName){
 		obj.tab = tabName
 		localStorage.setItem("box", tabName)
+	},
+
+	setHomeView: function(viewName){
+		obj.homeView = viewName
 	},
 	
 	saveEntry: function(data){

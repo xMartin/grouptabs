@@ -109,6 +109,7 @@ td.amount {
 .claro .dijitTextBox .dijitInputInner,
 .claro .dijitTextBox .dijitPlaceHolder,
 .claro .dijitButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode,
 .dijitButtonNode.dijitDownArrowButton {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -134,20 +135,34 @@ td.amount {
 }
 
 .claro .dijitTextBox,
-.claro .dijitButton .dijitButtonNode {
+.claro .dijitButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode {
 	background: #fff;
 	box-shadow: none;
 	border: none;
 	border-radius: 0;
 }
-.claro .dijitButton .dijitButtonNode {
+.claro .dijitButton .dijitButtonNode,
+.claro .dijitToggleButton .dijitButtonNode {
 	background: #ddd;
 }
 .claro .dijitButton .dijitButtonNode:hover,
 .claro .dijitButton .dijitButtonNode:focus,
-.claro .dijitButton .dijitButtonNode:active {
+.claro .dijitButton .dijitButtonNode:active,
+.claro .dijitToggleButton .dijitButtonNode:hover,
+.claro .dijitToggleButton .dijitButtonNode:focus,
+.claro .dijitToggleButton .dijitButtonNode:active {
 	background: #d6d6d6;
 	border-color: #ccc;
+}
+
+.claro .dijitToggleButton .dijitButtonNode {
+	background: #ddd;
+	color: #777;
+}
+.claro .dijitToggleButton.dijitToggleButtonChecked .dijitButtonNode {
+	background: #bbb;
+	color: #000;
 }
 
 .claro .dijitButton.create .dijitButtonNode {
@@ -174,7 +189,8 @@ td.amount {
 	border-color: #b00;
 }
 
-.dijitButton.full-width {
+.dijitButton.full-width,
+.dijitButton.full-width-margin {
 	display: block;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -189,6 +205,14 @@ td.amount {
 	border-right: none;
 	border-left: none;
 	border-radius: 0;
+}
+.claro .dijitTextBox.full-width-margin,
+.claro .dijitButton.full-width-margin .dijitButtonNode {
+	width: 96%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-left: 2%;
+	margin-right: 2%;
 }
 
 .dijitButton.destructive * {
@@ -237,58 +261,81 @@ td.amount {
 	box-sizing: border-box;
 	width: 100%;
 }
+.editEntryScene .form-row-input {
+	display: table;
+	width: 100%;
+}
 .participantInput,
 .newParticipantInput {
 	color: #999;
-	position: relative;
-	height: 44px;
+	height: 45px;
+	display: table-row;
+	width: 100%;
 }
 .participantInput.selected {
 	color: inherit;
 }
-.participantInput .dijitCheckBox {
-	position: absolute;
-	left: 0;
-	z-index: 1;
-}
 .participantInput .participant {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	line-height: 44px;
+	display: table-cell;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 0 102px 0 44px;
-	cursor: pointer;
+	padding-left: 10px;
 }
 .newParticipantInput .participant {
-	padding-right: 134px;
+	display: table-cell;
+}
+.participantInput .participationStatus,
+.newParticipantInput .participationStatus {
+	display: table-cell;
+	text-align: right;
+	width: 210px;
+}
+.participantInput .joined-button,
+.newParticipantInput .joined-button {
+	width: 70px;  /* estimate auto width so we can use transition */
+	overflow: hidden;
+}
+.participantInput.ready .joined-button,
+.newParticipantInput.ready .joined-button {
+	-webkit-transition: width .3s;
+	-moz-transition: width .3s;
+	transition: width .3s;
+}
+.participantInput .joined-button.hidden,
+.newParticipantInput .joined-button.hidden {
+	width: 0;
 }
 .participantInput .dijitNumberTextBox,
 .newParticipantInput .dijitNumberTextBox {
-	position: absolute;
-	right: 0;
-	top: 0;
-	z-index: 1;
-	width: 98px;
-	height: 100%;
+	width: 70px;
 	text-align: right;
 }
-.newParticipantInput .remove {
-	position: absolute;
-	right: 102px;
-	top: 0;
-	z-index: 1;
-	width: 30px;
-	text-align: center;
-	line-height: 40px;
-	height: 100%;
-	background: #ddd;
-	color: #000;
+.participantInput.ready .dijitNumberTextBox,
+.newParticipantInput.ready .dijitNumberTextBox {
+	-webkit-transition: width .3s;
+	-moz-transition: width .3s;
+	transition: width .3s;
+}
+.participantInput .dijitNumberTextBox.hidden,
+.newParticipantInput .dijitNumberTextBox.hidden {
+	width: 0;
 }
 .editEntryScene .dijitButton.delete {
-	margin-top: 1em;
+	width: 30%;
+}
+.editEntryScene .dijitButton.create:not(.full-width-margin) {
+	width: 68%;
+	float: right;
+}
+.button-row {
+	margin: 0 2%;
+}
+.button-row .dijitButton .dijitButtonNode {
+	width: 100%;
+}
+.participantsAllJoined {
+	float: right;
 }
 
 

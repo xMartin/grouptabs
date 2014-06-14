@@ -26,6 +26,7 @@ return declare(_Scene, {
 	
 	onShow: function(){
 		this.refresh()
+		this.app.setHomeView("list")
 	},
 
 	refresh: function(){

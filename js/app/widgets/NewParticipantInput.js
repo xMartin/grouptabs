@@ -1,40 +1,25 @@
 define([
 	"dojo/_base/declare",
-	"dojo/_base/lang",
-	"dijit/_Widget",
-	"dijit/_TemplatedMixin",
-	"dijit/_WidgetsInTemplateMixin",
-	"dojo/number",
+	"dojo/dom-class",
+	"./ParticipantInput",
 	"dojo/text!./templates/NewParticipantInput.html",
-	"dijit/form/TextBox",
-	"dijit/form/NumberTextBox"
-], function(declare, lang, _Widget, _TemplatedMixin, _WidgetsInTemplateMixin, number, template){
+	"dijit/form/TextBox"
+], function(declare, domClass, ParticipantInput, template){
 
-return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
+return declare(ParticipantInput, {
 
 	templateString: template,
 
 	baseClass: "newParticipantInput",
 	
-	// make this a form-compatible widget
-	value: null,
-	name: "",
-
-	postCreate: function(){
-		this._setValue()
-		this.amountInput.set("placeholder", number.format(0, {places: 2}))
-		if(this.amount){
-			this.amountInput.set("value", this.amount)
-		}
-		this.amountInput.onChange = lang.hitch(this, "_setValue")
-	},
-
 	_setValue: function(){
+		var checked = this.joinedButton.get("checked")
+		this.set("selected", checked)
 		var name = this.participantInput.get("value")
-		if(name){
+		if(checked && name){
 			this.value = {
 				participant: name,
-				amount: this.amountInput.get("value") || 0
+				amount: (domClass.contains(this.amountInput.domNode, "hidden") ? "" : this.amountInput.get("value")) || 0
 			}
 		}else{
 			this.value = {}
@@ -45,12 +30,10 @@ return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 		focus && this.participantInput.focus()
 	},
 
-	_onRemoveClick: function(){
-		this.onRemove(this)
-	},
+	_displayName: function(){
 
-	onRemove: function(){}
-	
+	}
+
 })
 
 })

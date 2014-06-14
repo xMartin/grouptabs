@@ -2,6 +2,7 @@ define([
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/_base/array",
+	"dojo/dom-class",
 	"./_Scene",
 	"dijit/registry",
 	"dijit/form/ValidationTextBox",
@@ -9,7 +10,7 @@ define([
 	"../widgets/ParticipantInput",
 	"../widgets/NewParticipantInput",
 	"dojo/text!./templates/EditEntry.html"
-], function(declare, lang, array, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
+], function(declare, lang, array, domClass, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
 
 return declare(_Scene, {
 	
@@ -77,15 +78,20 @@ return declare(_Scene, {
 		}
 		var widget = new ParticipantFormWidget(widgetParams)
 		if(isChecked || data && data.participants.indexOf(participant) !== -1){
-			widget.checkBox.set("checked", true)
+			widget.joinedButton.set("checked", true)
+			if(widgetParams.amount){
+				widget.paidButton.set("checked", true)
+			}
 		}
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		setTimeout(function(){
+			widget.set("ready", true)
+		}, 100)
 	},
 
 	_removeParticipantFormWidgets: function(){
 		this._participantFormWidgets.forEach(function(widget){
-//			this.participantsNode.removeChild(widget.domNode)
 			widget.destroy()
 		}, this)
 		this._participantFormWidgets = []
@@ -94,6 +100,7 @@ return declare(_Scene, {
 	_onNewParticipantClick: function(){
 		this._createNewParticipantFormWidget()
 		var widget = this._participantFormWidgets[this._participantFormWidgets.length - 1]
+		widget.joinedButton.set("checked", true)
 		widget.set("focus", true)
 	},
 
@@ -102,6 +109,9 @@ return declare(_Scene, {
 		this.connect(widget, "onRemove", this._removeNewParticipantFormWidget)
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)
+		setTimeout(function(){
+			widget.set("ready", true)
+		}, 100)
 	},
 
 	_removeNewParticipantFormWidget: function(widget){
@@ -124,7 +134,7 @@ return declare(_Scene, {
 			this.app.deleteEntry(this._editEntry)
 		}
 		this.reset()
-		this.close(this, "main")
+		this.close(this, this.app.homeView)
 	},
 
 	_onDeleteClick: function(){
@@ -135,7 +145,7 @@ return declare(_Scene, {
 	
 	_onCancelClick: function(){
 		this.reset()
-		this.close(this, "main")
+		this.close(this, this.app.homeView)
 	},
 	
 	_saveEntry: function(){
@@ -164,11 +174,15 @@ return declare(_Scene, {
 	},
 
 	_showDeleteButton: function(){
-		this.deleteButtonNode.style.display = ""
+		this.deleteButton.domNode.style.display = ""
+		domClass.remove(this.saveButton.domNode, "full-width-margin")
+		domClass.add(this.buttonRowNode, "button-row")
 	},
 
 	_hideDeleteButton: function(){
-		this.deleteButtonNode.style.display = "none"
+		this.deleteButton.domNode.style.display = "none"
+		domClass.add(this.saveButton.domNode, "full-width-margin")
+		domClass.remove(this.buttonRowNode, "button-row")
 	},
 	
 	reset: function(){

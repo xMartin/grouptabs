@@ -19,7 +19,10 @@ return declare([Widget, _Templated], {
 		}
 		var paymentsList = Array.prototype.slice.call(data.payments)
 		paymentsList.sort(function(a, b){
-			return a.amount > b.amount ? -1 : 1
+			if(a.amount > b.amount || a.amount == b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()){
+				return -1
+			}
+			return 1
 		})
 		var payments = ""
 		var total = 0
@@ -31,6 +34,9 @@ return declare([Widget, _Templated], {
 		this.tplVars.payments = payments
 		this.tplVars.total = number.format(total, {places: 2})
 		var participantsList = Array.prototype.slice.call(data.participants)
+		participantsList.sort(function(a, b){
+			return a.toLowerCase() < b.toLowerCase() ? -1 : 1
+		})
 		var participants = ""
 		participantsList.forEach(function(participant){
 			for(var i = 0, l = paymentsList.length; i < l; ++i){

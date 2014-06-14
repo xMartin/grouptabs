@@ -13,7 +13,7 @@ RemoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 		exports: {
 
 			init: function() {
-				privateClient.cache("", true)
+				privateClient.cache("")
 			},
 
 			// remoteStorage.gruppenkasse.on("change", function(changeEvent){

@@ -1,4 +1,4 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.9 (for debugging or creating an optimized build use the source distribution).
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.10 (for debugging or creating an optimized build use the source distribution).
 
 You can use bower to install the Dojo packages.
 

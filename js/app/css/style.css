@@ -284,6 +284,7 @@ td.amount {
 }
 .newParticipantInput .participant {
 	display: table-cell;
+	width: 50%; /* make input field use more available width */
 }
 .participantInput .participationStatus,
 .newParticipantInput .participationStatus {

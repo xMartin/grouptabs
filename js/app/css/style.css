@@ -83,6 +83,7 @@ article p {
 }
 
 .editEntryScene .form,
+.editEntryScene .button-row,
 .listScene table,
 .summaryScene table {
 	margin-bottom: 1em;

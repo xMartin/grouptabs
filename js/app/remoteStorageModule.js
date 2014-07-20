@@ -6,6 +6,34 @@ var moduleName = "gruppenkasse"
 
 RemoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 
+	privateClient.declareType("transaction", {
+		description: "a transaction",
+		type: "object",
+		properties: {
+			"id": {
+				"type": "string"
+			},
+			"box": {
+				"type": "string"
+			},
+			"type": {
+				"type": "string"
+			},
+			"title": {
+				"type": "string"
+			},
+			"date": {
+				"type": "integer"
+			},
+			"participants": {
+				"type": "array"
+			},
+			"payments": {
+				"type": "array"
+			}
+		}
+	});
+
 	return {
 		
 		name: moduleName,

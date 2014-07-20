@@ -26,43 +26,6 @@ var obj = {
 				"main": new MainScene({app: obj, controller: sceneController}),
 				"newEntry": new EditEntryScene({app: obj, controller: sceneController}),
 				"list": new TransactionListScene({app: obj, controller: sceneController})
-			},
-			initData = function(){
-				remoteStorage.gruppenkasse.getTransactions().then(function(data){
-					var items = []
-					for(var id in data){
-						items.push(data[id])
-					}
-					store.setData(items)
-					sceneController.refreshAll()
-
-					remoteStorage.gruppenkasse.on("change", function(event){
-						if(event.newValue && event.oldValue){
-							// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
-							// There's no update for now anyway.
-							//console.log(event.path + " was updated")
-						}else if(event.newValue){
-							console.log(event.path + " was created")
-							addData(event.newValue)
-						}else if(event.oldValue){
-							console.log(event.path + " was deleted")
-							removeData(event.oldValue)
-						}
-					})
-				})
-			},
-			addData = function(data){
-				store.put(data)
-				sceneController.refreshAll()
-			},
-			removeData = function(data){
-				store.remove(data.id)
-				sceneController.refreshAll()
-			},
-			emptyData = function(){
-				store.setData([])
-				sceneController.refreshAll()
-				sceneController.selectScene(scenes["tabs"])
 			}
 		
 		for(sceneName in scenes){
@@ -75,10 +38,41 @@ var obj = {
 		remoteStorage.access.claim("gruppenkasse", "rw")
 		remoteStorage.displayWidget()
 		remoteStorage.gruppenkasse.init()
-		remoteStorage.on("features-loaded", function(){
-			initData()
-			remoteStorage.on("disconnect", function(){
-				emptyData()
+		remoteStorage.on("ready", function(){
+			remoteStorage.gruppenkasse.getTransactions().then(function(data){
+				var items = [],
+					dirty = false
+				for(var id in data){
+					items.push(data[id])
+				}
+				store.setData(items)
+				sceneController.refreshAll()
+				remoteStorage.gruppenkasse.on("change", function(event){
+					if(event.newValue && event.oldValue){
+						// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
+						// There's no update for now anyway.
+						//console.log(event.path + " was updated")
+					}else if(event.newValue){
+						console.log("remoteStorage created " + event.path)
+						store.put(event.newValue)
+						dirty = true
+					}else if(event.oldValue){
+						console.log("remoteStorage deleted " + event.path)
+						store.remove(event.oldValue.id)
+						dirty = true
+					}
+				})
+				remoteStorage.sync.on("done", function(){
+					if(dirty){
+						sceneController.refreshAll()
+						dirty = false
+					}
+				})
+			})
+			remoteStorage.on("disconnected", function(){
+				store.setData([])
+				sceneController.refreshAll()
+				sceneController.selectScene(scenes["tabs"])
 			})
 		})
 

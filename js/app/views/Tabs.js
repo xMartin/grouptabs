@@ -35,6 +35,10 @@ return declare(_Scene, {
 		}
 	},
 
+	onShow: function(){
+		this._setTab("");
+	},
+
 	_createTabButtons: function(){
 		this._getTabs().forEach(function(tabName){
 			var button = new Button({label: tabName})

@@ -38,6 +38,7 @@ var obj = {
 		remoteStorage.access.claim("gruppenkasse", "rw")
 		remoteStorage.displayWidget()
 		remoteStorage.gruppenkasse.init()
+		RemoteStorage.config.changeEvents.local = false  // we use `getAll` to get cached data so no need for local change events
 		remoteStorage.on("ready", function(){
 			remoteStorage.gruppenkasse.getTransactions().then(function(data){
 				var items = [],

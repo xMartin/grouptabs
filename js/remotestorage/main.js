@@ -1,4 +1,4 @@
-/** remotestorage.js 0.10.0, http://remotestorage.io, MIT-licensed **/
+/** remotestorage.js 0.10.2, http://remotestorage.io, MIT-licensed **/
 define([], function() {
 
 /** FILE: lib/promising.js **/
@@ -347,7 +347,8 @@ define([], function() {
       window:   false,
       remote:   true,
       conflict: true
-    }
+    },
+    discoveryTimeout: 10000
   };
 
   RemoteStorage.prototype = {
@@ -389,7 +390,7 @@ define([], function() {
 
       var discoveryTimeout = setTimeout(function() {
         this._emit('error', new RemoteStorage.DiscoveryError("No storage information found at that user address."));
-      }.bind(this), 5000);
+      }.bind(this), RemoteStorage.config.discoveryTimeout);
 
       RemoteStorage.Discover(userAddress, function(href, storageApi, authURL) {
         clearTimeout(discoveryTimeout);
@@ -1073,7 +1074,7 @@ define([], function() {
   }
 
   function determineCharset(mimeType) {
-    var charset = 'utf-8';
+    var charset = 'UTF-8';
     var charsetMatch;
 
     if (mimeType) {
@@ -1082,7 +1083,6 @@ define([], function() {
         charset = charsetMatch[1];
       }
     }
-
     return charset;
   }
 
@@ -1126,8 +1126,7 @@ define([], function() {
     RS.eventHandling(this, 'change', 'connected', 'wire-busy', 'wire-done', 'not-connected');
 
     onErrorCb = function(error){
-      if (error instanceof RemoteStorage.Unauthorized ||
-          error instanceof RemoteStorage.SyncError) {
+      if (error instanceof RemoteStorage.Unauthorized) {
         this.configure(undefined, undefined, undefined, null);
       }
     }.bind(this);
@@ -1218,7 +1217,6 @@ define([], function() {
             isFolder: isFolder(uri),
             success: false
           });
-          self.online = false;
           promise.reject(error);
         } else {
           self._emit('wire-done', {
@@ -1370,8 +1368,8 @@ define([], function() {
         throw new Error("not connected (path: " + path + ")");
       }
       if (!options) { options = {}; }
-      if (!contentType.match(/charset=/)) {
-        contentType += '; charset=' + ((body instanceof ArrayBuffer || isArrayBufferView(body)) ? 'binary' : 'utf-8');
+      if ((!contentType.match(/charset=/)) && (body instanceof ArrayBuffer || isArrayBufferView(body))) {
+        contentType +=  '; charset=binary';
       }
       var headers = { 'Content-Type': contentType };
       if (this.supportsRevs) {
@@ -1506,15 +1504,15 @@ define([], function() {
   /**
    * Class: RemoteStorage.Discover
    *
-   * This class deals with the webfinger lookup
+   * This class deals with the Webfinger lookup, discovering a connecting
+   * user's storage details.
+   *
+   * The discovery timeout can be configured via
+   * `RemoteStorage.config.discoveryTimeout` (in ms).
    *
    * Arguments:
-   * userAddress - user@host
-   * callback    - gets called with href of the storage, the type and the authURL
-   * Example:
-   * (start code)
-   *
-   * (end code)
+   *   userAddress - user@host
+   *   callback    - gets called with href of the storage, the type and the authURL
    **/
 
   RemoteStorage.Discover = function(userAddress, callback) {
@@ -1527,9 +1525,7 @@ define([], function() {
     var params = '?resource=' + encodeURIComponent('acct:' + userAddress);
     var urls = [
       'https://' + hostname + '/.well-known/webfinger' + params,
-      'https://' + hostname + '/.well-known/host-meta.json' + params,
-      'http://' + hostname + '/.well-known/webfinger' + params,
-      'http://' + hostname + '/.well-known/host-meta.json' + params
+      'http://' + hostname + '/.well-known/webfinger' + params
     ];
 
     function tryOne() {
@@ -2083,9 +2079,9 @@ RemoteStorage.Assets = {
       this.rs.remote.on('wire-done', function(evt) {
         if (flashFor(evt)) {
           requestsToFlashFor--;
-          if (requestsToFlashFor <= 0) {
-            stateSetter(self, 'connected')();
-          }
+        }
+        if (requestsToFlashFor <= 0 && evt.success) {
+          stateSetter(self, 'connected')();
         }
       });
     }
@@ -2111,7 +2107,7 @@ RemoteStorage.Assets = {
     **/
     display: function(options) {
       if (typeof(options) === 'string') {
-        options = { domID: domID };
+        options = { domID: options };
       } else if (typeof(options) === 'undefined') {
         options = {};
       }
@@ -3865,6 +3861,10 @@ Math.uuid = function (len, radix) {
      *   promise will be rejected. If the maxAge requirement is set to false,
      *   the promise will always be fulfilled with data from the local store.
      *
+     *   For items that are not JSON-stringified objects (e.g. stored using
+     *   `storeFile` instead of `storeObject`), the object's value is filled in
+     *   with `true`.
+     *
      * Example:
      *   (start code)
      *   client.getAll('', false).then(function(objects) {
@@ -5077,8 +5077,16 @@ Math.uuid = function (len, radix) {
                (node.remote.body === node.common.body &&
                 node.remote.contentType === node.common.contentType);
       };
+      mergeMutualDeletion = function(node) {
+        if (node.remote && node.remote.body === false
+            && node.local && node.local.body === false) {
+           delete node.local;
+        }
+        return node;
+      };
 
       if (hasNoRemoteChanges(node)) {
+        node = mergeMutualDeletion(node);
         delete node.remote;
       } else if (node.remote.body !== undefined) {
         // keep/revert:
@@ -5452,7 +5460,8 @@ Math.uuid = function (len, radix) {
       if (statusCode === 'offline' || statusCode === 'timeout') {
         return {
           successful:      false,
-          networkProblems: true
+          networkProblems: true,
+          statusCode: statusCode
         };
       }
 
@@ -5464,7 +5473,8 @@ Math.uuid = function (len, radix) {
         unAuth:     ((statusCode === 401 && this.remote.token !== RemoteStorage.Authorize.IMPLIED_FAKE_TOKEN) ||
                      statusCode === 402 || statusCode === 403),
         notFound:   (statusCode === 404),
-        changed:    (statusCode !== 304)
+        changed:    (statusCode !== 304),
+        statusCode: statusCode
       };
     },
 
@@ -5517,15 +5527,19 @@ Math.uuid = function (len, radix) {
       }
       // Unsuccessful
       else {
+        var error;
         if (status.unAuth) {
-          remoteStorage._emit('error', new RemoteStorage.Unauthorized());
-        }
-        if (status.networkProblems) {
-          remoteStorage._emit('error', new RemoteStorage.SyncError());
+          error = new RemoteStorage.Unauthorized();
+        } else if (status.networkProblems) {
+          error = new RemoteStorage.SyncError('Network request failed.');
+          this.remote.online = false;
+        } else {
+          error = new Error('HTTP response code ' + status.statusCode + ' received.');
         }
 
         return this.dealWithFailure(path, action, status).then(function() {
-          return false;
+          remoteStorage._emit('error', error);
+          throw error;
         });
       }
     },
@@ -5548,6 +5562,7 @@ Math.uuid = function (len, radix) {
       .then(function(completed) {
         delete this._timeStarted[task.path];
         delete this._running[task.path];
+        this.remote.online = true;
 
         if (completed) {
           if (this._tasks[task.path]) {
@@ -5581,14 +5596,12 @@ Math.uuid = function (len, radix) {
 
       function(err) {
         console.error('[Sync] Error', err);
-        this.remote.online = false;
         delete this._timeStarted[task.path];
         delete this._running[task.path];
         this._emit('req-done');
-        if (!this.stopped) {
-          setTimeout(function() {
-            this.doTasks();
-          }.bind(this), 0);
+        if (!this.done) {
+          this.done = true;
+          this._emit('done');
         }
       }.bind(this));
     },
@@ -5755,10 +5768,11 @@ Math.uuid = function (len, radix) {
       msg += originalError;
     }
     this.originalError = originalError;
-    Error.apply(this, [msg]);
+    this.message = msg;
   };
 
-  SyncError.prototype = Object.create(Error.prototype);
+  SyncError.prototype = new Error();
+  SyncError.prototype.constructor = SyncError;
 
   RemoteStorage.SyncError = SyncError;
 
@@ -6188,10 +6202,28 @@ Math.uuid = function (len, radix) {
       return node;
     },
 
+    _updateNodesRunning: false,
+    _updateNodesQueued: [],
     _updateNodes: function(paths, cb) {
+      var promise = promising();
+      this._doUpdateNodes(paths, cb, promise);
+      return promise;
+    },
+    _doUpdateNodes: function(paths, cb, promise) {
       var self = this;
 
-      return this.getNodes(paths).then(function(nodes) {
+      if (this._updateNodesRunning) {
+        this._updateNodesQueued.push({
+          paths: paths,
+          cb: cb,
+          promise: promise
+        });
+        return;
+      } else {
+        this._updateNodesRunning = true;
+      }
+
+      this.getNodes(paths).then(function(nodes) {
         var existingNodes = deepClone(nodes);
         var changeEvents = [];
         var node;
@@ -6217,14 +6249,17 @@ Math.uuid = function (len, radix) {
           }
         }
 
-        return self.setNodes(nodes).then(function() {
+        self.setNodes(nodes).then(function() {
           self._emitChangeEvents(changeEvents);
-          return 200;
+          promise.fulfill(200);
         });
-      },
-      function(err) {
-        throw(err);
-      });
+      }).then(undefined, promise.reject).then(function() {
+        this._updateNodesRunning = false;
+        var nextJob = this._updateNodesQueued.shift();
+        if (nextJob) {
+          this._doUpdateNodes(nextJob.paths, nextJob.cb, nextJob.promise);
+        }
+      }.bind(this));
     },
 
     _emitChangeEvents: function(events) {
@@ -8081,8 +8116,8 @@ Math.uuid = function (len, radix) {
         promise.fulfill(412, undefined, undefined, savedRev);
         return promise;
       }
-      if (! contentType.match(/charset=/)) {
-        contentType += '; charset=' + ((body instanceof ArrayBuffer || RS.WireClient.isArrayBufferView(body)) ? 'binary' : 'utf-8');
+      if ((! contentType.match(/charset=/)) && (body instanceof ArrayBuffer || RS.WireClient.isArrayBufferView(body))) {
+        contentType += '; charset=binary';
       }
       var url = 'https://api-content.dropbox.com/1/files_put/auto' + path + '?';
       if (options && options.ifMatch) {

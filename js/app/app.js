@@ -80,11 +80,10 @@ var obj = {
 	},
 	
 	getAccounts: function(){
-		var costs = 0, share = 0, accounts = {}
+		var accounts = {}
 		store.query({"box": obj.tab}).forEach(function(transaction){
 			transaction.payments.forEach(function(payment){
-				costs += payment.amount
-				share = payment.amount / transaction.participants.length
+				var share = payment.amount / transaction.participants.length
 				transaction.participants.forEach(function(participant){
 					accounts[participant] = accounts[participant] || 0
 					accounts[participant] -= share

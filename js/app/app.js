@@ -95,9 +95,27 @@ var obj = {
 		})
 		return accounts
 	},
+
+	tempTabs: [],
+
+	getTabs: function(){
+		var tabs = []
+		store.query(function(){return true}).forEach(function(transaction){
+			if(transaction.box && tabs.indexOf(transaction.box) === -1){
+				tabs.push(transaction.box)
+			}
+		})
+		obj.tempTabs.forEach(function(tempTab) {
+			if(tempTab !== "" && tabs.indexOf(tempTab) === -1){
+				tabs.push(tempTab)
+			}
+		})
+		return tabs
+	},
 	
 	setTab: function(tabName){
 		obj.tab = tabName
+		obj.tempTabs.push(tabName)
 		localStorage.setItem("box", tabName)
 	},
 

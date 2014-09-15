@@ -52,17 +52,12 @@ return declare(_Scene, {
 	},
 
 	_getTabs: function(){
-		var tabs = []
-		this.app.store.query(function(){return true}).forEach(function(transaction){
-			if(transaction.box && tabs.indexOf(transaction.box) === -1){
-				tabs.push(transaction.box)
-			}
-		})
-		return this._tabs = tabs
+		return this._tabs = this.app.getTabs()
 	},
 
 	_setTab: function(tabName){
 		this.app.setTab(tabName)
+		this.refresh()
 	},
 
 	_onTabClick: function(tabName){

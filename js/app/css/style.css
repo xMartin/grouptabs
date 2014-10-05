@@ -424,12 +424,6 @@ td.amount {
 	font-size: 12px;
 }
 
-
-#remotestorage-widget {
-	right: 4px !important;
-	top: 1px !important;
-}
-
 /* remove click outlines */
 * {
 	outline: none;

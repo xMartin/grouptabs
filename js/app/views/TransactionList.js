@@ -35,31 +35,29 @@ return declare(_Scene, {
 	},
 	
 	refreshList: function(){
-		this._clearList()
 		this._renderList()
 	},
 	
 	_renderList: function(){
-		var store = this.app.store
-		if(!store){
-			return
-		}
-		var transactions = store.query({"box": this.app.tab}, {"sort": [{"attribute": "date", "descending": true}, {"attribute": "id", "descending": true}]})
-		var day
-		transactions.forEach(function(transaction){
-			var currentDay = new Date(transaction.date).toLocaleDateString()
-			if(currentDay != day){
-				var dateString = "<div class='dategroup'>" + currentDay + "</div>"
-				domConstruct.place(dateString, this.listNode)
-				day = currentDay
-			}
-			var listItem = new ListItem({app: this.app, entryId: transaction.id})
-			on(listItem.domNode, a11yclick, lang.hitch(this, function(){
-				this._onDetailsClick(transaction.id)
-			}))
-			listItem.placeAt(this.listNode)
-			this._listItems.push(listItem)
-		}, this)
+		this.app.getTransactions()
+		.then(function(transactions){
+			this._clearList()
+			var day
+			transactions.forEach(function(transaction){
+				var currentDay = new Date(transaction.date).toLocaleDateString()
+				if(currentDay != day){
+					var dateString = "<div class='dategroup'>" + currentDay + "</div>"
+					domConstruct.place(dateString, this.listNode)
+					day = currentDay
+				}
+				var listItem = new ListItem({app: this.app, data: transaction})
+				on(listItem.domNode, a11yclick, lang.hitch(this, function(){
+					this._onDetailsClick(transaction)
+				}))
+				listItem.placeAt(this.listNode)
+				this._listItems.push(listItem)
+			}, this)
+		}.bind(this))
 	},
 	
 	_clearList: function(){
@@ -82,8 +80,8 @@ return declare(_Scene, {
 		this.close(this, "editEntry")
 	},
 	
-	_onDetailsClick: function(id){
-		this.close(this, "editEntry", id)
+	_onDetailsClick: function(transaction){
+		this.close(this, "editEntry", transaction)
 	}
 })
 

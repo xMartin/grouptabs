@@ -13,8 +13,8 @@ var profile = {
 			location: "js/app"
 		},
 		{
-			name: "remotestorage",
-			location: "js/remotestorage"
+			name: "pouchdb",
+			location: "js/pouchdb"
 		}
 	],
 	layers: {

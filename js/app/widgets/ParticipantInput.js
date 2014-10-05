@@ -71,8 +71,8 @@ return declare([_Widget, _TemplatedMixin, _WidgetsInTemplateMixin], {
 				participant: this.participant,
 				amount: (domClass.contains(this.amountInput.domNode, "hidden") ? "" : this.amountInput.get("value")) || 0
 			}
-		}else{
-			this.value = {}
+		} else {
+			this.value = null
 		}
 	},
 

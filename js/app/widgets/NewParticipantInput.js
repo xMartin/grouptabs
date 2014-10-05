@@ -22,7 +22,7 @@ return declare(ParticipantInput, {
 				amount: (domClass.contains(this.amountInput.domNode, "hidden") ? "" : this.amountInput.get("value")) || 0
 			}
 		}else{
-			this.value = {}
+			this.value = null
 		}
 	},
 

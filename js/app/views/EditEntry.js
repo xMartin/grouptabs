@@ -22,46 +22,42 @@ return declare(_Scene, {
 		this._participantFormWidgets = []
 	},
 
-	onShow: function(entryId){
-		if(entryId !== undefined){
-			var data = this.app.store.get(entryId)
+	onShow: function(data){
+		if(data){
 			this._createParticipantFormWidgets(data)
 			this._prefill(data)
-			this._editEntry = entryId
+			this._data = data
 			this._showDeleteButton()
 			this.headingNode.innerHTML = "Edit transaction"
 		}else{
 			this._createParticipantFormWidgets()
-			if(!this._participantFormWidgets.length){
-				this._createNewParticipantFormWidget()
-				this._createNewParticipantFormWidget()
-			}
-			if(this._participantFormWidgets.length < 3){
-				this.selectAllButton.domNode.style.display = "none"
-			}
+			.then(function(){
+				if(!this._participantFormWidgets.length){
+					this._createNewParticipantFormWidget()
+					this._createNewParticipantFormWidget()
+				}
+				if(this._participantFormWidgets.length < 3){
+					this.selectAllButton.domNode.style.display = "none"
+				}
+			}.bind(this))
 			this._hideDeleteButton()
 			this.headingNode.innerHTML = "New transaction"
 		}
 	},
 
 	_prefill: function(data){
-		dijitRegistry.byId("editEntryTitle").set("value", data.title)
+		dijitRegistry.byId("editEntryTitle").set("value", data.description)
 		dijitRegistry.byId("editEntryDate").set("value", new Date(data.date))
 	},
 	
 	_createParticipantFormWidgets: function(data){
-		var accounts = this.app.getAccounts()
-		var accountCount = (function(){
-			var count = 0
-			for(var key in accounts){
-				count++
-			}
-			return count
-		})()
-		var isChecked = !data && accountCount == 2
-		for(var account in accounts){
-			this._createParticipantFormWidget(account, data, isChecked)
-		}
+		return this.app.getAccounts()
+		.then(function(accounts){
+			var isChecked = !data && accounts.length == 2
+			accounts.forEach(function(account){
+				this._createParticipantFormWidget(account.participant, data, isChecked)
+			}, this)
+		}.bind(this))
 	},
 
 	_createParticipantFormWidget: function(participant, data, isChecked){
@@ -70,14 +66,22 @@ return declare(_Scene, {
 			participant: participant
 		}
 		if(data){
-			data.payments.forEach(function(payment){
-				if(payment.participant == participant){
-					widgetParams.amount = payment.amount
+			data.participants.forEach(function(_participant){
+				if(_participant.amount && _participant.participant == participant){
+					widgetParams.amount = _participant.amount
 				}
 			})
 		}
 		var widget = new ParticipantFormWidget(widgetParams)
-		if(isChecked || data && data.participants.indexOf(participant) !== -1){
+		var participantJoined
+		if(data){
+			data.participants.forEach(function(_participant){
+				if(_participant.participant === participant){
+					participantJoined = true
+				}
+			})
+		}
+		if(isChecked || participantJoined){
 			widget.joinedButton.set("checked", true)
 			if(widgetParams.amount){
 				widget.paidButton.set("checked", true)
@@ -130,15 +134,12 @@ return declare(_Scene, {
 
 	_onOkClick: function(){
 		this._saveEntry()
-		if(this._editEntry !== undefined){
-			this.app.deleteEntry(this._editEntry)
-		}
 		this.reset()
 		this.close(this, this.app.homeView)
 	},
 
 	_onDeleteClick: function(){
-		this.app.deleteEntry(this._editEntry)
+		this.app.removeTransaction(this._data)
 		this.reset()
 		this.close(this, "list")
 	},
@@ -150,27 +151,16 @@ return declare(_Scene, {
 	
 	_saveEntry: function(){
 		var data = this.get("value")
-		var participants = array.filter(data.participants, function(participant){
-			return participant.participant
+		data.participants = array.filter(data.participants, function(participant){
+			return !!participant
 		})
-		participants = array.map(participants, function(participant){
-			return participant.participant
-		})
-		var payments = array.filter(data.participants, function(participant){
-			return participant.participant && participant.amount
-		})
-		payments = array.map(payments, function(participant){
-			return {participant: participant.participant, amount: participant.amount}
-		})
-		this.app.saveEntry({
-			id: "" + new Date().getTime(),
-			box: this.app.tab,
-			type: "spending",
-			title: data.title,
-			date: data.date.getTime(),
-			participants: participants,
-			payments: payments
-		})
+		data.type = "SHARED"
+		data.date = data.date.getTime()
+		if(this._data){
+			data._id = this._data._id
+			data._rev = this._data._rev
+		}
+		this.app.saveTransaction(data)
 	},
 
 	_showDeleteButton: function(){
@@ -187,7 +177,7 @@ return declare(_Scene, {
 	
 	reset: function(){
 		this.inherited(arguments)
-		delete this._editEntry
+		delete this._data
 		this._hideDeleteButton()
 		this.selectAllButton.domNode.style.display = ""
 		this._removeParticipantFormWidgets()

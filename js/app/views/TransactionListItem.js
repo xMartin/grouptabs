@@ -13,11 +13,16 @@ return declare([Widget, _Templated], {
 	entryId: "",
 	
 	postMixInProperties: function(){
-		var data = this.app.store.get(this.entryId)
+		var data = this.data
 		this.tplVars = {
-			title: data.title
+			title: data.description
 		}
-		var paymentsList = Array.prototype.slice.call(data.payments)
+		var paymentsList = []
+		data.participants.forEach(function(participant){
+			if(participant.amount){
+				paymentsList.push(participant)
+			}
+		})
 		paymentsList.sort(function(a, b){
 			if(a.amount > b.amount || a.amount == b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()){
 				return -1
@@ -33,7 +38,9 @@ return declare([Widget, _Templated], {
 		})
 		this.tplVars.payments = payments
 		this.tplVars.total = number.format(total, {places: 2})
-		var participantsList = Array.prototype.slice.call(data.participants)
+		var participantsList = data.participants.map(function(participant){
+			return participant.participant
+		})
 		participantsList.sort(function(a, b){
 			return a.toLowerCase() < b.toLowerCase() ? -1 : 1
 		})

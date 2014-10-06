@@ -8,11 +8,8 @@ define([
 ], function(store, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
 "use strict";
 
-function getTabFromUrl () {
-	var match = location.search.match(/\btab=(\w+)/);
-	if (match && match.length) {
-		return match[1];
-	}
+function generateTabId(){
+	return "" + (new Date()).getTime()
 }
 
 return {
@@ -24,9 +21,14 @@ return {
 	homeView: "main",
 
 	init: function(){
-		this.setTab(getTabFromUrl())
+		var tabId = location.hash.substring(1)
+		if(!tabId){
+			tabId = generateTabId()
+			location.hash = tabId
+		}
+		this.setTab(tabId)
 
-		store.init(this.tab)
+		store.init(tabId)
 		store.setupChangesListener(sceneController.refreshAll.bind(sceneController))
 		store.sync()
 		// explicitely cancel syncing, an error is thrown by pouchdb otherwise

@@ -424,6 +424,11 @@ td.amount {
 	font-size: 12px;
 }
 
+.mainScene > .header,
+.listScene > .header {
+	visibility: hidden;
+}
+
 /* remove click outlines */
 * {
 	outline: none;

@@ -5,17 +5,26 @@ define([
 
 	return {
 
-		dbName: '',
-
 		db: null,
 
-		init: function (dbName) {
-			this.dbName = dbName;
-			this.db = new PouchDB(dbName);
+		tabId: '',
+
+		init: function (tabId) {
+			this.tabId = tabId;
+			this.db = new PouchDB('grouptabs-' + tabId);
 		},
 
 		sync: function () {
-			this._syncHandle = this.db.sync('http://33.44.55.66:5984/' + this.dbName, {live: true})
+			var tabId = this.tabId;
+			this._syncHandle = this.db.sync(
+				'https://xmartin.iriscouch.com:6984/grouptabs',
+				{
+					live: true,
+					filter: function (doc) {
+						return doc.document_type === 'tab' && doc._id === tabId || doc.document_type === 'transaction' && doc.tabId === tabId;
+					}
+				}
+			)
 			.on('error', function (err) {
 				console.error(err);
 			});
@@ -86,6 +95,7 @@ define([
 
 		saveTransaction: function (doc) {
 			doc.document_type = 'transaction';
+			doc.tabId = this.tabId;
 			if (doc._id) {
 				this.db.put(doc, function (err, response) {
 					console.log(err, response);

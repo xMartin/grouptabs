@@ -104,12 +104,12 @@ return declare(_Scene, {
 	_onNewParticipantClick: function(){
 		this._createNewParticipantFormWidget()
 		var widget = this._participantFormWidgets[this._participantFormWidgets.length - 1]
-		widget.joinedButton.set("checked", true)
 		widget.set("focus", true)
 	},
 
 	_createNewParticipantFormWidget: function(){
 		var widget = new NewParticipantFormWidget({name: "participants"})
+		widget.joinedButton.set("checked", true)
 		this.connect(widget, "onRemove", this._removeNewParticipantFormWidget)
 		widget.placeAt(this.participantsNode)
 		this._participantFormWidgets.push(widget)

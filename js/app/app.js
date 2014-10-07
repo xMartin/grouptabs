@@ -9,7 +9,12 @@ define([
 "use strict";
 
 function generateTabId(){
-	return "" + (new Date()).getTime()
+	var chars = "0123456789abcdefghijklmnopqrstuvwxyz"
+	var result = ""
+	for (var i = 0; i < 16; ++i) {
+		result += chars.substr(Math.floor(Math.random() * chars.length), 1);
+	}
+	return result
 }
 
 return {

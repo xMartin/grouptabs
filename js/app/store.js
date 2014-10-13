@@ -1,30 +1,39 @@
 define([
+	'dojo/request/xhr',
 	'pouchdb'
-], function (PouchDB) {
+], function (xhr, PouchDB) {
 	"use strict";
 
 	return {
 
 		db: null,
-
 		tabId: '',
+		dbName: '',
 
 		init: function (tabId) {
 			this.tabId = tabId;
-			this.db = new PouchDB('grouptabs-' + tabId);
+			this.dbName = 'tab-' + tabId;
+			this.db = new PouchDB(this.dbName);
 		},
 
 		sync: function () {
-			var tabId = this.tabId;
-			this._syncHandle = this.db.sync(
-				'https://xmartin.iriscouch.com:6984/grouptabs',
-				{
-					live: true,
-					filter: function (doc) {
-						return doc.document_type === 'tab' && doc._id === tabId || doc.document_type === 'transaction' && doc.tabId === tabId;
+			xhr('http://localhost:8080/' + this.dbName, {
+				method: 'PUT',
+				headers: {'X-Requested-With': null}
+			}).then(
+				this._sync.bind(this),
+				function (error) {
+					if (error.response.status === 412) {
+						this._sync();
+					} else {
+						throw new Error(err);
 					}
-				}
-			)
+				}.bind(this)
+			);
+		},
+
+		_sync: function () {
+			this._syncHandle = this.db.sync('http://33.44.55.66:5984/' + this.dbName, {live: true})
 			.on('error', function (err) {
 				console.error(err);
 			});

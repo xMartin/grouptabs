@@ -1,6 +1,6 @@
 define([
 	'dojo/request/xhr',
-	'pouchdb'
+	'pouchdb',
 ], function (xhr, PouchDB) {
 	"use strict";
 
@@ -12,28 +12,23 @@ define([
 
 		init: function (tabId) {
 			this.tabId = tabId;
-			this.dbName = 'tab-' + tabId;
+			this.dbName = 'tab/' + tabId;
 			this.db = new PouchDB(this.dbName);
+			this.hoodie = new Hoodie();
 		},
 
 		sync: function () {
-			xhr('http://localhost:8080/' + this.dbName, {
-				method: 'PUT',
-				headers: {'X-Requested-With': null}
-			}).then(
+			this.hoodie.createDb({name: this.dbName, write: true})
+			.then(
 				this._sync.bind(this),
-				function (error) {
-					if (error.response.status === 412) {
-						this._sync();
-					} else {
-						throw new Error(err);
-					}
+				function (err) {
+					throw new Error(err);
 				}.bind(this)
 			);
 		},
 
 		_sync: function () {
-			this._syncHandle = this.db.sync('http://33.44.55.66:5984/' + this.dbName, {live: true})
+			this._syncHandle = this.db.sync('_api/' + encodeURIComponent(this.dbName), {live: true})
 			.on('error', function (err) {
 				console.error(err);
 			});

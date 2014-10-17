@@ -28,7 +28,8 @@ define([
 		},
 
 		_sync: function () {
-			this._syncHandle = this.db.sync('_api/' + encodeURIComponent(this.dbName), {live: true})
+			var url = location.protocol + '//' + location.host + '/_api/' + encodeURIComponent(this.dbName);
+			this._syncHandle = this.db.sync(url, {live: true})
 			.on('error', function (err) {
 				console.error(err);
 			});

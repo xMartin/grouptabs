@@ -11,10 +11,6 @@ var profile = {
 		{
 			name: "app",
 			location: "js/app"
-		},
-		{
-			name: "remotestorage",
-			location: "js/remotestorage"
 		}
 	],
 	layers: {

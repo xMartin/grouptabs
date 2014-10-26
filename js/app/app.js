@@ -1,12 +1,11 @@
 define([
-	"remotestorage",
 	"./RemoteStorageStoreAdapter",
 	"./sceneController",
 	"./views/Tabs",
 	"./views/Main",
 	"./views/EditEntry",
 	"./views/TransactionList"
-], function(remoteStorage, RemoteStorageAdapter, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
+], function(RemoteStorageAdapter, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
 
 var remoteStorageAdapter = new RemoteStorageAdapter()
 var store = remoteStorageAdapter.store

@@ -14,7 +14,7 @@ define([
 			this.tabId = tabId;
 			this.dbName = 'tab/' + tabId;
 			this.db = new PouchDB(this.dbName);
-			this.hoodie = new Hoodie();
+			this.hoodie = new Hoodie(config.backendUrl);
 		},
 
 		sync: function () {
@@ -28,7 +28,7 @@ define([
 		},
 
 		_sync: function () {
-			var url = location.protocol + '//' + location.host + '/_api/' + encodeURIComponent(this.dbName);
+			var url = config.backendUrl + '/_api/' + encodeURIComponent(this.dbName);
 			this._syncHandle = this.db.sync(url, {live: true})
 			.on('error', function (err) {
 				console.error(err);

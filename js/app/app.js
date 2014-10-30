@@ -33,27 +33,28 @@ return {
 		}
 		this.setTab(tabId)
 
-		store.init(tabId)
-		store.setupChangesListener(sceneController.refreshAll.bind(sceneController))
-		store.sync()
-		// explicitely cancel syncing, an error is thrown by pouchdb otherwise
-		window.addEventListener('unload', function(){
-			store.stopSyncing()
-		})
+		store.init(tabId).then(function (){
+			store.setupChangesListener(sceneController.refreshAll.bind(sceneController))
+			store.sync()
+			// explicitely cancel syncing, an error is thrown by pouchdb otherwise
+			window.addEventListener('unload', function(){
+				store.stopSyncing()
+			})
 
-		var sceneName, scene,
-			scenes = {
-				"tabs": new TabsScene({app: this, controller: sceneController}),
-				"main": new MainScene({app: this, controller: sceneController}),
-				"newEntry": new EditEntryScene({app: this, controller: sceneController}),
-				"list": new TransactionListScene({app: this, controller: sceneController})
+			var sceneName, scene,
+				scenes = {
+					"tabs": new TabsScene({app: this, controller: sceneController}),
+					"main": new MainScene({app: this, controller: sceneController}),
+					"newEntry": new EditEntryScene({app: this, controller: sceneController}),
+					"list": new TransactionListScene({app: this, controller: sceneController})
+				}
+
+			for(sceneName in scenes){
+				scene = scenes[sceneName]
+				sceneController.addScene(scene)
 			}
-		
-		for(sceneName in scenes){
-			scene = scenes[sceneName]
-			sceneController.addScene(scene)
-		}
-		sceneController.selectScene(this.tab ? scenes["main"] : scenes["tabs"])
+			sceneController.selectScene(this.tab ? scenes["main"] : scenes["tabs"])
+		}.bind(this))
 	},
 	
 	getAccounts: function(){

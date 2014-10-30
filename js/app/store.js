@@ -13,8 +13,34 @@ define([
 		init: function (tabId) {
 			this.tabId = tabId;
 			this.dbName = 'tab/' + tabId;
-			this.db = new PouchDB(this.dbName);
 			this.hoodie = new Hoodie(config.backendUrl);
+			return this._setupDb();
+		},
+
+		_setupDb: function () {
+			return new Promise(function (resolve) {
+				this.db = new PouchDB(this.dbName);
+				this.db.put({
+					_id: '_design/document_type',
+					views: {
+						'document_type': {
+							map: function (doc) {
+								emit(doc.document_type);
+							}.toString()
+						}
+					}
+				}).then(function () {
+					console.log('db: view "document_type" created.');
+					resolve();
+				}).catch(function (err) {
+					if (err.name === 'conflict') {
+						console.log('db: view "document_type" exists.');
+						resolve();
+					} else {
+						throw new Error(err);
+					}
+				});
+			}.bind(this));
 		},
 
 		sync: function () {
@@ -42,9 +68,7 @@ define([
 		getTransactions: function () {
 			return new Promise(function (resolve, reject) {
 				this.db.query(
-					function (doc) {
-						emit(doc.document_type);
-					},
+					'document_type',
 					{key: 'transaction', include_docs: true},
 					function (err, response) {
 						if (err) {

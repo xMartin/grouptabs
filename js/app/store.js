@@ -23,11 +23,16 @@ define([
 				this.db.put({
 					_id: '_design/document_type',
 					views: {
-						'document_type': {
+						document_type: {
 							map: function (doc) {
 								emit(doc.document_type);
 							}.toString()
 						}
+					},
+					filters: {
+						transaction: function (doc) {
+							return doc.document_type === 'transaction';
+						}.toString()
 					}
 				}).then(function () {
 					console.log('db: view "document_type" created.');
@@ -152,6 +157,7 @@ define([
 				}
 				this.db.changes({
 					since: info.update_seq,
+					filter: 'document_type/transaction',
 					live: true
 				}).on('change', listener);
 			}.bind(this));

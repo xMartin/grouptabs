@@ -159,6 +159,8 @@ return declare(_Scene, {
 		if(this._data){
 			data._id = this._data._id
 			data._rev = this._data._rev
+		} else {
+			data.timestamp = (new Date()).getTime()
 		}
 		this.app.saveTransaction(data)
 	},

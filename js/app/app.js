@@ -61,7 +61,22 @@ return {
 	},
 
 	getTransactions: function(){
-		return store.getTransactions()
+		return store.getTransactions().then(function (transactions) {
+			// order transactions by date and timestamp descending
+			return transactions.sort(function(a, b){
+				if (a.date > b.date) {
+					return -1
+				} else if (a.date < b.date) {
+					return 1
+				} else {  // ===
+					if (a.timestamp > b.timestamp) {
+						return -1
+					} else {
+						return 1
+					}
+				}
+			})
+		})
 	},
 
 	tempTabs: [],

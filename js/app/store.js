@@ -1,6 +1,6 @@
 define([
 	'dojo/request/xhr',
-	'pouchdb',
+	'pouchdb'
 ], function (xhr, PouchDB) {
 	"use strict";
 

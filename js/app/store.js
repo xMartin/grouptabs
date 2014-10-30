@@ -41,23 +41,24 @@ define([
 
 		getTransactions: function () {
 			return new Promise(function (resolve, reject) {
-				function mapFun (doc) {
-					if (doc.document_type === 'transaction') {
-						emit(doc._id, null);
-					}
-				}
-				this.db.query(mapFun, {include_docs: true}, function (err, response) {
-					if (err) {
-						reject(err);
-					}
+				this.db.query(
+					function (doc) {
+						emit(doc.document_type);
+					},
+					{key: 'transaction', include_docs: true},
+					function (err, response) {
+						if (err) {
+							reject(err);
+						}
 
-					var transactions = [];
-					response.rows.forEach(function (row) {
-						transactions.push(row.doc);
-					});
+						var transactions = [];
+						response.rows.forEach(function (row) {
+							transactions.push(row.doc);
+						});
 
-					resolve(transactions);
-				});
+						resolve(transactions);
+					}
+				);
 			}.bind(this));
 		},
 

@@ -4,7 +4,5 @@ js/dojox/
 js/util/
 js/jquery/
 js/release/
-js/remotestorage.js
-js/remotestorage.min.js
 node_modules/
 js/config.js

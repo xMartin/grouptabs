@@ -77,14 +77,10 @@ return ring.create([_Scene], {
 				if(!maxAmount){
 					return 'transparent'
 				}
-				var isNegative = amount < 0
-				amount = Math.abs(amount)
-				var factor = amount / maxAmount
-				var hue = isNegative ? 19 : 98  // red: 360, green: 120
-				var saturation = isNegative ? '77%' : '88%'
-				var levelFactor = isNegative ? 0.99 : 0.93
-				var level = Math.round(100 - factor * 50 * (1 - levelFactor + 1)) + '%'  // 50% is full color
-				return "hsl(" + hue + ", " + saturation + ", " + level + ")"
+				var color = amount < 0 ? [226, 91, 29] : [92, 226, 14]
+				var opacity = Math.abs(amount) / maxAmount
+				color.push(opacity)
+				return "rgba(" + color.join(",") + ")"
 			}
 			var html = "<table id='balance'>"
 			accounts.forEach(function(accountObj){

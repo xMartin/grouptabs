@@ -1,7 +1,4 @@
-define([
-	"dojo/dom",
-	"dojo/dom-style"
-], function(dom, domStyle){
+define(function(){
 
 var sceneController = {
 	scenes: []
@@ -28,18 +25,18 @@ return {
 	},
 	
 	addScene: function(scene){
-		scene.placeAt(dom.byId("scenes"))
+		scene.placeAt(document.getElementById("scenes"))
 		sceneController.scenes.push(scene)
 	},
 
 	selectScene: function(scene, params){
 		sceneController.scenes.forEach(function(_scene){
-			domStyle.set(_scene.domNode, "display", "none")
+			_scene.domNode.style.display = "none"
 		})
 		if(typeof scene == "string"){
 			scene = getSceneByName(scene)
 		}
-		domStyle.set(scene.domNode, "display", "")
+		scene.domNode.style.display = ""
 		scene.onShow(params)
 		sceneController.selectedScene = scene
 	},

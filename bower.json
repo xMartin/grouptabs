@@ -2,9 +2,10 @@
   "name": "grouptabs",
   "version": "0.0.0",
   "dependencies": {
-    "dojo": "~1.10.0",
-    "dijit": "~1.10.0",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "requirejs": "~2.1.15",
+    "pouchdb": "~3.0.6",
+    "ring": "~2.0.2"
   },
   "devDependencies": {}
 }

@@ -1,11 +1,11 @@
 define([
 	"./store",
 	"./sceneController",
-	"./views/Tabs",
-	"./views/Main",
-	"./views/EditEntry",
-	"./views/TransactionList"
-], function(store, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
+//	"./views/Tabs",
+	"./views/Main"
+	// "./views/EditEntry",
+	// "./views/TransactionList"
+], function(store, sceneController, /*TabsScene, */MainScene/*, EditEntryScene, TransactionListScene*/){
 "use strict";
 
 function generateTabId(){
@@ -43,10 +43,10 @@ return {
 
 			var sceneName, scene,
 				scenes = {
-					"tabs": new TabsScene({app: this, controller: sceneController}),
-					"main": new MainScene({app: this, controller: sceneController}),
-					"newEntry": new EditEntryScene({app: this, controller: sceneController}),
-					"list": new TransactionListScene({app: this, controller: sceneController})
+					// "tabs": new TabsScene({app: this, controller: sceneController}),
+					"main": new MainScene({app: this, controller: sceneController})
+					// "newEntry": new EditEntryScene({app: this, controller: sceneController}),
+					// "list": new TransactionListScene({app: this, controller: sceneController})
 				}
 
 			for(sceneName in scenes){

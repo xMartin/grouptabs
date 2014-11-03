@@ -1,18 +1,21 @@
 define([
-	"dojo/_base/declare",
-	"dojo/dom-construct",
-	"dojo/number",
-	"./_Scene",
-	"dojo/text!./templates/Main.html"
-], function(declare, domConstruct, number, _Scene, template){
+	"ring",
+	// "dojo/_base/declare",
+	// "dojo/dom-construct",
+	// "dojo/number",
+	"./_Scene"
+	// "dojo/text!./templates/Main.html"
+], function(ring/*declare, domConstruct, number*/, _Scene/*, template*/){
 
-return declare(_Scene, {
-	
-	templateString: template,
-	
+return ring.create([_Scene], {
+
+	// templateString: template,
+
 	name: "main",
 	
 	postCreate: function(){
+		this.$super()
+		this.summaryNode = this.domNode
 		this._renderSummary()
 	},
 	
@@ -37,7 +40,7 @@ return declare(_Scene, {
 	},
 
 	refresh: function(){
-		this.tabNameNode.innerHTML = this.app.tab
+		// this.tabNameNode.innerHTML = this.app.tab
 		this.refreshSummary()
 	},
 	
@@ -46,13 +49,13 @@ return declare(_Scene, {
 	},
 
 	_setEmpty: function(isEmpty){
-		if(isEmpty){
-			this.contentNode.style.display = 'none'
-			this.emptyNode.style.display = ''
-		}else{
-			this.contentNode.style.display = ''
-			this.emptyNode.style.display = 'none'
-		}
+		// if(isEmpty){
+		// 	this.contentNode.style.display = 'none'
+		// 	this.emptyNode.style.display = ''
+		// }else{
+		// 	this.contentNode.style.display = ''
+		// 	this.emptyNode.style.display = 'none'
+		// }
 	},
 
 	_renderSummary: function(){
@@ -85,7 +88,7 @@ return declare(_Scene, {
 			}
 			var html = "<table id='balance'>"
 			accounts.forEach(function(accountObj){
-				var amount = number.format(accountObj.amount, {places: 2})
+				var amount = /*number.format(*/accountObj.amount/*, {places: 2})*/
 				html +=
 					"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
 					+ "<th class='account'>" + accountObj.participant + "</th>"
@@ -93,12 +96,12 @@ return declare(_Scene, {
 					+ "</tr>"
 			})
 			html += "</table>"
-			this.summaryNode.appendChild(domConstruct.toDom(html))
+			this.summaryNode.innerHTML = html
 		}.bind(this))
 	},
 	
 	_clearSummary: function(){
-		domConstruct.empty(this.summaryNode)
+		this.summaryNode.innerHTML = ""
 	}
 })
 

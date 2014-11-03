@@ -15,15 +15,10 @@
 	<link rel="apple-touch-startup-image" href="images/splash-1096.png" media="(max-device-width : 548px) and (-webkit-min-device-pixel-ratio : 2)">
 
 	<link rel="stylesheet" type="text/css" href="js/app/css/style.css">
-	<script src="js/jquery/dist/jquery.js"></script>
+	<script src="bower_components/jquery/dist/jquery.js"></script>
 	<script src="js/config.js"></script>
 	<script>document.write('<script src="' + config.backendUrl + '/_api/_files/hoodie.js"></sc' + 'ript>')</script>
-	<script data-dojo-config="async:true, packages:[{name:'pouchdb', location:'../pouchdb'}]" type="text/javascript" src="js/dojo/dojo.js"></script>
-	<script type="text/javascript">
-		require(["dojo/ready", "app/app"], function(ready, app){
-			ready(app.init.bind(app))
-		})
-	</script>
+	<script src="bower_components/requirejs/require.js" data-main="js/bootstrap.js"></script>
 	<title>Grouptabs</title>
 </head>
 <body class="claro">

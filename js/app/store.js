@@ -71,90 +71,71 @@ define([
 		},
 
 		getTransactions: function () {
-			return new Promise(function (resolve, reject) {
-				this.db.query(
-					'document_type',
-					{key: 'transaction', include_docs: true},
-					function (err, response) {
-						if (err) {
-							reject(err);
-						}
-
-						var transactions = [];
-						response.rows.forEach(function (row) {
-							transactions.push(row.doc);
-						});
-
-						resolve(transactions);
-					}
-				);
-			}.bind(this));
+			return this.db.query('document_type', {key: 'transaction', include_docs: true})
+			.then(function (response) {
+				var transactions = [];
+				response.rows.forEach(function (row) {
+					transactions.push(row.doc);
+				});
+				return transactions;
+			});
 		},
 
 		getParticipants: function () {
-			return new Promise(function (resolve, reject) {
-				this.getTransactions()
-				.then(function (transactions) {
-					var participants = {};
-					transactions.forEach(function (transaction) {
-						var total = 0;
-						transaction.participants.forEach(function (participant) {
-							total += participant.amount || 0;
-						});
-						var share = total / transaction.participants.length;
-						transaction.participants.forEach(function (participant) {
-							var amount = participant.amount || 0;
-							var participantName = participant.participant;
-							var storedAmount = participants[participantName] || 0;
-							var newAmount = storedAmount - share + amount;
-							participants[participantName] = newAmount;
-						});
+			return this.getTransactions()
+			.then(function (transactions) {
+				var participants = {};
+				transactions.forEach(function (transaction) {
+					var total = 0;
+					transaction.participants.forEach(function (participant) {
+						total += participant.amount || 0;
 					});
-					var result = [];
-					for (var participant in participants) {
-						var resultObj = {};
-						resultObj.participant = participant;
-						resultObj.amount = participants[participant];
-						result.push(resultObj);
-					}
-					result.sort(function (a, b) {
-						return a.amount < b.amount ? -1 : 1
+					var share = total / transaction.participants.length;
+					transaction.participants.forEach(function (participant) {
+						var amount = participant.amount || 0;
+						var participantName = participant.participant;
+						var storedAmount = participants[participantName] || 0;
+						var newAmount = storedAmount - share + amount;
+						participants[participantName] = newAmount;
 					});
-					resolve(result);
-				})
-				.catch(function (err) {
-					reject(err);
 				});
-			}.bind(this));
+				var result = [];
+				for (var participant in participants) {
+					var resultObj = {};
+					resultObj.participant = participant;
+					resultObj.amount = participants[participant];
+					result.push(resultObj);
+				}
+				result.sort(function (a, b) {
+					return a.amount < b.amount ? -1 : 1
+				});
+				return result;
+			});
 		},
 
 		saveTransaction: function (doc) {
 			doc.document_type = 'transaction';
 			doc.tabId = this.tabId;
 			if (doc._id) {
-				this.db.put(doc, function (err, response) {
-					console.log(err, response);
+				this.db.put(doc).then(function (response) {
+					console.log('db: update', response);
 				});
 			} else {
-				this.db.post(doc, function (err, response) {
-					console.log(err, response);
+				this.db.post(doc).then(function (response) {
+					console.log('db: create', response);
 				});
 			}
 		},
 
 		removeTransaction: function (doc) {
 			doc._deleted = true;
-			this.db.put(doc, function (err, response) {
-				console.log(err, response);
+			this.db.put(doc).then(function (response) {
+				console.log('db: delete', response);
 			});
 		},
 
 		setupChangesListener: function (listener) {
-			this.db.info(function (err, info) {
-				if (err) {
-					console.error(err);
-					return;
-				}
+			this.db.info().then(function (info) {
 				this.db.changes({
 					since: info.update_seq,
 					filter: 'document_type/transaction',

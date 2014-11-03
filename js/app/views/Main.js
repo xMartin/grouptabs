@@ -70,34 +70,7 @@ return ring.create([_Scene], {
 		.then(function(accounts){
 			// this._clearSummary()
 			this._setEmpty(!accounts.length)
-			var maxAmount = (function(){
-				var result = 0
-				accounts.forEach(function(account){
-					var amount = Math.abs(account.amount)
-					if(amount > result){
-						result = amount
-					}
-				})
-				return Math.round(result * 100) / 100
-			})()
-			var cssColor = function(amount){
-				if(!maxAmount){
-					return 'transparent'
-				}
-				var color = amount < 0 ? [226, 91, 29] : [92, 226, 14]
-				var opacity = Math.abs(amount) / maxAmount
-				color.push(opacity)
-				return "rgba(" + color.join(",") + ")"
-			}
-			var data = []
-			accounts.forEach(function(account){
-				data.push({
-					amount: /*number.format(*/account.amount/*, {places: 2})*/,
-					cssColor: cssColor(account.amount),
-					participant: account.participant
-				})
-			})
-			this.summary.setState({data: data})
+			this.summary.setState({data: accounts})
 		}.bind(this))
 	},
 	

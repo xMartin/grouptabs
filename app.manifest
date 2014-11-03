@@ -15,7 +15,7 @@ js/release/dijit/themes/claro/images/tooltip.png
 fonts/SourceSansPro-Regular.ttf
 fonts/SourceSansPro-Semibold.ttf
 js/config.js
-js/jquery/dist/jquery.js
+js/jquery/dist/jquery.min.js
 _api/_files/hoodie.js
 
 NETWORK:

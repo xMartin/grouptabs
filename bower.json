@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "dependencies": {
     "dojo": "~1.10.0",
-    "dijit": "~1.10.0"
+    "dijit": "~1.10.0",
+    "jquery": "~2.1.1"
   },
-  "devDependencies": {
-
-  }
+  "devDependencies": {}
 }

@@ -3,9 +3,11 @@ define([
 	// "dojo/_base/declare",
 	// "dojo/dom-construct",
 	// "dojo/number",
-	"./_Scene"
+	"react",
+	"./_Scene",
+	"../components/summary"
 	// "dojo/text!./templates/Main.html"
-], function(ring/*declare, domConstruct, number*/, _Scene/*, template*/){
+], function(ring/*declare, domConstruct, number*/, React, _Scene, SummaryClass/*, template*/){
 
 return ring.create([_Scene], {
 
@@ -16,9 +18,14 @@ return ring.create([_Scene], {
 	postCreate: function(){
 		this.$super()
 		this.summaryNode = this.domNode
+		this._createComponents()
 		this._renderSummary()
 	},
 	
+	_createComponents: function(){
+		this.summary = React.render(React.createFactory(SummaryClass)(), this.summaryNode)
+	},
+
 	_onChangeTabClick: function(){
 		this.close(this, "tabs")
 	},
@@ -61,7 +68,7 @@ return ring.create([_Scene], {
 	_renderSummary: function(){
 		this.app.getAccounts()
 		.then(function(accounts){
-			this._clearSummary()
+			// this._clearSummary()
 			this._setEmpty(!accounts.length)
 			var maxAmount = (function(){
 				var result = 0
@@ -82,17 +89,15 @@ return ring.create([_Scene], {
 				color.push(opacity)
 				return "rgba(" + color.join(",") + ")"
 			}
-			var html = "<table id='balance'>"
-			accounts.forEach(function(accountObj){
-				var amount = /*number.format(*/accountObj.amount/*, {places: 2})*/
-				html +=
-					"<tr style='background-color: " + cssColor(accountObj.amount) + "'>"
-					+ "<th class='account'>" + accountObj.participant + "</th>"
-					+ "<td class='amount'>" + amount + "</td>"
-					+ "</tr>"
+			var data = []
+			accounts.forEach(function(account){
+				data.push({
+					amount: /*number.format(*/account.amount/*, {places: 2})*/,
+					cssColor: cssColor(account.amount),
+					participant: account.participant
+				})
 			})
-			html += "</table>"
-			this.summaryNode.innerHTML = html
+			this.summary.setState({data: data})
 		}.bind(this))
 	},
 	

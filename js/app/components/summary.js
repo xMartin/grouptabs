@@ -7,12 +7,6 @@ function (React) {
 
   return React.createClass({
 
-    getInitialState: function () {
-      return {
-        data: []
-      };
-    },
-
     formatData: function (accounts) {
       var round = function (amount) {
         return Math.round(amount * 100) / 100;
@@ -53,7 +47,7 @@ function (React) {
     },
 
     render: function () {
-      var accounts = this.formatData(this.state.data).map(function (account) {
+      var accounts = this.formatData(this.props.data).map(function (account) {
         return React.createElement('tr', {style: {backgroundColor: account.cssColor}},
           React.createElement('th', {className: 'account'}, account.participant),
           React.createElement('td', {className: 'amount'}, account.amount)

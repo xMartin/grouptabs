@@ -5,9 +5,11 @@ define([
 	// "dojo/number",
 	"react",
 	"./_Scene",
-	"../components/summary"
+	"../components/main"
 	// "dojo/text!./templates/Main.html"
-], function(ring/*declare, domConstruct, number*/, React, _Scene, SummaryClass/*, template*/){
+], function(ring/*declare, domConstruct, number*/, React, _Scene, MainComponentClass/*, template*/){
+
+var MainComponent = React.createFactory(MainComponentClass)
 
 return ring.create([_Scene], {
 
@@ -17,13 +19,9 @@ return ring.create([_Scene], {
 	
 	postCreate: function(){
 		this.$super()
-		this.summaryNode = this.domNode
-		this._createComponents()
-		this._renderSummary()
-	},
-	
-	_createComponents: function(){
-		this.summary = React.render(React.createFactory(SummaryClass)(), this.summaryNode)
+		this.domNode.className = "scene mainScene"
+		this.component = React.render(MainComponent({view: this}), this.domNode)
+		this._render()
 	},
 
 	_onChangeTabClick: function(){
@@ -48,11 +46,7 @@ return ring.create([_Scene], {
 
 	refresh: function(){
 		// this.tabNameNode.innerHTML = this.app.tab
-		this.refreshSummary()
-	},
-	
-	refreshSummary: function(){
-		this._renderSummary()
+		this._render()
 	},
 
 	_setEmpty: function(isEmpty){
@@ -65,17 +59,12 @@ return ring.create([_Scene], {
 		// }
 	},
 
-	_renderSummary: function(){
+	_render: function(){
 		this.app.getAccounts()
 		.then(function(accounts){
-			// this._clearSummary()
 			this._setEmpty(!accounts.length)
-			this.summary.setState({data: accounts})
+			this.component.setState({tabName: this.app.tab, data: accounts})
 		}.bind(this))
-	},
-	
-	_clearSummary: function(){
-		this.summaryNode.innerHTML = ""
 	}
 })
 

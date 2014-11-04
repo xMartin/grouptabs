@@ -64,7 +64,7 @@ function (React) {
 
     render: function () {
       var data = this.getFormattedData();
-      return React.createElement('div', {className: 'transaction'},
+      return React.createElement('div', {className: 'transaction', onClick: this._onNewEntryClick},
         React.createElement('table', null,
           React.createElement('tr', null,
             React.createElement('td', {className:'title'},
@@ -80,6 +80,10 @@ function (React) {
           )
         )
       )
+    },
+
+    _onNewEntryClick: function () {
+      this.props.view._onNewEntryClick(this.props.data);
     }
 
   });

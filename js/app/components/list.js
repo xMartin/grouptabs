@@ -36,7 +36,7 @@ function (React, TransactionListClass) {
           React.createElement('button', {disabled: 'disabled'}, 'Transactions')
         ),
         React.createElement('div', {className: 'row'},
-          TransactionList({data: this.state.data})
+          TransactionList({view: this.props.view, data: this.state.data})
         )
       );
     },

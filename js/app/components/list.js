@@ -28,7 +28,7 @@ function (React, TransactionListClass) {
             React.createElement('h2', null, this.state.tabName)
           ),
           React.createElement('div', {className: 'row'},
-            React.createElement('button', {className: 'full-width-margin create', onClick: this._onNewEntryClick},
+            React.createElement('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
               'Add transaction'
             )
           ),

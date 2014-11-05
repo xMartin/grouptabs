@@ -24,7 +24,12 @@ return ring.create([_Scene], {
 	postCreate: function(){
 		this.$super()
 		this.domNode.className = "scene listScene"
-		this.component = React.render(ListComponent({view: this}), this.domNode)
+		this.component = React.render(ListComponent({
+			handleChangeTabClick: this._onChangeTabClick.bind(this),
+			handlePeopleClick: this._onPeopleClick.bind(this),
+			handleNewEntryClick: this._onNewEntryClick.bind(this),
+			handleDetailsClick: this._onDetailsClick.bind(this)
+		}), this.domNode)
 		this._render()
 	},
 	

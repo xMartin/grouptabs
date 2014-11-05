@@ -27,30 +27,18 @@ function (React, SummaryClass) {
           React.createElement('h2', null, this.state.tabName)
         ),
         React.createElement('div', {className: 'row'},
-          React.createElement('button', {className: 'full-width-margin create', onClick: this._onNewEntryClick},
+          React.createElement('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
             'Add transaction'
           )
         ),
         React.createElement('div', {className: 'row toggle'},
           React.createElement('button', {disabled: 'disabled'}, 'People'),
-          React.createElement('button', {onClick: this._onListClick}, 'Transactions')
+          React.createElement('button', {onClick: this.props.handleListClick}, 'Transactions')
         ),
         React.createElement('div', {className: 'row'},
           Summary({data: this.state.data})
         )
       );
-    },
-
-    _onChangeTabClick: function () {
-      this.props.view._onChangeTabClick();
-    },
-
-    _onNewEntryClick: function () {
-      this.props.view._onNewEntryClick();
-    },
-
-    _onListClick: function () {
-      this.props.view._onListClick();
     },
 
     _setEmpty: function(isEmpty){

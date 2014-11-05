@@ -32,25 +32,13 @@ function (React, TransactionListClass) {
           )
         ),
         React.createElement('div', {className: 'row toggle'},
-          React.createElement('button', {onClick: this._onPeopleClick}, 'People'),
+          React.createElement('button', {onClick: this.props.handlePeopleClick}, 'People'),
           React.createElement('button', {disabled: 'disabled'}, 'Transactions')
         ),
         React.createElement('div', {className: 'row'},
-          TransactionList({view: this.props.view, data: this.state.data})
+          TransactionList({data: this.state.data, handleDetailsClick: this.props.handleDetailsClick})
         )
       );
-    },
-
-    _onChangeTabClick: function () {
-      this.props.view._onChangeTabClick();
-    },
-
-    _onNewEntryClick: function () {
-      this.props.view._onNewEntryClick();
-    },
-
-    _onPeopleClick: function () {
-      this.props.view._onPeopleClick();
     }
 
   });

@@ -49,10 +49,6 @@ function (React, SummaryClass) {
       this.props.view._onNewEntryClick();
     },
 
-    _onSummaryClick: function () {
-      this.props.view._onSummaryClick();
-    },
-
     _onListClick: function () {
       this.props.view._onListClick();
     },

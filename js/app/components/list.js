@@ -49,10 +49,6 @@ function (React, TransactionListClass) {
       this.props.view._onNewEntryClick();
     },
 
-    _onSummaryClick: function () {
-      this.props.view._onSummaryClick();
-    },
-
     _onPeopleClick: function () {
       this.props.view._onPeopleClick();
     }

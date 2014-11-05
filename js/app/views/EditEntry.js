@@ -1,48 +1,60 @@
 define([
-	"dojo/_base/declare",
-	"dojo/_base/lang",
-	"dojo/_base/array",
-	"dojo/dom-class",
+	// "dojo/_base/declare",
+	// "dojo/_base/lang",
+	// "dojo/_base/array",
+	// "dojo/dom-class",
+	"ring",
+	"react",
 	"./_Scene",
-	"dijit/registry",
-	"dijit/form/ValidationTextBox",
-	"dijit/form/DateTextBox",
-	"../widgets/ParticipantInput",
-	"../widgets/NewParticipantInput",
-	"dojo/text!./templates/EditEntry.html"
-], function(declare, lang, array, domClass, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template){
+	"../components/details/form"
+	// "dijit/registry",
+	// "dijit/form/ValidationTextBox",
+	// "dijit/form/DateTextBox",
+	// "../widgets/ParticipantInput",
+	// "../widgets/NewParticipantInput",
+	// "dojo/text!./templates/EditEntry.html"
+], function(ring, React, _Scene, FormComponentClass/*declare, lang, array, domClass, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template*/){
 
-return declare(_Scene, {
-	
-	templateString: template,
-	
+var FormComponent = React.createFactory(FormComponentClass)
+
+return ring.create([_Scene], {
+
+	// templateString: template,
+
 	name: "editEntry",
-	
-	constructor: function(){
-		this._participantFormWidgets = []
+
+	postCreate: function(){
+		this.$super()
+		this.domNode.className = "scene editEntryScene"
+		this.component = React.render(FormComponent({
+			handleCloseClick: this._onCancelClick.bind(this)
+		}), this.domNode)
 	},
 
 	onShow: function(data){
+		var mode
 		if(data){
-			this._createParticipantFormWidgets(data)
-			this._prefill(data)
-			this._data = data
-			this._showDeleteButton()
-			this.headingNode.innerHTML = "Edit transaction"
+			// this._createParticipantFormWidgets(data)
+			// this._prefill(data)
+			// this._data = data
+			// this._showDeleteButton()
+			mode = "edit"
 		}else{
-			this._createParticipantFormWidgets()
-			.then(function(){
-				if(!this._participantFormWidgets.length){
-					this._createNewParticipantFormWidget()
-					this._createNewParticipantFormWidget()
-				}
-				if(this._participantFormWidgets.length < 3){
-					this.selectAllButton.domNode.style.display = "none"
-				}
-			}.bind(this))
-			this._hideDeleteButton()
-			this.headingNode.innerHTML = "New transaction"
+			// this._createParticipantFormWidgets()
+			// .then(function(){
+			// 	if(!this._participantFormWidgets.length){
+			// 		this._createNewParticipantFormWidget()
+			// 		this._createNewParticipantFormWidget()
+			// 	}
+			// 	if(this._participantFormWidgets.length < 3){
+			// 		this.selectAllButton.domNode.style.display = "none"
+			// 	}
+			// }.bind(this))
+			// this._hideDeleteButton()
+			// this.headingNode.innerHTML = "New transaction"
+			mode = "new"
 		}
+		this.component.setProps({mode: mode})
 	},
 
 	_prefill: function(data){
@@ -178,11 +190,10 @@ return declare(_Scene, {
 	},
 	
 	reset: function(){
-		this.inherited(arguments)
-		delete this._data
-		this._hideDeleteButton()
-		this.selectAllButton.domNode.style.display = ""
-		this._removeParticipantFormWidgets()
+		// delete this._data
+		// this._hideDeleteButton()
+		// this.selectAllButton.domNode.style.display = ""
+		// this._removeParticipantFormWidgets()
 	}
 
 })

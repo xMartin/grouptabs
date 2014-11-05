@@ -3,9 +3,9 @@ define([
 	"./sceneController",
 //	"./views/Tabs",
 	"./views/Main",
-	// "./views/EditEntry",
+	"./views/EditEntry",
 	"./views/TransactionList"
-], function(store, sceneController, /*TabsScene, */MainScene, /*EditEntryScene, */TransactionListScene){
+], function(store, sceneController, /*TabsScene, */MainScene, EditEntryScene, TransactionListScene){
 "use strict";
 
 function generateTabId(){
@@ -45,7 +45,7 @@ return {
 				scenes = {
 					// "tabs": new TabsScene({app: this, controller: sceneController}),
 					"main": new MainScene({app: this, controller: sceneController}),
-					// "newEntry": new EditEntryScene({app: this, controller: sceneController}),
+					"newEntry": new EditEntryScene({app: this, controller: sceneController}),
 					"list": new TransactionListScene({app: this, controller: sceneController})
 				}
 

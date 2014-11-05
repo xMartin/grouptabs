@@ -52,8 +52,10 @@ function (React, TransactionListItemClass) {
           )
         );
       }.bind(this));
-      return React.createElement('div', {id: 'transactions'},
-        React.createElement('div', null, dateGroups)
+      return (
+        React.createElement('div', {id: 'transactions'},
+          React.createElement('div', null, dateGroups)
+        )
       );
     }
 

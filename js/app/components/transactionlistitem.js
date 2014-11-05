@@ -64,22 +64,24 @@ function (React) {
 
     render: function () {
       var data = this.getFormattedData();
-      return React.createElement('div', {className: 'transaction', onClick: this.handleClick},
-        React.createElement('table', null,
-          React.createElement('tr', null,
-            React.createElement('td', {className:'title'},
-              data.title,
-              React.createElement('div', {className: 'payments'},
-                data.payments,
-                data.participants
+      return (
+        React.createElement('div', {className: 'transaction', onClick: this.handleClick},
+          React.createElement('table', null,
+            React.createElement('tr', null,
+              React.createElement('td', {className:'title'},
+                data.title,
+                React.createElement('div', {className: 'payments'},
+                  data.payments,
+                  data.participants
+                )
+              ),
+              React.createElement('td', {className: 'total'},
+                data.total
               )
-            ),
-            React.createElement('td', {className: 'total'},
-              data.total
             )
           )
         )
-      )
+      );
     },
 
     handleClick: function () {

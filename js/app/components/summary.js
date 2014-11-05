@@ -48,9 +48,11 @@ function (React) {
 
     render: function () {
       var accounts = this.formatData(this.props.data).map(function (account) {
-        return React.createElement('tr', {style: {backgroundColor: account.cssColor}},
-          React.createElement('th', {className: 'account'}, account.participant),
-          React.createElement('td', {className: 'amount'}, account.amount)
+        return (
+          React.createElement('tr', {style: {backgroundColor: account.cssColor}},
+            React.createElement('th', {className: 'account'}, account.participant),
+            React.createElement('td', {className: 'amount'}, account.amount)
+          )
         );
       });
       return React.createElement('table', {id: 'balance'}, accounts);

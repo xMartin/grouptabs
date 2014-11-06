@@ -25,6 +25,7 @@ return ring.create([_Scene], {
 		this.$super()
 		this.domNode.className = "scene listScene"
 		this.component = React.render(ListComponent({
+			tabName: this.app.tab,
 			handleChangeTabClick: this._onChangeTabClick.bind(this),
 			handlePeopleClick: this._onPeopleClick.bind(this),
 			handleNewEntryClick: this._onNewEntryClick.bind(this),
@@ -45,7 +46,7 @@ return ring.create([_Scene], {
 	_render: function(){
 		this.app.getTransactions()
 		.then(function(transactions){
-			this.component.setState({tabName: this.app.tab, data: transactions})
+			this.component.setProps({data: transactions})
 		}.bind(this))
 	},
 	

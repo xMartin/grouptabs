@@ -10,7 +10,7 @@ function (React, TransactionListClass) {
 
   return React.createClass({
 
-    getInitialState: function () {
+    getDefaultProps: function () {
       return {
         data: []
       };
@@ -25,7 +25,7 @@ function (React, TransactionListClass) {
                 React.createElement('path', {d: 'm0 0v3h15v-3h-15zm0 6v3h15v-3h-15zm0 6v3h15v-3h-15z'})
               )
             ),
-            React.createElement('h2', null, this.state.tabName)
+            React.createElement('h2', null, this.props.tabName)
           ),
           React.createElement('div', {className: 'row'},
             React.createElement('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
@@ -37,7 +37,7 @@ function (React, TransactionListClass) {
             React.createElement('button', {disabled: 'disabled'}, 'Transactions')
           ),
           React.createElement('div', {className: 'row'},
-            TransactionList({data: this.state.data, handleDetailsClick: this.props.handleDetailsClick})
+            TransactionList({data: this.props.data, handleDetailsClick: this.props.handleDetailsClick})
           )
         )
       );

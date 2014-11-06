@@ -10,7 +10,7 @@ function (React, SummaryClass) {
 
   return React.createClass({
 
-    getInitialState: function () {
+    getDefaultProps: function () {
       return {
         data: []
       };
@@ -25,7 +25,7 @@ function (React, SummaryClass) {
                 React.createElement('path', {d: 'm0 0v3h15v-3h-15zm0 6v3h15v-3h-15zm0 6v3h15v-3h-15z'})
               )
             ),
-            React.createElement('h2', null, this.state.tabName)
+            React.createElement('h2', null, this.props.tabName)
           ),
           React.createElement('div', {className: 'row'},
             React.createElement('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
@@ -37,7 +37,7 @@ function (React, SummaryClass) {
             React.createElement('button', {onClick: this.props.handleListClick}, 'Transactions')
           ),
           React.createElement('div', {className: 'row'},
-            Summary({data: this.state.data})
+            Summary({data: this.props.data})
           )
         )
       );

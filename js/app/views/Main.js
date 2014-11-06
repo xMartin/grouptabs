@@ -21,6 +21,7 @@ return ring.create([_Scene], {
 		this.$super()
 		this.domNode.className = "scene mainScene"
 		this.component = React.render(MainComponent({
+			tabName: this.app.tab,
 			handleChangeTabClick: this._onChangeTabClick.bind(this),
 			handleNewEntryClick: this._onNewEntryClick.bind(this),
 			handleListClick: this._onListClick.bind(this)
@@ -63,7 +64,7 @@ return ring.create([_Scene], {
 		this.app.getAccounts()
 		.then(function(accounts){
 			this._setEmpty(!accounts.length)
-			this.component.setState({tabName: this.app.tab, data: accounts})
+			this.component.setProps({data: accounts})
 		}.bind(this))
 	}
 })

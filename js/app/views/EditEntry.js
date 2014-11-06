@@ -6,16 +6,16 @@ define([
 	"ring",
 	"react",
 	"./_Scene",
-	"../components/details/form"
+	"../components/editentry"
 	// "dijit/registry",
 	// "dijit/form/ValidationTextBox",
 	// "dijit/form/DateTextBox",
 	// "../widgets/ParticipantInput",
 	// "../widgets/NewParticipantInput",
 	// "dojo/text!./templates/EditEntry.html"
-], function(ring, React, _Scene, FormComponentClass/*declare, lang, array, domClass, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template*/){
+], function(ring, React, _Scene, EditEntryComponentClass/*declare, lang, array, domClass, _Scene, dijitRegistry, ValidationTextBox, DateTextBox, ParticipantFormWidget, NewParticipantFormWidget, template*/){
 
-var FormComponent = React.createFactory(FormComponentClass)
+var EditEntryComponent = React.createFactory(EditEntryComponentClass)
 
 return ring.create([_Scene], {
 
@@ -26,9 +26,6 @@ return ring.create([_Scene], {
 	postCreate: function(){
 		this.$super()
 		this.domNode.className = "scene editEntryScene"
-		this.component = React.render(FormComponent({
-			handleCloseClick: this._onCancelClick.bind(this)
-		}), this.domNode)
 	},
 
 	onShow: function(data){
@@ -54,14 +51,21 @@ return ring.create([_Scene], {
 			// this.headingNode.innerHTML = "New transaction"
 			mode = "new"
 		}
-		this.component.setProps({mode: mode})
+		this.component = React.render(EditEntryComponent({
+			mode: mode,
+			data: data,
+			handleCloseClick: this._onCancelClick.bind(this)
+		}), this.domNode)
+		this.app.getAccounts().then(function(accounts){
+			this.component.setProps({accounts: accounts.map(function(account){return account.participant})})
+		}.bind(this))
 	},
 
 	_prefill: function(data){
 		dijitRegistry.byId("editEntryTitle").set("value", data.description)
 		dijitRegistry.byId("editEntryDate").set("value", new Date(data.date))
 	},
-	
+
 	_createParticipantFormWidgets: function(data){
 		return this.app.getAccounts()
 		.then(function(accounts){
@@ -190,6 +194,9 @@ return ring.create([_Scene], {
 	},
 	
 	reset: function(){
+		this.component.unmountComponent()
+		this.domNode.innerHTML = ""
+		delete this.component
 		// delete this._data
 		// this._hideDeleteButton()
 		// this.selectAllButton.domNode.style.display = ""

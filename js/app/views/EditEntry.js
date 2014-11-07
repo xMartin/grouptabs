@@ -33,7 +33,7 @@ return ring.create([_Scene], {
 		if(data){
 			// this._createParticipantFormWidgets(data)
 			// this._prefill(data)
-			// this._data = data
+			this._data = data
 			// this._showDeleteButton()
 			mode = "edit"
 		}else{
@@ -54,7 +54,9 @@ return ring.create([_Scene], {
 		this.component = React.render(EditEntryComponent({
 			mode: mode,
 			data: data,
-			handleCloseClick: this._onCancelClick.bind(this)
+			handleCloseClick: this._onCancelClick.bind(this),
+			handleSubmit: this._onOkClick.bind(this),
+			handleDelete: this._onDeleteClick.bind(this)
 		}), this.domNode)
 		this.app.getAccounts().then(function(accounts){
 			this.component.setProps({accounts: accounts.map(function(account){return account.participant})})
@@ -166,12 +168,9 @@ return ring.create([_Scene], {
 	},
 	
 	_saveEntry: function(){
-		var data = this.get("value")
-		data.participants = array.filter(data.participants, function(participant){
-			return !!participant
-		})
+		var data = this.component.getValues()
 		data.type = "SHARED"
-		data.date = data.date.getTime()
+		data.date = (new Date(data.date)).getTime()
 		if(this._data){
 			data._id = this._data._id
 			data._rev = this._data._rev

@@ -23,9 +23,21 @@ function (React, FormClass) {
             React.createElement('button', {onClick: this.props.handleCloseClick}, '×'),
             React.createElement('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction')
           ),
-          Form({mode: this.props.mode, data: this.props.data, accounts: this.props.accounts, handleCloseClick: this.props.handleCloseClick})
+          Form({
+            mode: this.props.mode,
+            data: this.props.data,
+            accounts: this.props.accounts,
+            handleCloseClick: this.props.handleCloseClick,
+            handleSubmit: this.props.handleSubmit,
+            handleDelete: this.props.handleDelete,
+            ref: 'form'
+          })
         )
       );
+    },
+
+    getValues: function () {
+      return this.refs.form.getValues();
     }
 
   });

@@ -1,9 +1,12 @@
 define([
-  'react'
+  'react',
+  './participantinput'
 ],
 
-function (React) {
+function (React, ParticipantInputClass) {
   'use strict';
+
+  var ParticipantInput = React.createFactory(ParticipantInputClass);
 
   return React.createClass({
 
@@ -16,25 +19,50 @@ function (React) {
       return '' + date.getFullYear() + '-' + month + '-' + day;
     },
 
-    render: function () {
-      var participants = this.props.accounts.map(function (participant) {
-        return React.createElement('div', null, participant);
+    findParticipantDefaultValue: function (participant) {
+      var value = null;
+      this.props.data.participants.forEach(function (participantValue) {
+        if (participantValue.participant === participant) {
+          value = participantValue;
+        }
       });
+      return value;
+    },
 
+    render: function () {
+      var participantInputs = this.props.accounts.map(function (participant, idx) {
+        var props = {
+          participant: participant,
+          ref: 'participant' + idx
+        };
+        if (this.props.mode === 'edit') {
+          props.value = this.findParticipantDefaultValue(participant)
+        }
+        return ParticipantInput(props);
+      }.bind(this));
       return (
         React.createElement('form', {onSubmit: this.handleSubmit},
           React.createElement('div', {className: 'form'},
             React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
-                React.createElement('input', {type: 'text', name: 'description', placeholder: 'Description', onChange: this.handleDateChange})
+                React.createElement('input', {
+                  type: 'text',
+                  placeholder: 'Description',
+                  defaultValue: this.props.mode === 'edit' ? this.props.data.description : '',
+                  ref: 'description'
+                })
               ),
               React.createElement('div', {className: 'form-row-input'},
-                React.createElement('input', {type: 'date', name: 'date', defaultValue: this.formatDate(new Date())})
+                React.createElement('input', {
+                  type: 'date',
+                  defaultValue: this.formatDate(this.props.mode === 'edit' ? new Date(this.props.data.date) : new Date()),
+                  ref: 'date'
+                })
               )
             ),
             React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
-                participants
+                participantInputs
               )
             ),
             React.createElement('div', {className: 'form-row'},
@@ -45,15 +73,44 @@ function (React) {
             )
           ),
           React.createElement('div', {className: 'row'},
-            React.createElement('button', {className: 'delete'}, 'Delete'),
+            React.createElement('button', {className: 'delete', onClick: this.props.handleDelete}, 'Delete'),
             React.createElement('input', {type: 'submit', className: 'create full-width-margin', value: 'Save'})
           )
         )
       );
     },
 
-    handleSubmit: function () {
+    getOwnedParticipantComponents: function () {
+      return Object.keys(this.refs)
+        .filter(function (ref) {
+          return ref.indexOf('participant') === 0;
+        })
+        .map(function (ref) {
+          return this.refs[ref];
+        }.bind(this));
+    },
+
+    getParticipantsValues: function () {
+      return this.getOwnedParticipantComponents()
+        .map(function (participantComponent) {
+          return participantComponent.getValue();
+        })
+        .filter(function (value) {
+          return !!value;
+        });
+    },
+
+    getValues: function () {
+      return {
+        date: this.refs.date.getDOMNode().value,
+        description: this.refs.description.getDOMNode().value,
+        participants: this.getParticipantsValues()
+      };
+    },
+
+    handleSubmit: function (event) {
       event.preventDefault();
+      this.props.handleSubmit();
     }
 
   });

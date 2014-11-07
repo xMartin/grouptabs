@@ -1,14 +1,26 @@
 define([
   'react',
-  './participantinput'
+  './participantinput',
+  './newparticipantinput'
 ],
 
-function (React, ParticipantInputClass) {
+function (React, ParticipantInputClass, NewParticipantInputClass) {
   'use strict';
 
   var ParticipantInput = React.createFactory(ParticipantInputClass);
+  var NewParticipantInput = React.createFactory(NewParticipantInputClass);
 
   return React.createClass({
+
+    getInitialState: function () {
+      return {
+        newParticipantsCount: this.props.accounts.length < 2 ? 2 : 0
+      };
+    },
+
+    componentWillReceiveProps: function (newProps) {
+      this.setState({newParticipantsCount: newProps.accounts.length < 2 ? 2 : 0});
+    },
 
     formatDate: function (date) {
       date = date || new Date();
@@ -40,6 +52,13 @@ function (React, ParticipantInputClass) {
         }
         return ParticipantInput(props);
       }.bind(this));
+      var newParticipantInputs = (function () {
+        var result = [];
+        for (var i = 0; i < this.state.newParticipantsCount; ++i) {
+          result.push(NewParticipantInput({ref: 'participant' + participantInputs.length + i}));
+        }
+        return result;
+      }.bind(this))();
       return (
         React.createElement('form', {onSubmit: this.handleSubmit},
           React.createElement('div', {className: 'form'},
@@ -62,13 +81,14 @@ function (React, ParticipantInputClass) {
             ),
             React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
-                participantInputs
+                participantInputs,
+                newParticipantInputs
               )
             ),
             React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
-                React.createElement('button', null, '+ new participant'),
-                React.createElement('button', null, '✓ all joined')
+                React.createElement('button', {onClick: this.handleAddParticipant}, '+ new participant'),
+                React.createElement('button', {onClick: this.handleAllJoined}, '✓ all joined')
               )
             )
           ),
@@ -111,6 +131,18 @@ function (React, ParticipantInputClass) {
     handleSubmit: function (event) {
       event.preventDefault();
       this.props.handleSubmit();
+    },
+
+    handleAddParticipant: function (event) {
+      event.preventDefault();
+      this.setState({newParticipantsCount: ++this.state.newParticipantsCount})
+    },
+
+    handleAllJoined: function () {
+      event.preventDefault();
+      this.getOwnedParticipantComponents().forEach(function (participantComponent) {
+        participantComponent.setJoined();
+      });
     }
 
   });

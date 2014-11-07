@@ -22,7 +22,7 @@ function (React) {
       return (
         React.createElement('div', null,
           React.createElement('span', {className: 'participant'},
-            this.props.participant
+            React.createElement('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
           ),
           React.createElement('span', {className: 'participationStatus'},
             React.createElement('input', {
@@ -52,16 +52,6 @@ function (React) {
       );
     },
 
-    componentWillMount: function () {
-      if (this.props.value) {
-        if (this.props.value.amount) {
-          this.setState({status: 2});
-        } else {
-          this.setState({status: 1});
-        }
-      }
-    },
-
     handleJoinedChange: function () {
       if (this.state.status === 0) {
         this.setState({status: 1});
@@ -83,7 +73,7 @@ function (React) {
         return null;
       }
       return {
-        participant: this.props.participant,
+        participant: this.refs.participant.getDOMNode().value,
         amount: this.state.status === 2 ? parseFloat(this.refs.amount.getDOMNode().value || 0) : 0
       };
     },

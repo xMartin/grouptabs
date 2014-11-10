@@ -1,6 +1,6 @@
 define([
   'react',
-  '../components/summary'
+  './summary'
 ],
 
 function (React, SummaryClass) {

@@ -1,6 +1,6 @@
 define([
   'react',
-  '../components/transactionlist'
+  './transactionlist'
 ],
 
 function (React, TransactionListClass) {

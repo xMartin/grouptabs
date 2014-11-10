@@ -53,6 +53,6 @@ function (React, SummaryClass) {
       // }
     }
 
-  })
+  });
 
-})
+});

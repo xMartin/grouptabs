@@ -11,6 +11,16 @@
 	font-style: normal;
 }
 
+body {
+	margin: 0;
+	color: #131313;
+}
+
+th {
+	text-align: left;
+	font-weight: normal;
+}
+
 .claro {
 	font-size: 18px;
 	background: #f2f2f2;

@@ -55,7 +55,11 @@ function (React) {
           )
         );
       });
-      return React.createElement('table', {id: 'balance'}, accounts);
+      return (
+        React.createElement('div', {id: 'summary'},
+          React.createElement('table', {id: 'balance'}, accounts)
+        )
+      );
     }
 
   });

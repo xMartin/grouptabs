@@ -19,10 +19,8 @@ function generateTabId(){
 return {
 
 	store: store,
-	
-	tab: localStorage.getItem("box") || "",
 
-	homeView: "main",
+	tab: localStorage.getItem("box") || "",
 
 	init: function(){
 		var tabId = location.hash.substring(1)
@@ -73,10 +71,6 @@ return {
 		this.tab = tabName
 		this.tempTabs.push(tabName)
 		localStorage.setItem("box", tabName)
-	},
-
-	setHomeView: function(viewName){
-		this.homeView = viewName
 	}
 }
 

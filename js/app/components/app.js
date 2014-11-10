@@ -14,6 +14,8 @@ function (React, MainClass, ListClass, EditEntryClass) {
 
   return React.createClass({
 
+    homeView: 'main',
+
     getInitialState: function () {
       return {
         scene: this.props.tabName ? 'main' : 'tabs'
@@ -65,12 +67,14 @@ function (React, MainClass, ListClass, EditEntryClass) {
     },
 
     handleListClick: function () {
+      this.homeView = 'list';
       this.setState({
         scene: 'list'
       });
     },
 
     handlePeopleClick: function () {
+      this.homeView = 'main';
       this.setState({
         scene: 'main'
       });
@@ -92,21 +96,21 @@ function (React, MainClass, ListClass, EditEntryClass) {
 
     handleCloseEntry: function () {
       this.setState({
-        scene: 'list'
+        scene: this.homeView
       });
     },
 
     handleSubmitEntry: function (data) {
       this.props.saveTransaction(data);
       this.setState({
-        scene: 'list'
+        scene: this.homeView
       });
     },
 
     handleDeleteEntry: function (data) {
       this.props.removeTransaction(data);
       this.setState({
-        scene: 'list'
+        scene: this.homeView
       });
     }
 

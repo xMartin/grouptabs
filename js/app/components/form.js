@@ -40,7 +40,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
     render: function () {
       var mode = this.props.mode;
 
-      var participantInputs = this.props.participants.map(function (participant, idx) {
+      var participantPropsList = this.props.participants.map(function (participant, idx) {
         var props = {
           participant: participant,
           ref: 'participant' + idx
@@ -48,8 +48,17 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
         if (mode === 'edit') {
           props.value = this.findParticipantDefaultValue(participant)
         }
-        return ParticipantInput(props);
+        return props;
       }.bind(this));
+      participantPropsList.sort(function (a, b) {
+        var sortableValue = function (value) {
+          return value ? value.amount : 0;
+        }
+        return sortableValue(a.value) > sortableValue(b.value) ? -1 : 1;
+      });
+      var participantInputs = participantPropsList.map(function (props) {
+        return ParticipantInput(props);
+      });
 
       var newParticipantInputs = (function () {
         var result = [];

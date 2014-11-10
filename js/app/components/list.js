@@ -18,7 +18,7 @@ function (React, TransactionListClass) {
 
     render: function () {
       return (
-        React.createElement('div', null,
+        React.createElement('div', {className: 'scene listScene' + (this.props.visible ? '' : ' hidden')},
           React.createElement('div', {className: 'header'},
             React.createElement('button', null,
               React.createElement('svg', {height: 15, width: 15, style: {opacity: 0.5}},

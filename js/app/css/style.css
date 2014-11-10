@@ -20,6 +20,9 @@
 .hidden {
 	visibility: hidden;
 }
+.scene.hidden {
+	display: none;
+}
 
 .header {
 	width: 100%;

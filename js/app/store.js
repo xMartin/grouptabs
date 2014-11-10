@@ -44,6 +44,14 @@ define([
 			this._dbChangeCallback = callback;
 		},
 
+		saveTransaction: function (data) {
+			db.saveTransaction(data);
+		},
+
+		removeTransaction: function (data) {
+			db.removeTransaction(data);
+		},
+
 		_handleDbChange: function () {
 			this._refreshFromDb().then(this._dbChangeCallback);
 		},

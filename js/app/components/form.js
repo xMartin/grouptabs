@@ -14,12 +14,12 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
 
     getInitialState: function () {
       return {
-        newParticipantsCount: this.props.accounts.length < 2 ? 2 : 0
+        newParticipantsCount: this.props.participants.length < 2 ? 2 : 0
       };
     },
 
     componentWillReceiveProps: function (newProps) {
-      this.setState({newParticipantsCount: newProps.accounts.length < 2 ? 2 : 0});
+      this.setState({newParticipantsCount: newProps.participants.length < 2 ? 2 : 0});
     },
 
     formatDate: function (date) {
@@ -42,7 +42,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
     },
 
     render: function () {
-      var participantInputs = this.props.accounts.map(function (participant, idx) {
+      var participantInputs = this.props.participants.map(function (participant, idx) {
         var props = {
           participant: participant,
           ref: 'participant' + idx
@@ -93,7 +93,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
             )
           ),
           React.createElement('div', {className: 'row'},
-            React.createElement('button', {className: 'delete', onClick: this.props.handleDelete}, 'Delete'),
+            React.createElement('button', {className: 'delete', onClick: this.handleDelete}, 'Delete'),
             React.createElement('input', {type: 'submit', className: 'create full-width-margin', value: 'Save'})
           )
         )
@@ -131,6 +131,11 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
     handleSubmit: function (event) {
       event.preventDefault();
       this.props.handleSubmit();
+    },
+
+    handleDelete: function (event) {
+      event.preventDefault();
+      this.props.handleDelete();
     },
 
     handleAddParticipant: function (event) {

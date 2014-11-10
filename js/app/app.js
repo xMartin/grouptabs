@@ -1,12 +1,11 @@
 define([
 	"./store",
-	"./sceneController",
-//	"./views/Tabs",
-	"./views/Main",
-	"./views/EditEntry",
-	"./views/TransactionList"
-], function(store, sceneController, /*TabsScene, */MainScene, EditEntryScene, TransactionListScene){
+	"react",
+	"./components/app"
+], function(store, React, AppComponentClass){
 "use strict";
+
+var AppComponent = React.createFactory(AppComponentClass)
 
 function generateTabId(){
 	var chars = "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -33,22 +32,24 @@ return {
 		}
 		this.setTab(tabId)
 
-		store.init(tabId).then(function (){
-			store.setupChangesListener(sceneController.refreshAll.bind(sceneController))
-			var sceneName, scene,
-				scenes = {
-					// "tabs": new TabsScene({app: this, controller: sceneController, store: store}),
-					"main": new MainScene({app: this, controller: sceneController, store: store}),
-					"newEntry": new EditEntryScene({app: this, controller: sceneController, store: store}),
-					"list": new TransactionListScene({app: this, controller: sceneController, store: store})
-				}
+		this.component = React.render(AppComponent({
+			tabName: this.tab,
+			saveTransaction: store.saveTransaction.bind(store),
+			removeTransaction: store.removeTransaction.bind(store)
+		}), document.body)
 
-			for(sceneName in scenes){
-				scene = scenes[sceneName]
-				sceneController.addScene(scene)
-			}
-			sceneController.selectScene(this.tab ? scenes["main"] : scenes["tabs"])
+		store.init(tabId).then(function (){
+			store.setupChangesListener(this.refreshUi.bind(this))
+			this.refreshUi()
 		}.bind(this))
+	},
+
+	refreshUi: function(){
+		this.component.setProps({
+			transactions: store.getTransactions(),
+			accounts: store.getAccounts(),
+			participants: store.getParticipants()
+		})
 	},
 
 	tempTabs: [],

@@ -10,15 +10,9 @@ function (React, SummaryClass) {
 
   return React.createClass({
 
-    getDefaultProps: function () {
-      return {
-        data: []
-      };
-    },
-
     render: function () {
       return (
-        React.createElement('div', null,
+        React.createElement('div', {className: 'scene mainScene' + (this.props.visible ? '' : ' hidden')},
           React.createElement('div', {className: 'header'},
             React.createElement('button', null,
               React.createElement('svg', {height: 15, width: 15, style: {opacity: 0.5}},
@@ -41,16 +35,6 @@ function (React, SummaryClass) {
           )
         )
       );
-    },
-
-    _setEmpty: function(isEmpty){
-      // if(isEmpty){
-      //  this.contentNode.style.display = 'none'
-      //  this.emptyNode.style.display = ''
-      // }else{
-      //  this.contentNode.style.display = ''
-      //  this.emptyNode.style.display = 'none'
-      // }
     }
 
   });

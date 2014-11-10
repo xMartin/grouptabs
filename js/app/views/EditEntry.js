@@ -54,13 +54,11 @@ return ring.create([_Scene], {
 		this.component = React.render(EditEntryComponent({
 			mode: mode,
 			data: data,
+			participants: this.store.getParticipants(),
 			handleCloseClick: this._onCancelClick.bind(this),
 			handleSubmit: this._onOkClick.bind(this),
 			handleDelete: this._onDeleteClick.bind(this)
 		}), this.domNode)
-		this.app.getAccounts().then(function(accounts){
-			this.component.setProps({accounts: accounts.map(function(account){return account.participant})})
-		}.bind(this))
 	},
 
 	_prefill: function(data){

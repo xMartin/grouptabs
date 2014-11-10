@@ -26,12 +26,12 @@ return ring.create([_Scene], {
 		this.domNode.className = "scene listScene"
 		this.component = React.render(ListComponent({
 			tabName: this.app.tab,
+			data: this.store.getTransactions(),
 			handleChangeTabClick: this._onChangeTabClick.bind(this),
 			handlePeopleClick: this._onPeopleClick.bind(this),
 			handleNewEntryClick: this._onNewEntryClick.bind(this),
 			handleDetailsClick: this._onDetailsClick.bind(this)
 		}), this.domNode)
-		this._render()
 	},
 	
 	onShow: function(){
@@ -40,16 +40,10 @@ return ring.create([_Scene], {
 
 	refresh: function(){
 		// this.tabNameNode.innerHTML = this.app.tab
-		this._render()
+		console.log('refresh', this.store.getTransactions())
+		this.component.setProps({data: this.store.getTransactions()})
 	},
 
-	_render: function(){
-		this.app.getTransactions()
-		.then(function(transactions){
-			this.component.setProps({data: transactions})
-		}.bind(this))
-	},
-	
 	_onChangeTabClick: function(){
 		this.close(this, "tabs")
 	},

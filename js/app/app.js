@@ -35,18 +35,12 @@ return {
 
 		store.init(tabId).then(function (){
 			store.setupChangesListener(sceneController.refreshAll.bind(sceneController))
-			store.sync()
-			// explicitely cancel syncing, an error is thrown by pouchdb otherwise
-			window.addEventListener('unload', function(){
-				store.stopSyncing()
-			})
-
 			var sceneName, scene,
 				scenes = {
-					// "tabs": new TabsScene({app: this, controller: sceneController}),
-					"main": new MainScene({app: this, controller: sceneController}),
-					"newEntry": new EditEntryScene({app: this, controller: sceneController}),
-					"list": new TransactionListScene({app: this, controller: sceneController})
+					// "tabs": new TabsScene({app: this, controller: sceneController, store: store}),
+					"main": new MainScene({app: this, controller: sceneController, store: store}),
+					"newEntry": new EditEntryScene({app: this, controller: sceneController, store: store}),
+					"list": new TransactionListScene({app: this, controller: sceneController, store: store})
 				}
 
 			for(sceneName in scenes){
@@ -55,29 +49,6 @@ return {
 			}
 			sceneController.selectScene(this.tab ? scenes["main"] : scenes["tabs"])
 		}.bind(this))
-	},
-	
-	getAccounts: function(){
-		return store.getParticipants()
-	},
-
-	getTransactions: function(){
-		return store.getTransactions().then(function (transactions) {
-			// order transactions by date and timestamp descending
-			return transactions.sort(function(a, b){
-				if (a.date > b.date) {
-					return -1
-				} else if (a.date < b.date) {
-					return 1
-				} else {  // ===
-					if (a.timestamp > b.timestamp) {
-						return -1
-					} else {
-						return 1
-					}
-				}
-			})
-		})
 	},
 
 	tempTabs: [],
@@ -105,14 +76,6 @@ return {
 
 	setHomeView: function(viewName){
 		this.homeView = viewName
-	},
-	
-	saveTransaction: function(data){
-		store.saveTransaction(data)
-	},
-	
-	removeTransaction: function(data){
-		store.removeTransaction(data)
 	}
 }
 

@@ -22,11 +22,11 @@ return ring.create([_Scene], {
 		this.domNode.className = "scene mainScene"
 		this.component = React.render(MainComponent({
 			tabName: this.app.tab,
+			data: this.store.getAccounts(),
 			handleChangeTabClick: this._onChangeTabClick.bind(this),
 			handleNewEntryClick: this._onNewEntryClick.bind(this),
 			handleListClick: this._onListClick.bind(this)
 		}), this.domNode)
-		this._render()
 	},
 
 	_onChangeTabClick: function(){
@@ -47,7 +47,9 @@ return ring.create([_Scene], {
 
 	refresh: function(){
 		// this.tabNameNode.innerHTML = this.app.tab
-		this._render()
+		var accounts = this.store.getAccounts()
+		this._setEmpty(!accounts.length)
+		this.component.setProps({data: accounts})
 	},
 
 	_setEmpty: function(isEmpty){
@@ -58,14 +60,6 @@ return ring.create([_Scene], {
 		// 	this.contentNode.style.display = ''
 		// 	this.emptyNode.style.display = 'none'
 		// }
-	},
-
-	_render: function(){
-		this.app.getAccounts()
-		.then(function(accounts){
-			this._setEmpty(!accounts.length)
-			this.component.setProps({data: accounts})
-		}.bind(this))
 	}
 })
 

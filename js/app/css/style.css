@@ -18,9 +18,6 @@
 }
 
 .hidden {
-	visibility: hidden;
-}
-.scene.hidden {
 	display: none;
 }
 

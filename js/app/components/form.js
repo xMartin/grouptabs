@@ -18,10 +18,6 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
       };
     },
 
-    componentWillReceiveProps: function (newProps) {
-      this.setState({newParticipantsCount: newProps.participants.length < 2 ? 2 : 0});
-    },
-
     formatDate: function (date) {
       date = date || new Date();
       var month = date.getMonth() + 1;

@@ -59,7 +59,7 @@ define([
 
 		_sync: function () {
 			var url = config.backendUrl + '/_api/' + encodeURIComponent(this.dbName);
-			this._syncHandle = this.db.sync(url, {live: true})
+			this._syncHandle = this.db.sync(url, {live: true, retry: true})
 			.on('error', function (err) {
 				console.error(err);
 			});

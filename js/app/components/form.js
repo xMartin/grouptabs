@@ -38,16 +38,19 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
     },
 
     render: function () {
+      var mode = this.props.mode;
+
       var participantInputs = this.props.participants.map(function (participant, idx) {
         var props = {
           participant: participant,
           ref: 'participant' + idx
         };
-        if (this.props.mode === 'edit') {
+        if (mode === 'edit') {
           props.value = this.findParticipantDefaultValue(participant)
         }
         return ParticipantInput(props);
       }.bind(this));
+
       var newParticipantInputs = (function () {
         var result = [];
         for (var i = 0; i < this.state.newParticipantsCount; ++i) {
@@ -55,6 +58,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
         }
         return result;
       }.bind(this))();
+
       return (
         React.createElement('form', {onSubmit: this.handleSubmit},
           React.createElement('div', {className: 'form'},
@@ -63,14 +67,14 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
                 React.createElement('input', {
                   type: 'text',
                   placeholder: 'Description',
-                  defaultValue: this.props.mode === 'edit' ? this.props.data.description : '',
+                  defaultValue: mode === 'edit' ? this.props.data.description : '',
                   ref: 'description'
                 })
               ),
               React.createElement('div', {className: 'form-row-input'},
                 React.createElement('input', {
                   type: 'date',
-                  defaultValue: this.formatDate(this.props.mode === 'edit' ? new Date(this.props.data.date) : new Date()),
+                  defaultValue: this.formatDate(mode === 'edit' ? new Date(this.props.data.date) : new Date()),
                   ref: 'date'
                 })
               )
@@ -88,9 +92,11 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
               )
             )
           ),
-          React.createElement('div', {className: 'row'},
-            React.createElement('button', {className: 'delete', onClick: this.handleDelete}, 'Delete'),
-            React.createElement('input', {type: 'submit', className: 'create full-width-margin', value: 'Save'})
+          React.createElement('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
+            mode === 'edit' ?
+              React.createElement('button', {className: 'delete', onClick: this.handleDelete}, 'Delete')
+              : null,
+            React.createElement('input', {type: 'submit', className: 'create' + (mode === 'new' ? ' full-width-margin' : ''), value: 'Save'})
           )
         )
       );

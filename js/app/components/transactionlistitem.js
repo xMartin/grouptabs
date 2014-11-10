@@ -25,7 +25,7 @@ function (React) {
         }
       });
       paymentsList.sort(function (a, b) {
-        if (a.amount > b.amount || a.amount == b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
+        if (a.amount > b.amount || a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
           return -1;
         }
         return 1;
@@ -51,7 +51,7 @@ function (React) {
       var participants = '';
       participantsList.forEach(function (participant) {
         for (var i = 0, l = paymentsList.length; i < l; ++i) {
-          if (paymentsList[i].participant == participant) {
+          if (paymentsList[i].participant === participant) {
             return;
           }
         }
@@ -68,7 +68,7 @@ function (React) {
         React.createElement('div', {className: 'transaction', onClick: this.handleClick},
           React.createElement('table', null,
             React.createElement('tr', null,
-              React.createElement('td', {className:'title'},
+              React.createElement('td', {className: 'title'},
                 data.title,
                 React.createElement('div', {className: 'payments'},
                   data.payments,

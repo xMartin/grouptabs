@@ -57,13 +57,13 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
         return sortableValue(a.value) > sortableValue(b.value) ? -1 : 1;
       });
       var participantInputs = participantPropsList.map(function (props) {
-        return ParticipantInput(props);
+        return new ParticipantInput(props);
       });
 
       var newParticipantInputs = (function () {
         var result = [];
         for (var i = 0; i < this.state.newParticipantsCount; ++i) {
-          result.push(NewParticipantInput({ref: 'participant' + participantInputs.length + i}));
+          result.push(new NewParticipantInput({ref: 'participant' + participantInputs.length + i}));
         }
         return result;
       }.bind(this))();
@@ -151,7 +151,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
 
     handleAddParticipant: function (event) {
       event.preventDefault();
-      this.setState({newParticipantsCount: ++this.state.newParticipantsCount})
+      this.setState({newParticipantsCount: ++this.state.newParticipantsCount});
     },
 
     handleAllJoined: function () {

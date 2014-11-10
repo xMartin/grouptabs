@@ -12,7 +12,7 @@ function (React) {
     //   1: joined
     //   2: paid
 
-    getInitialState: function () {
+    getInitialState: function () {
       return {
         status: 0
       };
@@ -84,7 +84,7 @@ function (React) {
       }
       return {
         participant: this.props.participant,
-        amount: this.state.status === 2 ? parseFloat(this.refs.amount.getDOMNode().value || 0) : 0
+        amount: this.state.status === 2 ? parseFloat(this.refs.amount.getDOMNode().value || 0) : 0
       };
     },
 

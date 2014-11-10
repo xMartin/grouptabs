@@ -17,7 +17,7 @@ function (React, FormClass) {
             React.createElement('button', {onClick: this.props.handleCloseClick}, '×'),
             React.createElement('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction')
           ),
-          Form({
+          new Form({
             mode: this.props.mode,
             data: this.props.data,
             participants: this.props.participants,

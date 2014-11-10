@@ -33,7 +33,7 @@ function (React, SummaryClass) {
                 React.createElement('button', {onClick: this.props.handleListClick}, 'Transactions')
               ),
               React.createElement('div', {className: 'row'},
-                Summary({data: this.props.data})
+                new Summary({data: this.props.data})
               )
             )
             :

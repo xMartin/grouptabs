@@ -33,7 +33,7 @@ function (React, MainClass, ListClass, EditEntryClass) {
     render: function () {
       var editEntry;
       if (this.state.scene === 'newEntry') {
-        editEntry = EditEntry({
+        editEntry = new EditEntry({
           mode: this._detailsData ? 'edit' : 'new',
           data: this._detailsData,
           participants: this.props.participants,
@@ -44,7 +44,7 @@ function (React, MainClass, ListClass, EditEntryClass) {
       }
       return (
         React.createElement('div', {id: 'scenes'},
-          Main({
+          new Main({
             tabName: this.props.tabName,
             data: this.props.accounts,
             visible: this.state.scene === 'main',
@@ -52,7 +52,7 @@ function (React, MainClass, ListClass, EditEntryClass) {
             handleNewEntryClick: this.handleNewEntryClick,
             handleListClick: this.handleListClick
           }),
-          List({
+          new List({
             tabName: this.props.tabName,
             data: this.props.transactions,
             visible: this.state.scene === 'list',
@@ -84,7 +84,7 @@ function (React, MainClass, ListClass, EditEntryClass) {
       delete this._detailsData;
       this.setState({
         scene: 'newEntry'
-      })
+      });
     },
 
     handleDetailsClick: function (data) {

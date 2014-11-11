@@ -49,7 +49,7 @@ function (React) {
     render: function () {
       var accounts = this.formatData(this.props.data).map(function (account) {
         return (
-          React.createElement('tr', {style: {backgroundColor: account.cssColor}},
+          React.createElement('tr', {key: account.participant, style: {backgroundColor: account.cssColor}},
             React.createElement('th', {className: 'account'}, account.participant),
             React.createElement('td', {className: 'amount'}, account.amount)
           )

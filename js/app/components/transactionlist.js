@@ -41,10 +41,14 @@ function (React, TransactionListItemClass) {
     render: function () {
       var dateGroups = this.getStructuredData().map(function (dateGroup) {
         var transactions = dateGroup.transactions.map(function (transaction) {
-          return new TransactionListItem({data: transaction, handleDetailsClick: this.props.handleDetailsClick});
+          return new TransactionListItem({
+            key: transaction.timestamp + '_' + transaction.description,
+            data: transaction,
+            handleDetailsClick: this.props.handleDetailsClick
+          });
         }.bind(this));
         return (
-          React.createElement('div', null,
+          React.createElement('div', {key: dateGroup.date},
             React.createElement('div', {className: 'dategroup'},
               dateGroup.date
             ),

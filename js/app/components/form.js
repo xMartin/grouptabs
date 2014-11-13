@@ -96,14 +96,14 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
             ),
             React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
-                React.createElement('button', {onClick: this.handleAddParticipant}, '+ new participant'),
-                React.createElement('button', {onClick: this.handleAllJoined}, '✓ all joined')
+                React.createElement('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
+                React.createElement('button', {type: 'button', onClick: this.handleAllJoined}, '✓ all joined')
               )
             )
           ),
           React.createElement('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              React.createElement('button', {className: 'delete', onClick: this.handleDelete}, 'Delete')
+              React.createElement('button', {type: 'button', className: 'delete', onClick: this.handleDelete}, 'Delete')
               : null,
             React.createElement('input', {type: 'submit', className: 'create' + (mode === 'new' ? ' full-width-margin' : ''), value: 'Save'})
           )
@@ -145,17 +145,14 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
     },
 
     handleDelete: function (event) {
-      event.preventDefault();
       this.props.handleDelete();
     },
 
     handleAddParticipant: function (event) {
-      event.preventDefault();
       this.setState({newParticipantsCount: ++this.state.newParticipantsCount});
     },
 
     handleAllJoined: function () {
-      event.preventDefault();
       this.getOwnedParticipantComponents().forEach(function (participantComponent) {
         participantComponent.setJoined();
       });

@@ -30,6 +30,9 @@ th {
 .hidden {
 	display: none;
 }
+.invisible {
+	visibility: hidden;
+}
 
 button {
 	font: inherit;
@@ -357,11 +360,17 @@ td.amount {
 .participantInput,
 .newParticipantInput {
 	color: #999;
-	height: 45px;
 	display: table-row;
 	width: 100%;
 }
-.participantInput.selected {
+.participantInput > *,
+.newParticipantInput > * {
+	height: 44px;
+	vertical-align: middle;
+	border-bottom: 1px solid #f2f2f2;  /* body background */
+}
+.participantInput.selected,
+.newParticipantInput.selected {
 	color: inherit;
 }
 .participantInput .participant {

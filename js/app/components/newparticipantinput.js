@@ -20,7 +20,7 @@ function (React) {
 
     render: function () {
       return (
-        React.createElement('div', {className: 'newParticipantInput'},
+        React.createElement('div', {className: 'newParticipantInput' + (this.state.status > 0 ? ' selected' : '')},
           React.createElement('span', {className: 'participant'},
             React.createElement('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
           ),
@@ -43,7 +43,7 @@ function (React) {
             React.createElement('label', {htmlFor: 'paid' + this._rootNodeID}, 'paid'),
             React.createElement('input', {
               type: 'number',
-              className: this.state.status < 2 ? 'hidden' : '',
+              className: this.state.status < 2 ? 'invisible' : '',
               defaultValue: this.props.value && this.props.value.amount || '',
               ref: 'amount'
             })

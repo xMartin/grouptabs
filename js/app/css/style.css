@@ -89,6 +89,26 @@ button.delete {
 	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
+input[type=text],
+input[type=date],
+input[type=number] {
+	box-sizing: border-box;
+	width: 100%;
+	background: #fff;
+	box-shadow: none;
+	border: none;
+	border-radius: none;
+	color: #000;
+	min-height: 44px;
+	min-width: 44px;
+	padding: 10px;
+	font: inherit;
+}
+.participantInput input[type=number],
+.newParticipantInput input[type=number] {
+	width: 70px;
+}
+
 .header {
 	width: 100%;
 	height: 44px;

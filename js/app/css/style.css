@@ -100,7 +100,7 @@ input[type=number] {
 	background: #fff;
 	box-shadow: none;
 	border: none;
-	border-radius: none;
+	border-radius: 0;
 	color: #000;
 	min-height: 44px;
 	min-width: 44px;

@@ -39,26 +39,26 @@ function (React, TransactionListItemClass) {
     },
 
     render: function () {
-      var dateGroups = this.getStructuredData().map(function (dateGroup) {
-        var transactions = dateGroup.transactions.map(function (transaction) {
-          return new TransactionListItem({
-            key: transaction.timestamp + '_' + transaction.description,
-            data: transaction,
-            handleDetailsClick: this.props.handleDetailsClick
-          });
-        }.bind(this));
-        return (
-          React.createElement('div', {key: dateGroup.date},
-            React.createElement('div', {className: 'dategroup'},
-              dateGroup.date
-            ),
-            transactions
-          )
-        );
-      }.bind(this));
       return (
         React.createElement('div', {id: 'transactions'},
-          React.createElement('div', null, dateGroups)
+          React.createElement('div', null,
+            this.getStructuredData().map(function (dateGroup) {
+              return (
+                React.createElement('div', {key: dateGroup.date},
+                  React.createElement('div', {className: 'dategroup'},
+                    dateGroup.date
+                  ),
+                  dateGroup.transactions.map(function (transaction) {
+                    return new TransactionListItem({
+                      key: transaction.timestamp + '_' + transaction.description,
+                      data: transaction,
+                      handleDetailsClick: this.props.handleDetailsClick
+                    });
+                  }.bind(this))
+                )
+              );
+            }.bind(this))
+          )
         )
       );
     }

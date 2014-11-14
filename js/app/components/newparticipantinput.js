@@ -14,7 +14,7 @@ function (React) {
 
     getInitialState: function () {
       return {
-        status: 0
+        status: 1
       };
     },
 

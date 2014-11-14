@@ -20,7 +20,7 @@ function (React) {
 
     render: function () {
       return (
-        React.createElement('div', null,
+        React.createElement('div', {className: 'participantInput'},
           React.createElement('span', {className: 'participant'},
             this.props.participant
           ),

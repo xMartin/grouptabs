@@ -20,7 +20,7 @@ function (React) {
 
     render: function () {
       return (
-        React.createElement('div', null,
+        React.createElement('div', {className: 'newParticipantInput'},
           React.createElement('span', {className: 'participant'},
             React.createElement('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
           ),

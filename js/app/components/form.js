@@ -79,7 +79,9 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
                   defaultValue: mode === 'edit' ? this.props.data.description : '',
                   ref: 'description'
                 })
-              ),
+              )
+            ),
+            React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
                 React.createElement('input', {
                   type: 'date',

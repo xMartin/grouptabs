@@ -43,6 +43,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
       var participantPropsList = this.props.participants.map(function (participant, idx) {
         var props = {
           participant: participant,
+          key: participant,
           ref: 'participant' + idx
         };
         if (mode === 'edit') {

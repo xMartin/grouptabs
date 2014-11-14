@@ -73,6 +73,9 @@ function (React) {
     handlePaidChange: function () {
       if (this.state.status < 2) {
         this.setState({status: 2});
+        setTimeout(function(){
+          this.refs.amount.getDOMNode().focus();
+        }.bind(this));
       } else {
         this.setState({status: 1});
       }

@@ -29,8 +29,8 @@ function (React, SummaryClass) {
           this.props.data.length ?
             React.createElement('div', null,
               React.createElement('div', {className: 'row toggle'},
-                React.createElement('button', {disabled: 'disabled'}, 'People'),
-                React.createElement('button', {onClick: this.props.handleListClick}, 'Transactions')
+                React.createElement('button', {className: 'tab active', disabled: 'disabled'}, 'People'),
+                React.createElement('button', {className: 'tab', onClick: this.props.handleListClick}, 'Transactions')
               ),
               React.createElement('div', {className: 'row'},
                 new Summary({data: this.props.data})

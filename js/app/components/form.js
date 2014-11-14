@@ -97,7 +97,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
             React.createElement('div', {className: 'form-row'},
               React.createElement('div', {className: 'form-row-input'},
                 React.createElement('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
-                React.createElement('button', {type: 'button', onClick: this.handleAllJoined}, '✓ all joined')
+                React.createElement('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, '✓ all joined')
               )
             )
           ),
@@ -105,7 +105,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
             mode === 'edit' ?
               React.createElement('button', {type: 'button', className: 'delete', onClick: this.handleDelete}, 'Delete')
               : null,
-            React.createElement('input', {type: 'submit', className: 'create' + (mode === 'new' ? ' full-width-margin' : ''), value: 'Save'})
+            React.createElement('button', {className: 'create' + (mode === 'new' ? ' full-width-margin' : '')}, 'Save')
           )
         )
       );

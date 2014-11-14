@@ -31,6 +31,64 @@ th {
 	display: none;
 }
 
+button {
+	font: inherit;
+	background: #ddd;
+	color: inherit;
+	border: none;
+	box-sizing: border-box;
+	min-height: 44px;
+	min-width: 44px;
+	padding: 10px;
+	cursor: pointer;
+}
+button[disabled] {
+	cursor: default;
+}
+button.full-width,
+button.full-width-margin {
+	display: block;
+	width: 100%;
+}
+button.full-width-margin {
+	width: 96%;
+	margin-left: 2%;
+	margin-right: 2%;
+}
+button.create {
+	background: #44f;
+	color: #fff;
+}
+button.delete {
+	background: #f44;
+	color: #fff;
+}
+.editEntryScene .header button {
+	font-size: 28px;
+	line-height: 100%;
+	color: #666;
+	padding: 0;
+}
+.editEntryScene button.delete {
+	width: 30%;
+}
+.editEntryScene button.create:not(.full-width-margin) {
+	width: 68%;
+	float: right;
+}
+.editEntryScene button.all-joined {
+	float: right;
+}
+.tab {
+	display: block;
+	width: 50%;
+	float: left;
+}
+.tab.active {
+	background: inherit;
+	font-family: SourceSansPro-Semibold, sans-serif;
+}
+
 .header {
 	width: 100%;
 	height: 44px;

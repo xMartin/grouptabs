@@ -33,8 +33,8 @@ function (React, TransactionListClass) {
             )
           ),
           React.createElement('div', {className: 'row toggle'},
-            React.createElement('button', {onClick: this.props.handlePeopleClick}, 'People'),
-            React.createElement('button', {disabled: 'disabled'}, 'Transactions')
+            React.createElement('button', {className: 'tab', onClick: this.props.handlePeopleClick}, 'People'),
+            React.createElement('button', {className: 'tab active', disabled: 'disabled'}, 'Transactions')
           ),
           React.createElement('div', {className: 'row'},
             new TransactionList({data: this.props.data, handleDetailsClick: this.props.handleDetailsClick})

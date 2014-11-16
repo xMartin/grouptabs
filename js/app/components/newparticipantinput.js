@@ -1,9 +1,12 @@
 define([
-  'react'
+  'react',
+  './participantstatusinput'
 ],
 
-function (React) {
+function (React, ParticipantStatusInputClass) {
   'use strict';
+
+  var ParticipantStatusInput = React.createFactory(ParticipantStatusInputClass);
 
   return React.createClass({
 
@@ -24,29 +27,12 @@ function (React) {
           React.createElement('span', {className: 'participant'},
             React.createElement('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
           ),
-          React.createElement('span', {className: 'participationStatus'},
-            React.createElement('span', {className: 'joinedButtonWrapper' + (this.state.status === 2 ? ' hidden' : '')},
-              React.createElement('button', {
-                type: 'button',
-                className: this.state.status > 0 ? ' selected' : '',
-                ref: 'joined',
-                onClick: this.handleJoinedChange
-              }, 'joined')
-            ),
-            React.createElement('button', {
-              type: 'button',
-              className: 'paid-button' + (this.state.status === 2 ? ' selected' : ''),
-              ref: 'paid',
-              onClick: this.handlePaidChange
-            }, 'paid'),
-            React.createElement('span', {className: 'amountInput' + (this.state.status < 2 ? ' hidden' : '')},
-              React.createElement('input', {
-                type: 'number',
-                defaultValue: this.props.value && this.props.value.amount || '',
-                ref: 'amount'
-              })
-            )
-          )
+          new ParticipantStatusInput({
+            status: this.state.status,
+            handleJoinedChange: this.handleJoinedChange,
+            handlePaidChange: this.handlePaidChange,
+            ref: 'status'
+          })
         )
       );
     },
@@ -63,7 +49,7 @@ function (React) {
       if (this.state.status < 2) {
         this.setState({status: 2});
         setTimeout(function(){
-          this.refs.amount.getDOMNode().focus();
+          this.refs.status.focusAmount();
         }.bind(this));
       } else {
         this.setState({status: 1});
@@ -76,7 +62,7 @@ function (React) {
       }
       return {
         participant: this.refs.participant.getDOMNode().value,
-        amount: this.state.status === 2 ? parseFloat(this.refs.amount.getDOMNode().value || 0) : 0
+        amount: this.state.status === 2 ? this.refs.status.getAmount() : 0
       };
     },
 

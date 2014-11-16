@@ -60,8 +60,12 @@ function (React, ParticipantStatusInputClass) {
       if (this.state.status === 0) {
         return null;
       }
+      var participant = this.refs.participant.getDOMNode().value.trim();
+      if (!participant) {
+        return null;
+      }
       return {
-        participant: this.refs.participant.getDOMNode().value,
+        participant: participant,
         amount: this.state.status === 2 ? this.refs.status.getAmount() : 0
       };
     },

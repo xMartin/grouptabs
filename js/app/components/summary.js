@@ -47,17 +47,20 @@ function (React) {
     },
 
     render: function () {
-      var accounts = this.formatData(this.props.data).map(function (account) {
-        return (
-          React.createElement('tr', {key: account.participant, style: {backgroundColor: account.cssColor}},
-            React.createElement('th', {className: 'account'}, account.participant),
-            React.createElement('td', {className: 'amount'}, account.amount)
-          )
-        );
-      });
       return (
         React.createElement('div', {id: 'summary'},
-          React.createElement('table', {id: 'balance'}, accounts)
+          React.createElement('table', {id: 'balance'},
+            this.formatData(this.props.data).map(function (account) {
+              return (
+                React.createElement('tbody', null,
+                  React.createElement('tr', {key: account.participant, style: {backgroundColor: account.cssColor}},
+                    React.createElement('th', {className: 'account'}, account.participant),
+                    React.createElement('td', {className: 'amount'}, account.amount)
+                  )
+                )
+              );
+            })
+          )
         )
       );
     }

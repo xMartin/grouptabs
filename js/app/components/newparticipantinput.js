@@ -25,28 +25,27 @@ function (React) {
             React.createElement('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
           ),
           React.createElement('span', {className: 'participationStatus'},
-            React.createElement('input', {
-              type: 'checkbox',
-              checked: this.state.status > 0,
-              id: 'joined' + this._rootNodeID,
-              ref: 'joined',
-              onChange: this.handleJoinedChange
-            }),
-            React.createElement('label', {htmlFor: 'joined' + this._rootNodeID}, 'joined'),
-            React.createElement('input', {
-              type: 'checkbox',
-              checked: this.state.status === 2,
-              id: 'paid' + this._rootNodeID,
+            React.createElement('span', {className: 'joinedButtonWrapper' + (this.state.status === 2 ? ' hidden' : '')},
+              React.createElement('button', {
+                type: 'button',
+                className: this.state.status > 0 ? ' selected' : '',
+                ref: 'joined',
+                onClick: this.handleJoinedChange
+              }, 'joined')
+            ),
+            React.createElement('button', {
+              type: 'button',
+              className: 'paid-button' + (this.state.status === 2 ? ' selected' : ''),
               ref: 'paid',
-              onChange: this.handlePaidChange
-            }),
-            React.createElement('label', {htmlFor: 'paid' + this._rootNodeID}, 'paid'),
-            React.createElement('input', {
-              type: 'number',
-              className: this.state.status < 2 ? 'invisible' : '',
-              defaultValue: this.props.value && this.props.value.amount || '',
-              ref: 'amount'
-            })
+              onClick: this.handlePaidChange
+            }, 'paid'),
+            React.createElement('span', {className: 'amountInput' + (this.state.status < 2 ? ' hidden' : '')},
+              React.createElement('input', {
+                type: 'number',
+                defaultValue: this.props.value && this.props.value.amount || '',
+                ref: 'amount'
+              })
+            )
           )
         )
       );

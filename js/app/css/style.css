@@ -27,13 +27,6 @@ th {
 	font-family: SourceSansPro-Regular, sans-serif;
 }
 
-.hidden {
-	display: none;
-}
-.invisible {
-	visibility: hidden;
-}
-
 button {
 	font: inherit;
 	background: #ddd;
@@ -66,6 +59,9 @@ button.create {
 button.delete {
 	background: #f44;
 	color: #fff;
+}
+button.selected {
+	background: #bbb;
 }
 .editEntryScene .header button {
 	font-size: 28px;
@@ -108,10 +104,6 @@ input[type=number] {
 	padding: 10px;
 	font: inherit;
 }
-.participantInput input[type=number],
-.newParticipantInput input[type=number] {
-	width: 70px;
-}
 
 .header {
 	width: 100%;
@@ -132,6 +124,10 @@ input[type=number] {
 }
 .header #logo {
 	width: 44px;
+}
+
+.scene.hidden {
+	display: none;
 }
 
 .scene h2 {
@@ -357,6 +353,7 @@ td.amount {
 .editEntryScene .form-row-input {
 	display: table;
 	width: 100%;
+	overflow: hidden;
 }
 .participantInput,
 .newParticipantInput {
@@ -391,35 +388,42 @@ td.amount {
 	text-align: right;
 	width: 210px;
 }
-.participantInput .joined-button,
-.newParticipantInput .joined-button {
+.participantInput .joinedButtonWrapper,
+.newParticipantInput .joinedButtonWrapper {
+	display: inline-block;
 	width: 70px;  /* estimate auto width so we can use transition */
-	overflow: hidden;
-}
-.participantInput.ready .joined-button,
-.newParticipantInput.ready .joined-button {
 	-webkit-transition: width .3s;
 	-moz-transition: width .3s;
 	transition: width .3s;
 }
-.participantInput .joined-button.hidden,
-.newParticipantInput .joined-button.hidden {
+.participantInput .joinedButtonWrapper.hidden,
+.newParticipantInput .joinedButtonWrapper.hidden {
 	width: 0;
 }
-.participantInput .dijitNumberTextBox,
-.newParticipantInput .dijitNumberTextBox {
+.participantInput button,
+.newParticipantInput button {
+	color: #777;
+}
+.participantInput button.selected,
+.newParticipantInput button.selected {
+	background: #bbb;
+	color: inherit;
+}
+.participantInput .amountInput,
+.newParticipantInput .amountInput {
+	display: inline-block;
 	width: 70px;
-	text-align: right;
-}
-.participantInput.ready .dijitNumberTextBox,
-.newParticipantInput.ready .dijitNumberTextBox {
 	-webkit-transition: width .3s;
 	-moz-transition: width .3s;
 	transition: width .3s;
 }
-.participantInput .dijitNumberTextBox.hidden,
-.newParticipantInput .dijitNumberTextBox.hidden {
+.participantInput .amountInput.hidden,
+.newParticipantInput .amountInput.hidden {
 	width: 0;
+}
+.participantInput .amountInput input[type=number],
+.newParticipantInput .amountInput input[type=number] {
+	text-align: right;
 }
 .editEntryScene .dijitButton.delete {
 	width: 30%;

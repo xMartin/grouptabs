@@ -30,14 +30,20 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
 
     init: function () {
       this.hoodie = new Hoodie(config.backendUrl);
-      this.component = React.render(new AppComponent({
-        tabName: this.tab,
-        saveTransaction: this.handleSaveTransaction.bind(this),
-        removeTransaction: this.handleRemoveTransaction.bind(this),
-        handleTabChange: this.handleTabChange.bind(this),
-        handleChangeTabClick: this.handleChangeTabClick.bind(this)
-      }), document.body);
-      this.tab && this.initTab(this.tab);
+      this.getTabs().then(function (tabs) {
+        if (!tabs.length) {
+          this.noTabYet = true;
+        }
+        this.component = React.render(new AppComponent({
+          tabName: this.tab,
+          tabs: tabs,
+          saveTransaction: this.handleSaveTransaction.bind(this),
+          removeTransaction: this.handleRemoveTransaction.bind(this),
+          handleTabChange: this.handleTabChange.bind(this),
+          handleChangeTabClick: this.handleChangeTabClick.bind(this)
+        }), document.body);
+        this.tab && this.initTab(this.tab);
+      }.bind(this));
     },
 
     initTab: function (tab) {
@@ -56,6 +62,12 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
     },
 
     handleSaveTransaction: function (data) {
+      if (this.noTabYet) {
+        var tab = generateTabId();
+        this.setTab(tab);
+        this.initTab(tab);
+        delete this.noTabYet;
+      }
       this.tabStore.saveTransaction(data);
     },
 
@@ -69,6 +81,7 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
           tabs: tabs
         });
       }.bind(this));
+      this.setTab('');
     },
 
     handleTabChange: function (tab) {

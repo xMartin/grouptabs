@@ -26,24 +26,15 @@ function (React, SummaryClass) {
               'Add transaction'
             )
           ),
-          this.props.data.length ?
-            React.createElement('div', null,
-              React.createElement('div', {className: 'row toggle'},
-                React.createElement('button', {className: 'tab active', disabled: 'disabled'}, 'People'),
-                React.createElement('button', {className: 'tab', onClick: this.props.handleListClick}, 'Transactions')
-              ),
-              React.createElement('div', {className: 'row'},
-                new Summary({data: this.props.data})
-              )
+          React.createElement('div', null,
+            React.createElement('div', {className: 'row toggle'},
+              React.createElement('button', {className: 'tab active', disabled: 'disabled'}, 'People'),
+              React.createElement('button', {className: 'tab', onClick: this.props.handleListClick}, 'Transactions')
+            ),
+            React.createElement('div', {className: 'row'},
+              new Summary({data: this.props.data})
             )
-            :
-            React.createElement('div', {className: 'empty-info'},
-              React.createElement('article', null,
-                React.createElement('p', null,
-                  'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
-                )
-              )
-            )
+          )
         )
       );
     }

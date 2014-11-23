@@ -1,15 +1,17 @@
 define([
   'react',
   './tabs',
+  './landing',
   './main',
   './list',
   './editentry'
 ],
 
-function (React, TabsClass, MainClass, ListClass, EditEntryClass) {
+function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) {
   'use strict';
 
   var Tabs = React.createFactory(TabsClass);
+  var Landing = React.createFactory(LandingClass);
   var Main = React.createFactory(MainClass);
   var List = React.createFactory(ListClass);
   var EditEntry = React.createFactory(EditEntryClass);
@@ -20,7 +22,7 @@ function (React, TabsClass, MainClass, ListClass, EditEntryClass) {
 
     getInitialState: function () {
       return {
-        scene: this.props.tabName ? 'main' : 'tabs'
+        scene: this.props.tabName ? 'main' : this.props.tabs.length ? 'tabs' : 'landing'
       };
     },
 
@@ -40,6 +42,10 @@ function (React, TabsClass, MainClass, ListClass, EditEntryClass) {
             data: this.props.tabs,
             visible: this.state.scene === 'tabs',
             handleTabClick: this.handleTabClick
+          }),
+          new Landing({
+            visible: this.state.scene === 'landing',
+            handleNewEntryClick: this.handleNewEntryClick
           }),
           new Main({
             tabName: this.props.tabName,

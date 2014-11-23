@@ -40,7 +40,8 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
           saveTransaction: this.handleSaveTransaction.bind(this),
           removeTransaction: this.handleRemoveTransaction.bind(this),
           handleTabChange: this.handleTabChange.bind(this),
-          handleChangeTabClick: this.handleChangeTabClick.bind(this)
+          handleChangeTabClick: this.handleChangeTabClick.bind(this),
+          handleCreateNewTab: this.handleCreateNewTab.bind(this)
         }), document.body);
         this.tab && this.initTab(this.tab);
       }.bind(this));
@@ -59,6 +60,12 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
         accounts: this.tabStore.getAccounts(),
         participants: this.tabStore.getParticipants()
       });
+    },
+
+    handleCreateNewTab: function () {
+      var tab = generateTabId();
+      this.setTab(tab);
+      this.initTab(tab);
     },
 
     handleSaveTransaction: function (data) {

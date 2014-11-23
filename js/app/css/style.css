@@ -458,11 +458,11 @@ td.amount {
 .claro .tabsScene .dijitTextBox .dijitInputInner {
 	padding-right: 90px !important;
 }
-.tabsScene button.create {
+/*.tabsScene button.create {
 	position: relative;
 	float: right;
 	top: -44px;
-}
+}*/
 
 
 #summary table {

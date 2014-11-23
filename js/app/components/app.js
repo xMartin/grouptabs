@@ -41,7 +41,8 @@ function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) 
           new Tabs({
             data: this.props.tabs,
             visible: this.state.scene === 'tabs',
-            handleTabClick: this.handleTabClick
+            handleTabClick: this.handleTabClick,
+            handleCreateNewTab: this.handleCreateNewTab
           }),
           new Landing({
             visible: this.state.scene === 'landing',
@@ -76,6 +77,14 @@ function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) 
           : null
         )
       );
+    },
+
+    handleCreateNewTab: function () {
+      this.props.handleCreateNewTab();
+      this.homeView = 'main';
+      this.setState({
+        scene: 'main'
+      });
     },
 
     handleTabClick: function (tab) {

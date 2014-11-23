@@ -1,11 +1,17 @@
+/* globals config:false, Hoodie:false */
 define([
-  './store',
+  'pouchdb',
+  'pouchdb-all-dbs',
   'react',
-  './components/app'
+  './components/app',
+  './db/tab',
+  './stores/tab'
 ],
 
-function (store, React, AppComponentClass) {
+function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
   'use strict';
+
+  allDbs(PouchDB);
 
   var AppComponent = React.createFactory(AppComponentClass);
 
@@ -23,38 +29,42 @@ function (store, React, AppComponentClass) {
     tab: localStorage.getItem('box') || '',
 
     init: function () {
-      var tabId = location.hash.substring(1);
-      if (!tabId) {
-        tabId = generateTabId();
-        location.hash = tabId;
-      }
-      this.setTab(tabId);
-
+      this.hoodie = new Hoodie(config.backendUrl);
       this.component = React.render(new AppComponent({
         tabName: this.tab,
-        saveTransaction: store.saveTransaction.bind(store),
-        removeTransaction: store.removeTransaction.bind(store),
+        saveTransaction: this.handleSaveTransaction.bind(this),
+        removeTransaction: this.handleRemoveTransaction.bind(this),
         handleTabChange: this.handleTabChange.bind(this),
         handleChangeTabClick: this.handleChangeTabClick.bind(this)
       }), document.body);
+      this.tab && this.initTab(this.tab);
+    },
 
-      store.init(tabId).then(function () {
-        store.setupChangesListener(this.refreshUi.bind(this));
-        this.refreshUi();
-      }.bind(this));
+    initTab: function (tab) {
+      var tabDb = new TabDb(tab, this.hoodie);
+      this.tabStore = new TabStore(tabDb, this.refreshUi.bind(this));
+      this.tabStore.init().then(this.refreshUi.bind(this));
     },
 
     refreshUi: function () {
       this.component.setProps({
         tabName: this.tab,
-        transactions: store.getTransactions(),
-        accounts: store.getAccounts(),
-        participants: store.getParticipants()
+        transactions: this.tabStore.getTransactions(),
+        accounts: this.tabStore.getAccounts(),
+        participants: this.tabStore.getParticipants()
       });
     },
 
+    handleSaveTransaction: function (data) {
+      this.tabStore.saveTransaction(data);
+    },
+
+    handleRemoveTransaction: function (data) {
+      this.tabStore.removeTransaction(data);
+    },
+
     handleChangeTabClick: function () {
-      store.getTabs().then(function (tabs) {
+      this.getTabs().then(function (tabs) {
         this.component.setProps({
           tabs: tabs
         });
@@ -63,29 +73,25 @@ function (store, React, AppComponentClass) {
 
     handleTabChange: function (tab) {
       this.setTab(tab);
-      store.switch(tab).then(this.refreshUi.bind(this));
+      this.tabStore && this.tabStore.destroy();
+      this.initTab(tab);
     },
 
-    tempTabs: [],
-
     getTabs: function () {
-      var tabs = [];
-      // store.query(function(){return true}).forEach(function(transaction){
-      //  if(transaction.box && tabs.indexOf(transaction.box) === -1){
-      //    tabs.push(transaction.box)
-      //  }
-      // })
-      this.tempTabs.forEach(function (tempTab) {
-        if (tempTab !== '' && tabs.indexOf(tempTab) === -1) {
-          tabs.push(tempTab);
-        }
+      return PouchDB.allDbs().then(function (dbs) {
+        return dbs
+          .filter(function (db) {
+            return db.indexOf('tab/') === 0;
+          })
+          .map(function (db) {
+            // remove 'tab/' prefix
+            return db.substring(4);
+          });
       });
-      return tabs;
     },
 
     setTab: function (tabName) {
       this.tab = tabName;
-      this.tempTabs.push(tabName);
       localStorage.setItem('box', tabName);
     }
   };

@@ -11,6 +11,7 @@ function (React) {
       return (
         React.createElement('div', {className: 'scene landingScene' + (this.props.visible ? '' : ' hidden')},
           React.createElement('div', {className: 'header'},
+            React.createElement('img', {id: 'logo', src: 'images/favicon-touch.png'}),
             React.createElement('h2', null, 'Grouptabs')
           ),
           React.createElement('div', {className: 'empty-info'},

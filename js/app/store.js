@@ -1,9 +1,13 @@
 define([
-  './db'
+  './db',
+  'pouchdb',
+  'pouchdb-all-dbs'
 ],
 
-function (db) {
+function (db, PouchDB, allDbs) {
   'use strict';
+
+  allDbs(PouchDB);
 
   return {
 
@@ -22,12 +26,33 @@ function (db) {
         .then(this._refreshFromDb.bind(this));
     },
 
+    switch: function (tabId) {
+      return db.switch(tabId)
+        .then(function () {
+          db.sync();
+        })
+        .then(this._refreshFromDb.bind(this));
+    },
+
     _refreshFromDb: function () {
       return db.getTransactions().then(function (transactions) {
         this._cache.transactions = this._sortTransactions(transactions);
         this._cache.accounts = this._transactions2Accounts(transactions);
         this._cache.participants = this._accounts2Participants(this._cache.accounts);
       }.bind(this));
+    },
+
+    getTabs: function () {
+      return PouchDB.allDbs().then(function (dbs) {
+        return dbs
+          .filter(function (db) {
+            return db.indexOf('tab/') === 0;
+          })
+          .map(function (db) {
+            // remove 'tab/' prefix
+            return db.substring(4);
+          });
+      });
     },
 
     getTransactions: function () {

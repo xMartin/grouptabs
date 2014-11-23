@@ -19,6 +19,13 @@ function (PouchDB) {
       return this._setupDb();
     },
 
+    switch: function (tabId) {
+      this.stopSyncing();
+      this.tabId = tabId;
+      this.dbName = 'tab/' + tabId;
+      return this._setupDb();
+    },
+
     _setupDb: function () {
       return new Promise(function (resolve) {
         this.db = new PouchDB(this.dbName);

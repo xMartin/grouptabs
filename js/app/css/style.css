@@ -446,28 +446,22 @@ td.amount {
 .tabsScene .row.tabs {
 	margin: 1em 0;
 }
-.tabs .dijitButton {
+.tabs button {
 	border: 0 solid #ddd;
 	border-bottom-width: 1px;
-}
-.tabs .dijitButton:first-child {
-	border-top-width: 1px;
-}
-.claro .tabs .dijitButton .dijitButtonNode {
 	background: transparent url(/images/arrow.svg) right center no-repeat;
 	text-align: left;
+}
+.tabs button:first-child {
+	border-top-width: 1px;
 }
 .claro .tabsScene .dijitTextBox .dijitInputInner {
 	padding-right: 90px !important;
 }
-.tabsScene .dijitButton.create {
+.tabsScene button.create {
 	position: relative;
 	float: right;
 	top: -44px;
-}
-.tabsScene .dijitButton.create .dijitButtonNode {
-	border-radius: 0;
-	border: none;
 }
 
 
@@ -524,11 +518,6 @@ td.amount {
 #transactions .transaction .payments {
 	margin-top: 2px;
 	font-size: 12px;
-}
-
-.mainScene > .header,
-.listScene > .header {
-	visibility: hidden;
 }
 
 /* remove click outlines */

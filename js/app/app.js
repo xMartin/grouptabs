@@ -33,7 +33,9 @@ function (store, React, AppComponentClass) {
       this.component = React.render(new AppComponent({
         tabName: this.tab,
         saveTransaction: store.saveTransaction.bind(store),
-        removeTransaction: store.removeTransaction.bind(store)
+        removeTransaction: store.removeTransaction.bind(store),
+        handleTabChange: this.handleTabChange.bind(this),
+        handleChangeTabClick: this.handleChangeTabClick.bind(this)
       }), document.body);
 
       store.init(tabId).then(function () {
@@ -44,10 +46,24 @@ function (store, React, AppComponentClass) {
 
     refreshUi: function () {
       this.component.setProps({
+        tabName: this.tab,
         transactions: store.getTransactions(),
         accounts: store.getAccounts(),
         participants: store.getParticipants()
       });
+    },
+
+    handleChangeTabClick: function () {
+      store.getTabs().then(function (tabs) {
+        this.component.setProps({
+          tabs: tabs
+        });
+      }.bind(this));
+    },
+
+    handleTabChange: function (tab) {
+      this.setTab(tab);
+      store.switch(tab).then(this.refreshUi.bind(this));
     },
 
     tempTabs: [],

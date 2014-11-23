@@ -14,7 +14,7 @@ function (React, SummaryClass) {
       return (
         React.createElement('div', {className: 'scene mainScene' + (this.props.visible ? '' : ' hidden')},
           React.createElement('div', {className: 'header'},
-            React.createElement('button', null,
+            React.createElement('button', {onClick: this.props.handleChangeTabClick},
               React.createElement('svg', {height: 15, width: 15, style: {opacity: 0.5}},
                 React.createElement('path', {d: 'm0 0v3h15v-3h-15zm0 6v3h15v-3h-15zm0 6v3h15v-3h-15z'})
               )

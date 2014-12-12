@@ -1,9 +1,12 @@
 define([
-  'react'
+  'react',
+  './importform'
 ],
 
-function (React) {
+function (React, ImportFormClass) {
   'use strict';
+
+  var ImportForm = React.createFactory(ImportFormClass);
 
   return React.createClass({
 
@@ -25,6 +28,9 @@ function (React) {
             React.createElement('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
               'Start by adding your first transaction'
             )
+          ),
+          React.createElement('div', {className: 'row'},
+            new ImportForm({handleSubmit: this.props.handleImportSubmit})
           )
         )
       );

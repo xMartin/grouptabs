@@ -1,12 +1,14 @@
 define([
   'react',
-  './tablistbutton'
+  './tablistbutton',
+  './importform'
 ],
 
-function (React, TabListButtonClass) {
+function (React, TabListButtonClass, ImportFormClass) {
   'use strict';
 
   var TabListButton = React.createFactory(TabListButtonClass);
+  var ImportForm = React.createFactory(ImportFormClass);
 
   return React.createClass({
 
@@ -23,22 +25,13 @@ function (React, TabListButtonClass) {
             }.bind(this))
           ),
           React.createElement('div', {className: 'row'},
-            React.createElement('form', {onSubmit: this.handleSubmit},
-              /*React.createElement('input', {type: 'text', className: 'full-width', placeholder: 'New tab …', ref: 'input'}),*/
-              React.createElement('button', {className: 'create full-width-margin'}, 'Create new tab')
-            )
+            React.createElement('button', {onClick: this.props.handleCreateNewTab, className: 'create full-width-margin'}, 'Create new tab')
+          ),
+          React.createElement('div', {className: 'row'},
+            new ImportForm({handleSubmit: this.props.handleTabClick})
           )
         )
       );
-    },
-
-    handleSubmit: function (event) {
-      event.preventDefault();
-      // var input = this.refs.input.getDOMNode();
-      // var tab = input.value.trim();
-      // input.value = '';
-      // tab && this.props.handleTabClick(tab);
-      this.props.handleCreateNewTab();
     }
 
   });

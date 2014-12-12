@@ -151,6 +151,10 @@ article p {
 	position: relative;
 }
 
+.row-label {
+	margin: 1em 2% 0.3em;
+}
+
 .dijitToggleButton,
 .dijitButton,
 .dijitDropDownButton,
@@ -458,11 +462,12 @@ td.amount {
 .claro .tabsScene .dijitTextBox .dijitInputInner {
 	padding-right: 90px !important;
 }
-/*.tabsScene button.create {
+
+.import-form button.create {
 	position: relative;
 	float: right;
 	top: -44px;
-}*/
+}
 
 
 #summary table {

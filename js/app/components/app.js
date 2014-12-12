@@ -46,7 +46,8 @@ function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) 
           }),
           new Landing({
             visible: this.state.scene === 'landing',
-            handleNewEntryClick: this.handleNewEntryClick
+            handleNewEntryClick: this.handleNewEntryClick,
+            handleImportSubmit: this.handleTabClick
           }),
           new Main({
             tabName: this.props.tabName,

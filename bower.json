@@ -5,9 +5,9 @@
     "jquery": "~2.1.1",
     "requirejs": "~2.1.15",
     "react": "~0.12.0",
-    "pouchdb": "~3.1.0",
+    "pouchdb": "~3.2.0",
     "fastclick": "~1.0.3",
-    "pouchdb-all-dbs": "~0.1.6"
+    "pouchdb-all-dbs": "https://github.com/xMartin/pouchdb-all-dbs.git#umd"
   },
   "devDependencies": {}
 }

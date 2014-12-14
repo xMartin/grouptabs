@@ -100,6 +100,7 @@ input[type=number] {
 	min-width: 44px;
 	padding: 10px;
 	font: inherit;
+	margin: 0;  /* Safari has 2px */
 }
 
 .header {
@@ -213,9 +214,10 @@ td.amount {
 .newParticipantInput .joinedButtonWrapper {
 	display: inline-block;
 	width: 70px;  /* estimate auto width so we can use transition */
-	-webkit-transition: width .3s;
-	-moz-transition: width .3s;
-	transition: width .3s;
+	/* Safari has issues when transitioning */
+	/*-webkit-transition: width .3s;*/
+	/*-moz-transition: width .3s;*/
+	/*transition: width .3s;*/
 }
 .participantInput .joinedButtonWrapper.hidden,
 .newParticipantInput .joinedButtonWrapper.hidden {
@@ -234,9 +236,10 @@ td.amount {
 .newParticipantInput .amountInput {
 	display: inline-block;
 	width: 70px;
-	-webkit-transition: width .3s;
-	-moz-transition: width .3s;
-	transition: width .3s;
+	/* Safari has issues when transitioning */
+	/*-webkit-transition: width .3s;*/
+	/*-moz-transition: width .3s;*/
+	/*transition: width .3s;*/
 }
 .participantInput .amountInput.hidden,
 .newParticipantInput .amountInput.hidden {

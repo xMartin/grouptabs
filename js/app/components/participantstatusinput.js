@@ -27,6 +27,7 @@ function (React) {
           React.createElement('span', {className: 'amountInput' + (this.props.status < 2 ? ' hidden' : '')},
             React.createElement('input', {
               type: 'number',
+              disabled: this.props.status !== 2 ? 'disabled' : '',
               defaultValue: this.props.amount,
               ref: 'amount'
             })

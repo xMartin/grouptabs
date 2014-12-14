@@ -14,17 +14,14 @@
 body {
 	margin: 0;
 	color: #131313;
+	font-size: 18px;
+	background: #f2f2f2;
+	font-family: SourceSansPro-Regular, sans-serif;
 }
 
 th {
 	text-align: left;
 	font-weight: normal;
-}
-
-.claro {
-	font-size: 18px;
-	background: #f2f2f2;
-	font-family: SourceSansPro-Regular, sans-serif;
 }
 
 button {
@@ -116,12 +113,6 @@ input[type=number] {
 	margin-left: 12px;
 	font-size: 22px;
 }
-.header .dijitButton {
-	margin: 0;
-}
-.header .dijitButton .dijitButtonText {
-	margin-top: -4px;
-}
 .header #logo {
 	width: 44px;
 }
@@ -156,26 +147,6 @@ article p {
 	margin: 1em 2% 0.3em;
 }
 
-.dijitToggleButton,
-.dijitButton,
-.dijitDropDownButton,
-.dijitComboButton {
-	margin: 0;
-}
-
-.dijitPlaceHolder {
-	font-style: normal;
-}
-
-.dijitButtonContents {
-	line-height: 100%;
-	margin-top: -1px;
-}
-
-.claro .dijitButtonText {
-	padding: 2px 0 0;
-}
-
 .editEntryScene .form,
 .editEntryScene .button-row,
 .listScene table {
@@ -195,166 +166,11 @@ td.amount {
 	text-align: right;
 }
 
-.dijitRadio {
-	margin: .6em !important;
-}
-
-.dj_gecko .claro .dijitTextBox .dijitInputInner,
-.claro .dijitTextBox .dijitInputInner,
-.claro .dijitTextBox .dijitPlaceHolder,
-.claro .dijitButton .dijitButtonNode,
-.claro .dijitToggleButton .dijitButtonNode,
-.dijitButtonNode.dijitDownArrowButton {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	min-width: 44px;
-	min-height: 44px;
-	padding: 10px !important;
-}
-.dijitTextBox .dijitInputInner {
-	background: transparent;  /* firefox mobile has a gradient otherwise */
-}
-
-.claro .dijitTextBox .dijitInputField {
-	padding: 0;
-}
-.claro .dijitComboBox .dijitButtonNode {
-	padding: 12px 14px !important;
-	background: #ddd;
-	border: none;
-}
-.claro .dijitComboBox .dijitArrowButtonInner {
-	border: none;
-}
-
-.claro .dijitTextBox,
-.claro .dijitButton .dijitButtonNode,
-.claro .dijitToggleButton .dijitButtonNode {
-	background: #fff;
-	box-shadow: none;
-	border: none;
-	border-radius: 0;
-}
-.claro .dijitButton .dijitButtonNode,
-.claro .dijitToggleButton .dijitButtonNode {
-	background: #ddd;
-}
-.claro .dijitButton .dijitButtonNode:hover,
-.claro .dijitButton .dijitButtonNode:focus,
-.claro .dijitButton .dijitButtonNode:active,
-.claro .dijitToggleButton .dijitButtonNode:hover,
-.claro .dijitToggleButton .dijitButtonNode:focus,
-.claro .dijitToggleButton .dijitButtonNode:active {
-	background: #d6d6d6;
-	border-color: #ccc;
-}
-
-.claro .dijitToggleButton .dijitButtonNode {
-	background: #ddd;
-	color: #777;
-}
-.claro .dijitToggleButton.dijitToggleButtonChecked .dijitButtonNode {
-	background: #bbb;
-	color: #000;
-}
-
-.claro .dijitButton.create .dijitButtonNode {
-	background: #44f;
-	color: #fff;
-	border-color: #ddd;
-}
-.claro .dijitButton.create .dijitButtonNode:hover,
-.claro .dijitButton.create .dijitButtonNode:focus,
-.claro .dijitButton.create .dijitButtonNode:active {
-	background: #33e;
-	border-color: #ccc;
-}
-
-.claro .dijitButton.delete .dijitButtonNode {
-	background: #f44;
-	border-color: #c11;
-	color: #fff;
-}
-.claro .dijitButton.delete .dijitButtonNode:hover,
-.claro .dijitButton.delete .dijitButtonNode:focus,
-.claro .dijitButton.delete .dijitButtonNode:active {
-	background: #e33;
-	border-color: #b00;
-}
-
-.dijitButton.full-width,
-.dijitButton.full-width-margin {
-	display: block;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.claro .dijitTextBox.full-width,
-.claro .dijitButton.full-width .dijitButtonNode {
-	width: 100%;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	margin-left: 0;
-	margin-right: 0;
-	border-right: none;
-	border-left: none;
-	border-radius: 0;
-}
-.claro .dijitTextBox.full-width-margin,
-.claro .dijitButton.full-width-margin .dijitButtonNode {
-	width: 96%;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	margin-left: 2%;
-	margin-right: 2%;
-}
-
-.dijitButton.destructive * {
-	color: #f32;
-}
-
 .row.toggle {
 	margin-top: 1em;
 	overflow: hidden;  /* clear */
 }
-.row.toggle .dijitButton {
-	float: left;
-	margin: 0;
-	width: 50%;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.row.toggle .dijitButton .dijitButtonNode {
-	width: 100%;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-}
-.row.toggle .dijitButtonDisabled .dijitButtonNode {
-	color: #000;
-	font-family: SourceSansPro-Semibold, sans-serif;
-	border: none;
-	background: transparent;
-}
 
-
-/* edit entry scene */
-.editEntryScene .header .dijitButtonNode {
-	font-size: 28px;
-	line-height: 100%;
-	color: #666;
-	padding: 6px 0 0 !important;
-	width: 44px;
-}
-
-.editEntryScene .dijitCheckBox {
-	margin: 14px;
-}
-.editEntryScene .dijitTextBox {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	width: 100%;
-}
 .editEntryScene .form-row-input {
 	display: table;
 	width: 100%;
@@ -430,18 +246,8 @@ td.amount {
 .newParticipantInput .amountInput input[type=number] {
 	text-align: right;
 }
-.editEntryScene .dijitButton.delete {
-	width: 30%;
-}
-.editEntryScene .dijitButton.create:not(.full-width-margin) {
-	width: 68%;
-	float: right;
-}
 .button-row {
 	margin: 0 2%;
-}
-.button-row .dijitButton .dijitButtonNode {
-	width: 100%;
 }
 .participantsAllJoined {
 	float: right;
@@ -460,16 +266,12 @@ td.amount {
 .tabs button:first-child {
 	border-top-width: 1px;
 }
-.claro .tabsScene .dijitTextBox .dijitInputInner {
-	padding-right: 90px !important;
-}
 
 .import-form button.create {
 	position: relative;
 	float: right;
 	top: -44px;
 }
-
 
 #summary table {
 	border-collapse: collapse;

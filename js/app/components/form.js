@@ -64,7 +64,7 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
       var newParticipantInputs = (function () {
         var result = [];
         for (var i = 0; i < this.state.newParticipantsCount; ++i) {
-          result.push(new NewParticipantInput({ref: 'participant' + participantInputs.length + i}));
+          result.push(new NewParticipantInput({ref: 'participant' + (participantInputs.length + i)}));
         }
         return result;
       }.bind(this))();

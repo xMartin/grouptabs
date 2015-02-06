@@ -95,6 +95,9 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
       this.setTab(tab);
       this.tabStore && this.tabStore.destroy();
       this.initTab(tab);
+
+      // in case this is called for importing existing tab reset noTabYet
+      delete this.noTabYet;
     },
 
     getTabs: function () {

@@ -1,6 +1,4 @@
-define([
-	"remotestorage"
-], function(remoteStorage){
+define(function(){
 
 var moduleName = "gruppenkasse"
 

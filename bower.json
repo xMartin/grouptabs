@@ -4,7 +4,7 @@
   "dependencies": {
     "dojo": "1.10.4",
     "dijit": "1.10.4",
-    "remotestorage": "0.11.2"
+    "remotestorage": "0.12.1"
   },
   "devDependencies": {}
 }

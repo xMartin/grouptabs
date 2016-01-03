@@ -54,7 +54,7 @@ RemoteStorage.defineModule(moduleName, function(privateClient, publicClient){
 			on: privateClient.on,
 			
 			getTransactions: function(){
-				return privateClient.getAll("transactions/")
+				return privateClient.getAll("transactions/", false)
 			},
 			
 			saveTransaction: function(key, data){

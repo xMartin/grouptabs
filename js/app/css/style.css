@@ -270,7 +270,7 @@ td.amount {
 	border-top-width: 1px;
 }
 
-.import-form button.create {
+.import-form button {
 	position: relative;
 	float: right;
 	top: -44px;

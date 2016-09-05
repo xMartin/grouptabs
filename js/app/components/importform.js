@@ -19,7 +19,7 @@ function (React) {
 
     handleSubmit: function (event) {
       event.preventDefault();
-      var input = this.refs.input.getDOMNode();
+      var input = this.refs.input;
       var tab = input.value.trim();
       if (tab) {
         input.value = '';

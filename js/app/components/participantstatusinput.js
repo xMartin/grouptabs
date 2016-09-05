@@ -37,11 +37,11 @@ function (React) {
     },
 
     getAmount: function () {
-      return parseFloat(this.refs.amount.getDOMNode().value || 0);
+      return parseFloat(this.refs.amount.value || 0);
     },
 
     focusAmount: function () {
-      this.refs.amount.getDOMNode().focus();
+      this.refs.amount.focus();
     }
 
   });

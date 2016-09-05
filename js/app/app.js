@@ -1,4 +1,3 @@
-/* globals config:false, Hoodie:false */
 define([
   'pouchdb',
   'pouchdb-all-dbs',
@@ -24,37 +23,41 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
     return result;
   }
 
-  return {
+  return React.createClass({
 
     tab: localStorage.getItem('box') || '',
 
-    init: function () {
-      this.hoodie = new Hoodie(config.backendUrl);
+    getInitialState: function () {
+      return {
+        tabs: [],
+        transactions: [],
+        accounts: [],
+        participants: []
+      };
+    },
+
+    componentDidMount: function () {
       this.getTabs().then(function (tabs) {
         if (!tabs.length) {
           this.noTabYet = true;
         }
-        this.component = React.render(new AppComponent({
-          tabName: this.tab,
-          tabs: tabs,
-          saveTransaction: this.handleSaveTransaction.bind(this),
-          removeTransaction: this.handleRemoveTransaction.bind(this),
-          handleTabChange: this.handleTabChange.bind(this),
-          handleChangeTabClick: this.handleChangeTabClick.bind(this),
-          handleCreateNewTab: this.handleCreateNewTab.bind(this)
-        }), document.body);
+
+        this.setState({
+          tabs: tabs
+        });
+
         this.tab && this.initTab(this.tab);
       }.bind(this));
     },
 
     initTab: function (tab) {
-      var tabDb = new TabDb(tab, this.hoodie);
+      var tabDb = new TabDb(tab);
       this.tabStore = new TabStore(tabDb, this.refreshUi.bind(this));
       this.tabStore.init().then(this.refreshUi.bind(this));
     },
 
     refreshUi: function () {
-      this.component.setProps({
+      this.setState({
         tabName: this.tab,
         transactions: this.tabStore.getTransactions(),
         accounts: this.tabStore.getAccounts(),
@@ -116,7 +119,23 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
     setTab: function (tabName) {
       this.tab = tabName;
       localStorage.setItem('box', tabName);
+    },
+
+    render: function () {
+      return new AppComponent({
+        tabName: this.tab,
+        tabs: this.state.tabs,
+        transactions: this.state.transactions,
+        accounts: this.state.accounts,
+        participants: this.state.participants,
+        saveTransaction: this.handleSaveTransaction,
+        removeTransaction: this.handleRemoveTransaction,
+        handleTabChange: this.handleTabChange,
+        handleChangeTabClick: this.handleChangeTabClick,
+        handleCreateNewTab: this.handleCreateNewTab
+      });
     }
-  };
+
+  });
 
 });

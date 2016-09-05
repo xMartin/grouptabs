@@ -5,10 +5,9 @@ define([
 function (PouchDB) {
   'use strict';
 
-  var Tab = function (tabId, hoodie) {
+  var Tab = function (tabId) {
     this.tabId = tabId;
     this.dbName = 'tab/' + tabId;
-    this.hoodie = hoodie;
   };
 
   Tab.prototype.init = function () {
@@ -47,17 +46,11 @@ function (PouchDB) {
   };
 
   Tab.prototype.sync = function () {
-    this.hoodie.createDb({name: this.dbName, write: true})
-    .then(
-      this._sync.bind(this),
-      function (err) {
-        throw new Error(err);
-      }
-    );
+    this._sync();
   };
 
   Tab.prototype._sync = function () {
-    var url = config.backendUrl + '/_api/' + encodeURIComponent(this.dbName);
+    var url = config.backendUrl + '/' + encodeURIComponent(this.dbName);
     this._syncHandle = this.db.sync(url, {live: true, retry: true})
     .on('error', function (err) {
       console.error(err);

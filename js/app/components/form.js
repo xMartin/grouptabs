@@ -136,8 +136,8 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
 
     getValues: function () {
       return {
-        date: this.refs.date.getDOMNode().value,
-        description: this.refs.description.getDOMNode().value,
+        date: this.refs.date.value,
+        description: this.refs.description.value,
         participants: this.getParticipantsValues()
       };
     },

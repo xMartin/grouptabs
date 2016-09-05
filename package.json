@@ -1,0 +1,28 @@
+{
+  "name": "app-react",
+  "version": "1.0.0",
+  "description": "Install",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xMartin/grouptabs.git"
+  },
+  "author": "xMartin <xmartin@siarp.de>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xMartin/grouptabs/issues"
+  },
+  "homepage": "https://github.com/xMartin/grouptabs#readme",
+  "dependencies": {
+    "fastclick": "^1.0.6",
+    "pouchdb": "^5.4.5",
+    "pouchdb-all-dbs": "xMartin/pouchdb-all-dbs#umd",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "remotestoragejs": "^0.12.1",
+    "requirejs": "^2.2.0"
+  }
+}

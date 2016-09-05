@@ -33,14 +33,13 @@ function (React) {
         return 'rgba(' + color.join(',') + ')';
       };
 
-      var data = [];
       var maxAmount = getMaxAmount(accounts);
-      accounts.forEach(function (account) {
-        data.push({
+      var data = accounts.map(function (account) {
+        return {
           amount: round(account.amount),
           cssColor: getCssColor(account.amount, maxAmount),
           participant: account.participant
-        });
+        };
       });
 
       return data;
@@ -53,7 +52,12 @@ function (React) {
             React.createElement('tbody', null,
               this.formatData(this.props.data).map(function (account) {
                 return (
-                  React.createElement('tr', {key: account.participant, style: {backgroundColor: account.cssColor}},
+                  React.createElement('tr', {
+                    key: account.participant,
+                    style: {
+                      backgroundColor: account.cssColor
+                    }
+                  },
                     React.createElement('th', {className: 'account'}, account.participant),
                     React.createElement('td', {className: 'amount'}, account.amount)
                   )

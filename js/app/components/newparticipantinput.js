@@ -60,7 +60,7 @@ function (React, ParticipantStatusInputClass) {
       if (this.state.status === 0) {
         return null;
       }
-      var participant = this.refs.participant.getDOMNode().value.trim();
+      var participant = this.refs.participant.value.trim();
       if (!participant) {
         return null;
       }

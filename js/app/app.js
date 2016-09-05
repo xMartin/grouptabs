@@ -25,10 +25,9 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
     displayName: 'AppContainer',
 
-    tab: localStorage.getItem('box') || '',
-
     getInitialState: function () {
       return {
+        tabName: localStorage.getItem('box') || '',
         tabs: [],
         transactions: [],
         accounts: [],
@@ -46,7 +45,7 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
           tabs: tabs
         });
 
-        this.tab && this.initTab(this.tab);
+        this.state.tabName && this.initTab(this.state.tabName);
       }.bind(this));
     },
 
@@ -58,7 +57,6 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
     refreshUi: function () {
       this.setState({
-        tabName: this.tab,
         transactions: this.tabStore.getTransactions(),
         accounts: this.tabStore.getAccounts(),
         participants: this.tabStore.getParticipants()
@@ -87,7 +85,7 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
     handleChangeTabClick: function () {
       this.getTabs().then(function (tabs) {
-        this.component.setProps({
+        this.setState({
           tabs: tabs
         });
       }.bind(this));
@@ -117,13 +115,16 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
     },
 
     setTab: function (tabName) {
-      this.tab = tabName;
       localStorage.setItem('box', tabName);
+
+      this.setState({
+        tabName: tabName
+      });
     },
 
     render: function () {
       return React.createElement(App, {
-        tabName: this.tab,
+        tabName: this.state.tabName,
         tabs: this.state.tabs,
         transactions: this.state.transactions,
         accounts: this.state.accounts,

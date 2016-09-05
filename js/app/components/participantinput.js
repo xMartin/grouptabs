@@ -21,23 +21,6 @@ function (React, ParticipantStatusInput) {
       };
     },
 
-    render: function () {
-      return (
-        React.createElement('div', {className: 'participantInput' + (this.state.status > 0 ? ' selected' : '')},
-          React.createElement('span', {className: 'participant'},
-            this.props.participant
-          ),
-          el(ParticipantStatusInput, {
-            status: this.state.status,
-            amount: this.props.value && this.props.value.amount || '',
-            handleJoinedChange: this.handleJoinedChange,
-            handlePaidChange: this.handlePaidChange,
-            ref: 'status'
-          })
-        )
-      );
-    },
-
     componentWillMount: function () {
       if (this.props.value) {
         if (this.props.value.amount) {
@@ -81,6 +64,23 @@ function (React, ParticipantStatusInput) {
       if (this.state.status === 0) {
         this.setState({status: 1});
       }
+    },
+
+    render: function () {
+      return (
+        React.createElement('div', {className: 'participantInput' + (this.state.status > 0 ? ' selected' : '')},
+          React.createElement('span', {className: 'participant'},
+            this.props.participant
+          ),
+          el(ParticipantStatusInput, {
+            status: this.state.status,
+            amount: this.props.value && this.props.value.amount || '',
+            handleJoinedChange: this.handleJoinedChange,
+            handlePaidChange: this.handlePaidChange,
+            ref: 'status'
+          })
+        )
+      );
     }
 
   });

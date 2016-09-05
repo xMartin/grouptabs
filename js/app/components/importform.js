@@ -9,16 +9,6 @@ function (React) {
 
   return React.createClass({
 
-    render: function () {
-      return (
-        el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
-          el('div', {className: 'row-label'}, 'Import existing tab:'),
-          el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID', ref: 'input'}),
-          el('button', {className: 'create'}, 'Import')
-        )
-      );
-    },
-
     handleSubmit: function (event) {
       event.preventDefault();
       var input = this.refs.input;
@@ -27,6 +17,16 @@ function (React) {
         input.value = '';
         tab && this.props.handleSubmit(tab);
       }
+    },
+
+    render: function () {
+      return (
+        el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
+          el('div', {className: 'row-label'}, 'Import existing tab:'),
+          el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID', ref: 'input'}),
+          el('button', {className: 'create'}, 'Import')
+        )
+      );
     }
 
   });

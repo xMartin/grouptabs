@@ -9,6 +9,14 @@ function (React) {
 
   return React.createClass({
 
+    getAmount: function () {
+      return parseFloat(this.refs.amount.value || 0);
+    },
+
+    focusAmount: function () {
+      this.refs.amount.focus();
+    },
+
     render: function () {
       return (
         el('span', {className: 'participationStatus'},
@@ -36,14 +44,6 @@ function (React) {
           )
         )
       );
-    },
-
-    getAmount: function () {
-      return parseFloat(this.refs.amount.value || 0);
-    },
-
-    focusAmount: function () {
-      this.refs.amount.focus();
     }
 
   });

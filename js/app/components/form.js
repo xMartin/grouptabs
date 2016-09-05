@@ -36,6 +36,53 @@ function (React, ParticipantInput, NewParticipantInput) {
       return value;
     },
 
+    getOwnedParticipantComponents: function () {
+      return Object.keys(this.refs)
+        .filter(function (ref) {
+          return ref.indexOf('participant') === 0;
+        })
+        .map(function (ref) {
+          return this.refs[ref];
+        }.bind(this));
+    },
+
+    getParticipantsValues: function () {
+      return this.getOwnedParticipantComponents()
+        .map(function (participantComponent) {
+          return participantComponent.getValue();
+        })
+        .filter(function (value) {
+          return !!value;
+        });
+    },
+
+    getValues: function () {
+      return {
+        date: this.refs.date.value,
+        description: this.refs.description.value,
+        participants: this.getParticipantsValues()
+      };
+    },
+
+    handleSubmit: function (event) {
+      event.preventDefault();
+      this.props.handleSubmit();
+    },
+
+    handleDelete: function (event) {
+      this.props.handleDelete();
+    },
+
+    handleAddParticipant: function (event) {
+      this.setState({newParticipantsCount: ++this.state.newParticipantsCount});
+    },
+
+    handleAllJoined: function () {
+      this.getOwnedParticipantComponents().forEach(function (participantComponent) {
+        participantComponent.setJoined();
+      });
+    },
+
     render: function () {
       var mode = this.props.mode;
 
@@ -111,55 +158,7 @@ function (React, ParticipantInput, NewParticipantInput) {
           )
         )
       );
-    },
-
-    getOwnedParticipantComponents: function () {
-      return Object.keys(this.refs)
-        .filter(function (ref) {
-          return ref.indexOf('participant') === 0;
-        })
-        .map(function (ref) {
-          return this.refs[ref];
-        }.bind(this));
-    },
-
-    getParticipantsValues: function () {
-      return this.getOwnedParticipantComponents()
-        .map(function (participantComponent) {
-          return participantComponent.getValue();
-        })
-        .filter(function (value) {
-          return !!value;
-        });
-    },
-
-    getValues: function () {
-      return {
-        date: this.refs.date.value,
-        description: this.refs.description.value,
-        participants: this.getParticipantsValues()
-      };
-    },
-
-    handleSubmit: function (event) {
-      event.preventDefault();
-      this.props.handleSubmit();
-    },
-
-    handleDelete: function (event) {
-      this.props.handleDelete();
-    },
-
-    handleAddParticipant: function (event) {
-      this.setState({newParticipantsCount: ++this.state.newParticipantsCount});
-    },
-
-    handleAllJoined: function () {
-      this.getOwnedParticipantComponents().forEach(function (participantComponent) {
-        participantComponent.setJoined();
-      });
     }
-
   });
 
 });

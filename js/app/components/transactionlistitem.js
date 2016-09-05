@@ -64,6 +64,10 @@ function (React) {
       return result;
     },
 
+    handleClick: function () {
+      this.props.handleDetailsClick(this.props.data);
+    },
+
     render: function () {
       var data = this.getFormattedData();
       return (
@@ -86,10 +90,6 @@ function (React) {
           )
         )
       );
-    },
-
-    handleClick: function () {
-      this.props.handleDetailsClick(this.props.data);
     }
 
   });

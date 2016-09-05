@@ -7,6 +7,10 @@ function (React) {
 
   return React.createClass({
 
+    onClick: function () {
+      this.props.onClick(this.props.name);
+    },
+
     render: function () {
       return (
         React.createElement('button', {
@@ -16,10 +20,6 @@ function (React) {
           this.props.name
         )
       );
-    },
-
-    onClick: function () {
-      this.props.onClick(this.props.name);
     }
 
   });

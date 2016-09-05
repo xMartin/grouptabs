@@ -21,22 +21,6 @@ function (React, ParticipantStatusInput) {
       };
     },
 
-    render: function () {
-      return (
-        el('div', {className: 'newParticipantInput' + (this.state.status > 0 ? ' selected' : '')},
-          el('span', {className: 'participant'},
-            el('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
-          ),
-          el(ParticipantStatusInput, {
-            status: this.state.status,
-            handleJoinedChange: this.handleJoinedChange,
-            handlePaidChange: this.handlePaidChange,
-            ref: 'status'
-          })
-        )
-      );
-    },
-
     handleJoinedChange: function () {
       if (this.state.status === 0) {
         this.setState({status: 1});
@@ -74,6 +58,22 @@ function (React, ParticipantStatusInput) {
       if (this.state.status === 0) {
         this.setState({status: 1});
       }
+    },
+
+    render: function () {
+      return (
+        el('div', {className: 'newParticipantInput' + (this.state.status > 0 ? ' selected' : '')},
+          el('span', {className: 'participant'},
+            el('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
+          ),
+          el(ParticipantStatusInput, {
+            status: this.state.status,
+            handleJoinedChange: this.handleJoinedChange,
+            handlePaidChange: this.handlePaidChange,
+            ref: 'status'
+          })
+        )
+      );
     }
 
   });

@@ -31,51 +31,6 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
       };
     },
 
-    render: function () {
-      return (
-        el('div', {id: 'scenes'},
-          el(Tabs, {
-            data: this.props.tabs,
-            visible: this.state.scene === 'tabs',
-            handleTabClick: this.handleTabClick,
-            handleCreateNewTab: this.handleCreateNewTab
-          }),
-          el(Landing, {
-            visible: this.state.scene === 'landing',
-            handleNewEntryClick: this.handleNewEntryClick,
-            handleImportSubmit: this.handleTabClick
-          }),
-          el(Main, {
-            tabName: this.props.tabName,
-            data: this.props.accounts,
-            visible: this.state.scene === 'main',
-            handleChangeTabClick: this.handleChangeTabClick,
-            handleNewEntryClick: this.handleNewEntryClick,
-            handleListClick: this.handleListClick
-          }),
-          el(List, {
-            tabName: this.props.tabName,
-            data: this.props.transactions,
-            visible: this.state.scene === 'list',
-            handleChangeTabClick: this.handleChangeTabClick,
-            handleNewEntryClick: this.handleNewEntryClick,
-            handlePeopleClick: this.handlePeopleClick,
-            handleDetailsClick: this.handleDetailsClick
-          }),
-          (this.state.scene === 'newEntry') ?
-            el(EditEntry, {
-              mode: this._detailsData ? 'edit' : 'new',
-              data: this._detailsData,
-              participants: this.props.participants,
-              handleCloseClick: this.handleCloseEntry,
-              handleSubmit: this.handleSubmitEntry,
-              handleDelete: this.handleDeleteEntry
-            })
-          : null
-        )
-      );
-    },
-
     handleCreateNewTab: function () {
       this.props.handleCreateNewTab();
       this.homeView = 'main';
@@ -146,6 +101,51 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
       this.setState({
         scene: this.homeView
       });
+    },
+
+    render: function () {
+      return (
+        el('div', {id: 'scenes'},
+          el(Tabs, {
+            data: this.props.tabs,
+            visible: this.state.scene === 'tabs',
+            handleTabClick: this.handleTabClick,
+            handleCreateNewTab: this.handleCreateNewTab
+          }),
+          el(Landing, {
+            visible: this.state.scene === 'landing',
+            handleNewEntryClick: this.handleNewEntryClick,
+            handleImportSubmit: this.handleTabClick
+          }),
+          el(Main, {
+            tabName: this.props.tabName,
+            data: this.props.accounts,
+            visible: this.state.scene === 'main',
+            handleChangeTabClick: this.handleChangeTabClick,
+            handleNewEntryClick: this.handleNewEntryClick,
+            handleListClick: this.handleListClick
+          }),
+          el(List, {
+            tabName: this.props.tabName,
+            data: this.props.transactions,
+            visible: this.state.scene === 'list',
+            handleChangeTabClick: this.handleChangeTabClick,
+            handleNewEntryClick: this.handleNewEntryClick,
+            handlePeopleClick: this.handlePeopleClick,
+            handleDetailsClick: this.handleDetailsClick
+          }),
+          (this.state.scene === 'newEntry') ?
+            el(EditEntry, {
+              mode: this._detailsData ? 'edit' : 'new',
+              data: this._detailsData,
+              participants: this.props.participants,
+              handleCloseClick: this.handleCloseEntry,
+              handleSubmit: this.handleSubmitEntry,
+              handleDelete: this.handleDeleteEntry
+            })
+          : null
+        )
+      );
     }
 
   });

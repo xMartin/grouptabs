@@ -7,12 +7,10 @@ define([
   './stores/tab'
 ],
 
-function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
+function (PouchDB, allDbs, React, App, TabDb, TabStore) {
   'use strict';
 
   allDbs(PouchDB);
-
-  var AppComponent = React.createFactory(AppComponentClass);
 
   function generateTabId() {
     var chars = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -122,7 +120,7 @@ function (PouchDB, allDbs, React, AppComponentClass, TabDb, TabStore) {
     },
 
     render: function () {
-      return new AppComponent({
+      return React.createElement(App, {
         tabName: this.tab,
         tabs: this.state.tabs,
         transactions: this.state.transactions,

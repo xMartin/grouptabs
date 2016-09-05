@@ -7,14 +7,10 @@ define([
   './editentry'
 ],
 
-function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) {
+function (React, Tabs, Landing, Main, List, EditEntry) {
   'use strict';
 
-  var Tabs = React.createFactory(TabsClass);
-  var Landing = React.createFactory(LandingClass);
-  var Main = React.createFactory(MainClass);
-  var List = React.createFactory(ListClass);
-  var EditEntry = React.createFactory(EditEntryClass);
+  var el = React.createElement;
 
   return React.createClass({
 
@@ -37,19 +33,19 @@ function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) 
 
     render: function () {
       return (
-        React.createElement('div', {id: 'scenes'},
-          new Tabs({
+        el('div', {id: 'scenes'},
+          el(Tabs, {
             data: this.props.tabs,
             visible: this.state.scene === 'tabs',
             handleTabClick: this.handleTabClick,
             handleCreateNewTab: this.handleCreateNewTab
           }),
-          new Landing({
+          el(Landing, {
             visible: this.state.scene === 'landing',
             handleNewEntryClick: this.handleNewEntryClick,
             handleImportSubmit: this.handleTabClick
           }),
-          new Main({
+          el(Main, {
             tabName: this.props.tabName,
             data: this.props.accounts,
             visible: this.state.scene === 'main',
@@ -57,7 +53,7 @@ function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) 
             handleNewEntryClick: this.handleNewEntryClick,
             handleListClick: this.handleListClick
           }),
-          new List({
+          el(List, {
             tabName: this.props.tabName,
             data: this.props.transactions,
             visible: this.state.scene === 'list',
@@ -67,7 +63,7 @@ function (React, TabsClass, LandingClass, MainClass, ListClass, EditEntryClass) 
             handleDetailsClick: this.handleDetailsClick
           }),
           (this.state.scene === 'newEntry') ?
-            new EditEntry({
+            el(EditEntry, {
               mode: this._detailsData ? 'edit' : 'new',
               data: this._detailsData,
               participants: this.props.participants,

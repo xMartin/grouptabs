@@ -5,27 +5,29 @@ define([
 function (React) {
   'use strict';
 
+  var el = React.createElement;
+
   return React.createClass({
 
     render: function () {
       return (
-        React.createElement('span', {className: 'participationStatus'},
-          React.createElement('span', {className: 'joinedButtonWrapper' + (this.props.status === 2 ? ' hidden' : '')},
-            React.createElement('button', {
+        el('span', {className: 'participationStatus'},
+          el('span', {className: 'joinedButtonWrapper' + (this.props.status === 2 ? ' hidden' : '')},
+            el('button', {
               type: 'button',
               className: this.props.status > 0 ? ' selected' : '',
               ref: 'joined',
               onClick: this.props.handleJoinedChange
             }, 'joined')
           ),
-          React.createElement('button', {
+          el('button', {
             type: 'button',
             className: 'paid-button' + (this.props.status === 2 ? ' selected' : ''),
             ref: 'paid',
             onClick: this.props.handlePaidChange
           }, 'paid'),
-          React.createElement('span', {className: 'amountInput' + (this.props.status < 2 ? ' hidden' : '')},
-            React.createElement('input', {
+          el('span', {className: 'amountInput' + (this.props.status < 2 ? ' hidden' : '')},
+            el('input', {
               type: 'number',
               disabled: this.props.status !== 2 ? 'disabled' : '',
               defaultValue: this.props.amount,

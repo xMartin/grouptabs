@@ -5,6 +5,8 @@ define([
 function (React) {
   'use strict';
 
+  var el = React.createElement;
+
   return React.createClass({
 
     getFormattedData: function () {
@@ -65,18 +67,20 @@ function (React) {
     render: function () {
       var data = this.getFormattedData();
       return (
-        React.createElement('div', {className: 'transaction', onClick: this.handleClick},
-          React.createElement('table', null,
-            React.createElement('tr', null,
-              React.createElement('td', {className: 'title'},
-                data.title,
-                React.createElement('div', {className: 'payments'},
-                  data.payments,
-                  data.participants
+        el('div', {className: 'transaction', onClick: this.handleClick},
+          el('table', null,
+            el('tbody', null,
+              el('tr', null,
+                el('td', {className: 'title'},
+                  data.title,
+                  el('div', {className: 'payments'},
+                    data.payments,
+                    data.participants
+                  )
+                ),
+                el('td', {className: 'total'},
+                  data.total
                 )
-              ),
-              React.createElement('td', {className: 'total'},
-                data.total
               )
             )
           )

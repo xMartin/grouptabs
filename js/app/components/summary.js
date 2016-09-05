@@ -5,6 +5,8 @@ define([
 function (React) {
   'use strict';
 
+  var el = React.createElement;
+
   return React.createClass({
 
     formatData: function (accounts) {
@@ -47,19 +49,19 @@ function (React) {
 
     render: function () {
       return (
-        React.createElement('div', {id: 'summary'},
-          React.createElement('table', {id: 'balance'},
-            React.createElement('tbody', null,
+        el('div', {id: 'summary'},
+          el('table', {id: 'balance'},
+            el('tbody', null,
               this.formatData(this.props.data).map(function (account) {
                 return (
-                  React.createElement('tr', {
+                  el('tr', {
                     key: account.participant,
                     style: {
                       backgroundColor: account.cssColor
                     }
                   },
-                    React.createElement('th', {className: 'account'}, account.participant),
-                    React.createElement('td', {className: 'amount'}, account.amount)
+                    el('th', {className: 'account'}, account.participant),
+                    el('td', {className: 'amount'}, account.amount)
                   )
                 );
               })

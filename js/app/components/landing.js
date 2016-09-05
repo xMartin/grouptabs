@@ -3,34 +3,34 @@ define([
   './importform'
 ],
 
-function (React, ImportFormClass) {
+function (React, ImportForm) {
   'use strict';
 
-  var ImportForm = React.createFactory(ImportFormClass);
+  var el = React.createElement;
 
   return React.createClass({
 
     render: function () {
       return (
-        React.createElement('div', {className: 'scene landingScene' + (this.props.visible ? '' : ' hidden')},
-          React.createElement('div', {className: 'header'},
-            React.createElement('img', {id: 'logo', src: 'images/favicon-touch.png'}),
-            React.createElement('h2', null, 'Grouptabs')
+        el('div', {className: 'scene landingScene' + (this.props.visible ? '' : ' hidden')},
+          el('div', {className: 'header'},
+            el('img', {id: 'logo', src: 'images/favicon-touch.png'}),
+            el('h2', null, 'Grouptabs')
           ),
-          React.createElement('div', {className: 'empty-info'},
-            React.createElement('article', null,
-              React.createElement('p', null,
+          el('div', {className: 'empty-info'},
+            el('article', null,
+              el('p', null,
                 'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
               )
             )
           ),
-          React.createElement('div', {className: 'row'},
-            React.createElement('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
+          el('div', {className: 'row'},
+            el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
               'Start by adding your first transaction'
             )
           ),
-          React.createElement('div', {className: 'row'},
-            new ImportForm({handleSubmit: this.props.handleImportSubmit})
+          el('div', {className: 'row'},
+            el(ImportForm, {handleSubmit: this.props.handleImportSubmit})
           )
         )
       );

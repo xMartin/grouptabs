@@ -3,10 +3,10 @@ define([
   './participantstatusinput'
 ],
 
-function (React, ParticipantStatusInputClass) {
+function (React, ParticipantStatusInput) {
   'use strict';
 
-  var ParticipantStatusInput = React.createFactory(ParticipantStatusInputClass);
+  var el = React.createElement;
 
   return React.createClass({
 
@@ -27,7 +27,7 @@ function (React, ParticipantStatusInputClass) {
           React.createElement('span', {className: 'participant'},
             this.props.participant
           ),
-          new ParticipantStatusInput({
+          el(ParticipantStatusInput, {
             status: this.state.status,
             amount: this.props.value && this.props.value.amount || '',
             handleJoinedChange: this.handleJoinedChange,

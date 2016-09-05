@@ -4,11 +4,10 @@ define([
   './newparticipantinput'
 ],
 
-function (React, ParticipantInputClass, NewParticipantInputClass) {
+function (React, ParticipantInput, NewParticipantInput) {
   'use strict';
 
-  var ParticipantInput = React.createFactory(ParticipantInputClass);
-  var NewParticipantInput = React.createFactory(NewParticipantInputClass);
+  var el = React.createElement;
 
   return React.createClass({
 
@@ -58,23 +57,23 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
         return sortableValue(a.value) > sortableValue(b.value) ? -1 : 1;
       });
       var participantInputs = participantPropsList.map(function (props) {
-        return new ParticipantInput(props);
+        return el(ParticipantInput, props);
       });
 
       var newParticipantInputs = (function () {
         var result = [];
         for (var i = 0; i < this.state.newParticipantsCount; ++i) {
-          result.push(new NewParticipantInput({ref: 'participant' + (participantInputs.length + i)}));
+          result.push(el(NewParticipantInput, {ref: 'participant' + (participantInputs.length + i)}));
         }
         return result;
       }.bind(this))();
 
       return (
-        React.createElement('form', {onSubmit: this.handleSubmit},
-          React.createElement('div', {className: 'form'},
-            React.createElement('div', {className: 'form-row'},
-              React.createElement('div', {className: 'form-row-input'},
-                React.createElement('input', {
+        el('form', {onSubmit: this.handleSubmit},
+          el('div', {className: 'form'},
+            el('div', {className: 'form-row'},
+              el('div', {className: 'form-row-input'},
+                el('input', {
                   type: 'text',
                   placeholder: 'Description',
                   defaultValue: mode === 'edit' ? this.props.data.description : '',
@@ -82,33 +81,33 @@ function (React, ParticipantInputClass, NewParticipantInputClass) {
                 })
               )
             ),
-            React.createElement('div', {className: 'form-row'},
-              React.createElement('div', {className: 'form-row-input'},
-                React.createElement('input', {
+            el('div', {className: 'form-row'},
+              el('div', {className: 'form-row-input'},
+                el('input', {
                   type: 'date',
                   defaultValue: this.formatDate(mode === 'edit' ? new Date(this.props.data.date) : new Date()),
                   ref: 'date'
                 })
               )
             ),
-            React.createElement('div', {className: 'form-row'},
-              React.createElement('div', {className: 'form-row-input'},
+            el('div', {className: 'form-row'},
+              el('div', {className: 'form-row-input'},
                 participantInputs,
                 newParticipantInputs
               )
             ),
-            React.createElement('div', {className: 'form-row'},
-              React.createElement('div', {className: 'form-row-input'},
-                React.createElement('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
-                React.createElement('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, '✓ all joined')
+            el('div', {className: 'form-row'},
+              el('div', {className: 'form-row-input'},
+                el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
+                el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, '✓ all joined')
               )
             )
           ),
-          React.createElement('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
+          el('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              React.createElement('button', {type: 'button', className: 'delete', onClick: this.handleDelete}, 'Delete')
+              el('button', {type: 'button', className: 'delete', onClick: this.handleDelete}, 'Delete')
               : null,
-            React.createElement('button', {className: 'create' + (mode === 'new' ? ' full-width-margin' : '')}, 'Save')
+            el('button', {className: 'create' + (mode === 'new' ? ' full-width-margin' : '')}, 'Save')
           )
         )
       );

@@ -3,21 +3,21 @@ define([
   './form'
 ],
 
-function (React, FormClass) {
+function (React, Form) {
   'use strict';
 
-  var Form = React.createFactory(FormClass);
+  var el = React.createElement;
 
   return React.createClass({
 
     render: function () {
       return (
-        React.createElement('div', {className: 'scene editEntryScene'},
-          React.createElement('div', {className: 'header'},
-            React.createElement('button', {onClick: this.props.handleCloseClick}, '×'),
-            React.createElement('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction')
+        el('div', {className: 'scene editEntryScene'},
+          el('div', {className: 'header'},
+            el('button', {onClick: this.props.handleCloseClick}, '×'),
+            el('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction')
           ),
-          new Form({
+          el(Form, {
             mode: this.props.mode,
             data: this.props.data,
             participants: this.props.participants,

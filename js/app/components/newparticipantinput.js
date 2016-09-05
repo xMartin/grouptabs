@@ -3,10 +3,10 @@ define([
   './participantstatusinput'
 ],
 
-function (React, ParticipantStatusInputClass) {
+function (React, ParticipantStatusInput) {
   'use strict';
 
-  var ParticipantStatusInput = React.createFactory(ParticipantStatusInputClass);
+  var el = React.createElement;
 
   return React.createClass({
 
@@ -23,11 +23,11 @@ function (React, ParticipantStatusInputClass) {
 
     render: function () {
       return (
-        React.createElement('div', {className: 'newParticipantInput' + (this.state.status > 0 ? ' selected' : '')},
-          React.createElement('span', {className: 'participant'},
-            React.createElement('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
+        el('div', {className: 'newParticipantInput' + (this.state.status > 0 ? ' selected' : '')},
+          el('span', {className: 'participant'},
+            el('input', {type: 'text', placeholder: 'Name …', ref: 'participant'})
           ),
-          new ParticipantStatusInput({
+          el(ParticipantStatusInput, {
             status: this.state.status,
             handleJoinedChange: this.handleJoinedChange,
             handlePaidChange: this.handlePaidChange,

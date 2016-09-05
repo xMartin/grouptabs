@@ -3,10 +3,10 @@ define([
   './transactionlistitem'
 ],
 
-function (React, TransactionListItemClass) {
+function (React, TransactionListItem) {
   'use strict';
 
-  var TransactionListItem = React.createFactory(TransactionListItemClass);
+  var el = React.createElement;
 
   return React.createClass({
 
@@ -40,16 +40,16 @@ function (React, TransactionListItemClass) {
 
     render: function () {
       return (
-        React.createElement('div', {id: 'transactions'},
-          React.createElement('div', null,
+        el('div', {id: 'transactions'},
+          el('div', null,
             this.getStructuredData().map(function (dateGroup) {
               return (
-                React.createElement('div', {key: dateGroup.date},
-                  React.createElement('div', {className: 'dategroup'},
+                el('div', {key: dateGroup.date},
+                  el('div', {className: 'dategroup'},
                     dateGroup.date
                   ),
                   dateGroup.transactions.map(function (transaction) {
-                    return new TransactionListItem({
+                    return el(TransactionListItem, {
                       key: transaction.timestamp + '_' + transaction.description,
                       data: transaction,
                       handleDetailsClick: this.props.handleDetailsClick

@@ -95,14 +95,14 @@ function (React, ParticipantInput, NewParticipantInput) {
           ref: 'participant' + idx
         };
         if (mode === 'edit') {
-          props.value = this.findParticipantDefaultValue(participant)
+          props.value = this.findParticipantDefaultValue(participant);
         }
         return props;
       }.bind(this));
       participantPropsList.sort(function (a, b) {
         var sortableValue = function (value) {
           return value ? value.amount : 0;
-        }
+        };
         return sortableValue(a.value) > sortableValue(b.value) ? -1 : 1;
       });
       var participantInputs = participantPropsList.map(function (props) {

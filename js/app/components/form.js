@@ -11,6 +11,8 @@ function (React, ParticipantInput, NewParticipantInput) {
 
   return React.createClass({
 
+    displayName: 'Form',
+
     getInitialState: function () {
       return {
         newParticipantsCount: this.props.participants.length < 2 ? 2 : 0

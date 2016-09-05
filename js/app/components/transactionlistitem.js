@@ -9,6 +9,8 @@ function (React) {
 
   return React.createClass({
 
+    displayName: 'TransactionListItem',
+
     getFormattedData: function () {
       var round = function (amount) {
         return Math.round(amount * 100) / 100;

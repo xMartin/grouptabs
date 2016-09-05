@@ -10,6 +10,8 @@ function (React, TransactionList) {
 
   return React.createClass({
 
+    displayName: 'List',
+
     getDefaultProps: function () {
       return {
         data: []

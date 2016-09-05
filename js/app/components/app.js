@@ -14,6 +14,8 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
 
   return React.createClass({
 
+    displayName: 'App',
+
     homeView: 'main',
 
     getInitialState: function () {

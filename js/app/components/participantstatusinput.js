@@ -9,6 +9,8 @@ function (React) {
 
   return React.createClass({
 
+    displayName: 'ParticipationStatusInput',
+
     getAmount: function () {
       return parseFloat(this.refs.amount.value || 0);
     },

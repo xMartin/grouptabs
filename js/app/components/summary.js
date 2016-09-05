@@ -9,6 +9,8 @@ function (React) {
 
   return React.createClass({
 
+    displayName: 'Summary',
+
     formatData: function (accounts) {
       var round = function (amount) {
         return Math.round(amount * 100) / 100;

@@ -10,6 +10,8 @@ function (React, TransactionListItem) {
 
   return React.createClass({
 
+    displayName: 'TransactionList',
+
     getStructuredData: function () {
       var transactions = this.props.data;
       if (!transactions.length) {

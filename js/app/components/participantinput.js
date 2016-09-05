@@ -10,6 +10,8 @@ function (React, ParticipantStatusInput) {
 
   return React.createClass({
 
+    displayName: 'ParticipantInput',
+
     // status:
     //   0: none
     //   1: joined

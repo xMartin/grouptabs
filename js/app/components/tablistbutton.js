@@ -7,6 +7,8 @@ function (React) {
 
   return React.createClass({
 
+    displayName: 'TabListButton',
+
     onClick: function () {
       this.props.onClick(this.props.name);
     },

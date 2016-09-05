@@ -23,6 +23,8 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
   return React.createClass({
 
+    displayName: 'AppContainer',
+
     tab: localStorage.getItem('box') || '',
 
     getInitialState: function () {

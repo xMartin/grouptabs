@@ -10,6 +10,8 @@ function (React, Form) {
 
   return React.createClass({
 
+    displayName: 'EditEntry',
+
     getValues: function () {
       return this.refs.form.getValues();
     },

@@ -9,6 +9,8 @@ function (React) {
 
   return React.createClass({
 
+    displayName: 'ImportForm',
+
     handleSubmit: function (event) {
       event.preventDefault();
       var input = this.refs.input;

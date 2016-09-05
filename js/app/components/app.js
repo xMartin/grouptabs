@@ -33,6 +33,15 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
       };
     },
 
+    componentWillReceiveProps: function (nextProps) {
+      // if we're on Landing but found tab data, switch to Tabs
+      if (this.state.scene === 'landing' && !nextProps.tabName && nextProps.tabs.length) {
+        this.setState({
+          scene: 'tabs'
+        });
+      }
+    },
+
     handleCreateNewTab: function () {
       this.props.handleCreateNewTab();
       this.homeView = 'main';

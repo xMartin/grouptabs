@@ -52,8 +52,8 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
     initTab: function (tab) {
       var tabDb = new TabDb(tab);
-      this.tabStore = new TabStore(tabDb, this.refreshUi.bind(this));
-      this.tabStore.init().then(this.refreshUi.bind(this));
+      this.tabStore = new TabStore(tabDb, this.refreshUi);
+      this.tabStore.init().then(this.refreshUi);
     },
 
     refreshUi: function () {

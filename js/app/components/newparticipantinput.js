@@ -62,6 +62,10 @@ function (React, ParticipantStatusInput) {
       }
     },
 
+    focusParticipantInput: function () {
+      this.refs.participant.focus();
+    },
+
     render: function () {
       return (
         el('div', {className: 'newParticipantInput' + (this.state.status > 0 ? ' selected' : '')},

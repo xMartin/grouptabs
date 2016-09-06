@@ -76,7 +76,13 @@ function (React, ParticipantInput, NewParticipantInput) {
     },
 
     handleAddParticipant: function (event) {
-      this.setState({newParticipantsCount: ++this.state.newParticipantsCount});
+      var newCount = this.state.newParticipantsCount + 1;
+      this.setState({
+        newParticipantsCount: newCount
+      }, function () {
+        var newInput = this.refs['participant' + (this.props.participants.length + newCount - 1)];
+        newInput.focusParticipantInput();
+      }.bind(this));
     },
 
     handleAllJoined: function () {

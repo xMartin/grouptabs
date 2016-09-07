@@ -14,9 +14,18 @@ function (React, ParticipantInput, NewParticipantInput) {
     displayName: 'Form',
 
     getInitialState: function () {
+      var newParticipantsIds = [];
+      if (this.props.participants.length < 2) {
+        newParticipantsIds.push(this.createUniqueId());
+        newParticipantsIds.push(this.createUniqueId());
+      }
       return {
-        newParticipantsCount: this.props.participants.length < 2 ? 2 : 0
+        newParticipantsIds: newParticipantsIds
       };
+    },
+
+    createUniqueId: function () {
+      return '' + Math.round(Math.random() * 100000000);
     },
 
     formatDate: function (date) {
@@ -76,12 +85,14 @@ function (React, ParticipantInput, NewParticipantInput) {
     },
 
     handleAddParticipant: function (event) {
-      var newCount = this.state.newParticipantsCount + 1;
+      var newParticipantsIds = this.state.newParticipantsIds.concat(this.createUniqueId());
       this.setState({
-        newParticipantsCount: newCount
+        newParticipantsIds: newParticipantsIds
       }, function () {
-        var newInput = this.refs['participant' + (this.props.participants.length + newCount - 1)];
-        newInput.focusParticipantInput();
+        var newParticipantsIds = this.state.newParticipantsIds;
+        var lastNewParticipantId = newParticipantsIds[newParticipantsIds.length - 1];
+        var lastInput = this.refs['participant-' + lastNewParticipantId];
+        lastInput.focusParticipantInput();
       }.bind(this));
     },
 
@@ -115,13 +126,12 @@ function (React, ParticipantInput, NewParticipantInput) {
         return el(ParticipantInput, props);
       });
 
-      var newParticipantInputs = (function () {
-        var result = [];
-        for (var i = 0; i < this.state.newParticipantsCount; ++i) {
-          result.push(el(NewParticipantInput, {ref: 'participant' + (participantInputs.length + i)}));
-        }
-        return result;
-      }.bind(this))();
+      var newParticipantInputs = this.state.newParticipantsIds.map(function (newParticipantId) {
+        return el(NewParticipantInput, {
+          key: newParticipantId,
+          ref: 'participant-' + newParticipantId
+        });
+      });
 
       return (
         el('form', {onSubmit: this.handleSubmit},

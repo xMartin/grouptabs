@@ -27,7 +27,7 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
     getInitialState: function () {
       return {
-        tabName: localStorage.getItem('box') || '',
+        tabId: localStorage.getItem('tabId') || '',
         tabs: [],
         transactions: [],
         accounts: [],
@@ -41,14 +41,22 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
           tabs: tabs
         });
 
-        this.state.tabName && this.initTab(this.state.tabName);
+        this.state.tabId && this.initTab({id: this.state.tabId});
       }.bind(this));
     },
 
     initTab: function (tab) {
-      var tabDb = new TabDb(tab);
+      var tabDb = new TabDb(tab.id);
       this.tabStore = new TabStore(tabDb, this.refreshUi);
-      this.tabStore.init().then(this.refreshUi);
+
+      this.tabStore.init()
+      .then(this.refreshUi)
+      .then(function () {
+        if (tab.name) {
+          this.tabStore.saveInfo({name: tab.name});
+        }
+      }.bind(this))
+      .catch(console.error.bind(console));
     },
 
     refreshUi: function () {
@@ -59,59 +67,94 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
       });
     },
 
-    handleCreateNewTab: function () {
-      var tab = generateTabId();
-      this.setTab(tab);
+    handleCreateNewTab: function (name) {
+      var id = generateTabId();
+      var tab = {id: id, name: name};
+
+      this.setState({
+        tabs: this.state.tabs.concat(tab)
+      });
+
+      this.setTab(id);
       this.initTab(tab);
     },
 
     handleSaveTransaction: function (data) {
-      this.tabStore.saveTransaction(data);
+      this.tabStore.saveTransaction(data)
+      .catch(console.error.bind(console));
     },
 
     handleRemoveTransaction: function (data) {
-      this.tabStore.removeTransaction(data);
+      this.tabStore.removeTransaction(data)
+      .catch(console.error.bind(console));
     },
 
     handleChangeTabClick: function () {
-      this.getTabs().then(function (tabs) {
+      this.getTabs()
+      .then(function (tabs) {
         this.setState({
           tabs: tabs
         });
-      }.bind(this));
+      }.bind(this))
+      .catch(console.error.bind(console));
+
       this.setTab('');
     },
 
     handleTabChange: function (tab) {
-      this.setTab(tab);
+      this.setTab(tab.id);
       this.tabStore && this.tabStore.destroy();
-      this.initTab(tab);
+      this.initTab({id: tab.id});
     },
 
     getTabs: function () {
-      return PouchDB.allDbs().then(function (dbs) {
-        return dbs
-          .filter(function (db) {
-            return db.indexOf('tab/') === 0;
-          })
-          .map(function (db) {
-            // remove 'tab/' prefix
-            return db.substring(4);
+      return (
+        PouchDB.allDbs()
+        .then(function (dbNames) {
+          var tabDbNames = dbNames.filter(function (dbName) {
+            return dbName.indexOf('tab/') === 0;
           });
+
+          return Promise.all(
+            tabDbNames.map(function (tabDbName) {
+              var pouch = new PouchDB(tabDbName);
+              return (
+                pouch.get('info')
+                .then(function (doc) {
+                  return {
+                    id: tabDbName.substring(4),  // remove 'tab/' prefix
+                    name: doc.name
+                  };
+                })
+              );
+            })
+          );
+        })
+      );
+    },
+
+    setTab: function (tabId) {
+      localStorage.setItem('tabId', tabId);
+
+      this.setState({
+        tabId: tabId
       });
     },
 
-    setTab: function (tabName) {
-      localStorage.setItem('box', tabName);
-
-      this.setState({
-        tabName: tabName
+    getTabName: function (tabId) {
+      var tab = this.state.tabs.find(function (tab) {
+        return tab.id === tabId;
       });
+
+      if (tab) {
+        return tab.name;
+      }
     },
 
     render: function () {
       return React.createElement(App, {
-        tabName: this.state.tabName,
+        tabId: this.state.tabId,
+        tabName: this.getTabName(this.state.tabId),
         tabs: this.state.tabs,
         transactions: this.state.transactions,
         accounts: this.state.accounts,

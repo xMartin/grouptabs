@@ -5,21 +5,27 @@ define([
 function (React) {
   'use strict';
 
+  var el = React.createElement;
+
   return React.createClass({
 
     displayName: 'TabListButton',
 
     onClick: function () {
-      this.props.onClick(this.props.name);
+      this.props.onClick(this.props.data);
     },
 
     render: function () {
       return (
-        React.createElement('button', {
+        el('button', {
           className: 'full-width',
           onClick: this.onClick
         },
-          this.props.name
+          this.props.data.name,
+          ' ',
+          el('small', null,
+            '(' + this.props.data.id + ')'
+          )
         )
       );
     }

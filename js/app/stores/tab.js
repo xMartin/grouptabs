@@ -8,20 +8,33 @@ define(function () {
   };
 
   TabStore.prototype.init = function () {
-    return this.db.init()
+    return (
+      this.db.init()
       .then(function () {
         this.db.setupChangesListener(this._handleDbChange.bind(this));
         this.db.sync();
       }.bind(this))
-      .then(this._refreshFromDb.bind(this));
+      .then(this._refreshFromDb.bind(this))
+    );
   };
 
   TabStore.prototype._refreshFromDb = function () {
-    return this.db.getTransactions().then(function (transactions) {
-      this._cache.transactions = this._sortTransactions(transactions);
-      this._cache.accounts = this._transactions2Accounts(transactions);
-      this._cache.participants = this._accounts2Participants(this._cache.accounts);
-    }.bind(this));
+    return (
+      this.db.getInfo()
+      .then(function (info) {
+        this._cache.info = info;
+      }.bind(this))
+      .then(this.db.getTransactions.bind(this.db))
+      .then(function (transactions) {
+        this._cache.transactions = this._sortTransactions(transactions);
+        this._cache.accounts = this._transactions2Accounts(transactions);
+        this._cache.participants = this._accounts2Participants(this._cache.accounts);
+      }.bind(this))
+    );
+  };
+
+  TabStore.prototype.getInfo = function () {
+    return this._cache.info;
   };
 
   TabStore.prototype.getTransactions = function () {
@@ -36,16 +49,22 @@ define(function () {
     return this._cache.participants;
   };
 
+  TabStore.prototype.saveInfo = function (info) {
+    return this.db.saveInfo(info);
+  };
+
   TabStore.prototype.saveTransaction = function (data) {
-    this.db.saveTransaction(data);
+    return this.db.saveTransaction(data);
   };
 
   TabStore.prototype.removeTransaction = function (data) {
-    this.db.removeTransaction(data);
+    return this.db.removeTransaction(data);
   };
 
   TabStore.prototype._handleDbChange = function () {
-    this._refreshFromDb().then(this._dbChangeCallback);
+    this._refreshFromDb()
+    .then(this._dbChangeCallback)
+    .catch(console.error.bind(console));
   };
 
   TabStore.prototype._sortTransactions = function (transactions) {

@@ -1,10 +1,11 @@
 define([
   'react',
   './tablistbutton',
+  './createform',
   './importform'
 ],
 
-function (React, TabListButton, ImportForm) {
+function (React, TabListButton, CreateForm, ImportForm) {
   'use strict';
 
   var el = React.createElement;
@@ -25,18 +26,22 @@ function (React, TabListButton, ImportForm) {
             ?
             el('div', {className: 'row tabs'},
               this.props.data.map(function (tab) {
-                return el(TabListButton, {key: tab, name: tab, onClick: this.props.handleTabClick});
+                return el(TabListButton, {key: tab.id, data: tab, onClick: this.props.handleTabClick});
               }.bind(this))
             )
             :
             el('div', {className: 'empty-info'},
+              el('p', null,
+                'With Grouptabs you can track shared expenses in a group of people.'
+                + ' Every group or every topic has its own tab like "Roadtrip 2016" or "Badminton".'
+              ),
               el('p', null,
                 'You have no tabs, yet. Start by creating one:'
               )
             )
           ),
           el('div', {className: 'row'},
-            el('button', {onClick: this.props.handleCreateNewTab, className: 'create full-width-margin'}, 'Create new tab')
+            el(CreateForm, {handleSubmit: this.props.handleCreateNewTab})
           ),
           el('div', {className: 'row'},
             el(ImportForm, {handleSubmit: this.props.handleTabClick})

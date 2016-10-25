@@ -14,10 +14,10 @@ function (React) {
     handleSubmit: function (event) {
       event.preventDefault();
       var input = this.refs.input;
-      var tab = input.value.trim();
-      if (tab) {
+      var tabId = input.value.trim();
+      if (tabId) {
         input.value = '';
-        tab && this.props.handleSubmit(tab);
+        this.props.handleSubmit({id: tabId});
       }
     },
 

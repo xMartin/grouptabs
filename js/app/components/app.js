@@ -19,7 +19,7 @@ function (React, Tabs, Main, List, EditEntry) {
 
     getInitialState: function () {
       return {
-        scene: this.props.tabName ? 'main' : 'tabs'
+        scene: this.props.tabId ? 'main' : 'tabs'
       };
     },
 
@@ -32,8 +32,8 @@ function (React, Tabs, Main, List, EditEntry) {
       };
     },
 
-    handleCreateNewTab: function () {
-      this.props.handleCreateNewTab();
+    handleCreateNewTab: function (name) {
+      this.props.handleCreateNewTab(name);
       this.homeView = 'main';
       this.setState({
         scene: 'main'

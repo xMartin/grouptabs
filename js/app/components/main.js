@@ -23,12 +23,32 @@ function (React, Overview) {
             ),
             el('h2', null, this.props.tabName)
           ),
+          (
+            this.props.data.length === 0
+            ?
+            el('div', { className: 'empty-info'},
+              el('p', null,
+                'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
+              ),
+              el('p', null,
+                'You have no transactions, yet. Start by adding one:'
+              )
+            )
+            :
+            null
+          ),
           el('div', {className: 'row'},
             el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
               'Add transaction'
             )
           ),
-          el(Overview, {data: this.props.data, handleListClick: this.props.handleListClick})
+          (
+            this.props.data.length
+            ?
+            el(Overview, {data: this.props.data, handleListClick: this.props.handleListClick})
+            :
+            null
+          )
         )
       );
     }

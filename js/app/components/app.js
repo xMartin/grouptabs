@@ -1,13 +1,12 @@
 define([
   'react',
   './tabs',
-  './landing',
   './main',
   './list',
   './editentry'
 ],
 
-function (React, Tabs, Landing, Main, List, EditEntry) {
+function (React, Tabs, Main, List, EditEntry) {
   'use strict';
 
   var el = React.createElement;
@@ -20,7 +19,7 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
 
     getInitialState: function () {
       return {
-        scene: this.props.tabName ? 'main' : this.props.tabs.length ? 'tabs' : 'landing'
+        scene: this.props.tabName ? 'main' : 'tabs'
       };
     },
 
@@ -31,15 +30,6 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
         accounts: [],
         participants: []
       };
-    },
-
-    componentWillReceiveProps: function (nextProps) {
-      // if we're on Landing but found tab data, switch to Tabs
-      if (this.state.scene === 'landing' && !nextProps.tabName && nextProps.tabs.length) {
-        this.setState({
-          scene: 'tabs'
-        });
-      }
     },
 
     handleCreateNewTab: function () {
@@ -122,11 +112,6 @@ function (React, Tabs, Landing, Main, List, EditEntry) {
             visible: this.state.scene === 'tabs',
             handleTabClick: this.handleTabClick,
             handleCreateNewTab: this.handleCreateNewTab
-          }),
-          el(Landing, {
-            visible: this.state.scene === 'landing',
-            handleNewEntryClick: this.handleNewEntryClick,
-            handleImportSubmit: this.handleTabClick
           }),
           el(Main, {
             tabName: this.props.tabName,

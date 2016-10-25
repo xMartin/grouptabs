@@ -129,10 +129,10 @@ input[type=number] {
 	font-weight: normal;
 }
 
-article {
+.empty-info {
 	padding: 10px;
 }
-article p {
+.empty-info p {
 	margin: 0 0 1em;
 }
 

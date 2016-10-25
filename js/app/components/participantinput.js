@@ -43,10 +43,7 @@ function (React, ParticipantStatusInput) {
 
     handlePaidChange: function () {
       if (this.state.status < 2) {
-        this.setState({status: 2});
-        setTimeout(function(){
-          this.refs.status.focusAmount();
-        }.bind(this));
+        this.setState({status: 2}, this.refs.status.focusAmount);
       } else {
         this.setState({status: 1});
       }

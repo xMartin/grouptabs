@@ -115,6 +115,7 @@ function (React, Tabs, Main, List, EditEntry) {
           }),
           el(Main, {
             tabName: this.props.tabName,
+            tabId: this.props.tabId,
             data: this.props.accounts,
             visible: this.state.scene === 'main',
             handleChangeTabClick: this.handleChangeTabClick,
@@ -123,6 +124,7 @@ function (React, Tabs, Main, List, EditEntry) {
           }),
           el(List, {
             tabName: this.props.tabName,
+            tabId: this.props.tabId,
             data: this.props.transactions,
             visible: this.state.scene === 'list',
             handleChangeTabClick: this.handleChangeTabClick,

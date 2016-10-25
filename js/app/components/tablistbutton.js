@@ -21,11 +21,7 @@ function (React) {
           className: 'full-width',
           onClick: this.onClick
         },
-          this.props.data.name,
-          ' ',
-          el('small', null,
-            '(' + this.props.data.id + ')'
-          )
+          this.props.data.name
         )
       );
     }

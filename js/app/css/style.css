@@ -129,11 +129,18 @@ input[type=number] {
 	font-weight: normal;
 }
 
-.empty-info {
+.empty-info,
+.share-info {
 	padding: 10px;
 }
-.empty-info p {
+.empty-info p,
+.share-info p {
 	margin: 0 0 1em;
+}
+.share-info {
+	margin-top: 1em;
+	opacity: .5;
+	text-align: center;
 }
 
 .form-row {

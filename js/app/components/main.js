@@ -48,6 +48,19 @@ function (React, Overview) {
             el(Overview, {data: this.props.data, handleListClick: this.props.handleListClick})
             :
             null
+          ),
+          (
+            this.props.data.length
+            ?
+            el('div', {className: 'share-info'},
+              el('p', null,
+                'Share this tab ID for collaboration with others:',
+                el('br'),
+                el('code', null, this.props.tabId)
+              )
+            )
+            :
+            null
           )
         )
       );

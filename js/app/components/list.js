@@ -40,6 +40,13 @@ function (React, TransactionList) {
           ),
           el('div', {className: 'row'},
             el(TransactionList, {data: this.props.data, handleDetailsClick: this.props.handleDetailsClick})
+          ),
+          el('div', {className: 'share-info'},
+            el('p', null,
+              'Share this tab ID for collaboration with others:',
+              el('br'),
+              el('code', null, this.props.tabId)
+            )
           )
         )
       );

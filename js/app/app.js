@@ -37,10 +37,6 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
 
     componentDidMount: function () {
       this.getTabs().then(function (tabs) {
-        if (!tabs.length) {
-          this.noTabYet = true;
-        }
-
         this.setState({
           tabs: tabs
         });
@@ -70,12 +66,6 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
     },
 
     handleSaveTransaction: function (data) {
-      if (this.noTabYet) {
-        var tab = generateTabId();
-        this.setTab(tab);
-        this.initTab(tab);
-        delete this.noTabYet;
-      }
       this.tabStore.saveTransaction(data);
     },
 
@@ -96,9 +86,6 @@ function (PouchDB, allDbs, React, App, TabDb, TabStore) {
       this.setTab(tab);
       this.tabStore && this.tabStore.destroy();
       this.initTab(tab);
-
-      // in case this is called for importing existing tab reset noTabYet
-      delete this.noTabYet;
     },
 
     getTabs: function () {

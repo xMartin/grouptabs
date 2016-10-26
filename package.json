@@ -23,5 +23,8 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "requirejs": "^2.2.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.react=../node_modules/react/dist/react.min out=dist/app.js include=bootstrap.js"
   }
 }

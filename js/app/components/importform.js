@@ -17,7 +17,7 @@ function (React) {
       var tabId = input.value.trim();
       if (tabId) {
         input.value = '';
-        this.props.handleSubmit({id: tabId});
+        this.props.handleSubmit(tabId);
       }
     },
 

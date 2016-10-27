@@ -12,7 +12,7 @@ function (React) {
     displayName: 'TabListButton',
 
     onClick: function () {
-      this.props.onClick(this.props.data);
+      this.props.onClick(this.props.data.id);
     },
 
     render: function () {

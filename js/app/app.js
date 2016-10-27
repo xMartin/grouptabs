@@ -1,172 +1,119 @@
 define([
-  'pouchdb',
-  'pouchdb-all-dbs',
-  'react',
-  './components/app',
-  './db/tab',
-  './stores/tab'
+  'react-redux',
+  './redux/actioncreators',
+  './components/app'
 ],
 
-function (PouchDB, allDbs, React, App, TabDb, TabStore) {
+function (ReactRedux, actionCreators, App) {
   'use strict';
 
-  allDbs(PouchDB);
+  function sortTransactions (transactions) {
+    transactions = transactions.slice();  // copy
 
-  function generateTabId() {
-    var chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-    var result = '';
-    for (var i = 0; i < 7; ++i) {
-      result += chars.substr(Math.floor(Math.random() * chars.length), 1);
-    }
-    return result;
+    // order transactions by date and timestamp descending
+    return transactions.sort(function (a, b) {
+      if (a.date > b.date) {
+        return -1;
+      } else if (a.date < b.date) {
+        return 1;
+      } else {  // ===
+        if (a.timestamp > b.timestamp) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }
+    });
   }
 
-  return React.createClass({
-
-    displayName: 'AppContainer',
-
-    getInitialState: function () {
-      return {
-        tabId: localStorage.getItem('tabId') || '',
-        tabs: [],
-        transactions: [],
-        accounts: [],
-        participants: []
-      };
-    },
-
-    componentDidMount: function () {
-      this.getTabs().then(function (tabs) {
-        this.setState({
-          tabs: tabs
-        });
-
-        this.state.tabId && this.initTab({id: this.state.tabId});
-      }.bind(this));
-    },
-
-    initTab: function (tab) {
-      var tabDb = new TabDb(tab.id);
-      this.tabStore = new TabStore(tabDb, this.refreshUi);
-
-      this.tabStore.init()
-      .then(this.refreshUi)
-      .then(function () {
-        if (tab.name) {
-          this.tabStore.saveInfo({name: tab.name});
-        }
-      }.bind(this))
-      .catch(console.error.bind(console));
-    },
-
-    refreshUi: function () {
-      this.setState({
-        transactions: this.tabStore.getTransactions(),
-        accounts: this.tabStore.getAccounts(),
-        participants: this.tabStore.getParticipants()
+  function transactions2Accounts (transactions) {
+    var participants = {};
+    transactions.forEach(function (transaction) {
+      var total = 0;
+      transaction.participants.forEach(function (participant) {
+        total += participant.amount || 0;
       });
-    },
-
-    handleCreateNewTab: function (name) {
-      var id = generateTabId();
-      var tab = {id: id, name: name};
-
-      this.setState({
-        tabs: this.state.tabs.concat(tab)
+      var share = total / transaction.participants.length;
+      transaction.participants.forEach(function (participant) {
+        var amount = participant.amount || 0;
+        var participantName = participant.participant;
+        var storedAmount = participants[participantName] || 0;
+        var newAmount = storedAmount - share + amount;
+        participants[participantName] = newAmount;
       });
-
-      this.setTab(id);
-      this.initTab(tab);
-    },
-
-    handleSaveTransaction: function (data) {
-      this.tabStore.saveTransaction(data)
-      .catch(console.error.bind(console));
-    },
-
-    handleRemoveTransaction: function (data) {
-      this.tabStore.removeTransaction(data)
-      .catch(console.error.bind(console));
-    },
-
-    handleChangeTabClick: function () {
-      this.getTabs()
-      .then(function (tabs) {
-        this.setState({
-          tabs: tabs
-        });
-      }.bind(this))
-      .catch(console.error.bind(console));
-
-      this.setTab('');
-    },
-
-    handleTabChange: function (tab) {
-      this.setTab(tab.id);
-      this.tabStore && this.tabStore.destroy();
-      this.initTab({id: tab.id});
-    },
-
-    getTabs: function () {
-      return (
-        PouchDB.allDbs()
-        .then(function (dbNames) {
-          var tabDbNames = dbNames.filter(function (dbName) {
-            return dbName.indexOf('tab/') === 0;
-          });
-
-          return Promise.all(
-            tabDbNames.map(function (tabDbName) {
-              var pouch = new PouchDB(tabDbName);
-              return (
-                pouch.get('info')
-                .then(function (doc) {
-                  return {
-                    id: tabDbName.substring(4),  // remove 'tab/' prefix
-                    name: doc.name
-                  };
-                })
-              );
-            })
-          );
-        })
-      );
-    },
-
-    setTab: function (tabId) {
-      localStorage.setItem('tabId', tabId);
-
-      this.setState({
-        tabId: tabId
-      });
-    },
-
-    getTabName: function (tabId) {
-      var tab = this.state.tabs.find(function (tab) {
-        return tab.id === tabId;
-      });
-
-      if (tab) {
-        return tab.name;
-      }
-    },
-
-    render: function () {
-      return React.createElement(App, {
-        tabId: this.state.tabId,
-        tabName: this.getTabName(this.state.tabId),
-        tabs: this.state.tabs,
-        transactions: this.state.transactions,
-        accounts: this.state.accounts,
-        participants: this.state.participants,
-        saveTransaction: this.handleSaveTransaction,
-        removeTransaction: this.handleRemoveTransaction,
-        handleTabChange: this.handleTabChange,
-        handleChangeTabClick: this.handleChangeTabClick,
-        handleCreateNewTab: this.handleCreateNewTab
-      });
+    });
+    var result = [];
+    for (var participant in participants) {
+      var resultObj = {};
+      resultObj.participant = participant;
+      resultObj.amount = participants[participant];
+      result.push(resultObj);
     }
+    result.sort(function (a, b) {
+      return a.amount < b.amount ? -1 : 1;
+    });
+    return result;
+  };
 
-  });
+  function accounts2Participants (accounts) {
+    return accounts.map(function (account) {
+      return account.participant;
+    });
+  }
+
+  function mapStateToProps (state) {
+    var tabs = state.tabs.map(function (tabId) {
+      return state.tabsById[tabId];
+    });
+
+    var tab = tabs.find(function (tab) {
+      return tab.id === state.currentTab;
+    });
+    var tabName = tab && tab.name || '';
+
+    var transactions = state.transactions.map(function (transactionId) {
+      return state.transactionsById[transactionId];
+    });
+    transactions = sortTransactions(transactions);
+
+    var accounts = transactions2Accounts(transactions);
+
+    var participants = accounts2Participants(accounts);
+
+    return {
+      tabId: state.currentTab,
+      tabName: tabName,
+      tabs: tabs,
+      transactions: transactions,
+      accounts: accounts,
+      participants: participants
+    };
+  }
+
+  function mapDispatchToProps (dispatch) {
+    return {
+      handleCreateNewTab: function (name) {
+        dispatch(actionCreators.handleCreateNewTab(name));
+      },
+
+      handleTabChange: function (id) {
+        dispatch(actionCreators.handleTabChange(id));
+      },
+
+      handleChangeTabClick: function () {
+        dispatch(actionCreators.handleChangeTabClick());
+      },
+
+      saveTransaction: function (transaction) {
+        actionCreators.saveTransaction(transaction);
+      },
+
+      removeTransaction: function (doc) {
+        actionCreators.removeTransaction(doc);
+      }
+    };
+  }
+
+  return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(App);
 
 });

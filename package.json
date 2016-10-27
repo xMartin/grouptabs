@@ -4,7 +4,7 @@
   "description": "Install",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.react=../node_modules/react/dist/react.min paths.redux=../node_modules/redux/dist/redux.min out=dist/app.js include=bootstrap.js"
   },
   "repository": {
     "type": "git",
@@ -22,9 +22,11 @@
     "pouchdb-all-dbs": "xMartin/pouchdb-all-dbs#umd",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
+    "react-redux": "^4.4.5",
+    "react-router": "^3.0.0",
+    "redux": "^3.6.0",
+    "redux-router": "^2.1.2",
+    "redux-thunk": "^2.1.0",
     "requirejs": "^2.2.0"
-  },
-  "scripts": {
-    "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.react=../node_modules/react/dist/react.min out=dist/app.js include=bootstrap.js"
   }
 }

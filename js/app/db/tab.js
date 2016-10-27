@@ -95,11 +95,11 @@ function (PouchDB) {
     return (
       this.db.query('document_type', {key: 'transaction', include_docs: true})
       .then(function (response) {
-        var transactions = [];
-        response.rows.forEach(function (row) {
-          transactions.push(row.doc);
+        return response.rows.map(function (row) {
+          var doc = row.doc;
+          doc.id = doc._id;
+          return doc;
         });
-        return transactions;
       })
     );
   };

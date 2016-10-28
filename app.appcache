@@ -1,7 +1,8 @@
 CACHE MANIFEST
-# version: 2
+# version: 3
 
 CACHE:
+styles/style.css
 fonts/SourceSansPro-Regular.ttf
 fonts/SourceSansPro-Semibold.ttf
 images/arrow.svg

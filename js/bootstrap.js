@@ -30,13 +30,6 @@ function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, ac
 
   new FastClick(document.body);
 
-    // var tabsById = {};
-    // tabs.forEach(function (tab) {
-    //   tabsById[tab.id] = tab;
-    // });
-
-    // tabs = Object.keys(tabsById);
-
   var store = Redux.createStore(
     reducer,
     Redux.applyMiddleware(ReduxThunk.default)
@@ -57,5 +50,4 @@ function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, ac
   ReactDOM.render(components, document.getElementById('scenes'));
 
   store.dispatch(actionCreators.connectDb());
-
 });

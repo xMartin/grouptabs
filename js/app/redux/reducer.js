@@ -37,7 +37,7 @@ define(function () {
 
   // immutable object helpers
   var iobject = {
-    add: function (object, key, data) {
+    update: function (object, key, data) {
       object = Object.assign({}, object);  // copy
       object[key] = data;
       return object;
@@ -50,15 +50,7 @@ define(function () {
     }
   };
 
-  function array2object (array) {
-    var object = {};
-    array.forEach(function (item) {
-      object[item.id] = item;
-    });
-    return object;
-  }
-
-  function updateFromDb (state, actionMap) {
+  function docsReducer (state, actionMap) {
     var docsById = state.docsById;
     var tabs = state.tabs;
     var transactionsByTab = state.transactionsByTab;
@@ -75,7 +67,7 @@ define(function () {
       var tabId = dbDoc.tabId;
       if (doc.type === 'transaction') {
         var transactions = transactionsByTab[tabId];
-        transactionsByTab = iobject.add(transactionsByTab, tabId, iarray.removeItem(transactions, doc.id));
+        transactionsByTab = iobject.update(transactionsByTab, tabId, iarray.removeItem(transactions, doc.id));
       }
     });
 
@@ -90,18 +82,18 @@ define(function () {
         tabs = iarray.addUniq(tabs, tabId);
       }
 
-      docsById = iobject.add(docsById, doc.id, doc);
+      docsById = iobject.update(docsById, doc.id, doc);
 
       if (doc.type === 'transaction') {
-        transactionsByTab = iobject.add(transactionsByTab, tabId, iarray.addUniq(transactionsByTab[tabId] || [], doc.id));
+        transactionsByTab = iobject.update(transactionsByTab, tabId, iarray.addUniq(transactionsByTab[tabId] || [], doc.id));
       }
     });
 
-    return {
+    return Object.assign({}, state, {
       docsById: docsById,
       tabs: tabs,
       transactionsByTab: transactionsByTab
-    };
+    });
   }
 
   var initialState = {
@@ -119,12 +111,11 @@ define(function () {
 
     switch (action.type) {
       case 'UPDATE_FROM_DB':
-        console.log(action.type, action.actionMap);
-        return Object.assign({}, state, updateFromDb(state, action.actionMap));
+        return Object.assign({}, docsReducer(state, action.actionMap));
 
       case 'CREATE_TAB':
-        return Object.assign({}, state,
-          updateFromDb(state, {
+        return Object.assign({},
+          docsReducer(state, {
             createOrUpdate: [action.doc],
             delete: []
           }),
@@ -144,13 +135,13 @@ define(function () {
         });
 
       case 'PUT_DOC':
-        return Object.assign({}, state, updateFromDb(state, {
+        return Object.assign({}, docsReducer(state, {
           createOrUpdate: [action.doc],
           delete: []
         }));
 
       case 'DELETE_DOC':
-        return Object.assign({}, state, updateFromDb(state, {
+        return Object.assign({}, docsReducer(state, {
           createOrUpdate: [],
           delete: [action.doc]
         }));

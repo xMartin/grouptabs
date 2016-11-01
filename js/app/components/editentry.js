@@ -18,15 +18,14 @@ function (React, Form) {
 
     handleSubmit: function () {
       var data = this.getValues();
-      data.type = 'SHARED';
-      data.date = (new Date(data.date)).getTime();
+      data.transactionType = 'SHARED';
+      data.date = new Date(data.date).toJSON();
       if (this.props.data) {
-        data._id = this.props.data._id;
-        data._rev = this.props.data._rev;
+        this.props.handleUpdate(Object.assign({}, this.props.data, data));
       } else {
-        data.timestamp = (new Date()).getTime();
+        data.timestamp = new Date().toJSON();
+        this.props.handleCreate(data);
       }
-      this.props.handleSubmit(data);
     },
 
     handleDelete: function () {

@@ -63,7 +63,11 @@ function (ReactRedux, actionCreators, App) {
 
   function mapStateToProps (state) {
     var tabs = state.tabs.map(function (tabId) {
-      return state.tabsById[tabId];
+      var doc = state.docsById['info-' + tabId];
+      return {
+        id: tabId,
+        name: doc.name
+      };
     });
 
     var tab = tabs.find(function (tab) {
@@ -71,8 +75,9 @@ function (ReactRedux, actionCreators, App) {
     });
     var tabName = tab && tab.name || '';
 
-    var transactions = state.transactions.map(function (transactionId) {
-      return state.transactionsById[transactionId];
+    var transactionIds = state.transactionsByTab[state.currentTab] || [];
+    var transactions = transactionIds.map(function (transactionId) {
+      return state.docsById[transactionId];
     });
     transactions = sortTransactions(transactions);
 
@@ -100,16 +105,24 @@ function (ReactRedux, actionCreators, App) {
         dispatch(actionCreators.handleTabChange(id));
       },
 
+      handleImportTab: function (id) {
+        dispatch(actionCreators.handleImportTab(id));
+      },
+
       handleChangeTabClick: function () {
         dispatch(actionCreators.handleChangeTabClick());
       },
 
-      saveTransaction: function (transaction) {
-        actionCreators.saveTransaction(transaction);
+      addTransaction: function (transaction) {
+        dispatch(actionCreators.addTransaction(transaction));
       },
 
-      removeTransaction: function (doc) {
-        actionCreators.removeTransaction(doc);
+      updateTransaction: function (transaction) {
+        dispatch(actionCreators.updateTransaction(transaction));
+      },
+
+      removeTransaction: function (transaction) {
+        dispatch(actionCreators.deleteDoc(transaction));
       }
     };
   }

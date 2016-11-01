@@ -20,6 +20,7 @@
     "fastclick": "^1.0.6",
     "pouchdb": "^6.0.0",
     "pouchdb-all-dbs": "xMartin/pouchdb-all-dbs#umd",
+    "pure-uuid": "^1.4.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-redux": "^4.4.5",

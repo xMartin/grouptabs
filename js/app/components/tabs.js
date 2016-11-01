@@ -44,7 +44,7 @@ function (React, TabListButton, CreateForm, ImportForm) {
             el(CreateForm, {handleSubmit: this.props.handleCreateNewTab})
           ),
           el('div', {className: 'row'},
-            el(ImportForm, {handleSubmit: this.props.handleTabClick})
+            el(ImportForm, {handleSubmit: this.props.handleImportTab})
           )
         )
       );

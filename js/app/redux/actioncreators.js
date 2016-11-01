@@ -1,12 +1,13 @@
 define([
-  '../db/tab'
+  'uuid',
+  '../db/manager'
 ],
 
-function (TabDb) {
+function (UUID, DbManager) {
   'use strict';
 
   // TODO manage instance in a smarter way
-  var tabDb;
+  var db;
 
   function generateTabId() {
     var chars = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -17,60 +18,55 @@ function (TabDb) {
     return result;
   }
 
-  function loadTransactionsNowAndOnDbChange (tabId, dispatch) {
-    tabDb = new TabDb(tabId);
-
-    return(
-      tabDb.init()
-      .then(function () {
-        tabDb.setupChangesListener(function () {
-          tabDb.getTransactions()
-          .then(function (transactions) {
-            dispatch({
-              type: 'LOAD_TAB_SUCCESS',
-              transactions: transactions
-            });
-          })
-          .catch(console.error.bind(console));
-        });
-        tabDb.sync();
-      })
-      .then(tabDb.getTransactions.bind(tabDb))
-      .then(function (transactions) {
-        dispatch({
-          type: 'LOAD_TAB_SUCCESS',
-          transactions: transactions
-        });
-      })
-    );
-  }
-
   return {
+    connectDb: function () {
+      return function (dispatch) {
+        db = new DbManager(function (actionMap) {
+          dispatch({
+            type: 'UPDATE_FROM_DB',
+            actionMap: actionMap
+          });
+        });
+
+        db.init()
+        .then(db.connect.bind(db))
+        .catch(console.error.bind(console));
+      };
+    },
+
     handleCreateNewTab: function (name) {
       return function (dispatch) {
         var id = generateTabId();
 
         localStorage.setItem('tabId', id);
 
+        var doc = {
+          id: 'info',
+          type: 'info',
+          name: name,
+          tabId: id
+        };
+
         dispatch({
           type: 'CREATE_TAB',
-          tab: {
-            id: id,
-            name: name
-          }
+          doc: doc
         });
 
-        loadTransactionsNowAndOnDbChange(id, dispatch)
-        .then(function () {
-          tabDb.saveInfo({
-            name: name
-          });
-        })
+        db.createTab(doc)
         .catch(console.error.bind(console));
       };
     },
 
     handleTabChange: function (id) {
+      localStorage.setItem('tabId', id);
+
+      return {
+        type: 'SELECT_TAB',
+        id: id
+      };
+    },
+
+    handleImportTab: function (id) {
       return function (dispatch) {
         localStorage.setItem('tabId', id);
 
@@ -79,15 +75,18 @@ function (TabDb) {
           id: id
         });
 
-        loadTransactionsNowAndOnDbChange(id, dispatch)
+        db.connectTab(id)
+        .then(function (actionMap) {
+          dispatch({
+            type: 'UPDATE_FROM_DB',
+            actionMap: actionMap
+          });
+        })
         .catch(console.error.bind(console));
       };
     },
 
     handleChangeTabClick: function () {
-      tabDb.destroy();
-      tabDb = null;
-
       localStorage.removeItem('tabId');
 
       return {
@@ -95,31 +94,46 @@ function (TabDb) {
       };
     },
 
-    saveTransaction: function (transaction) {
-      // save to db
-      tabDb.saveTransaction(transaction)
-      .catch(console.error.bind(console));
+    addTransaction: function (transaction) {
+      return function (dispatch, getState) {
+        var doc = Object.assign({}, transaction, {
+          id: new UUID(4).format(),
+          type: 'transaction',
+          tabId: getState().currentTab
+        });
 
-      // TODO do optimistic update
-      // we're for now relying on pouch managing ids etc
-      // transaction.id = new UUID(4).format();
+        dispatch({
+          type: 'PUT_DOC',
+          doc: doc
+        });
 
-      // return {
-      //   type: 'PUT_TRANSACTION',
-      //   transaction: transaction
-      // };
+        db.createDoc(doc)
+        .catch(console.error.bind(console));
+      };
     },
 
-    removeTransaction: function (doc) {
-      tabDb.removeTransaction(doc)
-      .catch(console.error.bind(console));
+    updateTransaction: function (transaction) {
+      return function (dispatch) {
+        dispatch({
+          type: 'PUT_DOC',
+          doc: transaction
+        });
 
-      // TODO do optimistic update
-      // we're for now relying on pouch managing ids etc
-      // return {
-      //   type: 'REMOVE_TRANSACTION',
-      //   id: id
-      // };
+        db.updateDoc(transaction)
+        .catch(console.error.bind(console));
+      };
+    },
+
+    deleteDoc: function (doc) {
+      return function (dispatch) {
+        dispatch({
+          type: 'DELETE_DOC',
+          doc: doc
+        });
+
+        db.deleteDoc(doc)
+        .catch(console.error.bind(console));
+      };
     }
   };
 

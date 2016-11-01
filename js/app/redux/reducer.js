@@ -25,12 +25,13 @@ define(function () {
 
     removeItem: function (array, item) {
       var index = array.indexOf(item);
-      if (index === -1) {
-        return array;
+
+      if (index !== -1) {
+        array = array.slice();  // copy
+        array.splice(index, 1);
       }
 
-      array = array.slice();  // copy
-      return array.splice(index, 1);
+      return array;
     }
   };
 
@@ -57,13 +58,58 @@ define(function () {
     return object;
   }
 
+  function updateFromDb (state, actionMap) {
+    var docsById = state.docsById;
+    var tabs = state.tabs;
+    var transactionsByTab = state.transactionsByTab;
+
+    actionMap.delete.forEach(function (dbDoc) {
+      var doc = docsById[dbDoc.id];
+
+      if (!doc) {
+        return;
+      }
+
+      docsById = iobject.remove(docsById, doc.id);
+
+      var tabId = dbDoc.tabId;
+      if (doc.type === 'transaction') {
+        var transactions = transactionsByTab[tabId];
+        transactionsByTab = iobject.add(transactionsByTab, tabId, iarray.removeItem(transactions, doc.id));
+      }
+    });
+
+    actionMap.createOrUpdate.forEach(function (doc) {
+      var tabId = doc.tabId;
+
+      if (doc.type === 'info') {
+        doc = Object.assign({}, doc, {
+          id: 'info-' + tabId
+        });
+
+        tabs = iarray.addUniq(tabs, tabId);
+      }
+
+      docsById = iobject.add(docsById, doc.id, doc);
+
+      if (doc.type === 'transaction') {
+        transactionsByTab = iobject.add(transactionsByTab, tabId, iarray.addUniq(transactionsByTab[tabId] || [], doc.id));
+      }
+    });
+
+    return {
+      docsById: docsById,
+      tabs: tabs,
+      transactionsByTab: transactionsByTab
+    };
+  }
+
   var initialState = {
     loading: false,
     currentTab: null,
-    tabsById: {},
+    docsById: {},
     tabs: [],
-    transactionsById: {},
-    transactions: []
+    transactionsByTab: {}
   };
 
   return function (state, action) {
@@ -72,46 +118,42 @@ define(function () {
     }
 
     switch (action.type) {
+      case 'UPDATE_FROM_DB':
+        console.log(action.type, action.actionMap);
+        return Object.assign({}, state, updateFromDb(state, action.actionMap));
+
       case 'CREATE_TAB':
-        return Object.assign({}, state, {
-          currentTab: action.tab.id,
-          tabsById: iobject.add(state.tabsById, action.tab.id, action.tab),
-          tabs: iarray.add(state.tabs, action.tab.id)
-        });
+        return Object.assign({}, state,
+          updateFromDb(state, {
+            createOrUpdate: [action.doc],
+            delete: []
+          }),
+          {
+            currentTab: action.doc.tabId
+          }
+        );
 
       case 'NAVIGATE_TO_TABS':
         return Object.assign({}, state, {
-          currentTab: null,
-          transactionsById: {},
-          transactions: []
+          currentTab: null
         });
 
       case 'SELECT_TAB':
         return Object.assign({}, state, {
-          loading: true,
           currentTab: action.id
         });
 
-      case 'LOAD_TAB_SUCCESS':
-        return Object.assign({}, state, {
-          loading: false,
-          transactionsById: array2object(action.transactions),
-          transactions: action.transactions.map(function (transaction) {
-            return transaction.id;
-          })
-        });
+      case 'PUT_DOC':
+        return Object.assign({}, state, updateFromDb(state, {
+          createOrUpdate: [action.doc],
+          delete: []
+        }));
 
-      case 'PUT_TRANSACTION':
-        return Object.assign({}, state, {
-          transactionsById: iobject.add(state.transactionsById, action.transaction.id, action.transaction),
-          transactions: iarray.addUniq(state.transactions, action.transaction.id)
-        });
-
-      case 'REMOVE_TRANSACTION':
-        return Object.assign({}, state, {
-          transactionsById: iobject.remove(state.transactionsById, action.id),
-          transactions: iarray.removeItem(action.id)
-        });
+      case 'DELETE_DOC':
+        return Object.assign({}, state, updateFromDb(state, {
+          createOrUpdate: [],
+          delete: [action.doc]
+        }));
 
       default:
         return state;

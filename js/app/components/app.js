@@ -40,8 +40,8 @@ function (React, Tabs, Main, List, EditEntry) {
       });
     },
 
-    handleTabClick: function (tab) {
-      this.props.handleTabChange(tab);
+    handleTabClick: function (id) {
+      this.props.handleTabChange(id);
       this.homeView = 'main';
       this.setState({
         scene: 'main'
@@ -53,6 +53,14 @@ function (React, Tabs, Main, List, EditEntry) {
       this.homeView = 'tabs';
       this.setState({
         scene: 'tabs'
+      });
+    },
+
+    handleImportTab: function (id) {
+      this.props.handleImportTab(id);
+      this.homeView = 'main';
+      this.setState({
+        scene: 'main'
       });
     },
 
@@ -90,8 +98,15 @@ function (React, Tabs, Main, List, EditEntry) {
       });
     },
 
-    handleSubmitEntry: function (data) {
-      this.props.saveTransaction(data);
+    handleCreateEntry: function (data) {
+      this.props.addTransaction(data);
+      this.setState({
+        scene: this.homeView
+      });
+    },
+
+    handleUpdateEntry: function (data) {
+      this.props.updateTransaction(data);
       this.setState({
         scene: this.homeView
       });
@@ -111,7 +126,8 @@ function (React, Tabs, Main, List, EditEntry) {
             data: this.props.tabs,
             visible: this.state.scene === 'tabs',
             handleTabClick: this.handleTabClick,
-            handleCreateNewTab: this.handleCreateNewTab
+            handleCreateNewTab: this.handleCreateNewTab,
+            handleImportTab: this.handleImportTab
           }),
           el(Main, {
             tabName: this.props.tabName,
@@ -138,7 +154,8 @@ function (React, Tabs, Main, List, EditEntry) {
               data: this._detailsData,
               participants: this.props.participants,
               handleCloseClick: this.handleCloseEntry,
-              handleSubmit: this.handleSubmitEntry,
+              handleCreate: this.handleCreateEntry,
+              handleUpdate: this.handleUpdateEntry,
               handleDelete: this.handleDeleteEntry
             })
           : null

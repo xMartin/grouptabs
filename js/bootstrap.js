@@ -7,7 +7,8 @@ require.config({
     'redux-thunk': '../node_modules/redux-thunk/dist/redux-thunk',
     pouchdb: '../node_modules/pouchdb/dist/pouchdb',
     'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
-    fastclick: '../node_modules/fastclick/lib/fastclick'
+    fastclick: '../node_modules/fastclick/lib/fastclick',
+    uuid: '../node_modules/pure-uuid/uuid'
   }
 });
 
@@ -29,63 +30,32 @@ function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, ac
 
   new FastClick(document.body);
 
-  allDbs(PouchDB);
+    // var tabsById = {};
+    // tabs.forEach(function (tab) {
+    //   tabsById[tab.id] = tab;
+    // });
 
-  PouchDB.allDbs()
-  .then(function (dbNames) {
-    var tabDbNames = dbNames.filter(function (dbName) {
-      return dbName.indexOf('tab/') === 0;
-    });
+    // tabs = Object.keys(tabsById);
 
-    return Promise.all(
-      tabDbNames.map(function (tabDbName) {
-        var pouch = new PouchDB(tabDbName);
-        return (
-          pouch.get('info')
-          .then(function (doc) {
-            return {
-              id: tabDbName.substring(4),  // remove 'tab/' prefix
-              name: doc.name
-            };
-          })
-        );
-      })
-    );
-  })
-  .then(function (tabs) {
-    var tabsById = {};
-    tabs.forEach(function (tab) {
-      tabsById[tab.id] = tab;
-    });
+  var store = Redux.createStore(
+    reducer,
+    Redux.applyMiddleware(ReduxThunk.default)
+  );
+  window.store = store;
 
-    tabs = Object.keys(tabsById);
+  var initialTab = localStorage.getItem('tabId');
+  if (initialTab) {
+    store.dispatch(actionCreators.handleTabChange(initialTab));
+  }
 
-    var store = Redux.createStore(
-      reducer,
-      {
-        loading: false,
-        currentTab: null,
-        tabsById: tabsById,
-        tabs: tabs,
-        transactionsById: {},
-        transactions: []
-      },
-      Redux.applyMiddleware(ReduxThunk.default)
-    );
-    window.store = store;
+  var components = (
+    React.createElement(ReactRedux.Provider, {store: store},
+      React.createElement(App)
+    )
+  );
 
-    var initialTab = localStorage.getItem('tabId');
-    if (initialTab) {
-      store.dispatch(actionCreators.handleTabChange(initialTab));
-    }
+  ReactDOM.render(components, document.getElementById('scenes'));
 
-    var components = (
-      React.createElement(ReactRedux.Provider, {store: store},
-        React.createElement(App)
-      )
-    );
+  store.dispatch(actionCreators.connectDb());
 
-    ReactDOM.render(components, document.getElementById('scenes'));
-  })
-  .catch(console.error.bind(console));
 });

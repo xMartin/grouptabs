@@ -5,167 +5,199 @@ define([
 function (PouchDB) {
   'use strict';
 
-  var Tab = function (tabId) {
-    if (!tabId) {
-      throw new Error('Tab DB constructor: tabId missing.');
+  var Database = function (localDbName, remoteDbLocation, changesCallback) {
+    if (!localDbName || typeof localDbName !== 'string') {
+      throw new Error('missing localDbName parameter');
     }
 
-    this.tabId = tabId;
-    this.dbName = 'tab/' + tabId;
+    if (!remoteDbLocation || typeof remoteDbLocation !== 'string') {
+      throw new Error('missing remoteDbLocation parameter');
+    }
+
+    this.remoteDbLocation = remoteDbLocation;
+
+    this._onChangesHandler = changesCallback;
+
+    this.db = new PouchDB(localDbName);
+    this.remoteDb = new PouchDB(remoteDbLocation);
   };
 
-  Tab.prototype.init = function () {
-    return this._setupDb();
-  };
+  Object.assign(Database.prototype, {
 
-  Tab.prototype._setupDb = function () {
-    this.db = new PouchDB(this.dbName);
+    connect: function () {
+      var allDocs;
 
-    // create view and don't throw if it already exists
-    var createTransationViewPromise = new Promise(function (resolve) {
-      this.db.put({
-        _id: '_design/document_type',
-        views: {
-          document_type: {
-            map: function (doc) {
-              emit(doc.document_type);
-            }.toString()
-          }
-        },
-        filters: {
-          transaction: function (doc) {
-            return doc.document_type === 'transaction';
-          }.toString()
-        }
-      })
-      .then(function () {
-        console.log('db: view "document_type" created.');
-        resolve();
-      })
-      .catch(function (err) {
-        if (err.name === 'conflict') {
-          console.log('db: view "document_type" exists.');
-          resolve();
-        } else {
-          throw new Error(err);
-        }
-      });
-    }.bind(this));
-
-    var createInfoPromise = new Promise(function (resolve) {
-      this.db.put({_id: 'info'})
-      .then(function () {
-        console.log('db: info created.');
-        resolve();
-      })
-      .catch(function (err) {
-        if (err.name === 'conflict') {
-          console.log('db: info exists.');
-          resolve();
-        } else {
-          throw new Error(err);
-        }
-      });
-    }.bind(this));
-
-    return Promise.all([createTransationViewPromise, createInfoPromise]);
-  };
-
-  Tab.prototype.sync = function () {
-    this._sync();
-  };
-
-  Tab.prototype._sync = function () {
-    var url = config.backendUrl + '/' + encodeURIComponent(this.dbName);
-    this._syncHandle = this.db.sync(url, {live: true, retry: true})
-    .on('error', function (err) {
-      console.error(err);
-    });
-  };
-
-  Tab.prototype.stopSyncing = function () {
-    this._syncHandle && this._syncHandle.cancel();
-  };
-
-  Tab.prototype.getInfo = function () {
-    return this.db.get('info');
-  };
-
-  Tab.prototype.getTransactions = function () {
-    return (
-      this.db.query('document_type', {key: 'transaction', include_docs: true})
-      .then(function (response) {
-        return response.rows.map(function (row) {
-          var doc = row.doc;
-          doc.id = doc._id;
-          return doc;
-        });
-      })
-    );
-  };
-
-  Tab.prototype.saveInfo = function (doc) {
-    return (
-      this.db.get('info')
-      .then(function (fetchedDoc) {
-        return Object.assign(fetchedDoc, doc);
-      })
-      .then(this.db.put.bind(this.db))
-      .then(function () {
-        console.log('db: info updated.');
-      })
-    );
-  };
-
-  Tab.prototype.saveTransaction = function (doc) {
-    doc.document_type = 'transaction';
-    doc.tabId = this.tabId;
-
-    if (doc._id) {
       return (
-        this.db.put(doc)
-        .then(function (response) {
-          console.log('db: transaction updated', response);
+        this.replicateFromRemote()
+        .then(this.fetchAll.bind(this))
+        .then(function (docs) {
+          allDocs = docs;
+        })
+        .then(function () {
+          return this.db.info();
+        }.bind(this))
+        .then(function (info) {
+          this._lastSequenceNumber = info.update_seq;
+        }.bind(this))
+        .then(this.startSyncing.bind(this))
+        .then(function () {
+          return allDocs;
         })
       );
+    },
+
+    createDoc: function (doc) {
+      if (doc._id) {
+        return (
+          this.db.put(doc)
+          .then(function (response) {
+            console.log('db: put doc (created)', response);
+          })
+        );
+      }
+
+      return (
+        this.db.post(doc)
+        .then(function (response) {
+          console.log('db: posted doc', response);
+        })
+      );
+    },
+
+    updateDoc: function (doc) {
+      return (
+        this.db.get(doc._id)
+        .then(function (fetchedDoc) {
+          return Object.assign({}, doc, {_rev: fetchedDoc._rev});
+        })
+        .then(this.db.put.bind(this.db))
+        .then(function (response) {
+          console.log('db: put doc (updated)', response);
+        })
+      );
+    },
+
+    deleteDoc: function (id) {
+      return (
+        this.db.get(id)
+        .then(function (fetchedDoc) {
+          return {
+            _id: id,
+            _rev: fetchedDoc._rev,
+            _deleted: true
+          };
+        })
+        .then(this.db.put.bind(this.db))
+        .then(function (response) {
+          console.log('db: deleted doc', response);
+        })
+      );
+    },
+
+    replicateFromRemote: function () {
+      console.info('replication start');
+
+      return new Promise(function (resolve) {
+        this.db.replicate.from(this.remoteDb, {
+          batch_size: 100
+        })
+        .on('paused', function () {
+          console.info('replication paused');
+        })
+        .on('active', function () {
+          console.info('replication active');
+        })
+        .on('complete', function () {
+          console.info('replication complete');
+          resolve();
+        })
+        .on('error', function (err) {
+          console.error('replication error', err);
+          // resolve even in error case
+          // incomplete replication can be handled by next sync
+          resolve();
+        });
+      }.bind(this));
+    },
+
+    fetchAll: function () {
+      return this.db.allDocs({
+        include_docs: true,
+        attachments: true
+      })
+      .then(function (result) {
+        return result.rows.map(function (row) {
+          return row.doc
+        });
+      });
+    },
+
+    startSyncing: function () {
+      this.sync();
+      this._startSyncInterval();
+    },
+
+    /**
+     * This sets up replication between the local database
+     * and its remote counterpart
+     */
+    sync: function () {
+      this._isSyncing = true;
+      this.syncHandle = this.db.sync(this.remoteDb, {
+        batch_size: 100
+      })
+      .on('error', function (err) {
+        console.error('replication error', err);
+        this._isSyncing = false;
+        this._emitChanges();
+      }.bind(this))
+      .on('complete', function () {
+        this._isSyncing = false;
+        this._emitChanges();
+      }.bind(this));
+    },
+
+    cancelSync: function () {
+      this.syncHandle.cancel();
+    },
+
+    _startSyncInterval: function () {
+      setInterval(function () {
+        if (!this._isSyncing) {
+          this.sync();
+        }
+      }.bind(this), 4000);
+    },
+
+    _emitChanges: function () {
+      this.db.changes({
+        since: this._lastSequenceNumber,
+        include_docs: true
+      })
+      .on('complete', function (info) {
+        this._lastSequenceNumber = info.last_seq;
+
+        if (!info.results.length) {
+          return;
+        }
+
+        console.info('db changes', info.results);
+        this._onChangesHandler(info.results);
+      }.bind(this))
+      .on('error', console.error.bind(console));
+    },
+
+    /**
+     * removes local database without triggering
+     * events on objects.
+     */
+    destroy: function () {
+      this.cancelSync();
+      this.db.destroy();
     }
 
-    return (
-      this.db.post(doc)
-      .then(function (response) {
-        console.log('db: transaction created', response);
-      })
-    );
-  };
+  });
 
-  Tab.prototype.removeTransaction = function (doc) {
-    doc._deleted = true;
-
-    return (
-      this.db.put(doc)
-      .then(function (response) {
-        console.log('db: delete', response);
-      })
-    );
-  };
-
-  Tab.prototype.setupChangesListener = function (listener) {
-    return (
-      this.db.info()
-      .then(function (info) {
-        this.db.changes({
-          since: info.update_seq,
-          filter: 'document_type/transaction',
-          live: true
-        }).on('change', listener);
-      }.bind(this))
-    );
-  };
-
-  Tab.prototype.destroy = function () {
-    this.stopSyncing();
-  };
-
-  return Tab;
+  return Database;
 
 });

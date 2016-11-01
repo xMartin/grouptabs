@@ -114,6 +114,9 @@ function (React, ParticipantInput, NewParticipantInput) {
         if (mode === 'edit') {
           props.value = this.findParticipantDefaultValue(participant);
         }
+        if (mode === 'new' && this.props.participants.length === 2) {
+          props.value = {amount: 0};
+        }
         return props;
       }.bind(this));
       participantPropsList.sort(function (a, b) {

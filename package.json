@@ -1,8 +1,6 @@
 {
-  "name": "app-react",
-  "version": "1.0.0",
-  "description": "Install",
-  "main": "index.js",
+  "name": "grouptabs-app",
+  "description": "Web app that lets you track shared expenses, using React/Redux and PouchDB/CouchDB",
   "scripts": {
     "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.react=../node_modules/react/dist/react.min paths.redux=../node_modules/redux/dist/redux.min out=dist/app.js include=bootstrap.js"
   },
@@ -11,11 +9,10 @@
     "url": "git+https://github.com/xMartin/grouptabs.git"
   },
   "author": "xMartin <xmartin@siarp.de>",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/xMartin/grouptabs/issues"
   },
-  "homepage": "https://github.com/xMartin/grouptabs#readme",
+  "homepage": "http://grouptabs.xmartin.de/",
   "dependencies": {
     "fastclick": "^1.0.6",
     "pouchdb": "^6.0.0",

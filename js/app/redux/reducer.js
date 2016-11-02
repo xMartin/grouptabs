@@ -4,9 +4,7 @@ define(function () {
   // immutable array helpers
   var iarray = {
     add: function (array, item) {
-      array = array.slice();  // copy
-      array.push(item);
-      return array;
+      return array.concat(item);
     },
 
     addUniq: function (array, item) {
@@ -27,8 +25,7 @@ define(function () {
       var index = array.indexOf(item);
 
       if (index !== -1) {
-        array = array.slice();  // copy
-        array.splice(index, 1);
+        return iarray.remove(array, index);
       }
 
       return array;
@@ -37,7 +34,7 @@ define(function () {
 
   // immutable object helpers
   var iobject = {
-    update: function (object, key, data) {
+    set: function (object, key, data) {
       object = Object.assign({}, object);  // copy
       object[key] = data;
       return object;
@@ -67,7 +64,7 @@ define(function () {
       var tabId = dbDoc.tabId;
       if (doc.type === 'transaction') {
         var transactions = transactionsByTab[tabId];
-        transactionsByTab = iobject.update(transactionsByTab, tabId, iarray.removeItem(transactions, doc.id));
+        transactionsByTab = iobject.set(transactionsByTab, tabId, iarray.removeItem(transactions, doc.id));
       }
     });
 
@@ -82,10 +79,10 @@ define(function () {
         tabs = iarray.addUniq(tabs, tabId);
       }
 
-      docsById = iobject.update(docsById, doc.id, doc);
+      docsById = iobject.set(docsById, doc.id, doc);
 
       if (doc.type === 'transaction') {
-        transactionsByTab = iobject.update(transactionsByTab, tabId, iarray.addUniq(transactionsByTab[tabId] || [], doc.id));
+        transactionsByTab = iobject.set(transactionsByTab, tabId, iarray.addUniq(transactionsByTab[tabId] || [], doc.id));
       }
     });
 

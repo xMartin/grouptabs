@@ -20,10 +20,10 @@ function (React, Form) {
       var data = this.getValues();
       data.transactionType = 'SHARED';
       data.date = new Date(data.date).toJSON();
+      data.timestamp = new Date().toJSON();
       if (this.props.data) {
         this.props.handleUpdate(Object.assign({}, this.props.data, data));
       } else {
-        data.timestamp = new Date().toJSON();
         this.props.handleCreate(data);
       }
     },

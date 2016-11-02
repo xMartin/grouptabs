@@ -8,7 +8,6 @@ fonts/SourceSansPro-Semibold.ttf
 images/arrow.svg
 images/favicon-touch.png
 js/config.js
-node_modules/requirejs/require.js
 dist/app.js
 
 NETWORK:

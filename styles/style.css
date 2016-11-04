@@ -15,7 +15,7 @@ body {
 	margin: 0;
 	color: #131313;
 	font-size: 18px;
-	background: #f2f2f2;
+	background: #404045;
 	font-family: SourceSansPro-Regular, sans-serif;
 }
 
@@ -101,6 +101,14 @@ input[type=number] {
 	padding: 10px;
 	font: inherit;
 	margin: 0;  /* Safari has 2px */
+}
+
+#scenes {
+	max-width: 500px;
+	min-width: 320px;
+	margin: 0 auto;
+	height: 100vh;
+	background: #f2f2f2;
 }
 
 .header {

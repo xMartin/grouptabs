@@ -18,6 +18,12 @@ function (React, Form) {
 
     handleSubmit: function () {
       var data = this.getValues();
+
+      if (!this.validate(data)) {
+        alert('Please fill in all fields and have at least two participants and one person who paid.');
+        return;
+      }
+
       data.transactionType = 'SHARED';
       data.date = new Date(data.date).toJSON();
       data.timestamp = new Date().toJSON();
@@ -26,6 +32,40 @@ function (React, Form) {
       } else {
         this.props.handleCreate(data);
       }
+    },
+
+    validate: function (data) {
+      if (!data.description) {
+        return false;
+      }
+
+      if (!data.date) {
+        return false;
+      }
+
+      var joinedParticipants = data.participants.filter(function (participant) {
+        return participant;  // null if not joined or paid
+      });
+
+      if (joinedParticipants.length < 2) {
+        return false;
+      }
+
+      // every joined participant needs a name
+      for (var i = 0; i < joinedParticipants.length; i++) {
+        if (!joinedParticipants[i].participant) {
+          return false;
+        }
+      }
+
+      var payingParticipants = joinedParticipants.filter(function (participant) {
+        return participant.amount;
+      });
+      if (!payingParticipants.length) {
+        return false;
+      }
+
+      return true;
     },
 
     handleDelete: function () {

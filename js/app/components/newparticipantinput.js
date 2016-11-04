@@ -43,16 +43,13 @@ function (React, ParticipantStatusInput) {
     },
 
     getValue: function () {
-      if (this.state.status === 0) {
-        return null;
-      }
       var participant = this.refs.participant.value.trim();
-      if (!participant) {
-        return null;
-      }
+      var amount = this.state.status === 2 ? this.refs.status.getAmount() : 0;
+
       return {
         participant: participant,
-        amount: this.state.status === 2 ? this.refs.status.getAmount() : 0
+        status: this.state.status,
+        amount: amount
       };
     },
 

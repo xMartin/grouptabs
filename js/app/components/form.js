@@ -58,13 +58,15 @@ function (React, ParticipantInput, NewParticipantInput) {
     },
 
     getParticipantsValues: function () {
-      return this.getOwnedParticipantComponents()
-        .map(function (participantComponent) {
-          return participantComponent.getValue();
-        })
-        .filter(function (value) {
-          return !!value;
-        });
+      var participants = this.getOwnedParticipantComponents().map(function (participantComponent) {
+        return participantComponent.getValue();
+      });
+
+      var nonEmptyParticipants = participants.filter(function (value) {
+        return value.participant || value.status;
+      });
+
+      return nonEmptyParticipants;
     },
 
     getValues: function () {

@@ -50,12 +50,12 @@ function (React, ParticipantStatusInput) {
     },
 
     getValue: function () {
-      if (this.state.status === 0) {
-        return null;
-      }
+      var amount = this.state.status === 2 ? this.refs.status.getAmount() : 0;
+
       return {
         participant: this.props.participant,
-        amount: this.state.status === 2 ? this.refs.status.getAmount() : 0
+        status: this.state.status,
+        amount: amount
       };
     },
 

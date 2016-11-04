@@ -24,9 +24,9 @@ function (React) {
     render: function () {
       return (
         el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
-          el('div', {className: 'row-label'}, 'Import existing tab:'),
+          el('div', {className: 'row-label'}, 'Open shared tab:'),
           el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID', ref: 'input'}),
-          el('button', null, 'Import')
+          el('button', null, 'Open')
         )
       );
     }

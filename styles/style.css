@@ -86,6 +86,12 @@ button.selected {
 	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
+.fake-link {
+	color: #bbb;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 input[type=text],
 input[type=date],
 input[type=number] {
@@ -275,6 +281,9 @@ td.amount {
 .tabsScene .row.tabs {
 	margin: 1em 0;
 }
+.tabsScene .row p {
+	text-align: center;
+}
 .tabs button {
 	border: 0 solid #ddd;
 	border-bottom-width: 1px;
@@ -290,6 +299,7 @@ td.amount {
 	position: relative;
 	float: right;
 	top: -44px;
+	margin-bottom: -44px;
 }
 
 #summary table {

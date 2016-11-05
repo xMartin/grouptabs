@@ -14,6 +14,18 @@ function (React, TabListButton, CreateForm, ImportForm) {
 
     displayName: 'Tabs',
 
+    getInitialState: function () {
+      return {
+        hideImportForm: true
+      };
+    },
+
+    handleShowImportFormClick: function () {
+      this.setState({
+        hideImportForm: false
+      });
+    },
+
     render: function () {
       return (
         el('div', {className: 'scene tabsScene' + (this.props.visible ? '' : ' hidden')},
@@ -44,7 +56,9 @@ function (React, TabListButton, CreateForm, ImportForm) {
             el(CreateForm, {handleSubmit: this.props.handleCreateNewTab})
           ),
           el('div', {className: 'row'},
-            el(ImportForm, {handleSubmit: this.props.handleImportTab})
+            this.state.hideImportForm
+            ? el('p', {className: 'fake-link', onClick: this.handleShowImportFormClick}, 'Open shared tab')
+            : el(ImportForm, {handleSubmit: this.props.handleImportTab})
           )
         )
       );

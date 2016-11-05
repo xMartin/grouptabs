@@ -25,7 +25,7 @@ function (React) {
       return (
         el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
           el('div', {className: 'row-label'}, 'Open shared tab:'),
-          el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID', ref: 'input'}),
+          el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID …', ref: 'input'}),
           el('button', null, 'Open')
         )
       );

@@ -18,7 +18,8 @@ define(function () {
 
     remove: function (array, index) {
       array = array.slice();  // copy
-      return array.splice(index, 1);
+      array.splice(index, 1);
+      return array;
     },
 
     removeItem: function (array, item) {

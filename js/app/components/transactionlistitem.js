@@ -6,10 +6,16 @@ function (React) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'TransactionListItem',
+
+    propTypes: {
+      data: PropTypes.object.isRequired,
+      handleDetailsClick: PropTypes.func.isRequired
+    },
 
     getFormattedData: function () {
       var round = function (amount) {

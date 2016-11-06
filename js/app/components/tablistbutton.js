@@ -11,6 +11,11 @@ function (React) {
 
     displayName: 'TabListButton',
 
+    propTypes: {
+      data: React.PropTypes.object.isRequired,
+      onClick: React.PropTypes.func.isRequired
+    },
+
     onClick: function () {
       this.props.onClick(this.props.data.id);
     },

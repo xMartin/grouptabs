@@ -8,10 +8,20 @@ function (React, ParticipantInput, NewParticipantInput) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'Form',
+
+    propTypes: {
+      mode: PropTypes.oneOf(['new', 'edit']).isRequired,
+      data: PropTypes.object,
+      participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+      handleCloseClick: PropTypes.func.isRequired,
+      handleSubmit: PropTypes.func.isRequired,
+      handleDelete: PropTypes.func.isRequired
+    },
 
     getInitialState: function () {
       var newParticipantsIds = [];

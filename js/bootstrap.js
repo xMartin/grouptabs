@@ -32,9 +32,9 @@ function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, ac
 
   var store = Redux.createStore(
     reducer,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     Redux.applyMiddleware(ReduxThunk.default)
   );
-  window.store = store;
 
   var initialTab = localStorage.getItem('tabId');
   if (initialTab) {

@@ -77,11 +77,6 @@ function (React, ParticipantInput, NewParticipantInput) {
       };
     },
 
-    handleSubmit: function (event) {
-      event.preventDefault();
-      this.props.handleSubmit();
-    },
-
     handleDelete: function (event) {
       this.props.handleDelete();
     },
@@ -175,9 +170,8 @@ function (React, ParticipantInput, NewParticipantInput) {
           ),
           el('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              el('button', {type: 'button', className: 'delete', onClick: this.handleDelete}, 'Delete')
-              : null,
-            el('button', {className: 'create' + (mode === 'new' ? ' full-width-margin' : '')}, 'Save')
+              el('button', {type: 'button', className: 'delete full-width-margin', onClick: this.handleDelete}, 'Delete')
+              : null
           )
         )
       );

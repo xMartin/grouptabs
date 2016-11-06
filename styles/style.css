@@ -60,18 +60,17 @@ button.delete {
 button.selected {
 	background: #bbb;
 }
-.editEntryScene .header button {
+.editEntryScene .header button.left {
+	padding: 0;
+	color: #666;
 	font-size: 28px;
 	line-height: 100%;
-	color: #666;
-	padding: 0;
+}
+.editEntryScene .header button.right {
+	float: right;
 }
 .editEntryScene button.delete {
-	width: 30%;
-}
-.editEntryScene button.create:not(.full-width-margin) {
-	width: 68%;
-	float: right;
+	margin-top: 2em;
 }
 .editEntryScene button.all-joined {
 	float: right;

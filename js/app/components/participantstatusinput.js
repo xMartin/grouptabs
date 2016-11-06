@@ -40,6 +40,7 @@ function (React) {
             el('input', {
               type: 'number',
               disabled: this.props.status !== 2 ? 'disabled' : '',
+              placeholder: 0,
               defaultValue: this.props.amount,
               ref: 'amount'
             })

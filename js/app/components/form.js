@@ -8,10 +8,19 @@ function (React, ParticipantInput, NewParticipantInput) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'Form',
+
+    propTypes: {
+      mode: PropTypes.oneOf(['new', 'edit']).isRequired,
+      data: PropTypes.object,
+      participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+      handleCloseClick: PropTypes.func.isRequired,
+      handleDelete: PropTypes.func.isRequired
+    },
 
     getInitialState: function () {
       var newParticipantsIds = [];
@@ -77,11 +86,7 @@ function (React, ParticipantInput, NewParticipantInput) {
       };
     },
 
-    handleDelete: function (event) {
-      this.props.handleDelete();
-    },
-
-    handleAddParticipant: function (event) {
+    handleAddParticipant: function () {
       var newParticipantsIds = this.state.newParticipantsIds.concat(this.createUniqueId());
       this.setState({
         newParticipantsIds: newParticipantsIds
@@ -170,7 +175,7 @@ function (React, ParticipantInput, NewParticipantInput) {
           ),
           el('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              el('button', {type: 'button', className: 'delete full-width-margin', onClick: this.handleDelete}, 'Delete')
+              el('button', {type: 'button', className: 'delete full-width-margin', onClick: this.props.handleDelete}, 'Delete')
               : null
           )
         )

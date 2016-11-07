@@ -6,10 +6,18 @@ function (React) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'ParticipationStatusInput',
+
+    propTypes: {
+      status: PropTypes.number.isRequired,
+      amount: PropTypes.number,
+      handleJoinedChange: PropTypes.func.isRequired,
+      handlePaidChange: PropTypes.func.isRequired,
+    },
 
     getAmount: function () {
       return parseFloat(this.refs.amount.value || 0);

@@ -11,6 +11,10 @@ function (React) {
 
     displayName: 'ImportForm',
 
+    propTypes: {
+      handleSubmit: React.PropTypes.func.isRequired
+    },
+
     handleSubmit: function (event) {
       event.preventDefault();
       var input = this.refs.input;

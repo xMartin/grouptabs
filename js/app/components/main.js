@@ -7,10 +7,21 @@ function (React, Overview) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'Main',
+
+    propTypes: {
+      tabName: PropTypes.string,
+      tabId: PropTypes.string,
+      data: PropTypes.arrayOf(PropTypes.object).isRequired,
+      visible: PropTypes.bool,
+      handleChangeTabClick: PropTypes.func.isRequired,
+      handleNewEntryClick: PropTypes.func.isRequired,
+      handleListClick: PropTypes.func.isRequired
+    },
 
     render: function () {
       return (

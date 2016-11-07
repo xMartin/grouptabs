@@ -11,6 +11,10 @@ function (React) {
 
     displayName: 'Summary',
 
+    propTypes: {
+      data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+    },
+
     formatData: function (accounts) {
       var round = function (amount) {
         return Math.round(amount * 100) / 100;

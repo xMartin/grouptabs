@@ -28,7 +28,9 @@ require([
 function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, actionCreators, PouchDB, allDbs, App) {
   'use strict';
 
+  /* jshint -W031 */
   new FastClick(document.body);
+  /* jshint +W031 */
 
   var store = Redux.createStore(
     reducer,

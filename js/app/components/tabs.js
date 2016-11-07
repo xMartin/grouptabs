@@ -9,10 +9,19 @@ function (React, TabListButton, CreateForm, ImportForm) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'Tabs',
+
+    propTypes: {
+      data: PropTypes.arrayOf(PropTypes.object).isRequired,
+      visible: PropTypes.bool,
+      handleTabClick: PropTypes.func.isRequired,
+      handleCreateNewTab: PropTypes.func.isRequired,
+      handleImportTab: PropTypes.func.isRequired
+    },
 
     getInitialState: function () {
       return {

@@ -7,10 +7,16 @@ function (React, Summary) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'Overview',
+
+    propTypes: {
+      data: PropTypes.arrayOf(PropTypes.object).isRequired,
+      handleListClick: PropTypes.func.isRequired
+    },
 
     render: function () {
       return (

@@ -7,15 +7,21 @@ function (React, TransactionList) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'List',
 
-    getDefaultProps: function () {
-      return {
-        data: []
-      };
+    propTypes: {
+      tabId: PropTypes.string,
+      tabName: PropTypes.string,
+      data: PropTypes.arrayOf(PropTypes.object).isRequired,
+      visible: PropTypes.bool,
+      handleChangeTabClick: PropTypes.func.isRequired,
+      handleNewEntryClick: PropTypes.func.isRequired,
+      handlePeopleClick: PropTypes.func.isRequired,
+      handleDetailsClick: PropTypes.func.isRequired
     },
 
     render: function () {

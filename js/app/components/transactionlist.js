@@ -7,10 +7,16 @@ function (React, TransactionListItem) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'TransactionList',
+
+    propTypes: {
+      data: PropTypes.arrayOf(PropTypes.object).isRequired,
+      handleDetailsClick: PropTypes.func.isRequired
+    },
 
     getStructuredData: function () {
       var transactions = this.props.data;

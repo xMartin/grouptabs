@@ -7,10 +7,16 @@ function (React, ParticipantStatusInput) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'ParticipantInput',
+
+    propTypes: {
+      participant: PropTypes.string.isRequired,
+      value: PropTypes.object
+    },
 
     // status:
     //   0: none
@@ -73,7 +79,7 @@ function (React, ParticipantStatusInput) {
           ),
           el(ParticipantStatusInput, {
             status: this.state.status,
-            amount: this.props.value && this.props.value.amount || '',
+            amount: this.props.value && this.props.value.amount,
             handleJoinedChange: this.handleJoinedChange,
             handlePaidChange: this.handlePaidChange,
             ref: 'status'

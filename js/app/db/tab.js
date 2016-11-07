@@ -127,7 +127,7 @@ function (PouchDB) {
       })
       .then(function (result) {
         return result.rows.map(function (row) {
-          return row.doc
+          return row.doc;
         });
       });
     },

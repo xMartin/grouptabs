@@ -7,10 +7,21 @@ function (React, Form) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'EditEntry',
+
+    propTypes: {
+      mode: PropTypes.oneOf(['new', 'edit']).isRequired,
+      data: PropTypes.object,
+      participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+      handleCloseClick: PropTypes.func.isRequired,
+      handleCreate: PropTypes.func.isRequired,
+      handleUpdate: PropTypes.func.isRequired,
+      handleDelete: PropTypes.func.isRequired
+    },
 
     getValues: function () {
       return this.refs.form.getValues();

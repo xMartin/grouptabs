@@ -10,10 +10,27 @@ function (React, Tabs, Main, List, EditEntry) {
   'use strict';
 
   var el = React.createElement;
+  var PropTypes = React.PropTypes;
 
   return React.createClass({
 
     displayName: 'App',
+
+    propTypes: {
+      tabId: PropTypes.string,
+      tabName: PropTypes.string,
+      tabs: PropTypes.arrayOf(PropTypes.object),
+      transactions: PropTypes.arrayOf(PropTypes.object),
+      accounts: PropTypes.arrayOf(PropTypes.object),
+      participants: PropTypes.arrayOf(PropTypes.string),
+      handleCreateNewTab: PropTypes.func.isRequired,
+      handleTabChange: PropTypes.func.isRequired,
+      handleImportTab: PropTypes.func.isRequired,
+      handleChangeTabClick: PropTypes.func.isRequired,
+      addTransaction: PropTypes.func.isRequired,
+      updateTransaction: PropTypes.func.isRequired,
+      removeTransaction: PropTypes.func.isRequired
+    },
 
     homeView: 'main',
 

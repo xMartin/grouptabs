@@ -53,7 +53,7 @@ function (ReactRedux, actionCreators, App) {
       return a.amount < b.amount ? -1 : 1;
     });
     return result;
-  };
+  }
 
   function accounts2Participants (accounts) {
     return accounts.map(function (account) {

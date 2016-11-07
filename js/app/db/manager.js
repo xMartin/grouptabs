@@ -117,7 +117,7 @@ function (PouchDB, allDbs, Tab) {
     },
 
     initDb: function (dbName) {
-      var remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
+      var remoteDbLocation = window.config.backendUrl + '/' + encodeURIComponent(dbName);
       var tabId = dbName.substring(4);  // strip "tab/"
       return this.dbs[tabId] = new Tab(dbName, remoteDbLocation, this._changesHandler.bind(this, tabId));
     },

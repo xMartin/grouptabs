@@ -92,11 +92,11 @@ function (React, ParticipantInput, NewParticipantInput) {
       this.props.handleSubmit();
     },
 
-    handleDelete: function (event) {
+    handleDelete: function () {
       this.props.handleDelete();
     },
 
-    handleAddParticipant: function (event) {
+    handleAddParticipant: function () {
       var newParticipantsIds = this.state.newParticipantsIds.concat(this.createUniqueId());
       this.setState({
         newParticipantsIds: newParticipantsIds

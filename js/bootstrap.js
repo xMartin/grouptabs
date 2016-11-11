@@ -8,48 +8,63 @@ require.config({
     pouchdb: '../node_modules/pouchdb/dist/pouchdb',
     'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
     fastclick: '../node_modules/fastclick/lib/fastclick',
-    uuid: '../node_modules/pure-uuid/uuid'
+    uuid: '../node_modules/pure-uuid/uuid',
+    lie: '../node_modules/lie/dist/lie'
   }
 });
 
-require([
-  'fastclick',
-  'react-dom',
-  'react',
-  'redux',
-  'react-redux',
-  'redux-thunk',
-  'app/redux/reducer',
-  'app/redux/actioncreators',
-  'pouchdb',
-  'pouchdb-all-dbs',
-  'app/app'
-],
-function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, actionCreators, PouchDB, allDbs, App) {
-  'use strict';
+// apply promise polyfill
+// the promise library is not part of the build, load it asynchroneously
+if (!window.Promise) {
+  var promiseLib = 'lie';
+  require([promiseLib], function (Promise) {
+    window.Promise = Promise;
+    run();
+  });
+} else {
+  run();
+}
 
-  /* jshint -W031 */
-  new FastClick(document.body);
-  /* jshint +W031 */
+function run () {
+  require([
+    'fastclick',
+    'react-dom',
+    'react',
+    'redux',
+    'react-redux',
+    'redux-thunk',
+    'app/redux/reducer',
+    'app/redux/actioncreators',
+    'pouchdb',
+    'pouchdb-all-dbs',
+    'app/app'
+  ],
+  function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, actionCreators, PouchDB, allDbs, App) {
+    'use strict';
 
-  var store = Redux.createStore(
-    reducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    Redux.applyMiddleware(ReduxThunk.default)
-  );
+    /* jshint -W031 */
+    new FastClick(document.body);
+    /* jshint +W031 */
 
-  var initialTab = localStorage.getItem('tabId');
-  if (initialTab) {
-    store.dispatch(actionCreators.handleTabChange(initialTab));
-  }
+    var store = Redux.createStore(
+      reducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+      Redux.applyMiddleware(ReduxThunk.default)
+    );
 
-  var components = (
-    React.createElement(ReactRedux.Provider, {store: store},
-      React.createElement(App)
-    )
-  );
+    var initialTab = localStorage.getItem('tabId');
+    if (initialTab) {
+      store.dispatch(actionCreators.handleTabChange(initialTab));
+    }
 
-  ReactDOM.render(components, document.getElementById('scenes'));
+    var components = (
+      React.createElement(ReactRedux.Provider, {store: store},
+        React.createElement(App)
+      )
+    );
 
-  store.dispatch(actionCreators.connectDb());
-});
+    ReactDOM.render(components, document.getElementById('scenes'));
+
+    store.dispatch(actionCreators.connectDb());
+  });
+}

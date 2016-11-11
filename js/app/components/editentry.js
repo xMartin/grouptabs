@@ -1,9 +1,10 @@
 define([
   'react',
+  '../lang/iobject',
   './form'
 ],
 
-function (React, Form) {
+function (React, iobject, Form) {
   'use strict';
 
   var el = React.createElement;
@@ -39,7 +40,7 @@ function (React, Form) {
       data.date = new Date(data.date).toJSON();
       data.timestamp = new Date().toJSON();
       if (this.props.data) {
-        this.props.handleUpdate(Object.assign({}, this.props.data, data));
+        this.props.handleUpdate(iobject.merge(this.props.data, data));
       } else {
         this.props.handleCreate(data);
       }

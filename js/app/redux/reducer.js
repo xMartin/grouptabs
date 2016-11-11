@@ -1,52 +1,10 @@
-define(function () {
+define([
+  '../lang/iarray',
+  '../lang/iobject'
+],
+
+function (iarray, iobject) {
   'use strict';
-
-  // immutable array helpers
-  var iarray = {
-    add: function (array, item) {
-      return array.concat(item);
-    },
-
-    addUniq: function (array, item) {
-      var index = array.indexOf(item);
-      if (index !== -1) {
-        return array;
-      }
-
-      return iarray.add(array, item);
-    },
-
-    remove: function (array, index) {
-      array = array.slice();  // copy
-      array.splice(index, 1);
-      return array;
-    },
-
-    removeItem: function (array, item) {
-      var index = array.indexOf(item);
-
-      if (index !== -1) {
-        return iarray.remove(array, index);
-      }
-
-      return array;
-    }
-  };
-
-  // immutable object helpers
-  var iobject = {
-    set: function (object, key, data) {
-      object = Object.assign({}, object);  // copy
-      object[key] = data;
-      return object;
-    },
-
-    remove: function (object, key) {
-      object = Object.assign({}, object);  // copy
-      delete object[key];
-      return object;
-    }
-  };
 
   function docsReducer (state, actionMap) {
     var docsById = state.docsById;
@@ -73,7 +31,7 @@ define(function () {
       var tabId = doc.tabId;
 
       if (doc.type === 'info') {
-        doc = Object.assign({}, doc, {
+        doc = iobject.merge(doc, {
           id: 'info-' + tabId
         });
 
@@ -87,7 +45,7 @@ define(function () {
       }
     });
 
-    return Object.assign({}, state, {
+    return iobject.merge(state, {
       docsById: docsById,
       tabs: tabs,
       transactionsByTab: transactionsByTab
@@ -109,10 +67,10 @@ define(function () {
 
     switch (action.type) {
       case 'UPDATE_FROM_DB':
-        return Object.assign({}, docsReducer(state, action.actionMap));
+        return docsReducer(state, action.actionMap);
 
       case 'CREATE_TAB':
-        return Object.assign({},
+        return iobject.merge(
           docsReducer(state, {
             createOrUpdate: [action.doc],
             delete: []
@@ -123,26 +81,26 @@ define(function () {
         );
 
       case 'NAVIGATE_TO_TABS':
-        return Object.assign({}, state, {
+        return iobject.merge(state, {
           currentTab: null
         });
 
       case 'SELECT_TAB':
-        return Object.assign({}, state, {
+        return iobject.merge(state, {
           currentTab: action.id
         });
 
       case 'PUT_DOC':
-        return Object.assign({}, docsReducer(state, {
+        return docsReducer(state, {
           createOrUpdate: [action.doc],
           delete: []
-        }));
+        });
 
       case 'DELETE_DOC':
-        return Object.assign({}, docsReducer(state, {
+        return docsReducer(state, {
           createOrUpdate: [],
           delete: [action.doc]
-        }));
+        });
 
       default:
         return state;

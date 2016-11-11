@@ -1,28 +1,30 @@
 define([
-  'pouchdb'
+  'pouchdb',
+  '../lang/class',
+  '../lang/iobject'
 ],
 
-function (PouchDB) {
+function (PouchDB, createClass, iobject) {
   'use strict';
 
-  var Database = function (localDbName, remoteDbLocation, changesCallback) {
-    if (!localDbName || typeof localDbName !== 'string') {
-      throw new Error('missing localDbName parameter');
-    }
+  return createClass({
 
-    if (!remoteDbLocation || typeof remoteDbLocation !== 'string') {
-      throw new Error('missing remoteDbLocation parameter');
-    }
+    constructor: function (localDbName, remoteDbLocation, changesCallback) {
+      if (!localDbName || typeof localDbName !== 'string') {
+        throw new Error('missing localDbName parameter');
+      }
 
-    this.remoteDbLocation = remoteDbLocation;
+      if (!remoteDbLocation || typeof remoteDbLocation !== 'string') {
+        throw new Error('missing remoteDbLocation parameter');
+      }
 
-    this._onChangesHandler = changesCallback;
+      this.remoteDbLocation = remoteDbLocation;
 
-    this.db = new PouchDB(localDbName);
-    this.remoteDb = new PouchDB(remoteDbLocation);
-  };
+      this._onChangesHandler = changesCallback;
 
-  Object.assign(Database.prototype, {
+      this.db = new PouchDB(localDbName);
+      this.remoteDb = new PouchDB(remoteDbLocation);
+    },
 
     connect: function () {
       var allDocs;
@@ -68,7 +70,7 @@ function (PouchDB) {
       return (
         this.db.get(doc._id)
         .then(function (fetchedDoc) {
-          return Object.assign({}, doc, {_rev: fetchedDoc._rev});
+          return iobject.merge(doc, {_rev: fetchedDoc._rev});
         })
         .then(this.db.put.bind(this.db))
         .then(function (response) {
@@ -197,7 +199,5 @@ function (PouchDB) {
     }
 
   });
-
-  return Database;
 
 });

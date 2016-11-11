@@ -70,8 +70,11 @@ function (ReactRedux, actionCreators, App) {
       };
     });
 
-    var tab = tabs.find(function (tab) {
-      return tab.id === state.currentTab;
+    var tab;
+    tabs.forEach(function (_tab) {
+      if (_tab.id === state.currentTab) {
+        tab = _tab;
+      }
     });
     var tabName = tab && tab.name || '';
 

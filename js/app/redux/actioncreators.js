@@ -1,9 +1,10 @@
 define([
   'uuid',
+  '../lang/iobject',
   '../db/manager'
 ],
 
-function (UUID, DbManager) {
+function (UUID, iobject, DbManager) {
   'use strict';
 
   // TODO manage instance in a smarter way
@@ -96,7 +97,7 @@ function (UUID, DbManager) {
 
     addTransaction: function (transaction) {
       return function (dispatch, getState) {
-        var doc = Object.assign({}, transaction, {
+        var doc = iobject.merge(transaction, {
           id: new UUID(4).format(),
           type: 'transaction',
           tabId: getState().currentTab

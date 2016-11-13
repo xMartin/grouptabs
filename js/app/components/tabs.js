@@ -2,10 +2,11 @@ define([
   'react',
   './tablistbutton',
   './createform',
-  './importform'
+  './importform',
+  './collapsiblerow'
 ],
 
-function (React, TabListButton, CreateForm, ImportForm) {
+function (React, TabListButton, CreateForm, ImportForm, CollapsibleRow) {
   'use strict';
 
   var el = React.createElement;
@@ -31,8 +32,16 @@ function (React, TabListButton, CreateForm, ImportForm) {
 
     handleShowImportFormClick: function () {
       this.setState({
-        hideImportForm: false
+        hideImportForm: !this.state.hideImportForm
       });
+    },
+
+    handleImportTab: function (tabId) {
+      this.setState({
+        hideImportForm: true
+      });
+
+      this.props.handleImportTab(tabId);
     },
 
     render: function () {
@@ -64,10 +73,12 @@ function (React, TabListButton, CreateForm, ImportForm) {
           el('div', {className: 'row'},
             el(CreateForm, {handleSubmit: this.props.handleCreateNewTab})
           ),
-          el('div', {className: 'row'},
-            this.state.hideImportForm
-            ? el('p', {className: 'fake-link', onClick: this.handleShowImportFormClick}, 'Open shared tab')
-            : el(ImportForm, {handleSubmit: this.props.handleImportTab})
+          el(CollapsibleRow, {
+            label: 'Open shared tab',
+            collapsed: this.state.hideImportForm,
+            handleCollapseButtonClick: this.handleShowImportFormClick
+          },
+            el(ImportForm, {handleSubmit: this.handleImportTab})
           )
         )
       );

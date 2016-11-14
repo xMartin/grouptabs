@@ -35,6 +35,14 @@ function (React, TabListButton, CreateForm, ImportForm) {
       });
     },
 
+    handleImportTab: function (tabId) {
+      this.props.handleImportTab(tabId);
+
+      this.setState({
+        hideImportForm: true
+      });
+    },
+
     render: function () {
       return (
         el('div', {className: 'scene tabsScene' + (this.props.visible ? '' : ' hidden')},
@@ -67,7 +75,7 @@ function (React, TabListButton, CreateForm, ImportForm) {
           el('div', {className: 'row'},
             this.state.hideImportForm
             ? el('p', {className: 'fake-link', onClick: this.handleShowImportFormClick}, 'Open shared tab')
-            : el(ImportForm, {handleSubmit: this.props.handleImportTab})
+            : el(ImportForm, {handleSubmit: this.handleImportTab})
           )
         )
       );

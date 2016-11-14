@@ -18,6 +18,8 @@ require.config({
 if (!window.Promise) {
   var promiseLib = 'lie';
   require([promiseLib], function (Promise) {
+    'use strict';
+
     window.Promise = Promise;
     run();
   });
@@ -26,6 +28,8 @@ if (!window.Promise) {
 }
 
 function run () {
+  'use strict';
+
   require([
     'fastclick',
     'react-dom',
@@ -40,8 +44,6 @@ function run () {
     'app/app'
   ],
   function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, reducer, actionCreators, PouchDB, allDbs, App) {
-    'use strict';
-
     /* jshint -W031 */
     new FastClick(document.body);
     /* jshint +W031 */

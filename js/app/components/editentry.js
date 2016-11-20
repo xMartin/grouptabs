@@ -36,6 +36,8 @@ function (React, iobject, Form) {
         return;
       }
 
+      data.participants = this.normalizeParticipants(data.participants);
+
       data.transactionType = 'SHARED';
       data.date = new Date(data.date).toJSON();
       data.timestamp = new Date().toJSON();
@@ -44,6 +46,21 @@ function (React, iobject, Form) {
       } else {
         this.props.handleCreate(data);
       }
+    },
+
+    normalizeParticipants: function (rawParticipants) {
+      return (
+        rawParticipants
+        .filter(function (participant) {
+          return participant.status > 0;
+        })
+        .map(function (participant) {
+          return {
+            participant: participant.participant,
+            amount: participant.amount
+          };
+        })
+      );
     },
 
     validate: function (data) {
@@ -56,7 +73,7 @@ function (React, iobject, Form) {
       }
 
       var joinedParticipants = data.participants.filter(function (participant) {
-        return participant;  // null if not joined or paid
+        return participant.status > 0;
       });
 
       if (joinedParticipants.length < 2) {

@@ -9,6 +9,7 @@ images/arrow.svg
 images/favicon-touch.png
 js/config.js
 dist/app.js
+node_modules/lie/dist/lie.js
 
 NETWORK:
 *

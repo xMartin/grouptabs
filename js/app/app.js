@@ -98,37 +98,15 @@ function (ReactRedux, actionCreators, App) {
     };
   }
 
-  function mapDispatchToProps (dispatch) {
-    return {
-      handleCreateNewTab: function (name) {
-        dispatch(actionCreators.handleCreateNewTab(name));
-      },
-
-      handleTabChange: function (id) {
-        dispatch(actionCreators.handleTabChange(id));
-      },
-
-      handleImportTab: function (id) {
-        dispatch(actionCreators.handleImportTab(id));
-      },
-
-      handleChangeTabClick: function () {
-        dispatch(actionCreators.handleChangeTabClick());
-      },
-
-      addTransaction: function (transaction) {
-        dispatch(actionCreators.addTransaction(transaction));
-      },
-
-      updateTransaction: function (transaction) {
-        dispatch(actionCreators.updateTransaction(transaction));
-      },
-
-      removeTransaction: function (transaction) {
-        dispatch(actionCreators.deleteDoc(transaction));
-      }
-    };
-  }
+  var mapDispatchToProps = {
+    handleCreateNewTab: actionCreators.handleCreateNewTab,
+    handleTabChange: actionCreators.handleTabChange,
+    handleImportTab: actionCreators.handleImportTab,
+    handleChangeTabClick: actionCreators.handleChangeTabClick,
+    addTransaction: actionCreators.addTransaction,
+    updateTransaction: actionCreators.updateTransaction,
+    removeTransaction: actionCreators.deleteDoc
+  };
 
   return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(App);
 

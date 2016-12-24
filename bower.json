@@ -2,9 +2,11 @@
   "name": "grouptabs",
   "version": "0.0.0",
   "dependencies": {
-    "dojo": "1.10.4",
-    "dijit": "1.10.4",
-    "remotestorage": "0.12.1"
+    "dojo/dojo": "1.12.1",
+    "dojo/dijit": "1.12.1",
+    "remotestorage": "0.14.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "util": "dojo-util#1.12.1"
+  }
 }

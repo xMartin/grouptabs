@@ -1,8 +1,8 @@
 js/dijit/
 js/dojo/
-js/dojox/
 js/util/
+js/dojox/
+js/dojo-themes/
 js/release/
-js/remotestorage.js
-js/remotestorage.min.js
+js/remotestorage/
 node_modules/

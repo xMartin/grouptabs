@@ -1,6 +1,8 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.10 (for debugging or creating an optimized build use the source distribution) and [remoteStorage.js](http://remotestorage.io/integrate/) 0.11.
+To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.12 (for debugging or creating an optimized build use the source distribution) and [remoteStorage.js](http://remotestorage.io/integrate/) 0.14.
 
 You can use bower to install both.
+
+    bower install
 
 Your `js/` directory should look like this:
 

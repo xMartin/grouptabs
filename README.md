@@ -10,7 +10,7 @@ The UI is built using ReactJS and Redux.
 
 ## Setup
 
-    npm install
+`npm install` and copy `js/config-sample.js` to `js/config.js`.
 
 Just serve the files in this directory with any static web server.
 

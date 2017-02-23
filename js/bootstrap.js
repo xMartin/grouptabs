@@ -65,7 +65,7 @@ function run () {
       )
     );
 
-    ReactDOM.render(components, document.getElementById('scenes'));
+    ReactDOM.render(components, document.getElementById('root'));
 
     store.dispatch(actionCreators.connectDb());
   });

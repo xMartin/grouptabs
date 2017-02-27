@@ -68,5 +68,23 @@ function run () {
     ReactDOM.render(components, document.getElementById('root'));
 
     store.dispatch(actionCreators.connectDb());
+
+    var unsubscribe = store.subscribe(function () {
+      if (store.getState().initialLoadingDone) {
+        hideAppLoader();
+        unsubscribe();
+      }
+    });
+
   });
+}
+
+function hideAppLoader () {
+  var loader = document.getElementById('loader');
+
+  loader.classList.add('hidden');
+
+  setTimeout(function () {
+    loader.style.display = 'none';
+  }, 500);
 }

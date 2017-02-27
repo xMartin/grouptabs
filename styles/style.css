@@ -383,14 +383,32 @@ td.amount {
 	text-align: center;
 }
 
-.loading {
-	height: 70vh;
+.loader {
+	height: 100vh;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
-.loading div {
+.app-loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #f2f2f2;
+	transition: opacity .5s;
+}
+.app-loader.hidden {
+	opacity: 0;
+}
+.tab-loader {
+	height: 70vh;
+}
+.loader div {
 	width: 68px;
 	height: 68px;
 	background: url(../images/loader.svg);
+}
+.app-loader div {
+	margin-top: -68px;  /* height of loader icon */
 }

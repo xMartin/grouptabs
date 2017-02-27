@@ -53,7 +53,7 @@ function (iarray, iobject) {
   }
 
   var initialState = {
-    loading: false,
+    initialLoadingDone: false,
     checkingRemoteTab: false,
     remoteTabError: null,
     importingTab: false,
@@ -74,6 +74,7 @@ function (iarray, iobject) {
     switch (action.type) {
       case 'UPDATE_FROM_DB':
         return iobject.merge(docsReducer(state, action.actionMap), {
+          initialLoadingDone: true,
           importingTab: false
         });
 

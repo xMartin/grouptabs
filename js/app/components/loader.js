@@ -9,7 +9,7 @@ function (React) {
 
   return React.createClass({
 
-    displayName: 'Loading',
+    displayName: 'Loader',
 
     propTypes: {
       show: React.PropTypes.bool
@@ -18,7 +18,7 @@ function (React) {
     render: function () {
       if (this.props.show) {
         return (
-          el('div', {className: 'loading'},
+          el('div', {className: 'loader tab-loader'},
             el('div')
           )
         );

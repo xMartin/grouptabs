@@ -1,10 +1,10 @@
 define([
   'react',
-  './loading',
+  './loader',
   './overview'
 ],
 
-function (React, Loading, Overview) {
+function (React, Loader, Overview) {
   'use strict';
 
   var el = React.createElement;
@@ -36,7 +36,7 @@ function (React, Loading, Overview) {
             ),
             el('h2', null, this.props.tabName)
           ),
-          el(Loading, {show: this.props.importingTab},
+          el(Loader, {show: this.props.importingTab},
             (
               this.props.data.length === 0
               ?

@@ -73,6 +73,8 @@ function (UUID, iobject, DbManager) {
           type: 'CHECK_REMOTE_TAB'
         });
 
+        id = id.toLowerCase();
+
         db.checkTab(id)
         .then(function (infoDoc) {
           localStorage.setItem('tabId', id);

@@ -38,6 +38,7 @@ button {
 }
 button[disabled] {
 	cursor: default;
+	color: #777;
 }
 button.full-width,
 button.full-width-margin {
@@ -83,6 +84,7 @@ button.selected {
 }
 .tab.active {
 	background: inherit;
+	color: inherit;
 	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
@@ -369,4 +371,14 @@ td.amount {
 }
 ::-moz-focus-inner {
 	border: 0;
+}
+
+.error-message {
+	font-size: 80%;
+	color: #f31;
+}
+
+.import-form .error-message {
+	margin-top: 4px;
+	text-align: center;
 }

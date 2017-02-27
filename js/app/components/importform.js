@@ -12,7 +12,15 @@ function (React) {
     displayName: 'ImportForm',
 
     propTypes: {
+      checkingRemoteTab: React.PropTypes.bool,
+      remoteTabError: React.PropTypes.string,
       handleSubmit: React.PropTypes.func.isRequired
+    },
+
+    componentWillReceiveProps: function (nextProps) {
+      if (!nextProps.checkingRemoteTab && this.props.checkingRemoteTab && !nextProps.remoteTabError) {
+        this.refs.input.value = '';
+      }
     },
 
     handleSubmit: function (event) {
@@ -20,7 +28,6 @@ function (React) {
       var input = this.refs.input;
       var tabId = input.value.trim();
       if (tabId) {
-        input.value = '';
         this.props.handleSubmit(tabId);
       }
     },
@@ -29,8 +36,9 @@ function (React) {
       return (
         el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
           el('div', {className: 'row-label'}, 'Open shared tab:'),
-          el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID …', ref: 'input'}),
-          el('button', null, 'Open')
+          el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID …', disabled: this.props.checkingRemoteTab, ref: 'input'}),
+          el('button', {disabled: this.props.checkingRemoteTab}, this.props.checkingRemoteTab ? 'Checking…' : 'Open'),
+          el('div', {className: 'error-message'}, this.props.remoteTabError)
         )
       );
     }

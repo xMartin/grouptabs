@@ -18,6 +18,8 @@ function (React, TabListButton, CreateForm, ImportForm) {
     propTypes: {
       data: PropTypes.arrayOf(PropTypes.object).isRequired,
       visible: PropTypes.bool,
+      checkingRemoteTab: PropTypes.bool,
+      remoteTabError: PropTypes.string,
       handleTabClick: PropTypes.func.isRequired,
       handleCreateNewTab: PropTypes.func.isRequired,
       handleImportTab: PropTypes.func.isRequired
@@ -29,17 +31,17 @@ function (React, TabListButton, CreateForm, ImportForm) {
       };
     },
 
+    componentWillReceiveProps: function (nextProps) {
+      if (!nextProps.visible && this.props.visible) {
+        this.setState({
+          hideImportForm: true
+        });
+      }
+    },
+
     handleShowImportFormClick: function () {
       this.setState({
         hideImportForm: false
-      });
-    },
-
-    handleImportTab: function (tabId) {
-      this.props.handleImportTab(tabId);
-
-      this.setState({
-        hideImportForm: true
       });
     },
 
@@ -75,7 +77,11 @@ function (React, TabListButton, CreateForm, ImportForm) {
           el('div', {className: 'row'},
             this.state.hideImportForm
             ? el('p', {className: 'fake-link', onClick: this.handleShowImportFormClick}, 'Open shared tab')
-            : el(ImportForm, {handleSubmit: this.handleImportTab})
+            : el(ImportForm, {
+                checkingRemoteTab: this.props.checkingRemoteTab,
+                remoteTabError: this.props.remoteTabError,
+                handleSubmit: this.props.handleImportTab
+              })
           )
         )
       );

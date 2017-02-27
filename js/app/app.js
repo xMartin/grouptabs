@@ -94,6 +94,8 @@ function (ReactRedux, actionCreators, App) {
       tabId: state.currentTab,
       tabName: tabName,
       transaction: state.currentTransaction,
+      checkingRemoteTab: state.checkingRemoteTab,
+      remoteTabError: state.remoteTabError,
       tabs: tabs,
       transactions: transactions,
       accounts: accounts,

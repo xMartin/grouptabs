@@ -81,6 +81,15 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
       );
     },
 
+    checkTab: function (tabId) {
+      var dbName = 'tab/' + tabId;
+      var remoteDbLocation = window.config.backendUrl + '/' + encodeURIComponent(dbName);
+
+      var db = new PouchDB(remoteDbLocation);
+
+      return db.get('info');
+    },
+
     connectTab: function (id) {
       var db = this.initDb('tab/' + id);
 

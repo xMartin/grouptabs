@@ -69,21 +69,48 @@ function (UUID, iobject, DbManager) {
 
     importTab: function (id) {
       return function (dispatch) {
-        localStorage.setItem('tabId', id);
-
         dispatch({
-          type: 'SELECT_TAB',
-          id: id
+          type: 'CHECK_REMOTE_TAB'
         });
 
-        db.connectTab(id)
-        .then(function (actionMap) {
+        db.checkTab(id)
+        .then(function (infoDoc) {
+          localStorage.setItem('tabId', id);
+
           dispatch({
-            type: 'UPDATE_FROM_DB',
-            actionMap: actionMap
+            type: 'IMPORT_TAB',
+            doc: {
+              id: 'info',
+              type: 'info',
+              name: infoDoc.name,
+              tabId: id
+            }
           });
+
+          db.connectTab(id)
+          .then(function (actionMap) {
+            dispatch({
+              type: 'UPDATE_FROM_DB',
+              actionMap: actionMap
+            });
+          })
+          .catch(console.error.bind(console));
         })
-        .catch(console.error.bind(console));
+        .catch(function (error) {
+          var message;
+          if (error.name === 'not_found') {
+            message = 'Could not find a tab with this ID.';
+          } else {
+            message = 'Error: unable to import tab. Please try again.';
+          }
+
+          dispatch({
+            type: 'CHECK_REMOTE_TAB_FAILURE',
+            error: message
+          });
+
+          console.error(error);
+        });
       };
     },
 

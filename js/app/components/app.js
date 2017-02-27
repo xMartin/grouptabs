@@ -41,15 +41,6 @@ function (React, Tabs, Main, List, EditEntry) {
       onRemoveTransaction: PropTypes.func.isRequired
     },
 
-    getDefaultProps: function () {
-      return {
-        tabs: [],
-        transactions: [],
-        accounts: [],
-        participants: []
-      };
-    },
-
     render: function () {
       return (
         el('div', {id: 'scenes'},

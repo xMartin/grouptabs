@@ -382,3 +382,15 @@ td.amount {
 	margin-top: 4px;
 	text-align: center;
 }
+
+.loading {
+	height: 70vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.loading div {
+	width: 68px;
+	height: 68px;
+	background: url(../images/loader.svg);
+}

@@ -56,6 +56,7 @@ function (iarray, iobject) {
     loading: false,
     checkingRemoteTab: false,
     remoteTabError: null,
+    importingTab: false,
     currentTab: null,
     homeView: 'main',
     currentScene: 'tabs',
@@ -72,7 +73,9 @@ function (iarray, iobject) {
 
     switch (action.type) {
       case 'UPDATE_FROM_DB':
-        return docsReducer(state, action.actionMap);
+        return iobject.merge(docsReducer(state, action.actionMap), {
+          importingTab: false
+        });
 
       case 'CREATE_TAB':
         return iobject.merge(
@@ -108,7 +111,8 @@ function (iarray, iobject) {
             currentTab: action.doc.tabId,
             currentScene: initialState.homeView,
             checkingRemoteTab: false,
-            remoteTabError: initialState.remoteTabError
+            remoteTabError: initialState.remoteTabError,
+            importingTab: true
           }
         );
 

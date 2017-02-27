@@ -24,6 +24,7 @@ function (React, Tabs, Main, List, EditEntry) {
       tabs: PropTypes.arrayOf(PropTypes.object),
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
+      importingTab: PropTypes.bool,
       transactions: PropTypes.arrayOf(PropTypes.object),
       accounts: PropTypes.arrayOf(PropTypes.object),
       participants: PropTypes.arrayOf(PropTypes.string),
@@ -58,6 +59,7 @@ function (React, Tabs, Main, List, EditEntry) {
             tabId: this.props.tabId,
             data: this.props.accounts,
             visible: this.props.scene === 'main',
+            importingTab: this.props.importingTab,
             handleChangeTabClick: this.props.onNavigateToTabs,
             handleNewEntryClick: this.props.onNavigateToAddTransaction,
             handleListClick: this.props.onNavigateToList

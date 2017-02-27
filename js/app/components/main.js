@@ -1,9 +1,10 @@
 define([
   'react',
+  './loading',
   './overview'
 ],
 
-function (React, Overview) {
+function (React, Loading, Overview) {
   'use strict';
 
   var el = React.createElement;
@@ -18,6 +19,7 @@ function (React, Overview) {
       tabId: PropTypes.string,
       data: PropTypes.arrayOf(PropTypes.object).isRequired,
       visible: PropTypes.bool,
+      importingTab: PropTypes.bool,
       handleChangeTabClick: PropTypes.func.isRequired,
       handleNewEntryClick: PropTypes.func.isRequired,
       handleListClick: PropTypes.func.isRequired
@@ -34,44 +36,46 @@ function (React, Overview) {
             ),
             el('h2', null, this.props.tabName)
           ),
-          (
-            this.props.data.length === 0
-            ?
-            el('div', { className: 'empty-info'},
-              el('p', null,
-                'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
-              ),
-              el('p', null,
-                'You have no transactions, yet. Start by adding one:'
+          el(Loading, {show: this.props.importingTab},
+            (
+              this.props.data.length === 0
+              ?
+              el('div', { className: 'empty-info'},
+                el('p', null,
+                  'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
+                ),
+                el('p', null,
+                  'You have no transactions, yet. Start by adding one:'
+                )
               )
-            )
-            :
-            null
-          ),
-          el('div', {className: 'row'},
-            el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
-              'Add transaction'
-            )
-          ),
-          (
-            this.props.data.length
-            ?
-            el(Overview, {data: this.props.data, handleListClick: this.props.handleListClick})
-            :
-            null
-          ),
-          (
-            this.props.data.length
-            ?
-            el('div', {className: 'share-info'},
-              el('p', null,
-                'Share this tab ID for collaboration with others:',
-                el('br'),
-                el('code', null, this.props.tabId)
+              :
+              null
+            ),
+            el('div', {className: 'row'},
+              el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
+                'Add transaction'
               )
+            ),
+            (
+              this.props.data.length
+              ?
+              el(Overview, {data: this.props.data, handleListClick: this.props.handleListClick})
+              :
+              null
+            ),
+            (
+              this.props.data.length
+              ?
+              el('div', {className: 'share-info'},
+                el('p', null,
+                  'Share this tab ID for collaboration with others:',
+                  el('br'),
+                  el('code', null, this.props.tabId)
+                )
+              )
+              :
+              null
             )
-            :
-            null
           )
         )
       );

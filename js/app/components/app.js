@@ -17,27 +17,26 @@ function (React, Tabs, Main, List, EditEntry) {
     displayName: 'App',
 
     propTypes: {
+      scene: PropTypes.string.isRequired,
       tabId: PropTypes.string,
       tabName: PropTypes.string,
+      transaction: PropTypes.object,
       tabs: PropTypes.arrayOf(PropTypes.object),
       transactions: PropTypes.arrayOf(PropTypes.object),
       accounts: PropTypes.arrayOf(PropTypes.object),
       participants: PropTypes.arrayOf(PropTypes.string),
-      handleCreateNewTab: PropTypes.func.isRequired,
-      handleTabChange: PropTypes.func.isRequired,
-      handleImportTab: PropTypes.func.isRequired,
-      handleChangeTabClick: PropTypes.func.isRequired,
-      addTransaction: PropTypes.func.isRequired,
-      updateTransaction: PropTypes.func.isRequired,
-      removeTransaction: PropTypes.func.isRequired
-    },
-
-    homeView: 'main',
-
-    getInitialState: function () {
-      return {
-        scene: this.props.tabId ? 'main' : 'tabs'
-      };
+      onNavigateToTabs: PropTypes.func.isRequired,
+      onCreateTab: PropTypes.func.isRequired,
+      onImportTab: PropTypes.func.isRequired,
+      onSelectTab: PropTypes.func.isRequired,
+      onNavigateToAddTransaction: PropTypes.func.isRequired,
+      onNavigateToUpdateTransaction: PropTypes.func.isRequired,
+      onNavigateToList: PropTypes.func.isRequired,
+      onNavigateToMain: PropTypes.func.isRequired,
+      onCloseTransaction: PropTypes.func.isRequired,
+      onAddTransaction: PropTypes.func.isRequired,
+      onUpdateTransaction: PropTypes.func.isRequired,
+      onRemoveTransaction: PropTypes.func.isRequired
     },
 
     getDefaultProps: function () {
@@ -49,131 +48,44 @@ function (React, Tabs, Main, List, EditEntry) {
       };
     },
 
-    handleCreateNewTab: function (name) {
-      this.props.handleCreateNewTab(name);
-      this.homeView = 'main';
-      this.setState({
-        scene: 'main'
-      });
-    },
-
-    handleTabClick: function (id) {
-      this.props.handleTabChange(id);
-      this.homeView = 'main';
-      this.setState({
-        scene: 'main'
-      });
-    },
-
-    handleChangeTabClick: function () {
-      this.props.handleChangeTabClick();
-      this.homeView = 'tabs';
-      this.setState({
-        scene: 'tabs'
-      });
-    },
-
-    handleImportTab: function (id) {
-      this.props.handleImportTab(id);
-      this.homeView = 'main';
-      this.setState({
-        scene: 'main'
-      });
-    },
-
-    handleListClick: function () {
-      this.homeView = 'list';
-      this.setState({
-        scene: 'list'
-      });
-    },
-
-    handlePeopleClick: function () {
-      this.homeView = 'main';
-      this.setState({
-        scene: 'main'
-      });
-    },
-
-    handleNewEntryClick: function () {
-      delete this._detailsData;
-      this.setState({
-        scene: 'newEntry'
-      });
-    },
-
-    handleDetailsClick: function (data) {
-      this._detailsData = data;
-      this.setState({
-        scene: 'newEntry'
-      });
-    },
-
-    handleCloseEntry: function () {
-      this.setState({
-        scene: this.homeView
-      });
-    },
-
-    handleCreateEntry: function (data) {
-      this.props.addTransaction(data);
-      this.setState({
-        scene: this.homeView
-      });
-    },
-
-    handleUpdateEntry: function (data) {
-      this.props.updateTransaction(data);
-      this.setState({
-        scene: this.homeView
-      });
-    },
-
-    handleDeleteEntry: function (data) {
-      this.props.removeTransaction(data);
-      this.setState({
-        scene: this.homeView
-      });
-    },
-
     render: function () {
       return (
         el('div', {id: 'scenes'},
           el(Tabs, {
             data: this.props.tabs,
-            visible: this.state.scene === 'tabs',
-            handleTabClick: this.handleTabClick,
-            handleCreateNewTab: this.handleCreateNewTab,
-            handleImportTab: this.handleImportTab
+            visible: this.props.scene === 'tabs',
+            handleTabClick: this.props.onSelectTab,
+            handleCreateNewTab: this.props.onCreateTab,
+            handleImportTab: this.props.onImportTab
           }),
           el(Main, {
             tabName: this.props.tabName,
             tabId: this.props.tabId,
             data: this.props.accounts,
-            visible: this.state.scene === 'main',
-            handleChangeTabClick: this.handleChangeTabClick,
-            handleNewEntryClick: this.handleNewEntryClick,
-            handleListClick: this.handleListClick
+            visible: this.props.scene === 'main',
+            handleChangeTabClick: this.props.onNavigateToTabs,
+            handleNewEntryClick: this.props.onNavigateToAddTransaction,
+            handleListClick: this.props.onNavigateToList
           }),
           el(List, {
             tabName: this.props.tabName,
             tabId: this.props.tabId,
             data: this.props.transactions,
-            visible: this.state.scene === 'list',
-            handleChangeTabClick: this.handleChangeTabClick,
-            handleNewEntryClick: this.handleNewEntryClick,
-            handlePeopleClick: this.handlePeopleClick,
-            handleDetailsClick: this.handleDetailsClick
+            visible: this.props.scene === 'list',
+            handleChangeTabClick: this.props.onNavigateToTabs,
+            handleNewEntryClick: this.props.onNavigateToAddTransaction,
+            handlePeopleClick: this.props.onNavigateToMain,
+            handleDetailsClick: this.props.onNavigateToUpdateTransaction
           }),
-          (this.state.scene === 'newEntry') ?
+          (this.props.scene === 'details') ?
             el(EditEntry, {
-              mode: this._detailsData ? 'edit' : 'new',
-              data: this._detailsData,
+              mode: this.props.transaction ? 'edit' : 'new',
+              data: this.props.transaction,
               participants: this.props.participants,
-              handleCloseClick: this.handleCloseEntry,
-              handleCreate: this.handleCreateEntry,
-              handleUpdate: this.handleUpdateEntry,
-              handleDelete: this.handleDeleteEntry
+              handleCloseClick: this.props.onCloseTransaction,
+              handleCreate: this.props.onAddTransaction,
+              handleUpdate: this.props.onUpdateTransaction,
+              handleDelete: this.props.onRemoveTransaction
             })
           : null
         )

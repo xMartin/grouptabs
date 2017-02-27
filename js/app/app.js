@@ -89,8 +89,11 @@ function (ReactRedux, actionCreators, App) {
     var participants = accounts2Participants(accounts);
 
     return {
+      scene: state.currentScene,
+      homeView: state.homeView,
       tabId: state.currentTab,
       tabName: tabName,
+      transaction: state.currentTransaction,
       tabs: tabs,
       transactions: transactions,
       accounts: accounts,
@@ -99,13 +102,18 @@ function (ReactRedux, actionCreators, App) {
   }
 
   var mapDispatchToProps = {
-    handleCreateNewTab: actionCreators.handleCreateNewTab,
-    handleTabChange: actionCreators.handleTabChange,
-    handleImportTab: actionCreators.handleImportTab,
-    handleChangeTabClick: actionCreators.handleChangeTabClick,
-    addTransaction: actionCreators.addTransaction,
-    updateTransaction: actionCreators.updateTransaction,
-    removeTransaction: actionCreators.deleteDoc
+    onNavigateToTabs: actionCreators.navigateToTabs,
+    onCreateTab: actionCreators.createTab,
+    onImportTab: actionCreators.importTab,
+    onSelectTab: actionCreators.selectTab,
+    onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
+    onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
+    onNavigateToList: actionCreators.navigateToList,
+    onNavigateToMain: actionCreators.navigateToMain,
+    onCloseTransaction: actionCreators.closeTransaction,
+    onAddTransaction: actionCreators.addTransaction,
+    onUpdateTransaction: actionCreators.updateTransaction,
+    onRemoveTransaction: actionCreators.removeTransaction
   };
 
   return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(App);

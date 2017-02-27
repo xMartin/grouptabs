@@ -56,7 +56,7 @@ function run () {
 
     var initialTab = localStorage.getItem('tabId');
     if (initialTab) {
-      store.dispatch(actionCreators.handleTabChange(initialTab));
+      store.dispatch(actionCreators.selectTab(initialTab));
     }
 
     var components = (

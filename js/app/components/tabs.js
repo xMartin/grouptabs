@@ -63,11 +63,11 @@ function (React, TabListButton, CreateForm, ImportForm) {
             :
             el('div', {className: 'empty-info'},
               el('p', null,
-                'With Grouptabs you can track shared expenses in a group of people.'
-                + ' Every group or every topic has its own tab like "Roadtrip 2016" or "Badminton".'
+                'Track shared expenses in a group of people.'
+                + ' Every group has its own tab like "Roadtrip 2016" or "Badminton".'
               ),
               el('p', null,
-                'You have no tabs, yet. Start by creating one:'
+                'Start by creating your first tab:'
               )
             )
           ),

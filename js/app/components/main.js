@@ -45,7 +45,7 @@ function (React, Loader, Overview) {
                   'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
                 ),
                 el('p', null,
-                  'You have no transactions, yet. Start by adding one:'
+                  'Start by adding your first transaction:'
                 )
               )
               :

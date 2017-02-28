@@ -389,6 +389,7 @@ td.amount {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	font-size: 22px;
 }
 .app-loader {
 	position: absolute;
@@ -411,4 +412,5 @@ td.amount {
 }
 .app-loader div {
 	margin-top: -68px;  /* height of loader icon */
+	margin-bottom: 6px;
 }

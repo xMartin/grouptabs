@@ -7,8 +7,10 @@ fonts/SourceSansPro-Regular.ttf
 fonts/SourceSansPro-Semibold.ttf
 images/arrow.svg
 images/favicon-touch.png
+images/loader.svg
 js/config.js
 dist/app.js
+node_modules/lie/dist/lie.js
 
 NETWORK:
 *

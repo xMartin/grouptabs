@@ -3,7 +3,7 @@ define(function () {
 
   // immutable object helpers
 
-  function merge (object /*, object1, ...*/) {
+  function merge (/*object, object1, ...*/) {
     var result = {};
 
     for (var i = 0; i < arguments.length; i++) {

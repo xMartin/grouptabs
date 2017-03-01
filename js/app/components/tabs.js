@@ -19,6 +19,8 @@ function (React, TabListButton, CreateForm, ImportForm, CollapsibleRow) {
     propTypes: {
       data: PropTypes.arrayOf(PropTypes.object).isRequired,
       visible: PropTypes.bool,
+      checkingRemoteTab: PropTypes.bool,
+      remoteTabError: PropTypes.string,
       handleTabClick: PropTypes.func.isRequired,
       handleCreateNewTab: PropTypes.func.isRequired,
       handleImportTab: PropTypes.func.isRequired
@@ -28,6 +30,14 @@ function (React, TabListButton, CreateForm, ImportForm, CollapsibleRow) {
       return {
         hideImportForm: true
       };
+    },
+
+    componentWillReceiveProps: function (nextProps) {
+      if (!nextProps.visible && this.props.visible) {
+        this.setState({
+          hideImportForm: true
+        });
+      }
     },
 
     handleShowImportFormClick: function () {
@@ -62,11 +72,11 @@ function (React, TabListButton, CreateForm, ImportForm, CollapsibleRow) {
             :
             el('div', {className: 'empty-info'},
               el('p', null,
-                'With Grouptabs you can track shared expenses in a group of people.'
-                + ' Every group or every topic has its own tab like "Roadtrip 2016" or "Badminton".'
+                'Track shared expenses in a group of people.'
+                + ' Every group has its own tab like "Roadtrip 2016" or "Badminton".'
               ),
               el('p', null,
-                'You have no tabs, yet. Start by creating one:'
+                'Start by creating your first tab:'
               )
             )
           ),
@@ -78,7 +88,11 @@ function (React, TabListButton, CreateForm, ImportForm, CollapsibleRow) {
             collapsed: this.state.hideImportForm,
             handleCollapseButtonClick: this.handleShowImportFormClick
           },
-            el(ImportForm, {handleSubmit: this.handleImportTab})
+            el(ImportForm, {
+                checkingRemoteTab: this.props.checkingRemoteTab,
+                remoteTabError: this.props.remoteTabError,
+                handleSubmit: this.props.handleImportTab
+            })
           )
         )
       );

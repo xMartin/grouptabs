@@ -38,6 +38,7 @@ button {
 }
 button[disabled] {
 	cursor: default;
+	color: #777;
 }
 button.full-width,
 button.full-width-margin {
@@ -83,6 +84,7 @@ button.selected {
 }
 .tab.active {
 	background: inherit;
+	color: inherit;
 	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
@@ -378,4 +380,46 @@ td.amount {
 }
 ::-moz-focus-inner {
 	border: 0;
+}
+
+.error-message {
+	font-size: 80%;
+	color: #f31;
+}
+
+.import-form .error-message {
+	margin-top: 4px;
+	text-align: center;
+}
+
+.loader {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 22px;
+}
+.app-loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #f2f2f2;
+	transition: opacity .5s;
+}
+.app-loader.hidden {
+	opacity: 0;
+}
+.tab-loader {
+	height: 70vh;
+}
+.loader div {
+	width: 68px;
+	height: 68px;
+	background: url(../images/loader.svg);
+}
+.app-loader div {
+	margin-top: -68px;  /* height of loader icon */
+	margin-bottom: 6px;
 }

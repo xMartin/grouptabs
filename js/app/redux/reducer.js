@@ -53,8 +53,14 @@ function (iarray, iobject) {
   }
 
   var initialState = {
-    loading: false,
+    initialLoadingDone: false,
+    checkingRemoteTab: false,
+    remoteTabError: null,
+    importingTab: false,
     currentTab: null,
+    homeView: 'main',
+    currentScene: 'tabs',
+    currentTransaction: null,
     docsById: {},
     tabs: [],
     transactionsByTab: {}
@@ -67,7 +73,10 @@ function (iarray, iobject) {
 
     switch (action.type) {
       case 'UPDATE_FROM_DB':
-        return docsReducer(state, action.actionMap);
+        return iobject.merge(docsReducer(state, action.actionMap), {
+          initialLoadingDone: true,
+          importingTab: false
+        });
 
       case 'CREATE_TAB':
         return iobject.merge(
@@ -76,30 +85,102 @@ function (iarray, iobject) {
             delete: []
           }),
           {
-            currentTab: action.doc.tabId
+            currentTab: action.doc.tabId,
+            currentScene: initialState.homeView
+          }
+        );
+
+      case 'CHECK_REMOTE_TAB':
+        return iobject.merge(state, {
+          checkingRemoteTab: true,
+          remoteTabError: initialState.remoteTabError
+        });
+
+      case 'CHECK_REMOTE_TAB_FAILURE':
+        return iobject.merge(state, {
+          checkingRemoteTab: false,
+          remoteTabError: action.error
+        });
+
+      case 'IMPORT_TAB':
+        return iobject.merge(
+          docsReducer(state, {
+            createOrUpdate: [action.doc],
+            delete: []
+          }),
+          {
+            currentTab: action.doc.tabId,
+            currentScene: initialState.homeView,
+            checkingRemoteTab: false,
+            remoteTabError: initialState.remoteTabError,
+            importingTab: true
           }
         );
 
       case 'NAVIGATE_TO_TABS':
         return iobject.merge(state, {
-          currentTab: null
+          currentTab: null,
+          homeView: initialState.homeView,
+          currentScene: initialState.currentScene
         });
 
       case 'SELECT_TAB':
         return iobject.merge(state, {
-          currentTab: action.id
+          currentTab: action.id,
+          currentScene: initialState.homeView
         });
 
-      case 'PUT_DOC':
-        return docsReducer(state, {
-          createOrUpdate: [action.doc],
-          delete: []
+      case 'CREATE_OR_UPDATE_TRANSACTION':
+        return iobject.merge(
+          docsReducer(state, {
+            createOrUpdate: [action.doc],
+            delete: []
+          }),
+          {
+            currentScene: state.homeView,
+            currentTransaction: initialState.currentTransaction
+          }
+        );
+
+      case 'REMOVE_TRANSACTION':
+        return iobject.merge(
+          docsReducer(state, {
+            createOrUpdate: [],
+            delete: [action.doc]
+          }),
+          {
+            currentScene: state.homeView,
+            currentTransaction: initialState.currentTransaction
+          }
+        );
+
+      case 'NAVIGATE_TO_ADD_TRANSACTION':
+        return iobject.merge(state, {
+          currentScene: 'details'
         });
 
-      case 'DELETE_DOC':
-        return docsReducer(state, {
-          createOrUpdate: [],
-          delete: [action.doc]
+      case 'NAVIGATE_TO_UPDATE_TRANSACTION':
+        return iobject.merge(state, {
+          currentScene: 'details',
+          currentTransaction: action.id
+        });
+
+      case 'NAVIGATE_TO_LIST':
+        return iobject.merge(state, {
+          currentScene: 'list',
+          homeView: 'list'
+        });
+
+      case 'NAVIGATE_TO_MAIN':
+        return iobject.merge(state, {
+          currentScene: 'main',
+          homeView: 'main'
+        });
+
+      case 'CLOSE_TRANSACTION':
+        return iobject.merge(state, {
+          currentScene: state.homeView,
+          currentTransaction: initialState.currentTransaction
         });
 
       default:

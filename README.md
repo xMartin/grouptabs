@@ -17,3 +17,9 @@ Just serve the files in this directory with any static web server.
 For development, open `index.dev.html` in the browser.
 
 For production, run `npm run build` and then use `index.html`.
+
+## License
+
+Grouptabs is licensed under [GPL v3 or any later version](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)). Basically you are free to use, modify, share and improve it for any purpose, as long as you include the original changes and also publish any changes you make under the same license. Contributions are very welcome! :)
+
+For more details and the full license, see the [COPYRIGHT.txt](COPYRIGHT.txt) and [LICENSE.txt](LICENSE.txt) files.

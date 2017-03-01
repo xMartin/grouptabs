@@ -2,7 +2,7 @@
   "name": "grouptabs-app",
   "description": "Web app that lets you track shared expenses, using React/Redux and PouchDB/CouchDB",
   "scripts": {
-    "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.requireLib=../node_modules/requirejs/require paths.react=../node_modules/react/dist/react.min paths.redux=../node_modules/redux/dist/redux.min out=dist/app.js include=requireLib,bootstrap.js",
+    "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.requireLib=../node_modules/requirejs/require paths.react=../node_modules/react/dist/react.min paths.react-dom=../node_modules/react-dom/dist/react-dom.min paths.redux=../node_modules/redux/dist/redux.min out=dist/app.js include=requireLib,bootstrap.js",
     "lint": "jshint js/"
   },
   "repository": {
@@ -16,15 +16,14 @@
   "homepage": "http://grouptabs.xmartin.de/",
   "dependencies": {
     "fastclick": "^1.0.6",
+    "lie": "^3.1.0",
     "pouchdb": "^6.0.0",
     "pouchdb-all-dbs": "xMartin/pouchdb-all-dbs#umd",
     "pure-uuid": "^1.4.2",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
-    "react-redux": "^4.4.5",
-    "react-router": "^3.0.0",
+    "react-redux": "^5.0.1",
     "redux": "^3.6.0",
-    "redux-router": "^2.1.2",
     "redux-thunk": "^2.1.0",
     "requirejs": "^2.2.0"
   },

@@ -47,6 +47,7 @@ function (React) {
           el('span', {className: 'amountInput' + (this.props.status < 2 ? ' hidden' : '')},
             el('input', {
               type: 'number',
+              step: 'any',
               disabled: this.props.status !== 2 ? 'disabled' : '',
               placeholder: 0,
               defaultValue: this.props.amount,

@@ -70,8 +70,11 @@ function (ReactRedux, actionCreators, App) {
       };
     });
 
-    var tab = tabs.find(function (tab) {
-      return tab.id === state.currentTab;
+    var tab;
+    tabs.forEach(function (_tab) {
+      if (_tab.id === state.currentTab) {
+        tab = _tab;
+      }
     });
     var tabName = tab && tab.name || '';
 
@@ -86,8 +89,14 @@ function (ReactRedux, actionCreators, App) {
     var participants = accounts2Participants(accounts);
 
     return {
+      scene: state.currentScene,
+      homeView: state.homeView,
       tabId: state.currentTab,
       tabName: tabName,
+      transaction: state.currentTransaction,
+      checkingRemoteTab: state.checkingRemoteTab,
+      remoteTabError: state.remoteTabError,
+      importingTab: state.importingTab,
       tabs: tabs,
       transactions: transactions,
       accounts: accounts,
@@ -95,37 +104,20 @@ function (ReactRedux, actionCreators, App) {
     };
   }
 
-  function mapDispatchToProps (dispatch) {
-    return {
-      handleCreateNewTab: function (name) {
-        dispatch(actionCreators.handleCreateNewTab(name));
-      },
-
-      handleTabChange: function (id) {
-        dispatch(actionCreators.handleTabChange(id));
-      },
-
-      handleImportTab: function (id) {
-        dispatch(actionCreators.handleImportTab(id));
-      },
-
-      handleChangeTabClick: function () {
-        dispatch(actionCreators.handleChangeTabClick());
-      },
-
-      addTransaction: function (transaction) {
-        dispatch(actionCreators.addTransaction(transaction));
-      },
-
-      updateTransaction: function (transaction) {
-        dispatch(actionCreators.updateTransaction(transaction));
-      },
-
-      removeTransaction: function (transaction) {
-        dispatch(actionCreators.deleteDoc(transaction));
-      }
-    };
-  }
+  var mapDispatchToProps = {
+    onNavigateToTabs: actionCreators.navigateToTabs,
+    onCreateTab: actionCreators.createTab,
+    onImportTab: actionCreators.importTab,
+    onSelectTab: actionCreators.selectTab,
+    onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
+    onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
+    onNavigateToList: actionCreators.navigateToList,
+    onNavigateToMain: actionCreators.navigateToMain,
+    onCloseTransaction: actionCreators.closeTransaction,
+    onAddTransaction: actionCreators.addTransaction,
+    onUpdateTransaction: actionCreators.updateTransaction,
+    onRemoveTransaction: actionCreators.removeTransaction
+  };
 
   return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(App);
 

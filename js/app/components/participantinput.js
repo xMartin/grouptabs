@@ -79,7 +79,7 @@ function (React, ParticipantStatusInput) {
           ),
           el(ParticipantStatusInput, {
             status: this.state.status,
-            amount: this.props.value && this.props.value.amount,
+            amount: this.props.value && this.props.value.amount || undefined,
             handleJoinedChange: this.handleJoinedChange,
             handlePaidChange: this.handlePaidChange,
             ref: 'status'

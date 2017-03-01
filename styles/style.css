@@ -15,7 +15,7 @@ body {
 	margin: 0;
 	color: #131313;
 	font-size: 18px;
-	background: #404045;
+	background: #f2f2f2;
 	font-family: SourceSansPro-Regular, sans-serif;
 }
 
@@ -38,6 +38,7 @@ button {
 }
 button[disabled] {
 	cursor: default;
+	color: #777;
 }
 button.full-width,
 button.full-width-margin {
@@ -82,6 +83,7 @@ button.selected {
 }
 .tab.active {
 	background: inherit;
+	color: inherit;
 	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
@@ -112,14 +114,20 @@ input[type=number] {
 	max-width: 500px;
 	min-width: 320px;
 	margin: 0 auto;
-	height: 100vh;
-	background: #f2f2f2;
+	min-height: 100vh;
+}
+@media (min-width: 500px) and (min-height: 780px) {
+	#scenes {
+		margin-top: 4vh;
+		margin-bottom: 4vh;
+	}
 }
 
 .header {
 	width: 100%;
 	height: 44px;
 	margin-bottom: 1em;
+	position: relative;
 }
 .header h2 {
 	position: absolute;
@@ -362,4 +370,46 @@ td.amount {
 }
 ::-moz-focus-inner {
 	border: 0;
+}
+
+.error-message {
+	font-size: 80%;
+	color: #f31;
+}
+
+.import-form .error-message {
+	margin-top: 4px;
+	text-align: center;
+}
+
+.loader {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 22px;
+}
+.app-loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: #f2f2f2;
+	transition: opacity .5s;
+}
+.app-loader.hidden {
+	opacity: 0;
+}
+.tab-loader {
+	height: 70vh;
+}
+.loader div {
+	width: 68px;
+	height: 68px;
+	background: url(../images/loader.svg);
+}
+.app-loader div {
+	margin-top: -68px;  /* height of loader icon */
+	margin-bottom: 6px;
 }

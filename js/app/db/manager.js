@@ -1,20 +1,22 @@
 define([
   'pouchdb',
   'pouchdb-all-dbs',
+  '../lang/class',
+  '../lang/iobject',
   './tab'
 ],
 
-function (PouchDB, allDbs, Tab) {
+function (PouchDB, allDbs, createClass, iobject, Tab) {
   'use strict';
 
-  var Manager = function (callback) {
-    this.dbs = {};
-    this._changesCallback = callback;
+  return createClass({
 
-    allDbs(PouchDB);
-  };
+    constructor: function (callback) {
+      this.dbs = {};
+      this._changesCallback = callback;
 
-  Object.assign(Manager.prototype, {
+      allDbs(PouchDB);
+    },
 
     init: function () {
       return this.initDbs();
@@ -44,7 +46,7 @@ function (PouchDB, allDbs, Tab) {
     },
 
     createDoc: function (doc) {
-      var dbDoc = Object.assign({}, doc);
+      var dbDoc = iobject.copy(doc);
 
       if (doc.id) {
         dbDoc._id = doc.id;
@@ -57,7 +59,7 @@ function (PouchDB, allDbs, Tab) {
     },
 
     updateDoc: function (doc) {
-      var dbDoc = Object.assign({}, doc);
+      var dbDoc = iobject.copy(doc);
 
       dbDoc._id = doc.id;
       delete dbDoc.id;
@@ -77,6 +79,15 @@ function (PouchDB, allDbs, Tab) {
         this.createDoc(doc)
         .then(db.startSyncing.bind(db))
       );
+    },
+
+    checkTab: function (tabId) {
+      var dbName = 'tab/' + tabId;
+      var remoteDbLocation = window.config.backendUrl + '/' + encodeURIComponent(dbName);
+
+      var db = new PouchDB(remoteDbLocation);
+
+      return db.get('info');
     },
 
     connectTab: function (id) {
@@ -154,7 +165,7 @@ function (PouchDB, allDbs, Tab) {
     },
 
     transformDoc: function (tabId, dbDoc) {
-      var doc = Object.assign({}, dbDoc);
+      var doc = iobject.copy(dbDoc);
       doc.id = doc._id;
       doc.tabId = tabId;
       delete doc._rev;
@@ -163,7 +174,5 @@ function (PouchDB, allDbs, Tab) {
     }
 
   });
-
-  return Manager;
 
  });

@@ -15,20 +15,20 @@
   },
   "homepage": "http://grouptabs.xmartin.de/",
   "dependencies": {
-    "fastclick": "^1.0.6",
-    "lie": "^3.1.0",
-    "pouchdb": "^6.0.0",
+    "fastclick": "1.0.6",
+    "lie": "3.1.1",
+    "pouchdb": "6.1.2",
     "pouchdb-all-dbs": "xMartin/pouchdb-all-dbs#umd",
-    "pure-uuid": "^1.4.2",
-    "react": "^15.0.1",
-    "react-dom": "^15.0.1",
-    "react-redux": "^5.0.1",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0",
-    "requirejs": "^2.2.0"
+    "pure-uuid": "1.4.4",
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
+    "react-redux": "5.0.3",
+    "redux": "3.6.0",
+    "redux-thunk": "2.2.0",
+    "requirejs": "2.3.3"
   },
   "devDependencies": {
-    "jshint": "^2.9.4"
+    "jshint": "2.9.4"
   },
   "license": "GPLv3"
 }

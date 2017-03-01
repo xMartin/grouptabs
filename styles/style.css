@@ -53,6 +53,7 @@ button.full-width-margin {
 button.create {
 	background: #44f;
 	color: #fff;
+	border-radius: 3px;
 }
 button.delete {
 	background: #f44;
@@ -67,9 +68,20 @@ button.selected {
 	font-size: 28px;
 	line-height: 100%;
 }
+
 .editEntryScene .header button.right {
-	float: right;
+	position: fixed;
+	right: 0;
+	z-index: 10;
+	margin: 5px;
+	box-shadow: 0 0 10px rgba(100,100,100,.5);
 }
+@media (min-width: 500px) {
+	.editEntryScene .header button.right {
+	    right: calc(50% - 250px);
+	}
+}
+
 .editEntryScene button.delete {
 	margin-top: 2em;
 }

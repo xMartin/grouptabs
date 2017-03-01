@@ -1,5 +1,5 @@
 window.config = {
 
-  backendUrl: 'http://grouptabs-app.xmartin.de:5984'
+  backendUrl: 'https://grouptabs-app.xmartin.de:5984'
 
 };

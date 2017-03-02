@@ -2,9 +2,11 @@
   "name": "grouptabs-app",
   "description": "Web app that lets you track shared expenses, using React/Redux and PouchDB/CouchDB",
   "scripts": {
+    "postinstall": "npm run config:copy",
     "serve": "http-server",
     "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.requireLib=../node_modules/requirejs/require paths.react=../node_modules/react/dist/react.min paths.react-dom=../node_modules/react-dom/dist/react-dom.min paths.redux=../node_modules/redux/dist/redux.min out=dist/app.js include=requireLib,bootstrap.js",
-    "lint": "jshint js/"
+    "lint": "jshint js/",
+    "config:copy": "if [ ! -f './js/config.js' ]; then cp ./js/config-sample.js ./js/config.js; fi"
   },
   "repository": {
     "type": "git",

@@ -115,7 +115,6 @@ input[type=number] {
 	max-width: 500px;
 	min-width: 320px;
 	margin: 0 auto;
-	min-height: 100vh;
 }
 @media (min-width: 500px) and (min-height: 780px) {
 	#scenes {

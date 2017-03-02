@@ -168,7 +168,7 @@ function (PouchDB, createClass, iobject) {
         if (!this._isSyncing) {
           this.sync();
         }
-      }.bind(this), 4000);
+      }.bind(this), 7500);
     },
 
     _emitChanges: function () {

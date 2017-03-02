@@ -29,5 +29,6 @@
   },
   "devDependencies": {
     "jshint": "^2.9.4"
-  }
+  },
+  "license": "GPLv3"
 }

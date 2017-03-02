@@ -12,8 +12,8 @@ The UI is built using ReactJS and Redux.
 
 1. Run `npm install` in this folder
 2. Copy `js/config-sample.js` to `js/config.js`
-3. Start any static web server in this folder, for example with `python -m SimpleHTTPServer 8000`
-4. Open [localhost:8000/index**.dev**.html](http://localhost:8000/index.dev.html) in your browser
+3. Run `npm run serve` to start a local web server or serve this folder with any static web server.
+4. Open [localhost:8080/index**.dev**.html](http://localhost:8080/index.dev.html) or where ever you're serving the app in your browser
 
 For production, run `npm run build` and then use `index.html`.
 

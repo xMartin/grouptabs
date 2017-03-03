@@ -11,9 +11,8 @@ The UI is built using ReactJS and Redux.
 ## Setup
 
 1. Run `npm install` in this folder
-2. Copy `js/config-sample.js` to `js/config.js`
-3. Run `npm run serve` to start a local web server or serve this folder with any static web server.
-4. Open [localhost:8080/index**.dev**.html](http://localhost:8080/index.dev.html) or where ever you're serving the app in your browser
+2. Run `npm run serve` to start a local web server or serve this folder with any static web server.
+3. Open [localhost:8080/index**.dev**.html](http://localhost:8080/index.dev.html) or where ever you're serving the app in your browser
 
 For production, run `npm run build` and then use `index.html`.
 

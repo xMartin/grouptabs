@@ -133,7 +133,7 @@ function (React, ParticipantInput, NewParticipantInput) {
       }.bind(this));
       participantPropsList.sort(function (a, b) {
         var sortableValue = function (value) {
-          return value ? value.amount : 0;
+          return value ? value.amount : -1;
         };
         return sortableValue(a.value) > sortableValue(b.value) ? -1 : 1;
       });

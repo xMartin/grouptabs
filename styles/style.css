@@ -55,10 +55,6 @@ button.create {
 	color: #fff;
 	border-radius: 3px;
 }
-button.delete {
-	background: #f44;
-	color: #fff;
-}
 button.selected {
 	background: #bbb;
 }
@@ -82,8 +78,9 @@ button.selected {
 	}
 }
 
-.editEntryScene button.delete {
+.editEntryScene .button-row {
 	margin-top: 2em;
+	text-align: center;
 }
 .editEntryScene button.all-joined {
 	float: right;

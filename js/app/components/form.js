@@ -182,7 +182,7 @@ function (React, ParticipantInput, NewParticipantInput) {
           ),
           el('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              el('button', {type: 'button', className: 'delete full-width-margin', onClick: this.props.handleDelete}, 'Delete')
+              el('span', {className: 'fake-link', onClick: this.props.handleDelete}, 'Delete transaction')
               : null
           )
         )

@@ -121,11 +121,18 @@ function (React, ParticipantInput, NewParticipantInput) {
         }
         return props;
       }.bind(this));
+
+      // sort participants by 1) amount paid 2) joined 3) alphabetical
       participantPropsList.sort(function (a, b) {
         var sortableValue = function (value) {
-          return value ? value.amount : 0;
+          return value ? value.amount : -1;
         };
-        return sortableValue(a.value) > sortableValue(b.value) ? -1 : 1;
+        var sortableValueA = sortableValue(a.value);
+        var sortableValueB = sortableValue(b.value);
+        if (sortableValueA === sortableValueB) {
+          return a.participant < b.participant ? -1 : 1;
+        }
+        return sortableValueA > sortableValueB ? -1 : 1;
       });
       var participantInputs = participantPropsList.map(function (props) {
         return el(ParticipantInput, props);

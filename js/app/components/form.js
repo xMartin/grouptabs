@@ -104,6 +104,12 @@ function (React, ParticipantInput, NewParticipantInput) {
       });
     },
 
+    handleDelete: function () {
+      if (confirm('Do you really want to delete the transaction?')) {
+        this.props.handleDelete();
+      }
+    },
+
     render: function () {
       var mode = this.props.mode;
 
@@ -182,7 +188,7 @@ function (React, ParticipantInput, NewParticipantInput) {
           ),
           el('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              el('span', {className: 'fake-link', onClick: this.props.handleDelete}, 'Delete transaction')
+              el('span', {className: 'fake-link', onClick: this.handleDelete}, 'Delete transaction')
               : null
           )
         )

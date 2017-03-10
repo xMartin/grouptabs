@@ -34,5 +34,5 @@
     "http-server": "0.9.0",
     "jshint": "2.9.4"
   },
-  "license": "GPLv3"
+  "license": "GPL-3.0"
 }

@@ -101,6 +101,9 @@ button.selected {
 	text-decoration: underline;
 	cursor: pointer;
 }
+.fake-link.delete {
+	color: #f44;
+}
 
 input[type=text],
 input[type=date],

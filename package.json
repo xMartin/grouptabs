@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/xMartin/grouptabs/issues"
   },
-  "homepage": "http://grouptabs.xmartin.de/",
+  "homepage": "https://grouptabs.net/",
   "dependencies": {
     "fastclick": "1.0.6",
     "lie": "3.1.1",

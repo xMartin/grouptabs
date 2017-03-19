@@ -88,12 +88,6 @@ button.selected {
 	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
-.fake-link {
-	color: #bbb;
-	text-decoration: underline;
-	cursor: pointer;
-}
-
 input[type=text],
 input[type=date],
 input[type=number] {
@@ -172,8 +166,23 @@ input[type=number] {
 	position: relative;
 }
 
-.row-label {
-	margin: 1em 2% 0.3em;
+.row.collapsible label {
+	display: block;
+	margin: 1em 10px 0.3em;
+	cursor: pointer;
+}
+.row.collapsible label:before {
+	content: "▶";
+	transform: rotate(90deg);
+	display: inline-block;
+	margin-right: 4px;
+}
+.row.collapsible.collapsed label:before {
+	transform: rotate(0);
+}
+.row.collapsible.collapsed .inner {
+	height: 0;
+	overflow: hidden;
 }
 
 .editEntryScene .form,

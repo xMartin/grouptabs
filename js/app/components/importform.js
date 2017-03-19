@@ -35,7 +35,6 @@ function (React) {
     render: function () {
       return (
         el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
-          el('div', {className: 'row-label'}, 'Open shared tab:'),
           el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID …', disabled: this.props.checkingRemoteTab, ref: 'input'}),
           el('button', {disabled: this.props.checkingRemoteTab}, this.props.checkingRemoteTab ? 'Checking…' : 'Open'),
           el('div', {className: 'error-message'}, this.props.remoteTabError)

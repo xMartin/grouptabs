@@ -34,6 +34,12 @@ function (React, ParticipantInput, NewParticipantInput) {
       };
     },
 
+    componentDidMount: function () {
+      if (this.props.mode === 'new') {
+        this.refs.description.focus();
+      }
+    },
+
     createUniqueId: function () {
       return '' + Math.round(Math.random() * 100000000);
     },

@@ -105,15 +105,15 @@ function (React, iobject, Form) {
       return (
         el('div', {className: 'scene editEntryScene'},
           el('div', {className: 'header'},
-            el('button', {onClick: this.props.handleCloseClick}, '×'),
-            el('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction')
+            el('button', {className: 'left', onClick: this.props.handleCloseClick}, '×'),
+            el('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction'),
+            el('button', {className: 'right create', onClick: this.handleSubmit}, 'Save')
           ),
           el(Form, {
             mode: this.props.mode,
             data: this.props.data,
             participants: this.props.participants,
             handleCloseClick: this.props.handleCloseClick,
-            handleSubmit: this.handleSubmit,
             handleDelete: this.handleDelete,
             ref: 'form'
           })

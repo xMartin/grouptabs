@@ -19,7 +19,6 @@ function (React, ParticipantInput, NewParticipantInput) {
       data: PropTypes.object,
       participants: PropTypes.arrayOf(PropTypes.string).isRequired,
       handleCloseClick: PropTypes.func.isRequired,
-      handleSubmit: PropTypes.func.isRequired,
       handleDelete: PropTypes.func.isRequired
     },
 
@@ -93,15 +92,6 @@ function (React, ParticipantInput, NewParticipantInput) {
       };
     },
 
-    handleSubmit: function (event) {
-      event.preventDefault();
-      this.props.handleSubmit();
-    },
-
-    handleDelete: function () {
-      this.props.handleDelete();
-    },
-
     handleAddParticipant: function () {
       var newParticipantsIds = this.state.newParticipantsIds.concat(this.createUniqueId());
       this.setState({
@@ -118,6 +108,12 @@ function (React, ParticipantInput, NewParticipantInput) {
       this.getOwnedParticipantComponents().forEach(function (participantComponent) {
         participantComponent.setJoined();
       });
+    },
+
+    handleDelete: function () {
+      if (confirm('Do you really want to delete the transaction?')) {
+        this.props.handleDelete();
+      }
     },
 
     render: function () {
@@ -198,9 +194,8 @@ function (React, ParticipantInput, NewParticipantInput) {
           ),
           el('div', {className: 'row' + (mode === 'edit' ? ' button-row' : '')},
             mode === 'edit' ?
-              el('button', {type: 'button', className: 'delete', onClick: this.handleDelete}, 'Delete')
-              : null,
-            el('button', {className: 'create' + (mode === 'new' ? ' full-width-margin' : '')}, 'Save')
+              el('span', {className: 'fake-link delete', onClick: this.handleDelete}, 'Delete transaction')
+              : null
           )
         )
       );

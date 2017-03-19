@@ -53,26 +53,34 @@ button.full-width-margin {
 button.create {
 	background: #44f;
 	color: #fff;
-}
-button.delete {
-	background: #f44;
-	color: #fff;
+	border-radius: 3px;
 }
 button.selected {
 	background: #bbb;
 }
-.editEntryScene .header button {
+.editEntryScene .header button.left {
+	padding: 0;
+	color: #666;
 	font-size: 28px;
 	line-height: 100%;
-	color: #666;
-	padding: 0;
 }
-.editEntryScene button.delete {
-	width: 30%;
+
+.editEntryScene .header button.right {
+	position: fixed;
+	right: 0;
+	z-index: 10;
+	margin: 5px;
+	box-shadow: 0 0 10px rgba(100,100,100,.5);
 }
-.editEntryScene button.create:not(.full-width-margin) {
-	width: 68%;
-	float: right;
+@media (min-width: 500px) {
+	.editEntryScene .header button.right {
+	    right: calc(50% - 250px);
+	}
+}
+
+.editEntryScene .button-row {
+	margin-top: 2em;
+	text-align: center;
 }
 .editEntryScene button.all-joined {
 	float: right;
@@ -92,6 +100,9 @@ button.selected {
 	color: #bbb;
 	text-decoration: underline;
 	cursor: pointer;
+}
+.fake-link.delete {
+	color: #f44;
 }
 
 input[type=text],

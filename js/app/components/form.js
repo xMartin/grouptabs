@@ -116,10 +116,8 @@ function (React, ParticipantInput, NewParticipantInput) {
       }
     },
 
-    render: function () {
-      var mode = this.props.mode;
-
-      var participantPropsList = this.props.participants.map(function (participant, idx) {
+    renderParticipantInputs: function (participants, mode) {
+      var participantPropsList = participants.map(function (participant, idx) {
         var props = {
           participant: participant,
           key: participant,
@@ -128,7 +126,7 @@ function (React, ParticipantInput, NewParticipantInput) {
         if (mode === 'edit') {
           props.value = this.findParticipantDefaultValue(participant);
         }
-        if (mode === 'new' && this.props.participants.length === 2) {
+        if (mode === 'new' && participants.length === 2) {
           props.value = {amount: 0};
         }
         return props;
@@ -146,16 +144,23 @@ function (React, ParticipantInput, NewParticipantInput) {
         }
         return sortableValueA > sortableValueB ? -1 : 1;
       });
-      var participantInputs = participantPropsList.map(function (props) {
+
+      return participantPropsList.map(function (props) {
         return el(ParticipantInput, props);
       });
+    },
 
-      var newParticipantInputs = this.state.newParticipantsIds.map(function (newParticipantId) {
+    renderNewParticipantInputs: function (newParticipantsIds) {
+      return newParticipantsIds.map(function (newParticipantId) {
         return el(NewParticipantInput, {
           key: newParticipantId,
           ref: 'participant-' + newParticipantId
         });
       });
+    },
+
+    render: function () {
+      var mode = this.props.mode;
 
       return (
         el('form', {onSubmit: this.handleSubmit},
@@ -181,8 +186,8 @@ function (React, ParticipantInput, NewParticipantInput) {
             ),
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input'},
-                participantInputs,
-                newParticipantInputs
+                this.renderParticipantInputs(this.props.participants, mode),
+                this.renderNewParticipantInputs(this.state.newParticipantsIds)
               )
             ),
             el('div', {className: 'form-row'},

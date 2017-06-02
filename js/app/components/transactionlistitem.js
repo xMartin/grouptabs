@@ -17,12 +17,10 @@ function (React) {
       handleDetailsClick: PropTypes.func.isRequired
     },
 
-    getFormattedData: function () {
+    formatData: function (data) {
       var round = function (amount) {
         return Math.round(amount * 100) / 100;
       };
-
-      var data = this.props.data;
 
       var result = {
         title: data.description
@@ -77,7 +75,8 @@ function (React) {
     },
 
     render: function () {
-      var data = this.getFormattedData();
+      var data = this.formatData(this.props.data);
+
       return (
         el('div', {className: 'transaction', onClick: this.handleClick},
           el('table', null,

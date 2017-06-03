@@ -1,10 +1,9 @@
 define([
   'react',
-  './participantinput',
-  './newparticipantinput'
+  './participantsinputlist'
 ],
 
-function (React, ParticipantInput, NewParticipantInput) {
+function (React, ParticipantsInputList) {
   'use strict';
 
   var el = React.createElement;
@@ -52,111 +51,31 @@ function (React, ParticipantInput, NewParticipantInput) {
       return '' + date.getFullYear() + '-' + month + '-' + day;
     },
 
-    findParticipantDefaultValue: function (participant) {
-      var value = null;
-      this.props.data.participants.forEach(function (participantValue) {
-        if (participantValue.participant === participant) {
-          value = participantValue;
-        }
-      });
-      return value;
-    },
-
-    getOwnedParticipantComponents: function () {
-      return Object.keys(this.refs)
-        .filter(function (ref) {
-          return ref.indexOf('participant') === 0;
-        })
-        .map(function (ref) {
-          return this.refs[ref];
-        }.bind(this));
-    },
-
-    getParticipantsValues: function () {
-      var participants = this.getOwnedParticipantComponents().map(function (participantComponent) {
-        return participantComponent.getValue();
-      });
-
-      var nonEmptyParticipants = participants.filter(function (value) {
-        return value.participant || value.status;
-      });
-
-      return nonEmptyParticipants;
-    },
-
     getValues: function () {
       return {
         date: this.refs.date.value,
         description: this.refs.description.value,
-        participants: this.getParticipantsValues()
+        transactionType: this.state.type,
+        participants: this.refs.participantsInputList.getValues()
       };
     },
 
     handleAddParticipant: function () {
-      var newParticipantsIds = this.state.newParticipantsIds.concat(this.createUniqueId());
       this.setState({
-        newParticipantsIds: newParticipantsIds
+        newParticipantsIds: this.state.newParticipantsIds.concat(this.createUniqueId())
       }, function () {
-        var newParticipantsIds = this.state.newParticipantsIds;
-        var lastNewParticipantId = newParticipantsIds[newParticipantsIds.length - 1];
-        var lastInput = this.refs['participant-' + lastNewParticipantId];
-        lastInput.focusParticipantInput();
+        this.refs.participantsInputList.focusLastInput();
       }.bind(this));
     },
 
     handleAllJoined: function () {
-      this.getOwnedParticipantComponents().forEach(function (participantComponent) {
-        participantComponent.setJoined();
-      });
+      this.refs.participantsInputList.setAllJoined();
     },
 
     handleDelete: function () {
       if (confirm('Do you really want to delete the transaction?')) {
         this.props.handleDelete();
       }
-    },
-
-    renderParticipantInputs: function (participants, mode) {
-      var participantPropsList = participants.map(function (participant, idx) {
-        var props = {
-          participant: participant,
-          key: participant,
-          ref: 'participant' + idx
-        };
-        if (mode === 'edit') {
-          props.value = this.findParticipantDefaultValue(participant);
-        }
-        if (mode === 'new' && participants.length === 2) {
-          props.value = {amount: 0};
-        }
-        return props;
-      }.bind(this));
-
-      // sort participants by 1) amount paid 2) joined 3) alphabetical
-      participantPropsList.sort(function (a, b) {
-        var sortableValue = function (value) {
-          return value ? value.amount : -1;
-        };
-        var sortableValueA = sortableValue(a.value);
-        var sortableValueB = sortableValue(b.value);
-        if (sortableValueA === sortableValueB) {
-          return a.participant < b.participant ? -1 : 1;
-        }
-        return sortableValueA > sortableValueB ? -1 : 1;
-      });
-
-      return participantPropsList.map(function (props) {
-        return el(ParticipantInput, props);
-      });
-    },
-
-    renderNewParticipantInputs: function (newParticipantsIds) {
-      return newParticipantsIds.map(function (newParticipantId) {
-        return el(NewParticipantInput, {
-          key: newParticipantId,
-          ref: 'participant-' + newParticipantId
-        });
-      });
     },
 
     render: function () {
@@ -184,12 +103,13 @@ function (React, ParticipantInput, NewParticipantInput) {
                 })
               )
             ),
-            el('div', {className: 'form-row'},
-              el('div', {className: 'form-row-input'},
-                this.renderParticipantInputs(this.props.participants, mode),
-                this.renderNewParticipantInputs(this.state.newParticipantsIds)
-              )
-            ),
+            el(ParticipantsInputList, {
+              ref: 'participantsInputList',
+              mode: mode,
+              tabParticipants: this.props.participants,
+              participants: mode === 'edit' ? this.props.data.participants : [],
+              newParticipantsIds: this.state.newParticipantsIds
+            }),
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input'},
                 el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),

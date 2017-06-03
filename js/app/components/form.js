@@ -28,6 +28,7 @@ function (React, ParticipantsInputList) {
         newParticipantsIds.push(this.createUniqueId());
       }
       return {
+        transactionType: this.props.mode === 'edit' ? this.props.data.transactionType : 'SHARED',
         newParticipantsIds: newParticipantsIds
       };
     },
@@ -55,7 +56,7 @@ function (React, ParticipantsInputList) {
       return {
         date: this.refs.date.value,
         description: this.refs.description.value,
-        transactionType: this.state.type,
+        transactionType: this.state.transactionType,
         participants: this.refs.participantsInputList.getValues()
       };
     },
@@ -65,7 +66,7 @@ function (React, ParticipantsInputList) {
         newParticipantsIds: this.state.newParticipantsIds.concat(this.createUniqueId())
       }, function () {
         this.refs.participantsInputList.focusLastInput();
-      }.bind(this))
+      }.bind(this));
     },
 
     handleAllJoined: function () {
@@ -76,6 +77,12 @@ function (React, ParticipantsInputList) {
       if (confirm('Do you really want to delete the transaction?')) {
         this.props.handleDelete();
       }
+    },
+
+    toggleTransactionType: function (transactionType) {
+      this.setState({
+        transactionType: transactionType
+      });
     },
 
     render: function () {
@@ -101,6 +108,20 @@ function (React, ParticipantsInputList) {
                   defaultValue: this.formatDate(mode === 'edit' ? new Date(this.props.data.date) : new Date()),
                   ref: 'date'
                 })
+              )
+            ),
+            el('div', {className: 'form-row', style: {overflow: 'hidden'}},
+              el('button', {
+                className: 'tab' + (this.state.transactionType === 'SHARED' ? ' active' : ''),
+                disabled: this.state.transactionType === 'SHARED',
+                onClick: this.toggleTransactionType.bind(this, 'SHARED')},
+                'Shared'
+              ),
+              el('button', {
+                className: 'tab' + (this.state.transactionType === 'DIRECT' ? ' active' : ''),
+                disabled: this.state.transactionType === 'DIRECT',
+                onClick: this.toggleTransactionType.bind(this, 'DIRECT')},
+                'Direct'
               )
             ),
             el(ParticipantsInputList, {

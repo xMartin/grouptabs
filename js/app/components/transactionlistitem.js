@@ -42,8 +42,16 @@ function (React) {
       var payments = '';
       var total = 0;
       paymentsList.forEach(function (payment, idx) {
-        idx && (payments += ', ');
         payments += payment.participant + ': ' + round(payment.amount);
+
+        if (idx < paymentsList.length - 1 || data.participants.length > paymentsList.length) {
+          if (idx === paymentsList.length - 1 && data.transactionType === 'DIRECT') {
+            payments += ' → ';
+          } else {
+            payments += ', ';
+          }
+        }
+
         total += payment.amount;
       });
       result.payments = payments;
@@ -63,9 +71,10 @@ function (React) {
             return;
           }
         }
-        participants += ', ' + participant;
+
+        participants += participant + ', ';
       });
-      result.participants = participants;
+      result.participants = participants.substring(0, participants.length - 2);
 
       return result;
     },

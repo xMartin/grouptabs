@@ -38,7 +38,6 @@ function (React, iobject, Form) {
 
       data.participants = this.normalizeParticipants(data.participants);
 
-      data.transactionType = 'SHARED';
       data.date = new Date(data.date).toJSON();
       data.timestamp = new Date().toJSON();
       if (this.props.data) {

@@ -1,14 +1,15 @@
 define([
   'react',
+  'create-react-class',
   './participantstatusinput'
 ],
 
-function (React, ParticipantStatusInput) {
+function (React, createReactClass, ParticipantStatusInput) {
   'use strict';
 
   var el = React.createElement;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'NewParticipantInput',
 

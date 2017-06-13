@@ -1,13 +1,14 @@
 define([
-  'react'
+  'react',
+  'create-react-class'
 ],
 
-function (React) {
+function (React, createReactClass) {
   'use strict';
 
   var el = React.createElement;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'TabListButton',
 

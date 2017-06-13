@@ -1,15 +1,16 @@
 define([
   'react',
+  'create-react-class',
   './summary'
 ],
 
-function (React, Summary) {
+function (React, createReactClass, Summary) {
   'use strict';
 
   var el = React.createElement;
   var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'Overview',
 

@@ -1,18 +1,19 @@
 define([
   'react',
+  'create-react-class',
   './tabs',
   './main',
   './list',
   './editentry'
 ],
 
-function (React, Tabs, Main, List, EditEntry) {
+function (React, createReactClass, Tabs, Main, List, EditEntry) {
   'use strict';
 
   var el = React.createElement;
   var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'App',
 

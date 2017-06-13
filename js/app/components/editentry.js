@@ -1,16 +1,17 @@
 define([
   'react',
+  'create-react-class',
   '../lang/iobject',
   './form'
 ],
 
-function (React, iobject, Form) {
+function (React, createReactClass, iobject, Form) {
   'use strict';
 
   var el = React.createElement;
   var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'EditEntry',
 

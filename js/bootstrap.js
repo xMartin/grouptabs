@@ -5,6 +5,7 @@
     paths: {
       react: '../node_modules/react/dist/react',
       'react-dom': '../node_modules/react-dom/dist/react-dom',
+      'create-react-class': '../node_modules/create-react-class/create-react-class',
       redux: '../node_modules/redux/dist/redux',
       'react-redux': '../node_modules/react-redux/dist/react-redux',
       'redux-thunk': '../node_modules/redux-thunk/dist/redux-thunk',

@@ -1,17 +1,18 @@
 define([
   'react',
+  'create-react-class',
   './tablistbutton',
   './createform',
   './importform'
 ],
 
-function (React, TabListButton, CreateForm, ImportForm) {
+function (React, createReactClass, TabListButton, CreateForm, ImportForm) {
   'use strict';
 
   var el = React.createElement;
   var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'Tabs',
 

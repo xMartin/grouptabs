@@ -1,14 +1,15 @@
 define([
-  'react'
+  'react',
+  'create-react-class'
 ],
 
-function (React) {
+function (React, createReactClass) {
   'use strict';
 
   var el = React.createElement;
   var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
 
     displayName: 'TransactionListItem',
 

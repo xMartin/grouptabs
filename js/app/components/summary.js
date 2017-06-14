@@ -1,9 +1,10 @@
 define([
   'react',
-  'create-react-class'
+  'create-react-class',
+  'prop-types'
 ],
 
-function (React, createReactClass) {
+function (React, createReactClass, PropTypes) {
   'use strict';
 
   var el = React.createElement;
@@ -13,7 +14,7 @@ function (React, createReactClass) {
     displayName: 'Summary',
 
     propTypes: {
-      data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+      data: PropTypes.arrayOf(PropTypes.object).isRequired
     },
 
     formatData: function (accounts) {

@@ -1,15 +1,15 @@
 define([
   'react',
   'create-react-class',
+  'prop-types',
   './loader',
   './overview'
 ],
 
-function (React, createReactClass, Loader, Overview) {
+function (React, createReactClass, PropTypes, Loader, Overview) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
   return createReactClass({
 

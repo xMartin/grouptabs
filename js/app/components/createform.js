@@ -1,9 +1,10 @@
 define([
   'react',
-  'create-react-class'
+  'create-react-class',
+  'prop-types'
 ],
 
-function (React, createReactClass) {
+function (React, createReactClass, PropTypes) {
   'use strict';
 
   var el = React.createElement;
@@ -13,7 +14,7 @@ function (React, createReactClass) {
     displayName: 'CreateForm',
 
     propTypes: {
-      handleSubmit: React.PropTypes.func.isRequired
+      handleSubmit: PropTypes.func.isRequired
     },
 
     handleSubmit: function (event) {

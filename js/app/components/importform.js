@@ -1,9 +1,10 @@
 define([
   'react',
-  'create-react-class'
+  'create-react-class',
+  'prop-types'
 ],
 
-function (React, createReactClass) {
+function (React, createReactClass, PropTypes) {
   'use strict';
 
   var el = React.createElement;
@@ -13,9 +14,9 @@ function (React, createReactClass) {
     displayName: 'ImportForm',
 
     propTypes: {
-      checkingRemoteTab: React.PropTypes.bool,
-      remoteTabError: React.PropTypes.string,
-      handleSubmit: React.PropTypes.func.isRequired
+      checkingRemoteTab: PropTypes.bool,
+      remoteTabError: PropTypes.string,
+      handleSubmit: PropTypes.func.isRequired
     },
 
     componentWillReceiveProps: function (nextProps) {

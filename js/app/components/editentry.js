@@ -1,15 +1,15 @@
 define([
   'react',
   'create-react-class',
+  'prop-types',
   '../lang/iobject',
   './form'
 ],
 
-function (React, createReactClass, iobject, Form) {
+function (React, createReactClass, PropTypes, iobject, Form) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
   return createReactClass({
 

@@ -1,17 +1,17 @@
 define([
   'react',
   'create-react-class',
+  'prop-types',
   './tabs',
   './main',
   './list',
   './editentry'
 ],
 
-function (React, createReactClass, Tabs, Main, List, EditEntry) {
+function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
   return createReactClass({
 

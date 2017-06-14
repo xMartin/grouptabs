@@ -1,15 +1,15 @@
 define([
   'react',
   'create-react-class',
+  'prop-types',
   './participantinput',
   './newparticipantinput'
 ],
 
-function (React, createReactClass, ParticipantInput, NewParticipantInput) {
+function (React, createReactClass, PropTypes, ParticipantInput, NewParticipantInput) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
   return createReactClass({
 

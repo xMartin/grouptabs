@@ -1,9 +1,10 @@
 define([
   'react',
-  'create-react-class'
+  'create-react-class',
+  'prop-types'
 ],
 
-function (React, createReactClass) {
+function (React, createReactClass, PropTypes) {
   'use strict';
 
   var el = React.createElement;
@@ -13,7 +14,7 @@ function (React, createReactClass) {
     displayName: 'Loader',
 
     propTypes: {
-      show: React.PropTypes.bool
+      show: PropTypes.bool
     },
 
     render: function () {

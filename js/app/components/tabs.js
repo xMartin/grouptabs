@@ -1,16 +1,16 @@
 define([
   'react',
   'create-react-class',
+  'prop-types',
   './tablistbutton',
   './createform',
   './importform'
 ],
 
-function (React, createReactClass, TabListButton, CreateForm, ImportForm) {
+function (React, createReactClass, PropTypes, TabListButton, CreateForm, ImportForm) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
   return createReactClass({
 

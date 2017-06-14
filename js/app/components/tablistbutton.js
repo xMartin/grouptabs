@@ -1,9 +1,10 @@
 define([
   'react',
-  'create-react-class'
+  'create-react-class',
+  'prop-types'
 ],
 
-function (React, createReactClass) {
+function (React, createReactClass, PropTypes) {
   'use strict';
 
   var el = React.createElement;
@@ -13,8 +14,8 @@ function (React, createReactClass) {
     displayName: 'TabListButton',
 
     propTypes: {
-      data: React.PropTypes.object.isRequired,
-      onClick: React.PropTypes.func.isRequired
+      data: PropTypes.object.isRequired,
+      onClick: PropTypes.func.isRequired
     },
 
     onClick: function () {

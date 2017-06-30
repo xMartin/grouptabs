@@ -18,23 +18,23 @@
   },
   "homepage": "https://grouptabs.net/",
   "dependencies": {
-    "create-react-class": "15.6.0",
-    "fastclick": "1.0.6",
-    "lie": "3.1.1",
-    "pouchdb": "6.2.0",
+    "create-react-class": "^15.6.0",
+    "fastclick": "^1.0.6",
+    "lie": "^3.1.1",
+    "pouchdb": "^6.2.0",
     "pouchdb-all-dbs": "xMartin/pouchdb-all-dbs#umd",
-    "prop-types": "15.5.10",
-    "pure-uuid": "1.4.6",
-    "react": "15.6.0",
-    "react-dom": "15.6.0",
-    "react-redux": "5.0.5",
-    "redux": "3.6.0",
-    "redux-thunk": "2.2.0",
-    "requirejs": "2.3.3"
+    "prop-types": "^15.5.10",
+    "pure-uuid": "^1.4.6",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1",
+    "redux-thunk": "^2.2.0",
+    "requirejs": "^2.3.3"
   },
   "devDependencies": {
-    "http-server": "0.10.0",
-    "jshint": "2.9.4"
+    "http-server": "^0.10.0",
+    "jshint": "^2.9.5"
   },
   "license": "GPL-3.0"
 }

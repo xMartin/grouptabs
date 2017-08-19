@@ -9,6 +9,7 @@
       'prop-types': '../node_modules/prop-types/prop-types',
       redux: '../node_modules/redux/dist/redux',
       'react-redux': '../node_modules/react-redux/dist/react-redux',
+      Reselect: '../node_modules/reselect/dist/reselect',
       'redux-thunk': '../node_modules/redux-thunk/dist/redux-thunk',
       pouchdb: '../node_modules/pouchdb/dist/pouchdb',
       'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',

@@ -26,6 +26,7 @@
     "prop-types": "^15.5.10",
     "pure-uuid": "^1.4.6",
     "react": "^15.6.1",
+    "react-addons-pure-render-mixin": "^15.6.0",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "redux": "^3.7.1",

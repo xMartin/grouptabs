@@ -6,6 +6,7 @@
       react: '../node_modules/react/dist/react',
       'react-dom': '../node_modules/react-dom/dist/react-dom',
       'create-react-class': '../node_modules/create-react-class/create-react-class',
+      'pure-render-mixin': '../node_modules/react-addons-pure-render-mixin/react-addons-pure-render-mixin',
       'prop-types': '../node_modules/prop-types/prop-types',
       redux: '../node_modules/redux/dist/redux',
       'react-redux': '../node_modules/react-redux/dist/react-redux',

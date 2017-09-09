@@ -1,17 +1,19 @@
 define([
   'react',
   'create-react-class',
+  'pure-render-mixin',
   'prop-types',
   '../lang/iobject',
   './form'
 ],
 
-function (React, createReactClass, PropTypes, iobject, Form) {
+function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Form) {
   'use strict';
 
   var el = React.createElement;
 
   return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'EditEntry',
 

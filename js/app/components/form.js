@@ -1,16 +1,18 @@
 define([
   'react',
   'create-react-class',
+  'pure-render-mixin',
   'prop-types',
   './participantsinputlist'
 ],
 
-function (React, createReactClass, PropTypes, ParticipantsInputList) {
+function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInputList) {
   'use strict';
 
   var el = React.createElement;
 
   return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'Form',
 

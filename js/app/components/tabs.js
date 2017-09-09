@@ -1,18 +1,20 @@
 define([
   'react',
   'create-react-class',
+  'pure-render-mixin',
   'prop-types',
   './tablistbutton',
   './createform',
   './importform'
 ],
 
-function (React, createReactClass, PropTypes, TabListButton, CreateForm, ImportForm) {
+function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, CreateForm, ImportForm) {
   'use strict';
 
   var el = React.createElement;
 
   return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'Tabs',
 

@@ -76,8 +76,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantStatus
 
     render: function () {
       return (
-        React.createElement('div', {className: 'participantInput' + (this.state.status > 0 ? ' selected' : '')},
-          React.createElement('span', {className: 'participant'},
+        el('div', {className: 'participantInput' + (this.state.status > 0 ? ' selected' : '')},
+          el('span', {className: 'participant'},
             this.props.participant
           ),
           el(ParticipantStatusInput, {

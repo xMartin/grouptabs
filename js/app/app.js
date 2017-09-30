@@ -23,7 +23,8 @@ function (ReactRedux, selector, actionCreators, App) {
       tabs: selected.tabs,
       transactions: selected.transactions,
       accounts: selected.accounts,
-      participants: selected.participants
+      participants: selected.participants,
+      error: state.error
     };
   }
 
@@ -39,7 +40,8 @@ function (ReactRedux, selector, actionCreators, App) {
     onCloseTransaction: actionCreators.closeTransaction,
     onAddTransaction: actionCreators.addTransaction,
     onUpdateTransaction: actionCreators.updateTransaction,
-    onRemoveTransaction: actionCreators.removeTransaction
+    onRemoveTransaction: actionCreators.removeTransaction,
+    onError: actionCreators.setError
   };
 
   return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(App);

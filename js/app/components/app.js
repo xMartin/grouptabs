@@ -5,10 +5,11 @@ define([
   './tabs',
   './main',
   './list',
-  './editentry'
+  './editentry',
+  './error'
 ],
 
-function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry) {
+function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry, ErrorView) {
   'use strict';
 
   var el = React.createElement;
@@ -29,6 +30,10 @@ function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry) {
       transactions: PropTypes.arrayOf(PropTypes.object),
       accounts: PropTypes.arrayOf(PropTypes.object),
       participants: PropTypes.arrayOf(PropTypes.string),
+      error: PropTypes.shape({
+        error: PropTypes.object,
+        info: PropTypes.object
+      }),
       onNavigateToTabs: PropTypes.func.isRequired,
       onCreateTab: PropTypes.func.isRequired,
       onImportTab: PropTypes.func.isRequired,
@@ -40,10 +45,23 @@ function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry) {
       onCloseTransaction: PropTypes.func.isRequired,
       onAddTransaction: PropTypes.func.isRequired,
       onUpdateTransaction: PropTypes.func.isRequired,
-      onRemoveTransaction: PropTypes.func.isRequired
+      onRemoveTransaction: PropTypes.func.isRequired,
+      onError: PropTypes.func.isRequired
+    },
+
+    componentDidCatch: function (error, info) {
+      this.props.onError(error, info);
     },
 
     render: function () {
+      if (this.props.error) {
+        return (
+          el('div', {id: 'scenes'},
+            el(ErrorView, {error: this.props.error})
+          )
+        );
+      }
+
       return (
         el('div', {id: 'scenes'},
           el(Tabs, {

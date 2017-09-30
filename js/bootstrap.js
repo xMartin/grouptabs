@@ -3,8 +3,8 @@
 
   require.config({
     paths: {
-      react: '../node_modules/react/dist/react',
-      'react-dom': '../node_modules/react-dom/dist/react-dom',
+      react: '../node_modules/react/umd/react.development',
+      'react-dom': '../node_modules/react-dom/umd/react-dom.development',
       'create-react-class': '../node_modules/create-react-class/create-react-class',
       'pure-render-mixin': '../node_modules/react-addons-pure-render-mixin/react-addons-pure-render-mixin',
       'prop-types': '../node_modules/prop-types/prop-types',

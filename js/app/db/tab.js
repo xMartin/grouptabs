@@ -9,6 +9,8 @@ function (PouchDB, createClass, iobject) {
 
   return createClass({
 
+    syncInteral: 7500,
+
     constructor: function (localDbName, remoteDbLocation, changesCallback) {
       if (!localDbName || typeof localDbName !== 'string') {
         throw new Error('missing localDbName parameter');
@@ -26,7 +28,9 @@ function (PouchDB, createClass, iobject) {
       this.remoteDb = new PouchDB(remoteDbLocation);
     },
 
-    connect: function () {
+    connect: function (options) {
+      options = options || {};
+
       var allDocs;
 
       return (
@@ -41,7 +45,11 @@ function (PouchDB, createClass, iobject) {
         .then(function (info) {
           this._lastSequenceNumber = info.update_seq;
         }.bind(this))
-        .then(this.startSyncing.bind(this))
+        .then(function () {
+          if (options.continuous) {
+            return this.startSyncing({delayed: true});
+          }
+        }.bind(this))
         .then(function () {
           return allDocs;
         })
@@ -97,24 +105,26 @@ function (PouchDB, createClass, iobject) {
     },
 
     replicateFromRemote: function () {
-      console.info('replication start');
+      var dbName = this.db.name;
+
+      console.info('replication from remote start', dbName);
 
       return new Promise(function (resolve) {
         this.db.replicate.from(this.remoteDb, {
           batch_size: 100
         })
         .on('paused', function () {
-          console.info('replication paused');
+          console.info('replication from remote paused', dbName);
         })
         .on('active', function () {
-          console.info('replication active');
+          console.info('replication from remote active', dbName);
         })
         .on('complete', function () {
-          console.info('replication complete');
+          console.info('replication from remote complete', dbName);
           resolve();
         })
         .on('error', function (err) {
-          console.error('replication error', err);
+          console.error('replication from remote error', dbName, err);
           // resolve even in error case
           // incomplete replication can be handled by next sync
           resolve();
@@ -134,9 +144,36 @@ function (PouchDB, createClass, iobject) {
       });
     },
 
-    startSyncing: function () {
-      this.sync();
+    setSyncState: function (state) {
+      this.syncState = state;
+
+      if (state === 'complete' && this.shouldStopSyncingWhenSynced) {
+        this.stopSyncing();
+        this.shouldStopSyncingWhenSynced = false;
+      }
+    },
+
+    startSyncing: function (options) {
+      options = options || {};
+
+      if (!options.delayed) {
+        this.sync();
+      }
+
       this._startSyncInterval();
+    },
+
+    stopSyncing: function () {
+      this._syncHandle.cancel();
+      clearInterval(this._syncIntervalHandle);
+    },
+
+    stopSyncingWhenSynced: function () {
+      if (this.syncState === 'complete') {
+        this.stopSyncing();
+      } else {
+        this.shouldStopSyncingWhenSynced = true;
+      }
     },
 
     /**
@@ -144,31 +181,33 @@ function (PouchDB, createClass, iobject) {
      * and its remote counterpart
      */
     sync: function () {
+      console.info('sync start', this.db.name);
+      this.setSyncState('active');
+
       this._isSyncing = true;
-      this.syncHandle = this.db.sync(this.remoteDb, {
+      this._syncHandle = this.db.sync(this.remoteDb, {
         batch_size: 100
       })
       .on('error', function (err) {
-        console.error('replication error', err);
+        console.error('sync error', this.db.name, err);
         this._isSyncing = false;
         this._emitChanges();
+        this.setSyncState('error');
       }.bind(this))
       .on('complete', function () {
+        console.info('sync complete', this.db.name);
         this._isSyncing = false;
         this._emitChanges();
+        this.setSyncState('complete');
       }.bind(this));
     },
 
-    cancelSync: function () {
-      this.syncHandle.cancel();
-    },
-
     _startSyncInterval: function () {
-      setInterval(function () {
+      this._syncIntervalHandle = setInterval(function () {
         if (!this._isSyncing) {
           this.sync();
         }
-      }.bind(this), 7500);
+      }.bind(this), this.syncInteral);
     },
 
     _emitChanges: function () {
@@ -194,7 +233,7 @@ function (PouchDB, createClass, iobject) {
      * events on objects.
      */
     destroy: function () {
-      this.cancelSync();
+      this.stopSyncing();
       this.db.destroy();
     }
 

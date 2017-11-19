@@ -21,7 +21,7 @@ function (UUID, iobject, DbManager) {
 
   return {
     connectDb: function () {
-      return function (dispatch) {
+      return function (dispatch, getState) {
         db = new DbManager(function (actionMap) {
           dispatch({
             type: 'UPDATE_FROM_DB',
@@ -31,6 +31,12 @@ function (UUID, iobject, DbManager) {
 
         db.init()
         .then(db.connect.bind(db))
+        .then(function () {
+          var currentTab = getState().currentTab;
+          if (currentTab) {
+            return db.connectTab(currentTab);
+          }
+        })
         .catch(console.error.bind(console));
       };
     },
@@ -59,11 +65,25 @@ function (UUID, iobject, DbManager) {
     },
 
     selectTab: function (id) {
-      localStorage.setItem('tabId', id);
+      return function (dispatch) {
+        localStorage.setItem('tabId', id);
 
-      return {
-        type: 'SELECT_TAB',
-        id: id
+        // if no db, yet, we assume we're bootstrapping the app and the db will be connected after
+        if (db) {
+          db.connectTab(id)
+          .then(function (actionMap) {
+            dispatch({
+              type: 'UPDATE_FROM_DB',
+              actionMap: actionMap
+            });
+          })
+          .catch(console.error.bind(console));
+        }
+
+        dispatch({
+          type: 'SELECT_TAB',
+          id: id
+        });
       };
     },
 
@@ -117,10 +137,15 @@ function (UUID, iobject, DbManager) {
     },
 
     navigateToTabs: function () {
-      localStorage.removeItem('tabId');
+      return function (dispatch, getState) {
+        localStorage.removeItem('tabId');
 
-      return {
-        type: 'NAVIGATE_TO_TABS'
+        var currentTab = getState().currentTab;
+        db.disconnectTab(currentTab);
+
+        dispatch({
+          type: 'NAVIGATE_TO_TABS'
+        });
       };
     },
 

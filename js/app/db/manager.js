@@ -91,10 +91,10 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
     },
 
     connectTab: function (id) {
-      var db = this.initDb('tab/' + id);
+      var db = this.dbs[id] || this.initDb('tab/' + id);
 
       return (
-        db.connect()
+        db.connect({continuous: true})
         .then(function (docs) {
           return {
             createOrUpdate: this.transformDocs(id, docs),
@@ -102,6 +102,12 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
           };
         }.bind(this))
       );
+    },
+
+    disconnectTab: function (id) {
+      var db = this.dbs[id];
+
+      db.stopSyncingWhenSynced();
     },
 
     /**

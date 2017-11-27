@@ -1,18 +1,22 @@
 define([
-  'react'
+  'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types'
 ],
 
-function (React) {
+function (React, createReactClass, PureRenderMixin, PropTypes) {
   'use strict';
 
   var el = React.createElement;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'Summary',
 
     propTypes: {
-      data: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+      data: PropTypes.arrayOf(PropTypes.object).isRequired
     },
 
     formatData: function (accounts) {

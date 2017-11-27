@@ -1,14 +1,17 @@
 define([
-  'react'
+  'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types'
 ],
 
-function (React) {
+function (React, createReactClass, PureRenderMixin, PropTypes) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'TransactionListItem',
 
@@ -54,7 +57,7 @@ function (React) {
 
         total += payment.amount;
       });
-      result.payments = payments;
+      result.payments = el('strong', null, payments);
       result.total = round(total);
 
       var participantsList = data.participants.map(function (participant) {

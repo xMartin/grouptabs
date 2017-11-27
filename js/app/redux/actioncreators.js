@@ -195,6 +195,14 @@ function (UUID, iobject, DbManager) {
       return {
         type: 'CLOSE_TRANSACTION'
       };
+    },
+
+    setError: function (error, info) {
+      return {
+        type: 'SET_ERROR',
+        error: error,
+        info: info
+      };
     }
   };
 

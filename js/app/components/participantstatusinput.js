@@ -1,14 +1,17 @@
 define([
-  'react'
+  'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types'
 ],
 
-function (React) {
+function (React, createReactClass, PureRenderMixin, PropTypes) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'ParticipationStatusInput',
 

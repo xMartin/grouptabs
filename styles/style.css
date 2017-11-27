@@ -19,6 +19,10 @@ body {
 	font-family: SourceSansPro-Regular, sans-serif;
 }
 
+strong {
+	font-family: SourceSansPro-Semibold, sans-serif;
+}
+
 th {
 	text-align: left;
 	font-weight: normal;

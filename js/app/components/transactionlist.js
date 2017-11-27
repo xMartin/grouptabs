@@ -1,15 +1,18 @@
 define([
   'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types',
   './transactionlistitem'
 ],
 
-function (React, TransactionListItem) {
+function (React, createReactClass, PureRenderMixin, PropTypes, TransactionListItem) {
   'use strict';
 
   var el = React.createElement;
-  var PropTypes = React.PropTypes;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'TransactionList',
 

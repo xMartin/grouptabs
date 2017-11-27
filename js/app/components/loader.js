@@ -1,18 +1,22 @@
 define([
-  'react'
+  'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types'
 ],
 
-function (React) {
+function (React, createReactClass, PureRenderMixin, PropTypes) {
   'use strict';
 
   var el = React.createElement;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'Loader',
 
     propTypes: {
-      show: React.PropTypes.bool
+      show: PropTypes.bool
     },
 
     render: function () {

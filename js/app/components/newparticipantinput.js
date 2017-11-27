@@ -1,14 +1,18 @@
 define([
   'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types',
   './participantstatusinput'
 ],
 
-function (React, ParticipantStatusInput) {
+function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantStatusInput) {
   'use strict';
 
   var el = React.createElement;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'NewParticipantInput',
 

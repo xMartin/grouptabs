@@ -1,20 +1,24 @@
 define([
-  'react'
+  'react',
+  'create-react-class',
+  'pure-render-mixin',
+  'prop-types'
 ],
 
-function (React) {
+function (React, createReactClass, PureRenderMixin, PropTypes) {
   'use strict';
 
   var el = React.createElement;
 
-  return React.createClass({
+  return createReactClass({
+    mixins: [PureRenderMixin],
 
     displayName: 'ImportForm',
 
     propTypes: {
-      checkingRemoteTab: React.PropTypes.bool,
-      remoteTabError: React.PropTypes.string,
-      handleSubmit: React.PropTypes.func.isRequired
+      checkingRemoteTab: PropTypes.bool,
+      remoteTabError: PropTypes.string,
+      handleSubmit: PropTypes.func.isRequired
     },
 
     componentWillReceiveProps: function (nextProps) {

@@ -63,7 +63,8 @@ function (iarray, iobject) {
     currentTransaction: null,
     docsById: {},
     tabs: [],
-    transactionsByTab: {}
+    transactionsByTab: {},
+    error: null
   };
 
   return function (state, action) {
@@ -181,6 +182,14 @@ function (iarray, iobject) {
         return iobject.merge(state, {
           currentScene: state.homeView,
           currentTransaction: initialState.currentTransaction
+        });
+
+      case 'SET_ERROR':
+        return iobject.merge(state, {
+          error: {
+            error: action.error,
+            info: action.info
+          }
         });
 
       default:

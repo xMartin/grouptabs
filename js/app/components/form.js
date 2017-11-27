@@ -116,12 +116,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
             el('div', {className: 'form-row', style: {overflow: 'hidden'}},
               el('button', {
                 className: 'tab' + (this.state.transactionType === 'SHARED' ? ' active' : ''),
+                type: 'button',
                 disabled: this.state.transactionType === 'SHARED',
                 onClick: this.toggleTransactionType.bind(this, 'SHARED')},
                 'Shared'
               ),
               el('button', {
                 className: 'tab' + (this.state.transactionType === 'DIRECT' ? ' active' : ''),
+                type: 'button',
                 disabled: this.state.transactionType === 'DIRECT',
                 onClick: this.toggleTransactionType.bind(this, 'DIRECT')},
                 'Direct'

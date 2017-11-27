@@ -89,6 +89,11 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     render: function () {
       var data = this.formatData(this.props.data);
 
+      var total = data.total;
+      if (this.props.data.transactionType === 'DIRECT') {
+        total = '(' + total + ')';
+      }
+
       return (
         el('div', {className: 'transaction', onClick: this.handleClick},
           el('table', null,
@@ -102,7 +107,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
                   )
                 ),
                 el('td', {className: 'total'},
-                  data.total
+                  total
                 )
               )
             )

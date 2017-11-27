@@ -21,6 +21,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       handleSubmit: PropTypes.func.isRequired
     },
 
+    componentDidMount: function () {
+      this.refs.input.focus();
+    },
+
     componentWillReceiveProps: function (nextProps) {
       if (!nextProps.checkingRemoteTab && this.props.checkingRemoteTab && !nextProps.remoteTabError) {
         this.refs.input.value = '';

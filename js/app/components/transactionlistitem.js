@@ -49,7 +49,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
         payments += payment.participant + ': ' + round(payment.amount);
         total += payment.amount;
       });
-      result.payments = payments;
+      result.payments = el('strong', null, payments);
       result.total = round(total);
 
       var participantsList = data.participants.map(function (participant) {

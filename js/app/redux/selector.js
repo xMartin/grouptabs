@@ -33,6 +33,9 @@ function (reselect) {
         total += participant.amount || 0;
       });
       if (transaction.transactionType === 'DIRECT') {
+        // Same data structure as SHARED.
+        // Everyone who paid gets this amount added.
+        // Everyone who received gets a the share between all receipients substracted.
         var joinedParticipants = [];
         transaction.participants.forEach(function (participant) {
           if (participant.amount) {

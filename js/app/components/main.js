@@ -58,7 +58,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
 
       var scrollBottomY = window.innerHeight + window.scrollY;
       var headingY = this.refs.transactionsHeading.offsetTop;
-      var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY;
+      var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
       if (transactionsHeadingIsOutOfViewport !== this.state.transactionsHeadingIsOutOfViewport) {
         this.setState({
           transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport

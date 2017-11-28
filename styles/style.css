@@ -363,6 +363,7 @@ td.amount {
 .transactions-heading-fixed a {
 	color: #000;
 	text-decoration: none;
+	margin-left: -17px;
 }
 
 #transactions .transaction {

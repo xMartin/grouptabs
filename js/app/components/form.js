@@ -95,14 +95,21 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
         el('form', {onSubmit: this.handleSubmit},
           el('div', {className: 'form'},
             el('div', {className: 'form-row'},
-              el('div', {className: 'form-row-input'},
+              el('div', {className: 'form-row-input description'},
                 el('input', {
                   type: 'text',
                   placeholder: 'Description',
                   defaultValue: mode === 'edit' ? this.props.data.description : '',
                   ref: 'description'
                 })
-              )
+              ),
+              el('div', {className: 'form-row-input transaction-type'},
+                el('select', {
+                  onChange: this.toggleTransactionType.bind(this, 'SHARED')},
+                  el('option', null, 'Shared'),
+                  el('option', null, 'Direct')
+                )
+              ),
             ),
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input'},
@@ -111,22 +118,6 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
                   defaultValue: this.formatDate(mode === 'edit' ? new Date(this.props.data.date) : new Date()),
                   ref: 'date'
                 })
-              )
-            ),
-            el('div', {className: 'form-row', style: {overflow: 'hidden'}},
-              el('button', {
-                className: 'tab' + (this.state.transactionType === 'SHARED' ? ' active' : ''),
-                type: 'button',
-                disabled: this.state.transactionType === 'SHARED',
-                onClick: this.toggleTransactionType.bind(this, 'SHARED')},
-                'Shared'
-              ),
-              el('button', {
-                className: 'tab' + (this.state.transactionType === 'DIRECT' ? ' active' : ''),
-                type: 'button',
-                disabled: this.state.transactionType === 'DIRECT',
-                onClick: this.toggleTransactionType.bind(this, 'DIRECT')},
-                'Direct'
               )
             ),
             el(ParticipantsInputList, {

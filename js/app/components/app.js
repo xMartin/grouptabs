@@ -4,12 +4,11 @@ define([
   'prop-types',
   './tabs',
   './main',
-  './list',
   './editentry',
   './error'
 ],
 
-function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry, ErrorView) {
+function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) {
   'use strict';
 
   var el = React.createElement;
@@ -76,21 +75,12 @@ function (React, createReactClass, PropTypes, Tabs, Main, List, EditEntry, Error
           el(Main, {
             tabName: this.props.tabName,
             tabId: this.props.tabId,
-            data: this.props.accounts,
+            accounts: this.props.accounts,
+            transactions: this.props.transactions,
             visible: this.props.scene === 'main',
             importingTab: this.props.importingTab,
             handleChangeTabClick: this.props.onNavigateToTabs,
             handleNewEntryClick: this.props.onNavigateToAddTransaction,
-            handleListClick: this.props.onNavigateToList
-          }),
-          el(List, {
-            tabName: this.props.tabName,
-            tabId: this.props.tabId,
-            data: this.props.transactions,
-            visible: this.props.scene === 'list',
-            handleChangeTabClick: this.props.onNavigateToTabs,
-            handleNewEntryClick: this.props.onNavigateToAddTransaction,
-            handlePeopleClick: this.props.onNavigateToMain,
             handleDetailsClick: this.props.onNavigateToUpdateTransaction
           }),
           (this.props.scene === 'details') ?

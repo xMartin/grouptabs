@@ -338,6 +338,19 @@ td.amount {
 	padding: 10px;
 }
 
+.transactions-heading {
+	text-align: center;
+}
+.transactions-heading-fixed {
+	position: fixed;
+	bottom: 0;
+	margin: 0;
+	width: 100%;
+}
+.transactions-heading-fixed span {
+	background: #f2f2f2;
+}
+
 #transactions .transaction {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;

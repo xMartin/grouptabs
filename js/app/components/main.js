@@ -4,10 +4,11 @@ define([
   'pure-render-mixin',
   'prop-types',
   './loader',
-  './overview'
+  './summary',
+  './transactionlist'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Overview) {
+function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, TransactionList) {
   'use strict';
 
   var el = React.createElement;
@@ -20,12 +21,45 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Overview)
     propTypes: {
       tabName: PropTypes.string,
       tabId: PropTypes.string,
-      data: PropTypes.arrayOf(PropTypes.object).isRequired,
+      accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
+      transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
       visible: PropTypes.bool,
       importingTab: PropTypes.bool,
       handleChangeTabClick: PropTypes.func.isRequired,
       handleNewEntryClick: PropTypes.func.isRequired,
-      handleListClick: PropTypes.func.isRequired
+      handleDetailsClick: PropTypes.func.isRequired
+    },
+
+    getInitialState: function () {
+      return {
+        transactionsHeadingIsOutOfViewport: false
+      };
+    },
+
+    componentDidMount: function () {
+      window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
+      this.checkTransactionsHeadingVisibility();
+    },
+
+    componentWillUnmount: function () {
+      window.removeEventListener('scroll', this.checkTransactionsHeadingVisibility);
+    },
+
+    componentWillReceiveProps: function (nextProps) {
+      if (nextProps.accounts !== this.props.accounts) {
+        setTimeout(this.checkTransactionsHeadingVisibility);
+      }
+    },
+
+    checkTransactionsHeadingVisibility: function () {
+      var scrollBottomY = window.innerHeight + window.scrollY;
+      var headingY = this.refs.transactionsHeading.offsetTop;
+      var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY;
+      if (transactionsHeadingIsOutOfViewport !== this.state.transactionsHeadingIsOutOfViewport) {
+        this.setState({
+          transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport
+        });
+      }
     },
 
     render: function () {
@@ -41,7 +75,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Overview)
           ),
           el(Loader, {show: this.props.importingTab},
             (
-              this.props.data.length === 0
+              this.props.accounts.length === 0
               ?
               el('div', { className: 'empty-info'},
                 el('p', null,
@@ -54,20 +88,35 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Overview)
               :
               null
             ),
-            el('div', {className: 'row'},
+            el('div', {className: 'row', style: {marginBottom: '1em'}},
               el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
                 'Add transaction'
               )
             ),
             (
-              this.props.data.length
+              this.props.accounts.length
               ?
-              el(Overview, {data: this.props.data, handleListClick: this.props.handleListClick})
+              el('div', {className: 'row'},
+                el(Summary, {data: this.props.accounts})
+              )
               :
               null
             ),
+            el('div', {className: 'row'},
+              el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
+              (
+                this.state.transactionsHeadingIsOutOfViewport
+                ?
+                el('h3', {className: 'transactions-heading transactions-heading-fixed'}, 
+                  el('span', null, 'Transactions')
+                )
+                :
+                null
+              ),
+              el(TransactionList, {data: this.props.transactions, handleDetailsClick: this.props.handleDetailsClick})
+            ),
             (
-              this.props.data.length
+              this.props.accounts.length
               ?
               el('div', {className: 'share-info'},
                 el('p', null,

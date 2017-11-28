@@ -52,6 +52,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
     },
 
     checkTransactionsHeadingVisibility: function () {
+      if (!this.refs.transactionsHeading) {
+        return;
+      }
+
       var scrollBottomY = window.innerHeight + window.scrollY;
       var headingY = this.refs.transactionsHeading.offsetTop;
       var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY;
@@ -105,18 +109,24 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
               :
               null
             ),
-            el('div', {className: 'row'},
-              el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
-              (
-                this.state.transactionsHeadingIsOutOfViewport
-                ?
-                el('h3', {className: 'transactions-heading transactions-heading-fixed'},
-                  el('span', null, 'Transactions')
-                )
-                :
-                null
-              ),
-              el(TransactionList, {data: this.props.transactions, handleDetailsClick: this.props.handleDetailsClick})
+            (
+              this.props.transactions.length
+              ?
+              el('div', {className: 'row'},
+                el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
+                (
+                  this.state.transactionsHeadingIsOutOfViewport
+                  ?
+                  el('h3', {className: 'transactions-heading transactions-heading-fixed'},
+                    el('span', null, 'Transactions')
+                  )
+                  :
+                  null
+                ),
+                el(TransactionList, {data: this.props.transactions, handleDetailsClick: this.props.handleDetailsClick})
+              )
+              :
+              null
             ),
             (
               this.props.accounts.length

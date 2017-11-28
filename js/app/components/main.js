@@ -71,7 +71,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
                 el('path', {d: 'm0 0v3h15v-3h-15zm0 6v3h15v-3h-15zm0 6v3h15v-3h-15z'})
               )
             ),
-            el('h2', null, this.props.tabName)
+            el('h2', null, this.props.tabName),
+            el('button', {className: 'create', onClick: this.props.handleNewEntryClick},
+              '+'
+            )
           ),
           el(Loader, {show: this.props.importingTab},
             (
@@ -83,15 +86,15 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
                 ),
                 el('p', null,
                   'Start by adding your first transaction:'
+                ),
+                el('div', {className: 'row'},
+                  el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
+                    'Add transaction'
+                  )
                 )
               )
               :
               null
-            ),
-            el('div', {className: 'row', style: {marginBottom: '1em'}},
-              el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
-                'Add transaction'
-              )
             ),
             (
               this.props.accounts.length
@@ -107,7 +110,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
               (
                 this.state.transactionsHeadingIsOutOfViewport
                 ?
-                el('h3', {className: 'transactions-heading transactions-heading-fixed'}, 
+                el('h3', {className: 'transactions-heading transactions-heading-fixed'},
                   el('span', null, 'Transactions')
                 )
                 :

@@ -55,12 +55,25 @@ button.full-width-margin {
 	margin-right: 2%;
 }
 button.create {
+	padding: 0 13px;
 	background: #44f;
-	color: #fff;
 	border-radius: 3px;
+	color: #fff;
+    z-index: 10;
+}
+.header button.create {
+	position: fixed;
+	right: 0;
+	top: 0;
+	margin: 5px;
+    box-shadow: 0 0 10px rgba(100,100,100,.5);
 }
 button.selected {
 	background: #bbb;
+}
+.mainScene .header button.create,
+.listScene .header button.create {
+	font-size: 30px;
 }
 .editEntryScene .header button.left {
 	padding: 0;
@@ -69,13 +82,6 @@ button.selected {
 	line-height: 100%;
 }
 
-.editEntryScene .header button.right {
-	position: fixed;
-	right: 0;
-	z-index: 10;
-	margin: 5px;
-	box-shadow: 0 0 10px rgba(100,100,100,.5);
-}
 @media (min-width: 500px) {
 	.editEntryScene .header button.right {
 	    right: calc(50% - 250px);
@@ -322,6 +328,8 @@ td.amount {
 	float: right;
 	top: -44px;
 	margin-bottom: -44px;
+	font-size: 18px;
+	margin: 0;
 }
 
 #summary table {

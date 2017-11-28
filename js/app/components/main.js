@@ -113,11 +113,13 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
               this.props.transactions.length
               ?
               el('div', {className: 'row'},
-                el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
+                el('h3', {ref: 'transactionsHeading', className: 'transactions-heading', id: 'transactions-heading'}, 'Transactions'),
                 (
                   this.state.transactionsHeadingIsOutOfViewport
                   ?
-                  el('h3', {className: 'transactions-heading transactions-heading-fixed'}, '▼ Transactions')
+                  el('h3', {className: 'transactions-heading transactions-heading-fixed'},
+                    el('a', {href: '#transactions-heading'}, '▼ Transactions')
+                  )
                   :
                   null
                 ),

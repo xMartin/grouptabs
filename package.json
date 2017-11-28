@@ -32,7 +32,8 @@
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
     "requirejs": "^2.3.3",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "smooth-scroll": "^12.1.5"
   },
   "devDependencies": {
     "http-server": "^0.10.0",

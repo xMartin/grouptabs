@@ -3,12 +3,13 @@ define([
   'create-react-class',
   'pure-render-mixin',
   'prop-types',
+  'smooth-scroll',
   './loader',
   './summary',
   './transactionlist'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, TransactionList) {
+function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loader, Summary, TransactionList) {
   'use strict';
 
   var el = React.createElement;
@@ -39,6 +40,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
     componentDidMount: function () {
       window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
       this.checkTransactionsHeadingVisibility();
+      var scroll = new SmoothScroll('#transactions-heading-link');
     },
 
     componentWillUnmount: function () {
@@ -118,7 +120,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
                   this.state.transactionsHeadingIsOutOfViewport
                   ?
                   el('h3', {className: 'transactions-heading transactions-heading-fixed'},
-                    el('a', {href: '#transactions-heading'}, '▼ Transactions')
+                    el('a', {href: '#transactions-heading', id: 'transactions-heading-link'}, '▼ Transactions')
                   )
                   :
                   null

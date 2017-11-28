@@ -326,6 +326,7 @@ td.amount {
 
 #summary table {
 	border-collapse: collapse;
+	table-layout: auto;
 }
 #summary tr {
 	-moz-box-sizing: border-box;

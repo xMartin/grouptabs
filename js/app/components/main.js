@@ -117,9 +117,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Loader, Summary, 
                 (
                   this.state.transactionsHeadingIsOutOfViewport
                   ?
-                  el('h3', {className: 'transactions-heading transactions-heading-fixed'},
-                    el('span', null, 'Transactions')
-                  )
+                  el('h3', {className: 'transactions-heading transactions-heading-fixed'}, '▼ Transactions')
                   :
                   null
                 ),

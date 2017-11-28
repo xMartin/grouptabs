@@ -354,9 +354,10 @@ td.amount {
 	bottom: 0;
 	margin: 0;
 	width: 100%;
-}
-.transactions-heading-fixed span {
-	background: #f2f2f2;
+	padding: 20px 0 12px;
+	background: linear-gradient(rgba(242, 242, 242, 0), #f2f2f2);
+	text-shadow: 0 0 4px #f2f2f2;
+	cursor: pointer;
 }
 
 #transactions .transaction {

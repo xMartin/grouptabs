@@ -83,7 +83,7 @@ button.selected {
 }
 
 @media (min-width: 500px) {
-	.editEntryScene .header button.right {
+	.header button.create {
 	    right: calc(50% - 250px);
 	}
 }
@@ -352,6 +352,7 @@ td.amount {
 }
 .transactions-heading-fixed {
 	position: fixed;
+	left: 0;
 	bottom: 0;
 	margin: 0;
 	width: 100%;

@@ -62,11 +62,13 @@ button.create {
 button.selected {
 	background: #bbb;
 }
-.editEntryScene .header button.left {
-	padding: 0;
-	color: #666;
-	font-size: 28px;
-	line-height: 100%;
+.header button.left {
+	background: transparent;
+	opacity: .5;
+}
+.header button.left:hover,
+.header button.left:focus {
+	opacity: 1;
 }
 
 .editEntryScene .header button.right {

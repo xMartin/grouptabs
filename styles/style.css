@@ -1,13 +1,13 @@
 @font-face {
 	font-family: SourceSansPro-Regular;
 	src: url('../fonts/SourceSansPro-Regular.ttf') format('truetype');
-	font-weight: normal;
+	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
 	font-family: SourceSansPro-Semibold;
 	src: url('../fonts/SourceSansPro-Semibold.ttf') format('truetype');
-	font-weight: normal;
+	font-weight: 600;
 	font-style: normal;
 }
 
@@ -17,10 +17,6 @@ body {
 	font-size: 18px;
 	background: #f2f2f2;
 	font-family: SourceSansPro-Regular, sans-serif;
-}
-
-strong {
-	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
 th {

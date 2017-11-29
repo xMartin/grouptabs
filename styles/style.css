@@ -199,15 +199,18 @@ input[type=number] {
 	width: auto !important;
 }
 .form-row-input.transaction-type select {
+	margin-top: 3px;
+	font-size: 80%;
+	opacity: .5;
+}
+
+select {
 	cursor: pointer;
 	background: none;
 	border: none;
-	opacity: .5;
 	margin: 0;
-	margin-top: 3px;
 	padding: 12px;
 	padding-right: 24px;
-	font-size: 80%;
 	background-image:
 		linear-gradient(45deg, transparent 50%, #777 50%),
 		linear-gradient(135deg, gray 50%, transparent 50%);
@@ -224,9 +227,27 @@ input[type=number] {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 }
-.form-row-input.transaction-type select:-moz-focusring {
+select:-moz-focusring {
 	color: transparent;
 	text-shadow: 0 0 0 #000;
+}
+
+.direct-transaction {
+	display: flex;
+	align-items: flex-start;
+	padding: 24px 0;
+	text-align: center;
+}
+.direct-transaction select {
+	flex-grow: 1;
+}
+.direct-transaction svg {
+	padding: 16px 24px 6px;
+	opacity: .5;
+}
+.direct-transaction input {
+	width: 70px;
+	text-align: center;
 }
 
 .row-label {
@@ -436,6 +457,10 @@ td.amount {
 
 .import-form .error-message {
 	margin-top: 4px;
+	text-align: center;
+}
+
+.errorScene p {
 	text-align: center;
 }
 

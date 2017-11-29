@@ -19,7 +19,7 @@
   "newcap": true,
   "noarg": true,
   "noempty": false,
-  "nonew": true,
+  "nonew": false,
   "plusplus": false,
   "regexp": false,
   "undef": true,

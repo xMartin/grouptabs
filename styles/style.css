@@ -55,13 +55,27 @@ button.full-width-margin {
 	margin-right: 2%;
 }
 button.create {
+	padding: 0 13px;
 	background: #44f;
-	color: #fff;
 	border-radius: 3px;
+	color: #fff;
+    z-index: 10;
+}
+.header button.create {
+	position: fixed;
+	right: 0;
+	top: 0;
+	margin: 5px;
+    box-shadow: 0 0 10px rgba(100,100,100,.5);
 }
 button.selected {
 	background: #bbb;
 }
+/* larger '+' Plus in button */
+.mainScene .header button.create {
+	font-size: 30px;
+}
+
 .header button.left {
 	background: transparent;
 	opacity: .5;
@@ -70,19 +84,6 @@ button.selected {
 .header button.left:hover,
 .header button.left:focus {
 	opacity: 1;
-}
-
-.editEntryScene .header button.right {
-	position: fixed;
-	right: 0;
-	z-index: 10;
-	margin: 5px;
-	box-shadow: 0 0 10px rgba(100,100,100,.5);
-}
-@media (min-width: 500px) {
-	.editEntryScene .header button.right {
-	    right: calc(50% - 250px);
-	}
 }
 
 .editEntryScene .button-row {
@@ -139,12 +140,20 @@ input[type=number] {
 		margin-top: 4vh;
 		margin-bottom: 4vh;
 	}
+	.header button.create {
+		margin-top: calc(4vh + 5px);
+	}
+}
+@media (min-width: 500px) {
+	.header button.create {
+		right: calc(50% - 250px);
+	}
 }
 
 .header {
 	width: 100%;
 	height: 56px;
-	margin-bottom: 1em;
+	margin-bottom: .5em;
 	position: relative;
 }
 .header h2 {
@@ -317,6 +326,7 @@ td.amount {
 	float: right;
 	top: -44px;
 	margin-bottom: -44px;
+	font-size: 18px;
 }
 
 #summary table {
@@ -332,6 +342,27 @@ td.amount {
 #summary th,
 #summary td {
 	padding: 10px;
+}
+
+.transactions-heading {
+	text-align: center;
+	padding-top: 18px;
+}
+.transactions-heading-fixed {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	margin: 0;
+	width: 100%;
+	padding: 20px 0 12px;
+	background: linear-gradient(rgba(242, 242, 242, 0), #f2f2f2);
+	text-shadow: 0 0 4px #f2f2f2;
+	cursor: pointer;
+}
+.transactions-heading-fixed a {
+	color: #000;
+	text-decoration: none;
+	margin-left: -17px;
 }
 
 #transactions .transaction {
@@ -403,6 +434,7 @@ td.amount {
 }
 .app-loader {
 	position: absolute;
+	z-index: 1000;
 	top: 0;
 	left: 0;
 	width: 100%;

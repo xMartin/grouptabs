@@ -16,7 +16,8 @@
       'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
       fastclick: '../node_modules/fastclick/lib/fastclick',
       uuid: '../node_modules/pure-uuid/uuid',
-      lie: '../node_modules/lie/dist/lie'
+      lie: '../node_modules/lie/dist/lie',
+      'smooth-scroll': '../node_modules/smooth-scroll/dist/js/smooth-scroll.polyfills'
     }
   });
 

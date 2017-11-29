@@ -155,6 +155,10 @@ input[type=number] {
 	padding: 14px 0;
 	top: 0;
 	margin: 0;
+	max-width: 66%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .header #logo {
 	width: 44px;
@@ -318,6 +322,11 @@ td.amount {
 }
 .tabs button:first-child {
 	border-top-width: 1px;
+}
+
+.create-form input {
+	padding-right: 78px;
+	text-overflow: ellipsis;
 }
 
 .create-form button,

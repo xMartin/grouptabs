@@ -199,8 +199,8 @@ input[type=number] {
 	width: auto !important;
 }
 .form-row-input.transaction-type select {
-	margin-top: 3px;
-	font-size: 80%;
+	margin-top: 5px;
+	font-size: 80% !important;
 	opacity: .5;
 }
 
@@ -226,6 +226,9 @@ select {
 	box-sizing: border-box;
 	-webkit-appearance: none;
 	-moz-appearance: none;
+	/* Chrome needs this for some reason … */
+	font-size: 18px !important;
+	font-family: SourceSansPro-Regular, sans-serif !important;
 }
 select:-moz-focusring {
 	color: transparent;
@@ -235,12 +238,13 @@ select:-moz-focusring {
 .direct-transaction {
 	display: flex;
 	align-items: flex-start;
+	justify-content: center;
 	padding: 24px 0;
-	text-align: center;
 }
 .direct-transaction select {
 	flex-grow: 1;
 	text-align: center;
+	max-width: 37%;
 }
 .direct-transaction svg {
 	display: block;

@@ -1,13 +1,13 @@
 @font-face {
 	font-family: SourceSansPro-Regular;
 	src: url('../fonts/SourceSansPro-Regular.ttf') format('truetype');
-	font-weight: normal;
+	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
 	font-family: SourceSansPro-Semibold;
 	src: url('../fonts/SourceSansPro-Semibold.ttf') format('truetype');
-	font-weight: normal;
+	font-weight: 600;
 	font-style: normal;
 }
 
@@ -17,10 +17,6 @@ body {
 	font-size: 18px;
 	background: #f2f2f2;
 	font-family: SourceSansPro-Regular, sans-serif;
-}
-
-strong {
-	font-family: SourceSansPro-Semibold, sans-serif;
 }
 
 th {
@@ -55,31 +51,35 @@ button.full-width-margin {
 	margin-right: 2%;
 }
 button.create {
+	padding: 0 13px;
 	background: #44f;
-	color: #fff;
 	border-radius: 3px;
+	color: #fff;
+    z-index: 10;
+}
+.header button.create {
+	position: fixed;
+	right: 0;
+	top: 0;
+	margin: 5px;
+    box-shadow: 0 0 10px rgba(100,100,100,.5);
 }
 button.selected {
 	background: #bbb;
 }
-.editEntryScene .header button.left {
-	padding: 0;
-	color: #666;
-	font-size: 28px;
-	line-height: 100%;
+/* larger '+' Plus in button */
+.mainScene .header button.create {
+	font-size: 30px;
 }
 
-.editEntryScene .header button.right {
-	position: fixed;
-	right: 0;
-	z-index: 10;
-	margin: 5px;
-	box-shadow: 0 0 10px rgba(100,100,100,.5);
+.header button.left {
+	background: transparent;
+	opacity: .5;
+	padding: 16px 10px
 }
-@media (min-width: 500px) {
-	.editEntryScene .header button.right {
-	    right: calc(50% - 250px);
-	}
+.header button.left:hover,
+.header button.left:focus {
+	opacity: 1;
 }
 
 .editEntryScene .button-row {
@@ -136,33 +136,46 @@ input[type=number] {
 		margin-top: 4vh;
 		margin-bottom: 4vh;
 	}
+	.header button.create {
+		margin-top: calc(4vh + 5px);
+	}
+}
+@media (min-width: 500px) {
+	.header button.create {
+		right: calc(50% - 250px);
+	}
 }
 
 .header {
 	width: 100%;
-	height: 44px;
-	margin-bottom: 1em;
+	height: 56px;
+	margin-bottom: .5em;
 	position: relative;
 }
 .header h2 {
 	position: absolute;
-	top: 7px;
-	margin-left: 12px;
 	font-size: 22px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 14px 0;
+	top: 0;
+	margin: 0;
+	max-width: 66%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .header #logo {
 	width: 44px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-200%);
+	border-radius: 50px;
+	padding: 6px;
 }
 
 .scene.hidden {
 	display: none;
-}
-
-.scene h2 {
-	margin-top: 0;
-	text-align: center;
-	display: inline-block;
-	font-weight: normal;
 }
 
 .empty-info,
@@ -292,8 +305,7 @@ td.amount {
 .participantInput,
 .newParticipantInput {
 	color: #999;
-	display: table-row;
-	width: 100%;
+	display: flex;
 }
 .participantInput > *,
 .newParticipantInput > * {
@@ -306,30 +318,19 @@ td.amount {
 	color: inherit;
 }
 .participantInput .participant {
-	display: table-cell;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 	padding-left: 10px;
+	padding-right: 10px;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
 }
 .newParticipantInput .participant {
-	display: table-cell;
-	width: 50%; /* make input field use more available width */
+	flex-grow: 1;
 }
 .participantInput .participationStatus,
 .newParticipantInput .participationStatus {
-	display: table-cell;
+	display: flex;
 	text-align: right;
-	width: 210px;
-}
-.participantInput .joinedButtonWrapper,
-.newParticipantInput .joinedButtonWrapper {
-	display: inline-block;
-	width: 70px;  /* estimate auto width so we can use transition */
-	/* Safari has issues when transitioning */
-	/*-webkit-transition: width .3s;*/
-	/*-moz-transition: width .3s;*/
-	/*transition: width .3s;*/
 }
 .participantInput .joinedButtonWrapper.hidden,
 .newParticipantInput .joinedButtonWrapper.hidden {
@@ -346,12 +347,7 @@ td.amount {
 }
 .participantInput .amountInput,
 .newParticipantInput .amountInput {
-	display: inline-block;
 	width: 70px;
-	/* Safari has issues when transitioning */
-	/*-webkit-transition: width .3s;*/
-	/*-moz-transition: width .3s;*/
-	/*transition: width .3s;*/
 }
 .participantInput .amountInput.hidden,
 .newParticipantInput .amountInput.hidden {
@@ -367,7 +363,6 @@ td.amount {
 .participantsAllJoined {
 	float: right;
 }
-
 
 .tabsScene .row.tabs {
 	margin: 1em 0;
@@ -385,16 +380,23 @@ td.amount {
 	border-top-width: 1px;
 }
 
+.create-form input {
+	padding-right: 78px;
+	text-overflow: ellipsis;
+}
+
 .create-form button,
 .import-form button {
 	position: relative;
 	float: right;
 	top: -44px;
 	margin-bottom: -44px;
+	font-size: 18px;
 }
 
 #summary table {
 	border-collapse: collapse;
+	table-layout: auto;
 }
 #summary tr {
 	-moz-box-sizing: border-box;
@@ -405,6 +407,27 @@ td.amount {
 #summary th,
 #summary td {
 	padding: 10px;
+}
+
+.transactions-heading {
+	text-align: center;
+	padding-top: 18px;
+}
+.transactions-heading-fixed {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	margin: 0;
+	width: 100%;
+	padding: 20px 0 12px;
+	background: linear-gradient(rgba(242, 242, 242, 0), #f2f2f2);
+	text-shadow: 0 0 4px #f2f2f2;
+	cursor: pointer;
+}
+.transactions-heading-fixed a {
+	color: #000;
+	text-decoration: none;
+	margin-left: -17px;
 }
 
 #transactions .transaction {
@@ -480,6 +503,7 @@ td.amount {
 }
 .app-loader {
 	position: absolute;
+	z-index: 1000;
 	top: 0;
 	left: 0;
 	width: 100%;

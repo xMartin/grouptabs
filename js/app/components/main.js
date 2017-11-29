@@ -39,12 +39,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
 
     componentDidMount: function () {
       window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
+      window.addEventListener('resize', this.checkTransactionsHeadingVisibility);
       this.checkTransactionsHeadingVisibility();
       new SmoothScroll('#transactions-heading-link');
     },
 
     componentWillUnmount: function () {
       window.removeEventListener('scroll', this.checkTransactionsHeadingVisibility);
+      window.removeEventListener('resize', this.checkTransactionsHeadingVisibility);
     },
 
     componentWillReceiveProps: function (nextProps) {

@@ -72,9 +72,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       return (
         el('div', {className: 'scene mainScene' + (this.props.visible ? '' : ' hidden')},
           el('div', {className: 'header'},
-            el('button', {onClick: this.props.handleChangeTabClick},
-              el('svg', {height: 15, width: 15, style: {opacity: 0.5}},
-                el('path', {d: 'm0 0v3h15v-3h-15zm0 6v3h15v-3h-15zm0 6v3h15v-3h-15z'})
+            el('button', {className: 'left', onClick: this.props.handleChangeTabClick},
+              el('svg', {height: 16, width: 16},
+                el('path', {d: 'm2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z'})
               )
             ),
             el('h2', null, this.props.tabName),

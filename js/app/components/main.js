@@ -40,7 +40,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
     componentDidMount: function () {
       window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
       this.checkTransactionsHeadingVisibility();
-      var scroll = new SmoothScroll('#transactions-heading-link');
+      new SmoothScroll('#transactions-heading-link');
     },
 
     componentWillUnmount: function () {

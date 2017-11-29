@@ -223,8 +223,7 @@ td.amount {
 .participantInput,
 .newParticipantInput {
 	color: #999;
-	display: table-row;
-	width: 100%;
+	display: flex;
 }
 .participantInput > *,
 .newParticipantInput > * {
@@ -237,30 +236,19 @@ td.amount {
 	color: inherit;
 }
 .participantInput .participant {
-	display: table-cell;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
 	padding-left: 10px;
+	padding-right: 10px;
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
 }
 .newParticipantInput .participant {
-	display: table-cell;
-	width: 50%; /* make input field use more available width */
+	flex-grow: 1;
 }
 .participantInput .participationStatus,
 .newParticipantInput .participationStatus {
-	display: table-cell;
+	display: flex;
 	text-align: right;
-	width: 150px;
-}
-.participantInput .joinedButtonWrapper,
-.newParticipantInput .joinedButtonWrapper {
-	display: inline-block;
-	width: 70px;  /* estimate auto width so we can use transition */
-	/* Safari has issues when transitioning */
-	/*-webkit-transition: width .3s;*/
-	/*-moz-transition: width .3s;*/
-	/*transition: width .3s;*/
 }
 .participantInput .joinedButtonWrapper.hidden,
 .newParticipantInput .joinedButtonWrapper.hidden {
@@ -277,12 +265,7 @@ td.amount {
 }
 .participantInput .amountInput,
 .newParticipantInput .amountInput {
-	display: inline-block;
 	width: 70px;
-	/* Safari has issues when transitioning */
-	/*-webkit-transition: width .3s;*/
-	/*-moz-transition: width .3s;*/
-	/*transition: width .3s;*/
 }
 .participantInput .amountInput.hidden,
 .newParticipantInput .amountInput.hidden {
@@ -298,7 +281,6 @@ td.amount {
 .participantsAllJoined {
 	float: right;
 }
-
 
 .tabsScene .row.tabs {
 	margin: 1em 0;

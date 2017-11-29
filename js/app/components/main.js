@@ -41,7 +41,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
       window.addEventListener('resize', this.checkTransactionsHeadingVisibility);
       this.checkTransactionsHeadingVisibility();
-      new SmoothScroll('#transactions-heading-link');
+      this.scroller = new SmoothScroll();
     },
 
     componentWillUnmount: function () {
@@ -68,6 +68,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
           transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport
         });
       }
+    },
+
+    onTransitionsTeaserClick: function () {
+      this.scroller.animateScroll(this.refs.transactionsHeading);
     },
 
     render: function () {
@@ -117,12 +121,15 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
               this.props.transactions.length
               ?
               el('div', {className: 'row'},
-                el('h3', {ref: 'transactionsHeading', className: 'transactions-heading', id: 'transactions-heading'}, 'Transactions'),
+                el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
                 (
                   this.state.transactionsHeadingIsOutOfViewport
                   ?
-                  el('h3', {className: 'transactions-heading transactions-heading-fixed'},
-                    el('a', {href: '#transactions-heading', id: 'transactions-heading-link'}, '▼ Transactions')
+                  el('h3', {
+                    className: 'transactions-heading transactions-heading-fixed',
+                    onClick: this.onTransitionsTeaserClick
+                  },
+                    '▼ Transactions'
                   )
                   :
                   null

@@ -243,7 +243,8 @@ select:-moz-focusring {
 	text-align: center;
 }
 .direct-transaction svg {
-	padding: 16px 24px 6px;
+	display: block;
+	padding: 16px 30px 8px;
 	opacity: .5;
 }
 .direct-transaction input {

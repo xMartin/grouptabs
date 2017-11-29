@@ -240,6 +240,7 @@ select:-moz-focusring {
 }
 .direct-transaction select {
 	flex-grow: 1;
+	text-align: center;
 }
 .direct-transaction svg {
 	padding: 16px 24px 6px;

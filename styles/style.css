@@ -251,7 +251,7 @@ td.amount {
 .newParticipantInput .participationStatus {
 	display: table-cell;
 	text-align: right;
-	width: 210px;
+	width: 150px;
 }
 .participantInput .joinedButtonWrapper,
 .newParticipantInput .joinedButtonWrapper {

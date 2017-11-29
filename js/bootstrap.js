@@ -17,7 +17,7 @@
       fastclick: '../node_modules/fastclick/lib/fastclick',
       uuid: '../node_modules/pure-uuid/uuid',
       lie: '../node_modules/lie/dist/lie',
-      'smooth-scroll': '../node_modules/smooth-scroll/dist/js/smooth-scroll'
+      'smooth-scroll': '../node_modules/smooth-scroll/dist/js/smooth-scroll.polyfills'
     }
   });
 

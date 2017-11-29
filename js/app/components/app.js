@@ -51,6 +51,12 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       this.props.onError(error, info);
     },
 
+    componentWillReceiveProps: function (nextProps) {
+      if (nextProps.scene !== this.props.scene) {
+        window.scrollTo({top: 0});
+      }
+    },
+
     render: function () {
       if (this.props.error) {
         return (

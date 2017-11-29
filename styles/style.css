@@ -62,11 +62,14 @@ button.create {
 button.selected {
 	background: #bbb;
 }
-.editEntryScene .header button.left {
-	padding: 0;
-	color: #666;
-	font-size: 28px;
-	line-height: 100%;
+.header button.left {
+	background: transparent;
+	opacity: .5;
+	padding: 16px 10px
+}
+.header button.left:hover,
+.header button.left:focus {
+	opacity: 1;
 }
 
 .editEntryScene .header button.right {
@@ -140,29 +143,34 @@ input[type=number] {
 
 .header {
 	width: 100%;
-	height: 44px;
+	height: 56px;
 	margin-bottom: 1em;
 	position: relative;
 }
 .header h2 {
 	position: absolute;
-	top: 7px;
-	margin-left: 12px;
 	font-size: 22px;
+	left: 50%;
+	transform: translateX(-50%);
+	padding: 14px 0;
+	top: 0;
+	margin: 0;
+	max-width: 66%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .header #logo {
 	width: 44px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-200%);
+	border-radius: 50px;
+	padding: 6px;
 }
 
 .scene.hidden {
 	display: none;
-}
-
-.scene h2 {
-	margin-top: 0;
-	text-align: center;
-	display: inline-block;
-	font-weight: normal;
 }
 
 .empty-info,
@@ -296,6 +304,11 @@ td.amount {
 }
 .tabs button:first-child {
 	border-top-width: 1px;
+}
+
+.create-form input {
+	padding-right: 78px;
+	text-overflow: ellipsis;
 }
 
 .create-form button,

@@ -39,7 +39,6 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       onSelectTab: PropTypes.func.isRequired,
       onNavigateToAddTransaction: PropTypes.func.isRequired,
       onNavigateToUpdateTransaction: PropTypes.func.isRequired,
-      onNavigateToList: PropTypes.func.isRequired,
       onNavigateToMain: PropTypes.func.isRequired,
       onCloseTransaction: PropTypes.func.isRequired,
       onAddTransaction: PropTypes.func.isRequired,

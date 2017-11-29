@@ -35,7 +35,6 @@ function (ReactRedux, selector, actionCreators, App) {
     onSelectTab: actionCreators.selectTab,
     onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
     onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
-    onNavigateToList: actionCreators.navigateToList,
     onNavigateToMain: actionCreators.navigateToMain,
     onCloseTransaction: actionCreators.closeTransaction,
     onAddTransaction: actionCreators.addTransaction,

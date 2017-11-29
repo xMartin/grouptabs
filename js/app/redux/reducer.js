@@ -52,13 +52,14 @@ function (iarray, iobject) {
     });
   }
 
+  var HOME_VIEW = 'main';
+
   var initialState = {
     initialLoadingDone: false,
     checkingRemoteTab: false,
     remoteTabError: null,
     importingTab: false,
     currentTab: null,
-    homeView: 'main',
     currentScene: 'tabs',
     currentTransaction: null,
     docsById: {},
@@ -87,7 +88,7 @@ function (iarray, iobject) {
           }),
           {
             currentTab: action.doc.tabId,
-            currentScene: initialState.homeView
+            currentScene: HOME_VIEW
           }
         );
 
@@ -111,7 +112,7 @@ function (iarray, iobject) {
           }),
           {
             currentTab: action.doc.tabId,
-            currentScene: initialState.homeView,
+            currentScene: HOME_VIEW,
             checkingRemoteTab: false,
             remoteTabError: initialState.remoteTabError,
             importingTab: true
@@ -121,14 +122,13 @@ function (iarray, iobject) {
       case 'NAVIGATE_TO_TABS':
         return iobject.merge(state, {
           currentTab: null,
-          homeView: initialState.homeView,
           currentScene: initialState.currentScene
         });
 
       case 'SELECT_TAB':
         return iobject.merge(state, {
           currentTab: action.id,
-          currentScene: initialState.homeView
+          currentScene: HOME_VIEW
         });
 
       case 'CREATE_OR_UPDATE_TRANSACTION':
@@ -138,7 +138,7 @@ function (iarray, iobject) {
             delete: []
           }),
           {
-            currentScene: state.homeView,
+            currentScene: HOME_VIEW,
             currentTransaction: initialState.currentTransaction
           }
         );
@@ -150,7 +150,7 @@ function (iarray, iobject) {
             delete: [action.doc]
           }),
           {
-            currentScene: state.homeView,
+            currentScene: HOME_VIEW,
             currentTransaction: initialState.currentTransaction
           }
         );
@@ -166,21 +166,14 @@ function (iarray, iobject) {
           currentTransaction: action.id
         });
 
-      case 'NAVIGATE_TO_LIST':
-        return iobject.merge(state, {
-          currentScene: 'list',
-          homeView: 'list'
-        });
-
       case 'NAVIGATE_TO_MAIN':
         return iobject.merge(state, {
-          currentScene: 'main',
-          homeView: 'main'
+          currentScene: HOME_VIEW
         });
 
       case 'CLOSE_TRANSACTION':
         return iobject.merge(state, {
-          currentScene: state.homeView,
+          currentScene: HOME_VIEW,
           currentTransaction: initialState.currentTransaction
         });
 

@@ -179,12 +179,6 @@ function (UUID, iobject, DbManager) {
       };
     },
 
-    navigateToList: function () {
-      return {
-        type: 'NAVIGATE_TO_LIST'
-      };
-    },
-
     navigateToMain: function () {
       return {
         type: 'NAVIGATE_TO_MAIN'

@@ -109,7 +109,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
                   el('option', {value: 'SHARED'}, 'Shared'),
                   el('option', {value: 'DIRECT'}, 'Direct')
                 )
-              ),
+              )
             ),
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input'},

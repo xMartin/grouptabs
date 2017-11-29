@@ -82,7 +82,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
       }
     },
 
-    toggleTransactionType: function (transactionType) {
+    onSelectTransactionType: function (event) {
+      var transactionType = event.currentTarget.value;
       this.setState({
         transactionType: transactionType
       });
@@ -104,10 +105,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
                 })
               ),
               el('div', {className: 'form-row-input transaction-type'},
-                el('select', {
-                  onChange: this.toggleTransactionType.bind(this, 'SHARED')},
-                  el('option', null, 'Shared'),
-                  el('option', null, 'Direct')
+                el('select', {onChange: this.onSelectTransactionType, defaultValue: this.state.transactionType},
+                  el('option', {value: 'SHARED'}, 'Shared'),
+                  el('option', {value: 'DIRECT'}, 'Direct')
                 )
               ),
             ),

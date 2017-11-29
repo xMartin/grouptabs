@@ -71,10 +71,11 @@ button.create {
 button.selected {
 	background: #bbb;
 }
-
+/* larger '+' Plus in button */
 .mainScene .header button.create {
 	font-size: 30px;
 }
+
 .header button.left {
 	background: transparent;
 	opacity: .5;
@@ -83,12 +84,6 @@ button.selected {
 .header button.left:hover,
 .header button.left:focus {
 	opacity: 1;
-}
-
-@media (min-width: 500px) {
-	.header button.create {
-	    right: calc(50% - 250px);
-	}
 }
 
 .editEntryScene .button-row {
@@ -145,12 +140,20 @@ input[type=number] {
 		margin-top: 4vh;
 		margin-bottom: 4vh;
 	}
+	.header button.create {
+		margin-top: calc(4vh + 5px);
+	}
+}
+@media (min-width: 500px) {
+	.header button.create {
+		right: calc(50% - 250px);
+	}
 }
 
 .header {
 	width: 100%;
 	height: 56px;
-	margin-bottom: 1em;
+	margin-bottom: .5em;
 	position: relative;
 }
 .header h2 {

@@ -3,8 +3,10 @@ CACHE MANIFEST
 
 CACHE:
 styles/style.css
-fonts/SourceSansPro-Regular.ttf
-fonts/SourceSansPro-Semibold.ttf
+fonts/SourceSansPro-Regular.woff
+fonts/SourceSansPro-Regular.woff2
+fonts/SourceSansPro-Semibold.woff
+fonts/SourceSansPro-Semibold.woff2
 images/arrow.svg
 images/favicon-touch.png
 images/loader.svg

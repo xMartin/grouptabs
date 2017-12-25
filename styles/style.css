@@ -1,12 +1,14 @@
 @font-face {
-	font-family: SourceSansPro-Regular;
-	src: url('../fonts/SourceSansPro-Regular.ttf') format('truetype');
+	font-family: SourceSansPro;
+	src: url('../fonts/SourceSansPro-Regular.woff2') format('woff2'),
+         url('../fonts/SourceSansPro-Regular.woff') format('woff');
 	font-weight: 400;
 	font-style: normal;
 }
 @font-face {
-	font-family: SourceSansPro-Semibold;
-	src: url('../fonts/SourceSansPro-Semibold.ttf') format('truetype');
+	font-family: SourceSansPro;
+	src: url('../fonts/SourceSansPro-Semibold.woff2') format('woff2'),
+         url('../fonts/SourceSansPro-Semibold.woff') format('woff');
 	font-weight: 600;
 	font-style: normal;
 }
@@ -16,7 +18,7 @@ body {
 	color: #131313;
 	font-size: 18px;
 	background: #f2f2f2;
-	font-family: SourceSansPro-Regular, sans-serif;
+	font-family: SourceSansPro, sans-serif;
 }
 
 th {
@@ -97,7 +99,7 @@ button.selected {
 .tab.active {
 	background: inherit;
 	color: inherit;
-	font-family: SourceSansPro-Semibold, sans-serif;
+	font-weight: bold;
 }
 
 .fake-link {

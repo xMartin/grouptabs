@@ -13,6 +13,7 @@ function (ReactRedux, selector, actionCreators, App) {
 
     return {
       location: state.location,
+      initialLoadingDone: state.app.initialLoadingDone,
       tabName: selected.tabName,
       transaction: state.app.docsById[state.location.payload.transactionId],
       checkingRemoteTab: state.app.checkingRemoteTab,

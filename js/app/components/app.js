@@ -22,6 +22,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
         type: PropTypes.string.isRequired,
         payload: PropTypes.object.isRequired
       }).isRequired,
+      initialLoadingDone: PropTypes.bool,
       tabName: PropTypes.string,
       transaction: PropTypes.object,
       tabs: PropTypes.arrayOf(PropTypes.object),
@@ -89,7 +90,13 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
             handleDetailsClick: this.props.onNavigateToUpdateTransaction
           }),
-          (this.props.location.type === 'ROUTE_NEW_TRANSACTION' || this.props.location.type === 'ROUTE_TRANSACTION') ?
+          (
+            !!this.props.initialLoadingDone
+            && (
+              this.props.location.type === 'ROUTE_NEW_TRANSACTION'
+              || this.props.location.type === 'ROUTE_TRANSACTION'
+            )
+          ) &&
             el(EditEntry, {
               mode: this.props.transaction ? 'edit' : 'new',
               data: this.props.transaction,
@@ -99,7 +106,6 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
               handleUpdate: this.props.onUpdateTransaction,
               handleDelete: this.props.onRemoveTransaction
             })
-          : null
         )
       );
     }

@@ -60,19 +60,19 @@ function (reselect) {
   }
 
   function getTabs (state) {
-    return state.tabs;
+    return state.app.tabs;
   }
 
   function getDocsById (state) {
-    return state.docsById;
+    return state.app.docsById;
   }
 
   function getCurrentTab (state) {
-    return state.currentTab;
+    return state.app.currentTab;
   }
 
   function getTransactionsByTab (state) {
-    return state.transactionsByTab;
+    return state.app.transactionsByTab;
   }
 
   return reselect.createSelector(

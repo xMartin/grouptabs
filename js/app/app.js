@@ -12,19 +12,19 @@ function (ReactRedux, selector, actionCreators, App) {
     var selected = selector(state);
 
     return {
-      scene: state.currentScene,
-      homeView: state.homeView,
-      tabId: state.currentTab,
+      scene: state.app.currentScene,
+      homeView: state.app.homeView,
+      tabId: state.app.currentTab,
       tabName: selected.tabName,
-      transaction: state.currentTransaction,
-      checkingRemoteTab: state.checkingRemoteTab,
-      remoteTabError: state.remoteTabError,
-      importingTab: state.importingTab,
+      transaction: state.app.currentTransaction,
+      checkingRemoteTab: state.app.checkingRemoteTab,
+      remoteTabError: state.app.remoteTabError,
+      importingTab: state.app.importingTab,
       tabs: selected.tabs,
       transactions: selected.transactions,
       accounts: selected.accounts,
       participants: selected.participants,
-      error: state.error
+      error: state.app.error
     };
   }
 

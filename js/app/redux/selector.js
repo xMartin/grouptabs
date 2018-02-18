@@ -68,7 +68,7 @@ function (reselect) {
   }
 
   function getCurrentTab (state) {
-    return state.app.currentTab;
+    return state.location.payload.tabId;
   }
 
   function getTransactionsByTab (state) {

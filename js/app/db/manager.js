@@ -11,14 +11,15 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
 
   return createClass({
 
-    constructor: function (callback) {
+    constructor: function () {
       this.dbs = {};
-      this._changesCallback = callback;
 
       allDbs(PouchDB);
     },
 
-    init: function () {
+    init: function (callback) {
+      this._changesCallback = callback;
+
       return this.initDbs();
     },
 

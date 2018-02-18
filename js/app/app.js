@@ -12,11 +12,9 @@ function (ReactRedux, selector, actionCreators, App) {
     var selected = selector(state);
 
     return {
-      scene: state.app.currentScene,
-      homeView: state.app.homeView,
-      tabId: state.app.currentTab,
+      location: state.location,
       tabName: selected.tabName,
-      transaction: state.app.currentTransaction,
+      transaction: state.app.docsById[state.location.payload.transactionId],
       checkingRemoteTab: state.app.checkingRemoteTab,
       remoteTabError: state.app.remoteTabError,
       importingTab: state.app.importingTab,
@@ -35,7 +33,6 @@ function (ReactRedux, selector, actionCreators, App) {
     onSelectTab: actionCreators.selectTab,
     onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
     onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
-    onNavigateToMain: actionCreators.navigateToMain,
     onCloseTransaction: actionCreators.closeTransaction,
     onAddTransaction: actionCreators.addTransaction,
     onUpdateTransaction: actionCreators.updateTransaction,

@@ -49,20 +49,17 @@
       'pouchdb-all-dbs',
       'app/app',
       'history',
-      'redux-first-router'
+      'redux-first-router',
+      'app/routes'
     ],
-    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, ReduxFirstRouter) {
+    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, ReduxFirstRouter, routes) {
       /* jshint -W031 */
       new FastClick(document.body);
       /* jshint +W031 */
 
       var history = History.createHashHistory();
 
-      var routesMap = {
-        TABS: '/'
-      };
-
-      var router = ReduxFirstRouter.connectRoutes(history, routesMap);
+      var router = ReduxFirstRouter.connectRoutes(history, routes);
 
       var rootReducer = Redux.combineReducers({location: router.reducer, app: appReducer});
       var middlewares = Redux.applyMiddleware(ReduxThunk.default, router.middleware);

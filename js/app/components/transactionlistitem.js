@@ -74,7 +74,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     },
 
     handleClick: function () {
-      this.props.handleDetailsClick(this.props.data);
+      this.props.handleDetailsClick(this.props.data.tabId, this.props.data.id);
     },
 
     render: function () {

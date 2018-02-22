@@ -67,7 +67,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
             el('div', {className: 'empty-info'},
               el('p', null,
                 'Track shared expenses in a group of people.'
-                + ' Every group has its own tab like "Roadtrip 2016" or "Badminton".'
+                + ' Every group has its own tab like "Summer roadtrip" or "Badminton".'
               ),
               el('p', null,
                 'Start by creating your first tab:'

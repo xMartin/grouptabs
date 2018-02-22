@@ -303,7 +303,7 @@ input[type=number] {
 .tabs button {
 	border: 0 solid #ddd;
 	border-bottom-width: 1px;
-	background: transparent url('../images/arrow.svg') right center no-repeat;
+	background: transparent url('../images/arrow.svg') right 10px center no-repeat;
 	text-align: left;
 }
 .tabs button:first-child {

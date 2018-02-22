@@ -18,18 +18,18 @@
   },
   "homepage": "https://grouptabs.net/",
   "dependencies": {
-    "create-react-class": "^15.6.0",
+    "create-react-class": "^15.6.3",
     "fastclick": "^1.0.6",
     "history": "^4.7.2",
-    "lie": "^3.1.1",
-    "pouchdb": "^6.4.1",
+    "lie": "^3.2.0",
+    "pouchdb": "^6.4.3",
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#umd",
     "prop-types": "^15.5.10",
-    "pure-uuid": "^1.4.11",
+    "pure-uuid": "^1.5.0",
     "react": "^16.2.0",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-dom": "^16.2.0",
-    "react-redux": "^5.0.5",
+    "react-redux": "^5.0.7",
     "redux": "^3.7.1",
     "redux-first-router": "0.0.16-next",
     "redux-thunk": "^2.2.0",
@@ -38,7 +38,7 @@
     "smooth-scroll": "^12.1.5"
   },
   "devDependencies": {
-    "http-server": "^0.10.0",
+    "http-server": "^0.11.1",
     "jshint": "^2.9.5"
   },
   "license": "GPL-3.0"

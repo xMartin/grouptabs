@@ -18,8 +18,11 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
     displayName: 'App',
 
     propTypes: {
-      scene: PropTypes.string.isRequired,
-      tabId: PropTypes.string,
+      location: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        payload: PropTypes.object.isRequired
+      }).isRequired,
+      initialLoadingDone: PropTypes.bool,
       tabName: PropTypes.string,
       transaction: PropTypes.object,
       tabs: PropTypes.arrayOf(PropTypes.object),
@@ -39,7 +42,6 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       onSelectTab: PropTypes.func.isRequired,
       onNavigateToAddTransaction: PropTypes.func.isRequired,
       onNavigateToUpdateTransaction: PropTypes.func.isRequired,
-      onNavigateToMain: PropTypes.func.isRequired,
       onCloseTransaction: PropTypes.func.isRequired,
       onAddTransaction: PropTypes.func.isRequired,
       onUpdateTransaction: PropTypes.func.isRequired,
@@ -52,7 +54,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
     },
 
     componentWillReceiveProps: function (nextProps) {
-      if (nextProps.scene !== this.props.scene) {
+      if (nextProps.location.type !== this.props.location.type) {
         window.scrollTo({top: 0});
       }
     },
@@ -70,7 +72,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
         el('div', {id: 'scenes'},
           el(Tabs, {
             data: this.props.tabs,
-            visible: this.props.scene === 'tabs',
+            visible: this.props.location.type === 'ROUTE_TABS',
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,
             handleTabClick: this.props.onSelectTab,
@@ -79,16 +81,22 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
           }),
           el(Main, {
             tabName: this.props.tabName,
-            tabId: this.props.tabId,
+            tabId: this.props.location.payload.tabId,
             accounts: this.props.accounts,
             transactions: this.props.transactions,
-            visible: this.props.scene === 'main',
+            visible: this.props.location.type === 'ROUTE_TAB',
             importingTab: this.props.importingTab,
             handleChangeTabClick: this.props.onNavigateToTabs,
-            handleNewEntryClick: this.props.onNavigateToAddTransaction,
+            onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
             handleDetailsClick: this.props.onNavigateToUpdateTransaction
           }),
-          (this.props.scene === 'details') ?
+          (
+            !!this.props.initialLoadingDone
+            && (
+              this.props.location.type === 'ROUTE_NEW_TRANSACTION'
+              || this.props.location.type === 'ROUTE_TRANSACTION'
+            )
+          ) &&
             el(EditEntry, {
               mode: this.props.transaction ? 'edit' : 'new',
               data: this.props.transaction,
@@ -98,7 +106,6 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
               handleUpdate: this.props.onUpdateTransaction,
               handleDelete: this.props.onRemoveTransaction
             })
-          : null
         )
       );
     }

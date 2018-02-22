@@ -20,6 +20,7 @@
   "dependencies": {
     "create-react-class": "^15.6.0",
     "fastclick": "^1.0.6",
+    "history": "^4.7.2",
     "lie": "^3.1.1",
     "pouchdb": "^6.4.1",
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#umd",
@@ -30,6 +31,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.5",
     "redux": "^3.7.1",
+    "redux-first-router": "0.0.16-next",
     "redux-thunk": "^2.2.0",
     "requirejs": "^2.3.3",
     "reselect": "^3.0.1",

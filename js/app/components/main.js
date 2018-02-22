@@ -27,7 +27,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       visible: PropTypes.bool,
       importingTab: PropTypes.bool,
       handleChangeTabClick: PropTypes.func.isRequired,
-      handleNewEntryClick: PropTypes.func.isRequired,
+      onNavigateToAddTransaction: PropTypes.func.isRequired,
       handleDetailsClick: PropTypes.func.isRequired
     },
 
@@ -70,6 +70,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       }
     },
 
+    handleNewEntryClick: function () {
+      this.props.onNavigateToAddTransaction(this.props.tabId);
+    },
+
     onTransitionsTeaserClick: function () {
       this.scroller.animateScroll(this.refs.transactionsHeading);
     },
@@ -84,7 +88,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
               )
             ),
             el('h2', null, this.props.tabName),
-            el('button', {className: 'create', onClick: this.props.handleNewEntryClick},
+            el('button', {className: 'create', onClick: this.handleNewEntryClick},
               '+'
             )
           ),
@@ -100,7 +104,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
                   'Start by adding your first transaction:'
                 ),
                 el('div', {className: 'row'},
-                  el('button', {className: 'full-width-margin create', onClick: this.props.handleNewEntryClick},
+                  el('button', {className: 'full-width-margin create', onClick: this.handleNewEntryClick},
                     'Add transaction'
                   )
                 )

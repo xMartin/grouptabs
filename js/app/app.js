@@ -12,19 +12,18 @@ function (ReactRedux, selector, actionCreators, App) {
     var selected = selector(state);
 
     return {
-      scene: state.currentScene,
-      homeView: state.homeView,
-      tabId: state.currentTab,
+      location: state.location,
+      initialLoadingDone: state.app.initialLoadingDone,
       tabName: selected.tabName,
-      transaction: state.currentTransaction,
-      checkingRemoteTab: state.checkingRemoteTab,
-      remoteTabError: state.remoteTabError,
-      importingTab: state.importingTab,
+      transaction: state.app.docsById[state.location.payload.transactionId],
+      checkingRemoteTab: state.app.checkingRemoteTab,
+      remoteTabError: state.app.remoteTabError,
+      importingTab: state.app.importingTab,
       tabs: selected.tabs,
       transactions: selected.transactions,
       accounts: selected.accounts,
       participants: selected.participants,
-      error: state.error
+      error: state.app.error
     };
   }
 
@@ -35,7 +34,6 @@ function (ReactRedux, selector, actionCreators, App) {
     onSelectTab: actionCreators.selectTab,
     onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
     onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
-    onNavigateToMain: actionCreators.navigateToMain,
     onCloseTransaction: actionCreators.closeTransaction,
     onAddTransaction: actionCreators.addTransaction,
     onUpdateTransaction: actionCreators.updateTransaction,

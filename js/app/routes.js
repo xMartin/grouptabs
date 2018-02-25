@@ -5,12 +5,24 @@ define([
 function (actionCreators) {
   'use strict';
 
+  function persistTabIdThunk (dispatch, getState) {
+    var tabId = getState().location.payload.tabId;
+    localStorage.setItem('tabId', tabId);
+  }
+
   return {
-    ROUTE_TABS: '/',
+    ROUTE_TABS: {
+      path: '/',
+      thunk: function () {
+        localStorage.removeItem('tabId');
+      }
+    },
 
     ROUTE_TAB: {
       path: '/tabs/:tabId',
       thunk: function (dispatch, getState) {
+        persistTabIdThunk(dispatch, getState);
+
         var tabId = getState().location.payload.tabId;
         
         if (tabId) {
@@ -33,9 +45,16 @@ function (actionCreators) {
       }
     },
 
-    ROUTE_NEW_TRANSACTION: '/tabs/:tabId/transactions/create',
+    ROUTE_NEW_TRANSACTION: {
+      path: '/tabs/:tabId/transactions/create',
+      thunk: persistTabIdThunk
+    },
 
-    ROUTE_TRANSACTION: '/tabs/:tabId/transactions/:transactionId'
+    ROUTE_TRANSACTION: {
+      path: '/tabs/:tabId/transactions/:transactionId',
+      thunk: persistTabIdThunk
+    }
+
   };
 
 });

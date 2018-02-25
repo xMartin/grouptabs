@@ -22,8 +22,6 @@ function (UUID, iobject, DbManager) {
     return (
       db.checkTab(id)
       .then(function (infoDoc) {
-        localStorage.setItem('tabId', id);
-
         dispatch({
           type: 'IMPORT_TAB',
           doc: {
@@ -73,8 +71,6 @@ function (UUID, iobject, DbManager) {
       return function (dispatch) {
         var id = generateTabId();
 
-        localStorage.setItem('tabId', id);
-
         var doc = {
           id: 'info',
           type: 'info',
@@ -95,8 +91,6 @@ function (UUID, iobject, DbManager) {
     },
 
     selectTab: function (id) {
-      localStorage.setItem('tabId', id);
-
       return {
         type: 'ROUTE_TAB',
         payload: {
@@ -139,8 +133,6 @@ function (UUID, iobject, DbManager) {
     },
 
     navigateToTabs: function () {
-      localStorage.removeItem('tabId');
-
       return {
         type: 'ROUTE_TABS'
       };

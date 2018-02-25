@@ -67,13 +67,6 @@
       var compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
       var store = Redux.createStore(rootReducer, compose(router.enhancer, middlewares));
 
-      if (!store.getState().location.payload.tabId) {
-        var initialTab = localStorage.getItem('tabId');
-        if (initialTab) {
-          store.dispatch(actionCreators.selectTab(initialTab));
-        }
-      }
-
       var components = (
         React.createElement(ReactRedux.Provider, {store: store},
           React.createElement(App)

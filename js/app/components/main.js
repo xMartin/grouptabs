@@ -143,18 +143,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
               :
               null
             ),
-            (
-              this.props.accounts.length
-              ?
-              el('div', {className: 'share-info'},
-                el('p', null,
-                  'Share this tab ID for collaboration with others:',
-                  el('br'),
-                  el('code', null, this.props.tabId)
-                )
+            el('div', {className: 'share-info'},
+              el('p', null,
+                'Share this tab ID for collaboration with others:',
+                el('br'),
+                el('code', null, this.props.tabId)
               )
-              :
-              null
             )
           )
         )

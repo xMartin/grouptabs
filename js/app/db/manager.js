@@ -24,26 +24,28 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
     },
 
     connect: function () {
-      Promise.all(this.getAllDbs().map(function (db) {
-        return (
-          db.db.connect()
-          .then(this.transformDocs.bind(this, db.tabId))
-        );
-      }.bind(this)))
-      .then(function (docsPerDb) {
-        var flat = [];
-        docsPerDb.forEach(function (docs) {
-          flat = flat.concat(docs);
-        });
-        return flat;
-      })
-      .then(function (docs) {
-        this._changesCallback({
-          createOrUpdate: docs,
-          delete: []
-        });
-      }.bind(this))
-      .catch(console.error.bind(console));
+      return (
+        Promise.all(this.getAllDbs().map(function (db) {
+          return (
+            db.db.connect()
+            .then(this.transformDocs.bind(this, db.tabId))
+          );
+        }.bind(this)))
+        .then(function (docsPerDb) {
+          var flat = [];
+          docsPerDb.forEach(function (docs) {
+            flat = flat.concat(docs);
+          });
+          return flat;
+        })
+        .then(function (docs) {
+          this._changesCallback({
+            createOrUpdate: docs,
+            delete: []
+          });
+        }.bind(this))
+        .catch(console.error.bind(console))
+      );
     },
 
     createDoc: function (doc) {

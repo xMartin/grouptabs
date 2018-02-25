@@ -56,14 +56,16 @@ function (UUID, iobject, DbManager) {
   var actionCreators = {
     connectDb: function () {
       return function (dispatch) {
-        db.init(function (actionMap) {
-          dispatch({
-            type: 'UPDATE_FROM_DB',
-            actionMap: actionMap
-          });
-        })
-        .then(db.connect.bind(db))
-        .catch(console.error.bind(console));
+        return (
+          db.init(function (actionMap) {
+            dispatch({
+              type: 'UPDATE_FROM_DB',
+              actionMap: actionMap
+            });
+          })
+          .then(db.connect.bind(db))
+          .catch(console.error.bind(console))
+        );
       };
     },
 

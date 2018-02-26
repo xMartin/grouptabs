@@ -64,8 +64,17 @@ function (UUID, iobject, DbManager) {
             });
           })
           .then(db.connect.bind(db))
-          .catch(console.error.bind(console))
         );
+      };
+    },
+
+    ensureConnectedDb: function () {
+      return function (dispatch, getState) {
+        if (getState().app.initialLoadingDone) {
+          return Promise.resolve();
+        }
+
+        return dispatch(actionCreators.connectDb());
       };
     },
 

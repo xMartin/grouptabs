@@ -49,21 +49,17 @@
       'pouchdb-all-dbs',
       'app/app',
       'history',
-      'redux-first-router'
+      'redux-first-router',
+      'app/routes'
     ],
-    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, ReduxFirstRouter) {
+    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, ReduxFirstRouter, routes) {
       /* jshint -W031 */
       new FastClick(document.body);
       /* jshint +W031 */
 
       var history = History.createHashHistory();
 
-      var router = ReduxFirstRouter.connectRoutes(history, {
-        ROUTE_TABS: '/',
-        ROUTE_TAB: '/tabs/:tabId',
-        ROUTE_NEW_TRANSACTION: '/tabs/:tabId/transactions/create',
-        ROUTE_TRANSACTION: '/tabs/:tabId/transactions/:transactionId'
-      });
+      var router = ReduxFirstRouter.connectRoutes(history, routes);
 
       var rootReducer = Redux.combineReducers({location: router.reducer, app: appReducer});
       var middlewares = Redux.applyMiddleware(ReduxThunk.default, router.middleware);
@@ -79,33 +75,12 @@
 
       ReactDOM.render(components, document.getElementById('root'));
 
-      store.dispatch(actionCreators.connectDb())
-      .then(function () {
-        handleTabIdInUrl(store.dispatch, store.getState);
-        hideAppLoader();
-      });
-
-      function handleTabIdInUrl (dispatch, getState) {
-        var tabId = getState().location.payload.tabId;
-
-        if (tabId) {
-          var tabExistsLocally = false;
-          var tabs = getState().app.tabs;
-          for (var i = 0; i < tabs.length; ++i) {
-            if (tabs[i] === tabId) {
-              tabExistsLocally = true;
-              break;
-            }
-          }
-
-          if (!tabExistsLocally) {
-            dispatch(actionCreators.importTabFromUrl(tabId))
-            .catch(function () {
-              dispatch(actionCreators.navigateToTabs());
-            });
-          }
+      var unsubscribe = store.subscribe(function () {
+        if (store.getState().app.initialLoadingDone) {
+          hideAppLoader();
+          unsubscribe();
         }
-      }
+      });
 
       function hideAppLoader () {
         var loader = document.getElementById('loader');

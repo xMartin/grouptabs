@@ -8,7 +8,9 @@ function (actionCreators) {
   return {
     ROUTE_TABS: {
       path: '/',
-      thunk: actionCreators.ensureConnectedDb()
+      thunk: function (dispatch) {
+        dispatch(actionCreators.ensureConnectedDb());
+      }
     },
 
     ROUTE_TAB: {
@@ -40,12 +42,23 @@ function (actionCreators) {
 
     ROUTE_NEW_TRANSACTION: {
       path: '/tabs/:tabId/transactions/create',
-      thunk: actionCreators.ensureConnectedDb()
+      thunk: function (dispatch) {
+        dispatch(actionCreators.ensureConnectedDb());
+      }
     },
 
     ROUTE_TRANSACTION: {
       path: '/tabs/:tabId/transactions/:transactionId',
-      thunk: actionCreators.ensureConnectedDb()
+      thunk: function (dispatch) {
+        dispatch(actionCreators.ensureConnectedDb());
+      }
+    },
+
+    ROUTE_CATCH_ALL: {
+      path: '*',
+      thunk: function (dispatch) {
+        dispatch(actionCreators.navigateToTabs());
+      }
     }
 
   };

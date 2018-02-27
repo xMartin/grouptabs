@@ -1,14 +1,22 @@
 define([
-  'app/redux/actioncreators'
+  'app/redux/actioncreators',
+  'app/redux/selector'
 ],
 
-function (actionCreators) {
+function (actionCreators, selector) {
   'use strict';
+
+  var titleBase = 'Grouptabs';
+
+  function setTitle (input) {
+    document.title = input ? titleBase + ' – ' + input : titleBase;
+  }
 
   return {
     ROUTE_TABS: {
       path: '/',
       thunk: function (dispatch) {
+        setTitle();
         dispatch(actionCreators.ensureConnectedDb());
       }
     },
@@ -29,8 +37,13 @@ function (actionCreators) {
             }
           }
   
-          if (!tabExistsLocally) {
+          if (tabExistsLocally) {
+            setTitle(selector(getState()).tabName);
+          } else {
             dispatch(actionCreators.importTabFromUrl(tabId))
+            .then(function () {
+              setTitle(selector(getState()).tabName);
+            })
             .catch(function () {
               dispatch(actionCreators.navigateToTabs());
             });
@@ -42,15 +55,23 @@ function (actionCreators) {
 
     ROUTE_NEW_TRANSACTION: {
       path: '/tabs/:tabId/transactions/create',
-      thunk: function (dispatch) {
-        dispatch(actionCreators.ensureConnectedDb());
+      thunk: function (dispatch, getState) {
+        dispatch(actionCreators.ensureConnectedDb())
+        .then(function () {
+          setTitle(selector(getState()).tabName + ': New');
+        });
       }
     },
 
     ROUTE_TRANSACTION: {
       path: '/tabs/:tabId/transactions/:transactionId',
-      thunk: function (dispatch) {
-        dispatch(actionCreators.ensureConnectedDb());
+      thunk: function (dispatch, getState) {
+        dispatch(actionCreators.ensureConnectedDb())
+        .then(function () {
+          var state = getState();
+          var transaction = state.app.docsById[state.location.payload.transactionId];
+          setTitle(selector(getState()).tabName + ': ' + transaction.description);
+        });
       }
     },
 

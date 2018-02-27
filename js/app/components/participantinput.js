@@ -75,13 +75,15 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantStatus
     },
 
     render: function () {
+      var status = this.state.status;
+
       return (
-        el('div', {className: 'participantInput' + (this.state.status > 0 ? ' selected' : '')},
+        el('div', {className: 'participantInput' + (status > 0 ? ' selected' : '') + (status === 2 ? ' paid' : '')},
           el('span', {className: 'participant'},
             this.props.participant
           ),
           el(ParticipantStatusInput, {
-            status: this.state.status,
+            status: status,
             amount: this.props.value && this.props.value.amount || undefined,
             handleJoinedChange: this.handleJoinedChange,
             handlePaidChange: this.handlePaidChange,

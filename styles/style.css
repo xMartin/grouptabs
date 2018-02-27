@@ -234,8 +234,12 @@ input[type=number] {
 }
 .participantInput,
 .newParticipantInput {
-	color: #999;
 	display: flex;
+}
+.participantInput,
+.newParticipantInput,
+.newParticipantInput .participant input {
+	color: #999;
 }
 .participantInput > *,
 .newParticipantInput > * {
@@ -244,8 +248,13 @@ input[type=number] {
 	border-bottom: 1px solid #f2f2f2;  /* body background */
 }
 .participantInput.selected,
-.newParticipantInput.selected {
+.newParticipantInput.selected,
+.newParticipantInput.selected .participant input {
 	color: inherit;
+}
+.participantInput.paid .participant,
+.newParticipantInput.paid .participant input {
+	font-weight: bold;
 }
 .participantInput .participant {
 	padding-left: 10px;

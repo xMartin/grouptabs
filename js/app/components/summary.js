@@ -71,7 +71,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
                     }
                   },
                     el('th', {className: 'account'}, account.participant),
-                    el('td', {className: 'amount'}, account.amount)
+                    el('td', {className: 'amount'}, account.amount.toLocaleString())
                   )
                 );
               })

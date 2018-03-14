@@ -10,6 +10,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
 
   var el = React.createElement;
 
+  var participantDelimiter = ' · ';
+
   return createReactClass({
     mixins: [PureRenderMixin],
 
@@ -45,8 +47,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       var payments = '';
       var total = 0;
       paymentsList.forEach(function (payment, idx) {
-        idx && (payments += ', ');
-        payments += payment.participant + ': ' + round(payment.amount);
+        idx && (payments += participantDelimiter);
+        payments += payment.participant + ' ' + round(payment.amount).toLocaleString();
         total += payment.amount;
       });
       result.payments = el('strong', null, payments);
@@ -66,7 +68,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
             return;
           }
         }
-        participants += ', ' + participant;
+        participants += participantDelimiter + participant;
       });
       result.participants = participants;
 
@@ -93,7 +95,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
                   )
                 ),
                 el('td', {className: 'total'},
-                  data.total
+                  data.total.toLocaleString()
                 )
               )
             )

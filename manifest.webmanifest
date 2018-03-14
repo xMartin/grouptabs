@@ -1,0 +1,25 @@
+{
+    "background_color": "#f2f2f2",
+    "description": "Track expenses in a group of people!",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "images/grouptabs.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "images/favicon-touch.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "images/favicon.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        }
+    ],
+    "name": "Grouptabs",
+    "short_name": "Grouptabs",
+    "start_url": "/"
+}

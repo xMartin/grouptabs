@@ -133,7 +133,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
                     className: 'transactions-heading transactions-heading-fixed',
                     onClick: this.onTransitionsTeaserClick
                   },
-                    '▼ Transactions'
+                    '▾ Transactions'
                   )
                   :
                   null

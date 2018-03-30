@@ -85,6 +85,8 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             accounts: this.props.accounts,
             transactions: this.props.transactions,
             visible: this.props.location.type === 'ROUTE_TAB',
+            checkingRemoteTab: this.props.checkingRemoteTab,
+            remoteTabError: this.props.remoteTabError,
             importingTab: this.props.importingTab,
             handleChangeTabClick: this.props.onNavigateToTabs,
             onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,

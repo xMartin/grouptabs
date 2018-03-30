@@ -43,9 +43,6 @@ function (actionCreators, selector) {
             dispatch(actionCreators.importTabFromUrl(tabId))
             .then(function () {
               setTitle(selector(getState()).tabName);
-            })
-            .catch(function () {
-              dispatch(actionCreators.navigateToTabs());
             });
           }
         })

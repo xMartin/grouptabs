@@ -132,6 +132,12 @@ function (iarray, iobject) {
           }
         });
 
+      case 'ROUTE_TABS':
+      case 'ROUTE_TAB':
+        return iobject.merge(state, {
+          remoteTabError: initialState.remoteTabError
+        });
+
       default:
         return state;
     }

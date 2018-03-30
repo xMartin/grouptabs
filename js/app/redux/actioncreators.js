@@ -132,6 +132,8 @@ function (UUID, iobject, DbManager) {
     importTab: function (id) {
       return function (dispatch) {
         id = id.toLowerCase();
+        // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
+        id = id.replace(/.*?([a-z0-9]+$)/, '$1');
 
         checkTab(dispatch, id, true);
       };

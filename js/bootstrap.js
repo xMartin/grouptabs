@@ -49,15 +49,19 @@
       'pouchdb-all-dbs',
       'app/app',
       'history',
+      'app/util/standalone',
       'redux-first-router',
       'app/routes'
     ],
-    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, ReduxFirstRouter, routes) {
+    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, initStandaloneLocation, ReduxFirstRouter, routes) {
       /* jshint -W031 */
       new FastClick(document.body);
       /* jshint +W031 */
 
       var history = History.createHashHistory();
+
+      // re-establish last visited location on iOS standalone web app
+      initStandaloneLocation(history);
 
       var router = ReduxFirstRouter.connectRoutes(history, routes);
 

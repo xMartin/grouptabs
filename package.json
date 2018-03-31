@@ -22,7 +22,7 @@
     "fastclick": "^1.0.6",
     "history": "^4.7.2",
     "lie": "^3.2.0",
-    "pouchdb": "^6.4.3",
+    "pouchdb": "6.4.1",
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#umd",
     "prop-types": "^15.5.10",
     "pure-uuid": "^1.5.0",

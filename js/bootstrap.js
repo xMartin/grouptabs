@@ -44,16 +44,13 @@
       'react-redux',
       'redux-thunk',
       'app/redux/reducer',
-      'app/redux/actioncreators',
-      'pouchdb',
-      'pouchdb-all-dbs',
       'app/app',
       'history',
       'app/util/standalone',
       'redux-first-router',
       'app/routes'
     ],
-    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, actionCreators, PouchDB, allDbs, App, History, initStandaloneLocation, ReduxFirstRouter, routes) {
+    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, App, History, initStandaloneLocation, ReduxFirstRouter, routes) {
       /* jshint -W031 */
       new FastClick(document.body);
       /* jshint +W031 */

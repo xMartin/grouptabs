@@ -12,6 +12,18 @@ function (actionCreators, selector) {
     document.title = input ? titleBase + ' – ' + input : titleBase;
   }
 
+  function checkTabLocally (state) {
+    var tabId = state.location.payload.tabId;
+    var tabs = state.app.tabs;
+    for (var i = 0; i < tabs.length; ++i) {
+      if (tabs[i] === tabId) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   return {
     ROUTE_TABS: {
       path: '/',
@@ -24,22 +36,13 @@ function (actionCreators, selector) {
     ROUTE_TAB: {
       path: '/tabs/:tabId',
       thunk: function (dispatch, getState) {
-        var tabId = getState().location.payload.tabId;
 
-        actionCreators.ensureConnectedDb()(dispatch, getState)
+        dispatch(actionCreators.ensureConnectedDb())
         .then(function () {
-          var tabExistsLocally = false;
-          var tabs = getState().app.tabs;
-          for (var i = 0; i < tabs.length; ++i) {
-            if (tabs[i] === tabId) {
-              tabExistsLocally = true;
-              break;
-            }
-          }
-  
-          if (tabExistsLocally) {
+          if (checkTabLocally(getState())) {
             setTitle(selector(getState()).tabName);
           } else {
+            var tabId = getState().location.payload.tabId;
             dispatch(actionCreators.importTabFromUrl(tabId))
             .then(function () {
               setTitle(selector(getState()).tabName);
@@ -65,9 +68,27 @@ function (actionCreators, selector) {
       thunk: function (dispatch, getState) {
         dispatch(actionCreators.ensureConnectedDb())
         .then(function () {
-          var state = getState();
-          var transaction = state.app.docsById[state.location.payload.transactionId];
-          setTitle(selector(getState()).tabName + ': ' + transaction.description);
+          function setTransactionTitle (state) {
+            var transaction = state.app.docsById[state.location.payload.transactionId];
+            if (transaction) {
+              setTitle(selector(state).tabName + ': ' + transaction.description);
+            } else {
+              // TODO Set title of imported tab transaction correctly
+              // In the case of a tab just being imported, we currently don't know when we are
+              // ready to access the description.
+              setTitle(selector(state).tabName);
+            }
+          }
+
+          if (checkTabLocally(getState())) {
+            setTransactionTitle(getState());
+          } else {
+            var tabId = getState().location.payload.tabId;
+            dispatch(actionCreators.importTabFromUrl(tabId))
+            .then(function () {
+              setTransactionTitle(getState());
+            });
+          }
         });
       }
     },

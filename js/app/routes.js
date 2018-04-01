@@ -17,6 +17,16 @@ function (actionCreators) {
     return false;
   }
 
+  function tabThunk (dispatch, getState) {
+    dispatch(actionCreators.ensureConnectedDb())
+    .then(function () {
+      if (!checkTabLocally(getState())) {
+        var tabId = getState().location.payload.tabId;
+        dispatch(actionCreators.importTabFromUrl(tabId));
+      }
+    });
+  }
+
   return {
     ROUTE_TABS: {
       path: '/',
@@ -27,37 +37,17 @@ function (actionCreators) {
 
     ROUTE_TAB: {
       path: '/tabs/:tabId',
-      thunk: function (dispatch, getState) {
-
-        dispatch(actionCreators.ensureConnectedDb())
-        .then(function () {
-          if (!checkTabLocally(getState())) {
-            var tabId = getState().location.payload.tabId;
-            dispatch(actionCreators.importTabFromUrl(tabId));
-          }
-        })
-        .catch(console.error.bind(console));
-      }
+      thunk: tabThunk
     },
 
     ROUTE_NEW_TRANSACTION: {
       path: '/tabs/:tabId/transactions/create',
-      thunk: function (dispatch) {
-        dispatch(actionCreators.ensureConnectedDb());
-      }
+      thunk: tabThunk
     },
 
     ROUTE_TRANSACTION: {
       path: '/tabs/:tabId/transactions/:transactionId',
-      thunk: function (dispatch, getState) {
-        dispatch(actionCreators.ensureConnectedDb())
-        .then(function () {
-          if (!checkTabLocally(getState())) {
-            var tabId = getState().location.payload.tabId;
-            dispatch(actionCreators.importTabFromUrl(tabId));
-          }
-        });
-      }
+      thunk: tabThunk
     },
 
     ROUTE_CATCH_ALL: {

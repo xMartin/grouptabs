@@ -1,16 +1,9 @@
 define([
-  'app/redux/actioncreators',
-  'app/redux/selectors'
+  'app/redux/actioncreators'
 ],
 
-function (actionCreators, selectors) {
+function (actionCreators) {
   'use strict';
-
-  var titleBase = 'Grouptabs';
-
-  function setTitle (input) {
-    document.title = input ? titleBase + ' – ' + input : titleBase;
-  }
 
   function checkTabLocally (state) {
     var tabId = state.location.payload.tabId;
@@ -28,7 +21,6 @@ function (actionCreators, selectors) {
     ROUTE_TABS: {
       path: '/',
       thunk: function (dispatch) {
-        setTitle();
         dispatch(actionCreators.ensureConnectedDb());
       }
     },
@@ -39,14 +31,9 @@ function (actionCreators, selectors) {
 
         dispatch(actionCreators.ensureConnectedDb())
         .then(function () {
-          if (checkTabLocally(getState())) {
-            setTitle(selectors.getTabName(getState()));
-          } else {
+          if (!checkTabLocally(getState())) {
             var tabId = getState().location.payload.tabId;
-            dispatch(actionCreators.importTabFromUrl(tabId))
-            .then(function () {
-              setTitle(selectors.getTabName(getState()));
-            });
+            dispatch(actionCreators.importTabFromUrl(tabId));
           }
         })
         .catch(console.error.bind(console));
@@ -55,11 +42,8 @@ function (actionCreators, selectors) {
 
     ROUTE_NEW_TRANSACTION: {
       path: '/tabs/:tabId/transactions/create',
-      thunk: function (dispatch, getState) {
-        dispatch(actionCreators.ensureConnectedDb())
-        .then(function () {
-          setTitle(selectors.getTabName(getState()) + ': New');
-        });
+      thunk: function (dispatch) {
+        dispatch(actionCreators.ensureConnectedDb());
       }
     },
 
@@ -68,26 +52,9 @@ function (actionCreators, selectors) {
       thunk: function (dispatch, getState) {
         dispatch(actionCreators.ensureConnectedDb())
         .then(function () {
-          function setTransactionTitle (state) {
-            var transaction = state.app.docsById[state.location.payload.transactionId];
-            if (transaction) {
-              setTitle(selectors.getTabName(state) + ': ' + transaction.description);
-            } else {
-              // TODO Set title of imported tab transaction correctly
-              // In the case of a tab just being imported, we currently don't know when we are
-              // ready to access the description.
-              setTitle(selectors.getTabName(state));
-            }
-          }
-
-          if (checkTabLocally(getState())) {
-            setTransactionTitle(getState());
-          } else {
+          if (!checkTabLocally(getState())) {
             var tabId = getState().location.payload.tabId;
-            dispatch(actionCreators.importTabFromUrl(tabId))
-            .then(function () {
-              setTransactionTitle(getState());
-            });
+            dispatch(actionCreators.importTabFromUrl(tabId));
           }
         });
       }

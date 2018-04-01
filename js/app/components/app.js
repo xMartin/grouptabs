@@ -13,6 +13,17 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
 
   var el = React.createElement;
 
+  var titleBase = 'Grouptabs';
+
+  function setTitle (input) {
+    var documentTitle = document.title;
+    var result = input ? titleBase + ' – ' + input : titleBase;
+
+    if (result !== documentTitle) {
+      document.title = result;
+    }
+  }
+
   return createReactClass({
 
     displayName: 'App',
@@ -56,6 +67,27 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
     componentWillReceiveProps: function (nextProps) {
       if (nextProps.location.type !== this.props.location.type) {
         window.scrollTo({top: 0});
+      }
+
+      this.setPageTitle(nextProps);
+    },
+
+    setPageTitle: function (nextProps) {
+      var tabName = nextProps.tabName;
+
+      switch (nextProps.location.type) {
+        case 'ROUTE_TAB':
+          setTitle(tabName);
+          break;
+        case 'ROUTE_NEW_TRANSACTION':
+          setTitle(tabName ? tabName + ': New' : '');
+          break;
+        case 'ROUTE_TRANSACTION':
+          var transaction = nextProps.transaction;
+          setTitle(transaction ? tabName + ': ' + transaction.description : '');
+          break;
+        default:
+          setTitle();
       }
     },
 

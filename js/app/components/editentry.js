@@ -6,10 +6,10 @@ define([
   '../lang/iobject',
   './loader',
   './form',
-  './importerror'
+  './loaderror'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, Form, ImportError) {
+function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, Form, LoadError) {
   'use strict';
 
   var el = React.createElement;
@@ -129,7 +129,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
 
     renderContent: function () {
       if (this.props.remoteTabError) {
-        return el(ImportError, {remoteTabError: this.props.remoteTabError, onOkClick: this.props.handleChangeTabClick});
+        return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.handleChangeTabClick});
+      }
+
+      if (this.props.mode === 'edit' && !this.props.data) {
+        var message = 'Could not find transaction.';
+        return el(LoadError, {message: message, onOkClick: this.props.handleCloseClick});
       }
 
       return (
@@ -149,7 +154,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
 
       return (
         el('div', {className: 'scene editEntryScene'},
-          this.renderHeader(!isLoading && !this.props.remoteTabError),
+          this.renderHeader(!isLoading && !(this.props.remoteTabError || (this.props.mode === 'edit' && !this.props.data))),
           el(Loader, {show: isLoading},
             this.renderContent()
           )

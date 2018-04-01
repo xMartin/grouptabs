@@ -132,7 +132,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             )
           ) &&
             el(EditEntry, {
-              mode: this.props.transaction ? 'edit' : 'new',
+              mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
               data: this.props.transaction,
               participants: this.props.participants,
               checkingRemoteTab: this.props.checkingRemoteTab,

@@ -13,15 +13,15 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
   return createReactClass({
     mixins: [PureRenderMixin],
 
-    displayName: 'ImportError',
+    displayName: 'LoadError',
 
     propTypes: {
-      remoteTabError: PropTypes.string.isRequired,
+      message: PropTypes.string.isRequired,
       onOkClick: PropTypes.func.isRequired
     },
 
     handleButtonClick: function () {
-      if (this.props.remoteTabError === 'Error: unable to import tab. Please try again.') {
+      if (this.props.message === 'Error: unable to import tab. Please try again.') {
         window.location.reload();
       } else {
         this.props.onOkClick();
@@ -30,10 +30,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
 
     render: function () {
       return (
-        el('div', {className: 'import-error'},
+        el('div', {className: 'load-error'},
           el('img', {src: 'images/favicon-touch.png'}),
           el('h2', null, 'Grouptabs'),
-          el('p', null, this.props.remoteTabError),
+          el('p', null, this.props.message),
           el('button', {className: 'create', onClick: this.handleButtonClick}, 'OK')
         )
       );

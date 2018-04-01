@@ -7,10 +7,10 @@ define([
   './loader',
   './summary',
   './transactionlist',
-  './importerror'
+  './loaderror'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loader, Summary, TransactionList, ImportError) {
+function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loader, Summary, TransactionList, LoadError) {
   'use strict';
 
   var el = React.createElement;
@@ -132,7 +132,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
 
     renderContent: function () {
       if (this.props.remoteTabError) {
-        return el(ImportError, {remoteTabError: this.props.remoteTabError, onOkClick: this.props.handleChangeTabClick});
+        return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.handleChangeTabClick});
       }
 
       if (this.props.accounts.length === 0) {

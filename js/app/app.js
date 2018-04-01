@@ -1,28 +1,26 @@
 define([
   'react-redux',
-  './redux/selector',
+  './redux/selectors',
   './redux/actioncreators',
   './components/app'
 ],
 
-function (ReactRedux, selector, actionCreators, App) {
+function (ReactRedux, selectors, actionCreators, App) {
   'use strict';
 
   function mapStateToProps (state) {
-    var selected = selector(state);
-
     return {
       location: state.location,
       initialLoadingDone: state.app.initialLoadingDone,
-      tabName: selected.tabName,
+      tabName: selectors.getTabName(state),
       transaction: state.app.docsById[state.location.payload.transactionId],
       checkingRemoteTab: state.app.checkingRemoteTab,
       remoteTabError: state.app.remoteTabError,
       importingTab: state.app.importingTab,
-      tabs: selected.tabs,
-      transactions: selected.transactions,
-      accounts: selected.accounts,
-      participants: selected.participants,
+      tabs: selectors.getTabs(state),
+      transactions: selectors.getTransactions(state),
+      accounts: selectors.getAccounts(state),
+      participants: selectors.getParticipants(state),
       error: state.app.error
     };
   }

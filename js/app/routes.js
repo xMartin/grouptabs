@@ -1,9 +1,9 @@
 define([
   'app/redux/actioncreators',
-  'app/redux/selector'
+  'app/redux/selectors'
 ],
 
-function (actionCreators, selector) {
+function (actionCreators, selectors) {
   'use strict';
 
   var titleBase = 'Grouptabs';
@@ -40,12 +40,12 @@ function (actionCreators, selector) {
         dispatch(actionCreators.ensureConnectedDb())
         .then(function () {
           if (checkTabLocally(getState())) {
-            setTitle(selector(getState()).tabName);
+            setTitle(selectors.getTabName(getState()));
           } else {
             var tabId = getState().location.payload.tabId;
             dispatch(actionCreators.importTabFromUrl(tabId))
             .then(function () {
-              setTitle(selector(getState()).tabName);
+              setTitle(selectors.getTabName(getState()));
             });
           }
         })
@@ -58,7 +58,7 @@ function (actionCreators, selector) {
       thunk: function (dispatch, getState) {
         dispatch(actionCreators.ensureConnectedDb())
         .then(function () {
-          setTitle(selector(getState()).tabName + ': New');
+          setTitle(selectors.getTabName(getState()) + ': New');
         });
       }
     },
@@ -71,12 +71,12 @@ function (actionCreators, selector) {
           function setTransactionTitle (state) {
             var transaction = state.app.docsById[state.location.payload.transactionId];
             if (transaction) {
-              setTitle(selector(state).tabName + ': ' + transaction.description);
+              setTitle(selectors.getTabName(state) + ': ' + transaction.description);
             } else {
               // TODO Set title of imported tab transaction correctly
               // In the case of a tab just being imported, we currently don't know when we are
               // ready to access the description.
-              setTitle(selector(state).tabName);
+              setTitle(selectors.getTabName(state));
             }
           }
 

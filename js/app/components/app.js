@@ -13,6 +13,17 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
 
   var el = React.createElement;
 
+  var titleBase = 'Grouptabs';
+
+  function setTitle (input) {
+    var documentTitle = document.title;
+    var result = input ? titleBase + ' – ' + input : titleBase;
+
+    if (result !== documentTitle) {
+      document.title = result;
+    }
+  }
+
   return createReactClass({
 
     displayName: 'App',
@@ -57,6 +68,27 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       if (nextProps.location.type !== this.props.location.type) {
         window.scrollTo({top: 0});
       }
+
+      this.setPageTitle(nextProps);
+    },
+
+    setPageTitle: function (nextProps) {
+      var tabName = nextProps.tabName;
+
+      switch (nextProps.location.type) {
+        case 'ROUTE_TAB':
+          setTitle(tabName);
+          break;
+        case 'ROUTE_NEW_TRANSACTION':
+          setTitle(tabName ? tabName + ': New' : '');
+          break;
+        case 'ROUTE_TRANSACTION':
+          var transaction = nextProps.transaction;
+          setTitle(transaction ? tabName + ': ' + transaction.description : '');
+          break;
+        default:
+          setTitle();
+      }
     },
 
     render: function () {
@@ -85,6 +117,8 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             accounts: this.props.accounts,
             transactions: this.props.transactions,
             visible: this.props.location.type === 'ROUTE_TAB',
+            checkingRemoteTab: this.props.checkingRemoteTab,
+            remoteTabError: this.props.remoteTabError,
             importingTab: this.props.importingTab,
             handleChangeTabClick: this.props.onNavigateToTabs,
             onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
@@ -98,9 +132,13 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             )
           ) &&
             el(EditEntry, {
-              mode: this.props.transaction ? 'edit' : 'new',
+              mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
               data: this.props.transaction,
               participants: this.props.participants,
+              checkingRemoteTab: this.props.checkingRemoteTab,
+              remoteTabError: this.props.remoteTabError,
+              importingTab: this.props.importingTab,
+              handleChangeTabClick: this.props.onNavigateToTabs,
               handleCloseClick: this.props.onCloseTransaction,
               handleCreate: this.props.onAddTransaction,
               handleUpdate: this.props.onUpdateTransaction,

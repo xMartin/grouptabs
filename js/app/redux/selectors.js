@@ -59,7 +59,7 @@ function (reselect) {
     });
   }
 
-  function getTabs (state) {
+  function getTabIds (state) {
     return state.app.tabs;
   }
 
@@ -75,43 +75,63 @@ function (reselect) {
     return state.app.transactionsByTab;
   }
 
-  return reselect.createSelector(
-    [getTabs, getDocsById, getCurrentTab, getTransactionsByTab],
-    function (tabIds, docsById, currentTab, transactionsByTab) {
-      var tabs = tabIds.map(function (tabId) {
+  var getTabs = reselect.createSelector(
+    [getTabIds, getDocsById],
+    function (tabIds, docsById) {
+      return tabIds.map(function (tabId) {
         var doc = docsById['info-' + tabId];
         return {
           id: tabId,
           name: doc.name
         };
       });
+    }
+  );
 
+  var getTabName = reselect.createSelector(
+    [getTabs, getCurrentTab],
+    function (tabs, currentTab) {
       var tab;
       tabs.forEach(function (_tab) {
         if (_tab.id === currentTab) {
           tab = _tab;
         }
       });
-      var tabName = tab && tab.name || '';
+      return tab && tab.name || '';
+    }
+  );
 
-      var transactionIds = transactionsByTab[currentTab] || [];
+  var getSortedTransactions = reselect.createSelector(
+    [getDocsById, getCurrentTab, getTransactionsByTab],
+    function (docsById, currentTab, transactionsByTab) {
+      var transactionIds = transactionsByTab[currentTab] || [];
       var transactions = transactionIds.map(function (transactionId) {
         return docsById[transactionId];
       });
-      transactions = sortTransactions(transactions);
-
-      var accounts = transactions2Accounts(transactions);
-
-      var participants = accounts2Participants(accounts);
-
-      return {
-        tabName: tabName,
-        tabs: tabs,
-        transactions: transactions,
-        accounts: accounts,
-        participants: participants
-      };
+      return sortTransactions(transactions);
     }
   );
+
+  var getAccounts = reselect.createSelector(
+    [getSortedTransactions],
+    function (transactions) {
+      return transactions2Accounts(transactions);
+    }
+  );
+
+  var getParticipants = reselect.createSelector(
+    [getAccounts],
+    function (accounts) {
+      return accounts2Participants(accounts);
+    }
+  );
+
+  return {
+    getTabs: getTabs,
+    getTabName: getTabName,
+    getTransactions: getSortedTransactions,
+    getAccounts: getAccounts,
+    getParticipants: getParticipants
+  };
 
 });

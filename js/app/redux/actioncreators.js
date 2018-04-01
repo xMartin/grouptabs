@@ -19,6 +19,10 @@ function (UUID, iobject, DbManager) {
   }
 
   function checkTab(dispatch, id, shouldNavigateToTab) {
+    dispatch({
+      type: 'CHECK_REMOTE_TAB'
+    });
+
     return (
       db.checkTab(id)
       .then(function (infoDoc) {
@@ -49,6 +53,21 @@ function (UUID, iobject, DbManager) {
           });
         })
         .catch(console.error.bind(console));
+      })
+      .catch(function (error) {
+        var message;
+        if (error.name === 'not_found') {
+          message = 'Could not find a tab with the ID "' + id + '".';
+        } else {
+          message = 'Error: unable to import tab. Please try again.';
+        }
+
+        dispatch({
+          type: 'CHECK_REMOTE_TAB_FAILURE',
+          error: message
+        });
+
+        console.error(error);
       })
     );
   }
@@ -112,28 +131,11 @@ function (UUID, iobject, DbManager) {
 
     importTab: function (id) {
       return function (dispatch) {
-        dispatch({
-          type: 'CHECK_REMOTE_TAB'
-        });
-
         id = id.toLowerCase();
+        // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
+        id = id.replace(/.*?([a-z0-9]+$)/, '$1');
 
-        checkTab(dispatch, id, true)
-        .catch(function (error) {
-          var message;
-          if (error.name === 'not_found') {
-            message = 'Could not find a tab with this ID.';
-          } else {
-            message = 'Error: unable to import tab. Please try again.';
-          }
-
-          dispatch({
-            type: 'CHECK_REMOTE_TAB_FAILURE',
-            error: message
-          });
-
-          console.error(error);
-        });
+        checkTab(dispatch, id, true);
       };
     },
 

@@ -14,7 +14,7 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
     constructor: function () {
       this.dbs = {};
 
-      allDbs(PouchDB);
+      allDbs(PouchDB, {noCache: true});
     },
 
     init: function (callback) {
@@ -44,8 +44,27 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
             delete: []
           });
         }.bind(this))
-        .catch(console.error.bind(console))
+        .then(this.initAllDbsListener.bind(this))
       );
+    },
+
+    initAllDbsListener: function () {
+      setInterval(function () {
+        var knownTabIds = Object.keys(this.dbs);
+        PouchDB.allDbs()
+        .then(function (dbNames) {
+          var tabIds = dbNames.map(function (dbName) {
+            return dbName.substring(4);  // strip "tab/"
+          });
+          var newTabIds = tabIds.filter(function (tabId) {
+            return knownTabIds.indexOf(tabId) === -1;
+          });
+          newTabIds.forEach(function (tabId) {
+            this.connectTab(tabId)
+            .then(this._changesCallback.bind(this));
+          }.bind(this));
+        }.bind(this));
+      }.bind(this), 7500);
     },
 
     createDoc: function (doc) {

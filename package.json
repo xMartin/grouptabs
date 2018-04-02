@@ -23,7 +23,7 @@
     "history": "^4.7.2",
     "lie": "^3.3.0",
     "pouchdb": "6.4.1",
-    "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#umd",
+    "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",
     "prop-types": "^15.6.1",
     "pure-uuid": "^1.5.1",
     "react": "^16.3.0",

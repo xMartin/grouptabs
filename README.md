@@ -1,5 +1,9 @@
 # Grouptabs app (#nologin)
 
+> Track expenses in a group of people!
+
+[![Subscribe to Release Notes](https://release-notes.com/badges/v1.svg)](https://release-notes.com/@xMartin/Grouptabs)
+
 [Grouptabs](https://grouptabs.net/) lets you track shared expenses in a group of friends in a fun way.
 
 It is an offline-capable installable web app, currently with a mobile (small screens) focus.

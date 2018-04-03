@@ -107,9 +107,9 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             visible: this.props.location.type === 'ROUTE_TABS',
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,
-            handleTabClick: this.props.onSelectTab,
-            handleCreateNewTab: this.props.onCreateTab,
-            handleImportTab: this.props.onImportTab
+            onTabClick: this.props.onSelectTab,
+            onCreateNewTab: this.props.onCreateTab,
+            onImportTab: this.props.onImportTab
           }),
           el(Main, {
             tabName: this.props.tabName,
@@ -120,9 +120,9 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,
             importingTab: this.props.importingTab,
-            handleChangeTabClick: this.props.onNavigateToTabs,
+            onChangeTabClick: this.props.onNavigateToTabs,
             onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
-            handleDetailsClick: this.props.onNavigateToUpdateTransaction
+            onDetailsClick: this.props.onNavigateToUpdateTransaction
           }),
           (
             !!this.props.initialLoadingDone
@@ -138,11 +138,11 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
               checkingRemoteTab: this.props.checkingRemoteTab,
               remoteTabError: this.props.remoteTabError,
               importingTab: this.props.importingTab,
-              handleChangeTabClick: this.props.onNavigateToTabs,
-              handleCloseClick: this.props.onCloseTransaction,
-              handleCreate: this.props.onAddTransaction,
-              handleUpdate: this.props.onUpdateTransaction,
-              handleDelete: this.props.onRemoveTransaction
+              onChangeTabClick: this.props.onNavigateToTabs,
+              onCloseClick: this.props.onCloseTransaction,
+              onCreate: this.props.onAddTransaction,
+              onUpdate: this.props.onUpdateTransaction,
+              onDelete: this.props.onRemoveTransaction
             })
         )
       );

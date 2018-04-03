@@ -18,7 +18,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Summary) {
 
     propTypes: {
       data: PropTypes.arrayOf(PropTypes.object).isRequired,
-      handleListClick: PropTypes.func.isRequired
+      onListClick: PropTypes.func.isRequired
     },
 
     render: function () {
@@ -26,7 +26,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, Summary) {
         el('div', null,
           el('div', {className: 'row toggle'},
             el('button', {className: 'tab active', disabled: 'disabled'}, 'People'),
-            el('button', {className: 'tab', onClick: this.props.handleListClick}, 'Transactions')
+            el('button', {className: 'tab', onClick: this.props.onListClick}, 'Transactions')
           ),
           el('div', {className: 'row'},
             el(Summary, {data: this.props.data})

@@ -29,9 +29,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
       importingTab: PropTypes.bool,
-      handleChangeTabClick: PropTypes.func.isRequired,
+      onChangeTabClick: PropTypes.func.isRequired,
       onNavigateToAddTransaction: PropTypes.func.isRequired,
-      handleDetailsClick: PropTypes.func.isRequired
+      onDetailsClick: PropTypes.func.isRequired
     },
 
     getInitialState: function () {
@@ -77,14 +77,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       this.props.onNavigateToAddTransaction(this.props.tabId);
     },
 
-    onTransitionsTeaserClick: function () {
+    handleTransitionsTeaserClick: function () {
       this.scroller.animateScroll(this.refs.transactionsHeading);
     },
 
     renderHeader: function (showAddButton) {
       return (
         el('div', {className: 'header'},
-          el('button', {className: 'left', onClick: this.props.handleChangeTabClick},
+          el('button', {className: 'left', onClick: this.props.onChangeTabClick},
             el('svg', {height: 16, width: 16},
               el('path', {d: 'm2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z'})
             )
@@ -102,7 +102,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
 
     renderEmptyState: function () {
       return (
-        el('div', { className: 'empty-info'},
+        el('div', {className: 'empty-info'},
           el('p', null,
             'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
           ),
@@ -132,7 +132,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
 
     renderContent: function () {
       if (this.props.remoteTabError) {
-        return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.handleChangeTabClick});
+        return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
       }
 
       if (this.props.accounts.length === 0) {
@@ -150,12 +150,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
               this.state.transactionsHeadingIsOutOfViewport &&
               el('h3', {
                 className: 'transactions-heading transactions-heading-fixed',
-                onClick: this.onTransitionsTeaserClick
+                onClick: this.handleTransitionsTeaserClick
               },
                 '▾ Transactions'
               )
             ),
-            el(TransactionList, {data: this.props.transactions, handleDetailsClick: this.props.handleDetailsClick})
+            el(TransactionList, {data: this.props.transactions, onDetailsClick: this.props.onDetailsClick})
           ),
           this.renderShareInfo()
         )

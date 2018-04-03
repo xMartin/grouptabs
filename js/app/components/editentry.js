@@ -26,11 +26,11 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
       importingTab: PropTypes.bool,
-      handleCloseClick: PropTypes.func.isRequired,
-      handleCreate: PropTypes.func.isRequired,
-      handleUpdate: PropTypes.func.isRequired,
-      handleDelete: PropTypes.func.isRequired,
-      handleChangeTabClick: PropTypes.func.isRequired
+      onCloseClick: PropTypes.func.isRequired,
+      onCreate: PropTypes.func.isRequired,
+      onUpdate: PropTypes.func.isRequired,
+      onDelete: PropTypes.func.isRequired,
+      onChangeTabClick: PropTypes.func.isRequired
     },
 
     getValues: function () {
@@ -51,9 +51,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
       data.date = new Date(data.date).toJSON();
       data.timestamp = new Date().toJSON();
       if (this.props.data) {
-        this.props.handleUpdate(iobject.merge(this.props.data, data));
+        this.props.onUpdate(iobject.merge(this.props.data, data));
       } else {
-        this.props.handleCreate(data);
+        this.props.onCreate(data);
       }
     },
 
@@ -107,13 +107,13 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
     },
 
     handleDelete: function () {
-      this.props.handleDelete(this.props.data);
+      this.props.onDelete(this.props.data);
     },
 
     renderHeader: function (showSaveButton) {
       return (
         el('div', {className: 'header'},
-          el('button', {className: 'left', onClick: this.props.handleCloseClick},
+          el('button', {className: 'left', onClick: this.props.onCloseClick},
             el('svg', {height: 16, width: 16},
               el('path', {d: 'm7.4983 0.5c0.8974 0 1.3404 1.0909 0.6973 1.7168l-4.7837 4.7832h11.573c1.3523-0.019125 1.3523 2.0191 0 2h-11.572l4.7832 4.7832c0.98163 0.94251-0.47155 2.3957-1.4141 1.4141l-6.4911-6.49c-0.387-0.3878-0.391-1.0228 0-1.414l6.4905-6.49c0.1883-0.1935 0.4468-0.30268 0.7168-0.3027z'})
             )
@@ -129,12 +129,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
 
     renderContent: function () {
       if (this.props.remoteTabError) {
-        return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.handleChangeTabClick});
+        return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
       }
 
       if (this.props.mode === 'edit' && !this.props.data) {
         var message = 'Could not find transaction.';
-        return el(LoadError, {message: message, onOkClick: this.props.handleCloseClick});
+        return el(LoadError, {message: message, onOkClick: this.props.onCloseClick});
       }
 
       return (
@@ -142,8 +142,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
           mode: this.props.mode,
           data: this.props.data,
           participants: this.props.participants,
-          handleCloseClick: this.props.handleCloseClick,
-          handleDelete: this.handleDelete,
+          onDelete: this.handleDelete,
           ref: 'form'
         })
       );

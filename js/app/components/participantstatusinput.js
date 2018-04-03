@@ -18,8 +18,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     propTypes: {
       status: PropTypes.number.isRequired,
       amount: PropTypes.number,
-      handleJoinedChange: PropTypes.func.isRequired,
-      handlePaidChange: PropTypes.func.isRequired,
+      onJoinedChange: PropTypes.func.isRequired,
+      onPaidChange: PropTypes.func.isRequired,
     },
 
     getAmount: function () {
@@ -38,14 +38,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               type: 'button',
               className: this.props.status > 0 ? ' selected' : '',
               ref: 'joined',
-              onClick: this.props.handleJoinedChange
+              onClick: this.props.onJoinedChange
             }, 'joined')
           ),
           el('button', {
             type: 'button',
             className: 'paid-button' + (this.props.status === 2 ? ' selected' : ''),
             ref: 'paid',
-            onClick: this.props.handlePaidChange
+            onClick: this.props.onPaidChange
           }, 'paid'),
           el('span', {className: 'amountInput' + (this.props.status < 2 ? ' hidden' : '')},
             el('input', {

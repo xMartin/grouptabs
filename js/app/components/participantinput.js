@@ -85,8 +85,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantStatus
           el(ParticipantStatusInput, {
             status: status,
             amount: this.props.value && this.props.value.amount || undefined,
-            handleJoinedChange: this.handleJoinedChange,
-            handlePaidChange: this.handlePaidChange,
+            onJoinedChange: this.handleJoinedChange,
+            onPaidChange: this.handlePaidChange,
             ref: 'status'
           })
         )

@@ -17,7 +17,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
 
     propTypes: {
       data: PropTypes.object.isRequired,
-      handleDetailsClick: PropTypes.func.isRequired
+      onDetailsClick: PropTypes.func.isRequired
     },
 
     formatData: function (data) {
@@ -83,7 +83,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     },
 
     handleClick: function () {
-      this.props.handleDetailsClick(this.props.data);
+      this.props.onDetailsClick(this.props.data.tabId, this.props.data.id);
     },
 
     render: function () {

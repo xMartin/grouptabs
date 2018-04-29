@@ -13,13 +13,27 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
 
   var el = React.createElement;
 
+  var titleBase = 'Grouptabs';
+
+  function setTitle (input) {
+    var documentTitle = document.title;
+    var result = input ? titleBase + ' – ' + input : titleBase;
+
+    if (result !== documentTitle) {
+      document.title = result;
+    }
+  }
+
   return createReactClass({
 
     displayName: 'App',
 
     propTypes: {
-      scene: PropTypes.string.isRequired,
-      tabId: PropTypes.string,
+      location: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        payload: PropTypes.object.isRequired
+      }).isRequired,
+      initialLoadingDone: PropTypes.bool,
       tabName: PropTypes.string,
       transaction: PropTypes.object,
       tabs: PropTypes.arrayOf(PropTypes.object),
@@ -39,7 +53,6 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       onSelectTab: PropTypes.func.isRequired,
       onNavigateToAddTransaction: PropTypes.func.isRequired,
       onNavigateToUpdateTransaction: PropTypes.func.isRequired,
-      onNavigateToMain: PropTypes.func.isRequired,
       onCloseTransaction: PropTypes.func.isRequired,
       onAddTransaction: PropTypes.func.isRequired,
       onUpdateTransaction: PropTypes.func.isRequired,
@@ -52,8 +65,29 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
     },
 
     componentWillReceiveProps: function (nextProps) {
-      if (nextProps.scene !== this.props.scene) {
+      if (nextProps.location.type !== this.props.location.type) {
         window.scrollTo({top: 0});
+      }
+
+      this.setPageTitle(nextProps);
+    },
+
+    setPageTitle: function (nextProps) {
+      var tabName = nextProps.tabName;
+
+      switch (nextProps.location.type) {
+        case 'ROUTE_TAB':
+          setTitle(tabName);
+          break;
+        case 'ROUTE_NEW_TRANSACTION':
+          setTitle(tabName ? tabName + ': New' : '');
+          break;
+        case 'ROUTE_TRANSACTION':
+          var transaction = nextProps.transaction;
+          setTitle(transaction ? tabName + ': ' + transaction.description : '');
+          break;
+        default:
+          setTitle();
       }
     },
 
@@ -70,35 +104,46 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
         el('div', {id: 'scenes'},
           el(Tabs, {
             data: this.props.tabs,
-            visible: this.props.scene === 'tabs',
+            visible: this.props.location.type === 'ROUTE_TABS',
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,
-            handleTabClick: this.props.onSelectTab,
-            handleCreateNewTab: this.props.onCreateTab,
-            handleImportTab: this.props.onImportTab
+            onTabClick: this.props.onSelectTab,
+            onCreateNewTab: this.props.onCreateTab,
+            onImportTab: this.props.onImportTab
           }),
           el(Main, {
             tabName: this.props.tabName,
-            tabId: this.props.tabId,
+            tabId: this.props.location.payload.tabId,
             accounts: this.props.accounts,
             transactions: this.props.transactions,
-            visible: this.props.scene === 'main',
+            visible: this.props.location.type === 'ROUTE_TAB',
+            checkingRemoteTab: this.props.checkingRemoteTab,
+            remoteTabError: this.props.remoteTabError,
             importingTab: this.props.importingTab,
-            handleChangeTabClick: this.props.onNavigateToTabs,
-            handleNewEntryClick: this.props.onNavigateToAddTransaction,
-            handleDetailsClick: this.props.onNavigateToUpdateTransaction
+            onChangeTabClick: this.props.onNavigateToTabs,
+            onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
+            onDetailsClick: this.props.onNavigateToUpdateTransaction
           }),
-          (this.props.scene === 'details') ?
+          (
+            !!this.props.initialLoadingDone
+            && (
+              this.props.location.type === 'ROUTE_NEW_TRANSACTION'
+              || this.props.location.type === 'ROUTE_TRANSACTION'
+            )
+          ) &&
             el(EditEntry, {
-              mode: this.props.transaction ? 'edit' : 'new',
+              mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
               data: this.props.transaction,
               participants: this.props.participants,
-              handleCloseClick: this.props.onCloseTransaction,
-              handleCreate: this.props.onAddTransaction,
-              handleUpdate: this.props.onUpdateTransaction,
-              handleDelete: this.props.onRemoveTransaction
+              checkingRemoteTab: this.props.checkingRemoteTab,
+              remoteTabError: this.props.remoteTabError,
+              importingTab: this.props.importingTab,
+              onChangeTabClick: this.props.onNavigateToTabs,
+              onCloseClick: this.props.onCloseTransaction,
+              onCreate: this.props.onAddTransaction,
+              onUpdate: this.props.onUpdateTransaction,
+              onDelete: this.props.onRemoveTransaction
             })
-          : null
         )
       );
     }

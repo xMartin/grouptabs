@@ -5,7 +5,7 @@
     "postinstall": "npm run config:copy",
     "serve": "http-server",
     "build": "rm -rf dist/ && r.js -o mainConfigFile=js/bootstrap.js paths.requireLib=../node_modules/requirejs/require paths.react=../node_modules/react/umd/react.production.min paths.react-dom=../node_modules/react-dom/umd/react-dom.production.min paths.redux=../node_modules/redux/dist/redux.min out=dist/app.js include=requireLib,bootstrap.js",
-    "lint": "jshint js/",
+    "lint": "eslint js/",
     "config:copy": "if [ ! -f './js/config.js' ]; then cp ./js/config-sample.js ./js/config.js; fi"
   },
   "repository": {
@@ -18,26 +18,28 @@
   },
   "homepage": "https://grouptabs.net/",
   "dependencies": {
-    "create-react-class": "^15.6.0",
+    "create-react-class": "^15.6.3",
     "fastclick": "^1.0.6",
-    "lie": "^3.1.1",
-    "pouchdb": "^6.2.0",
-    "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#umd",
-    "prop-types": "^15.5.10",
-    "pure-uuid": "^1.4.10",
-    "react": "^16.1.0",
+    "history": "^4.7.2",
+    "lie": "^3.3.0",
+    "pouchdb": "6.4.1",
+    "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",
+    "prop-types": "^15.6.1",
+    "pure-uuid": "^1.5.2",
+    "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.0",
-    "react-dom": "^16.1.0",
-    "react-redux": "^5.0.5",
-    "redux": "^3.7.1",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-first-router": "0.0.16-next",
     "redux-thunk": "^2.2.0",
     "requirejs": "^2.3.3",
     "reselect": "^3.0.1",
     "smooth-scroll": "^12.1.5"
   },
   "devDependencies": {
-    "http-server": "^0.10.0",
-    "jshint": "^2.9.5"
+    "eslint": "^4.19.1",
+    "http-server": "^0.11.1"
   },
   "license": "GPL-3.0"
 }

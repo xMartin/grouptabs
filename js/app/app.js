@@ -1,30 +1,27 @@
 define([
   'react-redux',
-  './redux/selector',
+  './redux/selectors',
   './redux/actioncreators',
   './components/app'
 ],
 
-function (ReactRedux, selector, actionCreators, App) {
+function (ReactRedux, selectors, actionCreators, App) {
   'use strict';
 
   function mapStateToProps (state) {
-    var selected = selector(state);
-
     return {
-      scene: state.currentScene,
-      homeView: state.homeView,
-      tabId: state.currentTab,
-      tabName: selected.tabName,
-      transaction: state.currentTransaction,
-      checkingRemoteTab: state.checkingRemoteTab,
-      remoteTabError: state.remoteTabError,
-      importingTab: state.importingTab,
-      tabs: selected.tabs,
-      transactions: selected.transactions,
-      accounts: selected.accounts,
-      participants: selected.participants,
-      error: state.error
+      location: state.location,
+      initialLoadingDone: state.app.initialLoadingDone,
+      tabName: selectors.getTabName(state),
+      transaction: state.app.docsById[state.location.payload.transactionId],
+      checkingRemoteTab: state.app.checkingRemoteTab,
+      remoteTabError: state.app.remoteTabError,
+      importingTab: state.app.importingTab,
+      tabs: selectors.getTabs(state),
+      transactions: selectors.getTransactions(state),
+      accounts: selectors.getAccounts(state),
+      participants: selectors.getParticipants(state),
+      error: state.app.error
     };
   }
 
@@ -35,7 +32,6 @@ function (ReactRedux, selector, actionCreators, App) {
     onSelectTab: actionCreators.selectTab,
     onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
     onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
-    onNavigateToMain: actionCreators.navigateToMain,
     onCloseTransaction: actionCreators.closeTransaction,
     onAddTransaction: actionCreators.addTransaction,
     onUpdateTransaction: actionCreators.updateTransaction,

@@ -20,7 +20,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       onClick: PropTypes.func.isRequired
     },
 
-    onClick: function () {
+    handleClick: function () {
       this.props.onClick(this.props.data.id);
     },
 
@@ -28,7 +28,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       return (
         el('button', {
           className: 'full-width',
-          onClick: this.onClick
+          onClick: this.handleClick
         },
           this.props.data.name
         )

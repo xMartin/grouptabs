@@ -18,7 +18,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TransactionListIt
 
     propTypes: {
       data: PropTypes.arrayOf(PropTypes.object).isRequired,
-      handleDetailsClick: PropTypes.func.isRequired
+      onDetailsClick: PropTypes.func.isRequired
     },
 
     getStructuredData: function () {
@@ -63,7 +63,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TransactionListIt
                     return el(TransactionListItem, {
                       key: transaction.timestamp + '_' + transaction.description,
                       data: transaction,
-                      handleDetailsClick: this.props.handleDetailsClick
+                      onDetailsClick: this.props.onDetailsClick
                     });
                   }.bind(this))
                 )

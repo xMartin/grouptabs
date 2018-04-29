@@ -20,8 +20,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
       mode: PropTypes.oneOf(['new', 'edit']).isRequired,
       data: PropTypes.object,
       participants: PropTypes.arrayOf(PropTypes.string).isRequired,
-      handleCloseClick: PropTypes.func.isRequired,
-      handleDelete: PropTypes.func.isRequired
+      onSubmit: PropTypes.func.isRequired,
+      onDelete: PropTypes.func.isRequired
     },
 
     getInitialState: function () {
@@ -78,7 +78,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
 
     handleDelete: function () {
       if (confirm('Do you really want to delete the transaction?')) {
-        this.props.handleDelete();
+        this.props.onDelete();
       }
     },
 
@@ -93,7 +93,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
       var mode = this.props.mode;
 
       return (
-        el('form', {onSubmit: this.handleSubmit},
+        el('form', {id: 'edit-entry-form', onSubmit: this.props.onSubmit},
           el('div', {className: 'form'},
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input description'},

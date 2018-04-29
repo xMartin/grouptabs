@@ -18,7 +18,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     propTypes: {
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
-      handleSubmit: PropTypes.func.isRequired
+      onSubmit: PropTypes.func.isRequired
     },
 
     componentDidMount: function () {
@@ -36,7 +36,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       var input = this.refs.input;
       var tabId = input.value.trim();
       if (tabId) {
-        this.props.handleSubmit(tabId);
+        this.props.onSubmit(tabId);
       }
     },
 

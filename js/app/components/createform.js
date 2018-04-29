@@ -16,7 +16,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     displayName: 'CreateForm',
 
     propTypes: {
-      handleSubmit: PropTypes.func.isRequired
+      onSubmit: PropTypes.func.isRequired
     },
 
     handleSubmit: function (event) {
@@ -25,7 +25,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       var name = input.value.trim();
       if (name) {
         input.value = '';
-        this.props.handleSubmit(name);
+        this.props.onSubmit(name);
       }
     },
 

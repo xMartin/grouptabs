@@ -11,38 +11,60 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
 
   return createClass({
 
-    constructor: function (callback) {
+    constructor: function () {
       this.dbs = {};
-      this._changesCallback = callback;
 
-      allDbs(PouchDB);
+      allDbs(PouchDB, {noCache: true});
     },
 
-    init: function () {
+    init: function (callback) {
+      this._changesCallback = callback;
+
       return this.initDbs();
     },
 
     connect: function () {
-      Promise.all(this.getAllDbs().map(function (db) {
-        return (
-          db.db.connect()
-          .then(this.transformDocs.bind(this, db.tabId))
-        );
-      }.bind(this)))
-      .then(function (docsPerDb) {
-        var flat = [];
-        docsPerDb.forEach(function (docs) {
-          flat = flat.concat(docs);
-        });
-        return flat;
-      })
-      .then(function (docs) {
-        this._changesCallback({
-          createOrUpdate: docs,
-          delete: []
-        });
-      }.bind(this))
-      .catch(console.error.bind(console));
+      return (
+        Promise.all(this.getAllDbs().map(function (db) {
+          return (
+            db.db.connect()
+            .then(this.transformDocs.bind(this, db.tabId))
+          );
+        }.bind(this)))
+        .then(function (docsPerDb) {
+          var flat = [];
+          docsPerDb.forEach(function (docs) {
+            flat = flat.concat(docs);
+          });
+          return flat;
+        })
+        .then(function (docs) {
+          this._changesCallback({
+            createOrUpdate: docs,
+            delete: []
+          });
+        }.bind(this))
+        .then(this.initAllDbsListener.bind(this))
+      );
+    },
+
+    initAllDbsListener: function () {
+      setInterval(function () {
+        var knownTabIds = Object.keys(this.dbs);
+        PouchDB.allDbs()
+        .then(function (dbNames) {
+          var tabIds = dbNames.map(function (dbName) {
+            return dbName.substring(4);  // strip "tab/"
+          });
+          var newTabIds = tabIds.filter(function (tabId) {
+            return knownTabIds.indexOf(tabId) === -1;
+          });
+          newTabIds.forEach(function (tabId) {
+            this.connectTab(tabId)
+            .then(this._changesCallback.bind(this));
+          }.bind(this));
+        }.bind(this));
+      }.bind(this), 7500);
     },
 
     createDoc: function (doc) {

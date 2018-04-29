@@ -23,9 +23,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
       visible: PropTypes.bool,
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
-      handleTabClick: PropTypes.func.isRequired,
-      handleCreateNewTab: PropTypes.func.isRequired,
-      handleImportTab: PropTypes.func.isRequired
+      onTabClick: PropTypes.func.isRequired,
+      onCreateNewTab: PropTypes.func.isRequired,
+      onImportTab: PropTypes.func.isRequired
     },
 
     getInitialState: function () {
@@ -60,14 +60,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
             ?
             el('div', {className: 'row tabs'},
               this.props.data.map(function (tab) {
-                return el(TabListButton, {key: tab.id, data: tab, onClick: this.props.handleTabClick});
+                return el(TabListButton, {key: tab.id, data: tab, onClick: this.props.onTabClick});
               }.bind(this))
             )
             :
             el('div', {className: 'empty-info'},
               el('p', null,
                 'Track shared expenses in a group of people.'
-                + ' Every group has its own tab like "Roadtrip 2016" or "Badminton".'
+                + ' Every group has its own tab like "Summer roadtrip" or "Badminton".'
               ),
               el('p', null,
                 'Start by creating your first tab:'
@@ -75,7 +75,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
             )
           ),
           el('div', {className: 'row'},
-            el(CreateForm, {handleSubmit: this.props.handleCreateNewTab})
+            el(CreateForm, {onSubmit: this.props.onCreateNewTab})
           ),
           el('div', {className: 'row'},
             this.state.hideImportForm
@@ -83,7 +83,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
             : el(ImportForm, {
                 checkingRemoteTab: this.props.checkingRemoteTab,
                 remoteTabError: this.props.remoteTabError,
-                handleSubmit: this.props.handleImportTab
+                onSubmit: this.props.onImportTab
               })
           )
         )

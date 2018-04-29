@@ -120,7 +120,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
                 })
               )
             ),
-            el('div', {className: 'form-row direct-transaction'},
+            el('div', {
+              style: {display: this.state.transactionType === 'SHARED' ? 'none' : ''},
+              className: 'form-row direct-transaction'
+            },
               el('select', null,
                 el('option', null, 'Martin'),
                 el('option', null, 'Jan'),
@@ -149,17 +152,21 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
                 el('option', null, '+ New participant')
               )
             ),
-            el(ParticipantsInputList, {
-              ref: 'participantsInputList',
-              mode: mode,
-              tabParticipants: this.props.participants,
-              participants: mode === 'edit' ? this.props.data.participants : [],
-              newParticipantsIds: this.state.newParticipantsIds
-            }),
-            el('div', {className: 'form-row'},
-              el('div', {className: 'form-row-input'},
-                el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
-                el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, '✓ all joined')
+            el('div', {
+              style: {display: this.state.transactionType === 'DIRECT' ? 'none' : ''}
+            },
+              el(ParticipantsInputList, {
+                ref: 'participantsInputList',
+                mode: mode,
+                tabParticipants: this.props.participants,
+                participants: mode === 'edit' ? this.props.data.participants : [],
+                newParticipantsIds: this.state.newParticipantsIds
+              }),
+              el('div', {className: 'form-row'},
+                el('div', {className: 'form-row-input'},
+                  el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
+                  el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, '✓ all joined')
+                )
               )
             )
           ),

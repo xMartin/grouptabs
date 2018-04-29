@@ -37,7 +37,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
       return this.refs.form.getValues();
     },
 
-    handleSubmit: function () {
+    handleSubmit: function (event) {
+      event.preventDefault();
+
       var data = this.getValues();
 
       if (!this.validate(data)) {
@@ -121,7 +123,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
           el('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction'),
           (
             showSaveButton &&
-            el('button', {className: 'right create', onClick: this.handleSubmit}, 'Save')
+            el('button', {className: 'right create', form: 'edit-entry-form'}, 'Save')
           )
         )
       );
@@ -142,6 +144,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
           mode: this.props.mode,
           data: this.props.data,
           participants: this.props.participants,
+          onSubmit: this.handleSubmit,
           onDelete: this.handleDelete,
           ref: 'form'
         })

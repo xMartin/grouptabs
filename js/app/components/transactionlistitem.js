@@ -48,7 +48,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
         payments += payment.participant + ': ' + round(payment.amount);
 
         if (idx < paymentsList.length - 1 || data.participants.length > paymentsList.length) {
-          if (idx === paymentsList.length - 1 && data.transactionType === 'DIRECT') {
+          if (data.transactionType === 'DIRECT') {
             payments += ' → ';
           } else {
             payments += ', ';

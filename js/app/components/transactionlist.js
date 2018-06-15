@@ -3,10 +3,11 @@ define([
   'create-react-class',
   'pure-render-mixin',
   'prop-types',
+  '../util/date',
   './transactionlistitem'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, TransactionListItem) {
+function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, TransactionListItem) {
   'use strict';
 
   var el = React.createElement;
@@ -27,11 +28,11 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TransactionListIt
         return transactions;
       }
       // XXX Refactor structuring of date groups with a proper loop
-      var date = new Date(transactions[0].date).toLocaleDateString();
+      var date = dateUtils.parseDate(transactions[0].date).toLocaleDateString();
       var dateGroups = [];
       var dateGroupTransactions = [];
       transactions.forEach(function (transaction) {
-        var currentDate = new Date(transaction.date).toLocaleDateString();
+        var currentDate = dateUtils.parseDate(transaction.date).toLocaleDateString();
         if (currentDate !== date) {
           dateGroups.push({
             date: date,
@@ -40,7 +41,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TransactionListIt
           dateGroupTransactions = [];
         }
         dateGroupTransactions.push(transaction);
-        date = new Date(transaction.date).toLocaleDateString();
+        date = dateUtils.parseDate(transaction.date).toLocaleDateString();
       });
       dateGroups.push({
         date: date,

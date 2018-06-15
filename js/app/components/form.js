@@ -3,10 +3,11 @@ define([
   'create-react-class',
   'pure-render-mixin',
   'prop-types',
+  '../util/date',
   './participantsinputlist'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInputList) {
+function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, ParticipantsInputList) {
   'use strict';
 
   var el = React.createElement;
@@ -101,7 +102,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantsInput
               el('div', {className: 'form-row-input'},
                 el('input', {
                   type: 'date',
-                  defaultValue: this.formatDate(mode === 'edit' ? new Date(this.props.data.date) : new Date()),
+                  defaultValue: this.formatDate(mode === 'edit' ? dateUtils.parseDate(this.props.data.date) : new Date()),
                   ref: 'date'
                 })
               )

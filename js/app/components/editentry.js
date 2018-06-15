@@ -50,7 +50,6 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
       data.participants = this.normalizeParticipants(data.participants);
 
       data.transactionType = 'SHARED';
-      data.date = new Date(data.date).toJSON();
       data.timestamp = new Date().toJSON();
       if (this.props.data) {
         this.props.onUpdate(iobject.merge(this.props.data, data));

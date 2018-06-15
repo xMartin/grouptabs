@@ -10,9 +10,13 @@ function (reselect) {
 
     // order transactions by date and timestamp descending
     return transactions.sort(function (a, b) {
-      if (a.date > b.date) {
+      // backwards compatibility: strip time info from format being used earlier
+      var dateA = a.date.substring(0, 10);
+      var dateB = b.date.substring(0, 10);
+
+      if (dateA > dateB) {
         return -1;
-      } else if (a.date < b.date) {
+      } else if (dateA < dateB) {
         return 1;
       } else {  // ===
         if (a.timestamp > b.timestamp) {

@@ -3,6 +3,11 @@ description: >
   Track expenses in a group of people!
 
 releases:
+- version: 1.0.0-alpha.13
+  date: 2018-06-16
+  description: Bugfix for date handling in timezones with negative offset
+  fixed:
+  - Date handling in timezones with negative offset (#147)
 - version: 1.0.0-alpha.12
   date: 2018-04-02
   description: Routing - use the URL for navigation and sharing/importing

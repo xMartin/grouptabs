@@ -38,7 +38,7 @@
     "smooth-scroll": "^12.1.5"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^5.1.0",
     "http-server": "^0.11.1"
   },
   "license": "GPL-3.0"

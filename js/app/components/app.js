@@ -17,7 +17,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
 
   function setTitle (input) {
     var documentTitle = document.title;
-    var result = input ? titleBase + ' – ' + input : titleBase;
+    var result = input ? input + ' – ' + titleBase : titleBase;
 
     if (result !== documentTitle) {
       document.title = result;
@@ -80,11 +80,11 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
           setTitle(tabName);
           break;
         case 'ROUTE_NEW_TRANSACTION':
-          setTitle(tabName ? tabName + ': New' : '');
+          setTitle(tabName ? 'New transaction (' + tabName + ')' : '');
           break;
         case 'ROUTE_TRANSACTION':
           var transaction = nextProps.transaction;
-          setTitle(transaction ? tabName + ': ' + transaction.description : '');
+          setTitle(transaction ? transaction.description + ' (' + tabName + ')' : '');
           break;
         default:
           setTitle();

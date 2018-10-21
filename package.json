@@ -19,7 +19,6 @@
   "homepage": "https://grouptabs.net/",
   "dependencies": {
     "create-react-class": "^15.6.3",
-    "fastclick": "^1.0.6",
     "lie": "^3.3.0",
     "pouchdb": "6.4.1",
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",

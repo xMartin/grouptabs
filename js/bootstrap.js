@@ -14,7 +14,6 @@
       'redux-thunk': '../node_modules/redux-thunk/dist/redux-thunk',
       pouchdb: '../node_modules/pouchdb/dist/pouchdb',
       'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
-      fastclick: '../node_modules/fastclick/lib/fastclick',
       uuid: '../node_modules/pure-uuid/uuid',
       lie: '../node_modules/lie/dist/lie',
       'smooth-scroll': '../node_modules/smooth-scroll/dist/js/smooth-scroll.polyfills',
@@ -37,7 +36,6 @@
 
   function run () {
     require([
-      'fastclick',
       'react-dom',
       'react',
       'redux',
@@ -50,11 +48,7 @@
       'redux-first-router',
       'app/routes'
     ],
-    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, App, History, Standalone, ReduxFirstRouter, routes) {
-      /* jshint -W031 */
-      new FastClick(document.body);
-      /* jshint +W031 */
-
+    function (ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, App, History, Standalone, ReduxFirstRouter, routes) {
       Standalone.restoreLocation();
 
       var router = ReduxFirstRouter.connectRoutes(routes, {

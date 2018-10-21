@@ -3,10 +3,11 @@ define([
   'pouchdb-all-dbs',
   '../lang/class',
   '../lang/iobject',
-  './tab'
+  './tab',
+  './migrate'
 ],
 
-function (PouchDB, allDbs, createClass, iobject, Tab) {
+function (PouchDB, allDbs, createClass, iobject, Tab, migrateDbs) {
   'use strict';
 
   return createClass({
@@ -20,7 +21,10 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
     init: function (callback) {
       this._changesCallback = callback;
 
-      return this.initDbs();
+      return (
+        migrateDbs()
+        .then(this.initDbs.bind(this))
+      );
     },
 
     connect: function () {

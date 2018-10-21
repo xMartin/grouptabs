@@ -20,7 +20,7 @@
   "dependencies": {
     "create-react-class": "^15.6.3",
     "lie": "^3.3.0",
-    "pouchdb": "6.4.1",
+    "pouchdb": "^6.4.3",
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",
     "prop-types": "^15.6.2",
     "pure-uuid": "^1.5.5",

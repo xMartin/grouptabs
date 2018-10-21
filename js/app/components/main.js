@@ -100,20 +100,47 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       );
     },
 
-    renderEmptyState: function () {
+    renderSummary: function () {
       return (
-        el('div', {className: 'empty-info'},
-          el('p', null,
-            'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
-          ),
-          el('p', null,
-            'Start by adding your first transaction:'
+        el(React.Fragment, null,
+          el('div', {className: 'row'},
+            el(Summary, {data: this.props.accounts})
           ),
           el('div', {className: 'row'},
-            el('button', {className: 'full-width-margin create', onClick: this.handleNewEntryClick},
-              'Add transaction'
+            el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
+            (
+              this.state.transactionsHeadingIsOutOfViewport &&
+              el('h3', {
+                className: 'transactions-heading transactions-heading-fixed',
+                onClick: this.handleTransitionsTeaserClick
+              },
+                '▾ Transactions'
+              )
+            ),
+            el(TransactionList, {data: this.props.transactions, onDetailsClick: this.props.onDetailsClick})
+          ),
+          this.renderShareInfo()
+        )
+      );
+    },
+
+    renderEmptyState: function () {
+      return (
+        el(React.Fragment, null,
+          el('div', {className: 'empty-info'},
+            el('p', null,
+              'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
+            ),
+            el('p', null,
+              'Start by adding your first transaction:'
+            ),
+            el('div', {className: 'row'},
+              el('button', {className: 'full-width-margin create', onClick: this.handleNewEntryClick},
+                'Add transaction'
+              )
             )
-          )
+          ),
+          this.renderShareInfo()
         )
       );
     },
@@ -139,27 +166,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
         return this.renderEmptyState();
       }
 
-      return (
-        el(React.Fragment, null,
-          el('div', {className: 'row'},
-            el(Summary, {data: this.props.accounts})
-          ),
-          el('div', {className: 'row'},
-            el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
-            (
-              this.state.transactionsHeadingIsOutOfViewport &&
-              el('h3', {
-                className: 'transactions-heading transactions-heading-fixed',
-                onClick: this.handleTransitionsTeaserClick
-              },
-                '▾ Transactions'
-              )
-            ),
-            el(TransactionList, {data: this.props.transactions, onDetailsClick: this.props.onDetailsClick})
-          ),
-          this.renderShareInfo()
-        )
-      );
+      return this.renderSummary();
     },
 
     render: function () {

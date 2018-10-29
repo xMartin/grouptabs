@@ -13,6 +13,7 @@
       Reselect: '../node_modules/reselect/dist/reselect',
       'redux-thunk': '../node_modules/redux-thunk/dist/redux-thunk',
       pouchdb: '../node_modules/pouchdb/dist/pouchdb',
+      'pouchdb.websql': '../node_modules/pouchdb/dist/pouchdb.websql',
       'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
       uuid: '../node_modules/pure-uuid/uuid',
       lie: '../node_modules/lie/dist/lie',

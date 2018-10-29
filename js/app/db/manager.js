@@ -1,5 +1,6 @@
 define([
   'pouchdb',
+  'pouchdb.websql',
   'pouchdb-all-dbs',
   '../lang/class',
   '../lang/iobject',
@@ -7,7 +8,7 @@ define([
   './migrate'
 ],
 
-function (PouchDB, allDbs, createClass, iobject, Tab, migrateDbs) {
+function (PouchDB, PouchDBWebSQLPlugin, allDbs, createClass, iobject, Tab, migrateDbs) {
   'use strict';
 
   return createClass({
@@ -15,6 +16,7 @@ function (PouchDB, allDbs, createClass, iobject, Tab, migrateDbs) {
     constructor: function () {
       this.dbs = {};
 
+      PouchDBWebSQLPlugin.WebsqlPouchPlugin(PouchDB);  // eslint-disable-line new-cap
       allDbs(PouchDB, {noCache: true});
     },
 

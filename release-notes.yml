@@ -3,6 +3,10 @@ description: >
   Track expenses in a group of people!
 
 releases:
+- version: 1.0.0-alpha.15
+  date: 2018-10-29
+  changed:
+  - Update PouchDB to a custom version of v7.0.0 to migrate WebSQL data to IndexedDB
 - version: 1.0.0-alpha.14
   date: 2018-10-21
   changed:

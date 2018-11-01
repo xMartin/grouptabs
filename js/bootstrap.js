@@ -17,7 +17,7 @@
       'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
       uuid: '../node_modules/pure-uuid/uuid',
       lie: '../node_modules/lie/dist/lie',
-      'smooth-scroll': '../node_modules/smooth-scroll/dist/js/smooth-scroll.polyfills',
+      'smooth-scroll': '../node_modules/smooth-scroll/dist/smooth-scroll',
       'redux-first-router': '../node_modules/redux-first-router/dist/redux-first-router',
       'rudy-history': '../node_modules/rudy-history/umd/history'
     }

@@ -33,7 +33,7 @@
     "redux-thunk": "^2.3.0",
     "requirejs": "^2.3.6",
     "reselect": "^4.0.0",
-    "smooth-scroll": "^12.1.5"
+    "smooth-scroll": "^14.2.1"
   },
   "devDependencies": {
     "eslint": "^5.8.0",

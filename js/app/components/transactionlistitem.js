@@ -43,20 +43,24 @@ function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils)
         return 1;
       });
 
+      var transactionType = transactionUtils.getTransactionType(data);
       var payments = '';
       var total = 0;
       paymentsList.forEach(function (payment, idx) {
         payments += payment.participant + ': ' + round(payment.amount);
 
         if (idx < paymentsList.length - 1 || data.participants.length > paymentsList.length) {
-          if (transactionUtils.getTransactionType(data) === 'DIRECT') {
+          if (transactionType === 'DIRECT') {
             payments += ' → ';
           } else {
             payments += ', ';
           }
         }
 
-        total += payment.amount;
+        var isAmountReceivedInDirectTransaction = transactionType === 'DIRECT' && payment.amount < 0;
+        if (!isAmountReceivedInDirectTransaction) {
+          total += payment.amount;
+        }
       });
       result.payments = el('strong', null, payments);
       result.total = round(total);
@@ -90,11 +94,6 @@ function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils)
     render: function () {
       var data = this.formatData(this.props.data);
 
-      var total = data.total;
-      if (transactionUtils.getTransactionType(this.props.data) === 'DIRECT') {
-        total = '(' + total + ')';
-      }
-
       return (
         el('div', {className: 'transaction', onClick: this.handleClick},
           el('table', null,
@@ -108,7 +107,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils)
                   )
                 ),
                 el('td', {className: 'total'},
-                  total
+                  data.total
                 )
               )
             )

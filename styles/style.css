@@ -250,7 +250,8 @@ input[type=number] {
 	color: #999;
 }
 .participant input,
-.joinedButtonWrapper button {
+.joinedButtonWrapper button,
+.paid-button.selected {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }

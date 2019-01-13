@@ -30,20 +30,21 @@ function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils)
         title: data.description
       };
 
-      var paymentsList = [];
-      data.participants.forEach(function (participant) {
-        if (participant.amount) {
-          paymentsList.push(participant);
-        }
-      });
-      paymentsList.sort(function (a, b) {
-        if (a.amount > b.amount || a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
-          return -1;
-        }
-        return 1;
-      });
-
       var transactionType = transactionUtils.getTransactionType(data);
+
+      var paymentsList = (
+        data.participants
+        .filter(function (participant) {
+          return transactionType === 'DIRECT' ? participant.amount > 0 : !!participant.amount;
+        })
+        .sort(function (a, b) {
+          if (a.amount > b.amount || a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
+            return -1;
+          }
+          return 1;
+        })
+      );
+
       var payments = '';
       var total = 0;
       paymentsList.forEach(function (payment, idx) {
@@ -57,20 +58,20 @@ function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils)
           }
         }
 
-        var isAmountReceivedInDirectTransaction = transactionType === 'DIRECT' && payment.amount < 0;
-        if (!isAmountReceivedInDirectTransaction) {
-          total += payment.amount;
-        }
+        total += payment.amount;
       });
       result.payments = el('strong', null, payments);
       result.total = round(total);
 
-      var participantsList = data.participants.map(function (participant) {
-        return participant.participant;
-      });
-      participantsList.sort(function (a, b) {
-        return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
-      });
+      var participantsList = (
+        data.participants
+        .map(function (participant) {
+          return participant.participant;
+        })
+        .sort(function (a, b) {
+          return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
+        })
+      );
 
       var participants = '';
       participantsList.forEach(function (participant) {

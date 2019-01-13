@@ -72,7 +72,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               defaultValue: inputProps.amount
             })
           ),
-          el('select', {ref: 'to', defaultValue: inputProps.to},
+          el('select', {ref: 'to', defaultValue: inputProps.to || this.props.tabParticipants[1]},
             this.props.tabParticipants.map(function (participant) {
               return el('option', {key: participant}, participant);
             })

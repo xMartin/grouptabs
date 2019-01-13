@@ -2,10 +2,11 @@ define([
   'react',
   'create-react-class',
   'pure-render-mixin',
-  'prop-types'
+  'prop-types',
+  '../util/transaction'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes) {
+function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils) {
   'use strict';
 
   var el = React.createElement;
@@ -48,7 +49,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
         payments += payment.participant + ': ' + round(payment.amount);
 
         if (idx < paymentsList.length - 1 || data.participants.length > paymentsList.length) {
-          if (data.transactionType === 'DIRECT') {
+          if (transactionUtils.getTransactionType(data) === 'DIRECT') {
             payments += ' → ';
           } else {
             payments += ', ';
@@ -90,7 +91,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       var data = this.formatData(this.props.data);
 
       var total = data.total;
-      if (this.props.data.transactionType === 'DIRECT') {
+      if (transactionUtils.getTransactionType(this.props.data) === 'DIRECT') {
         total = '(' + total + ')';
       }
 

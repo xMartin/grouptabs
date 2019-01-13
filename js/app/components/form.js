@@ -4,11 +4,12 @@ define([
   'pure-render-mixin',
   'prop-types',
   '../util/date',
+  '../util/transaction',
   './directtransactioninput',
   './participantsinputlist'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, DirectTransactionInput, ParticipantsInputList) {
+function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transactionUtils, DirectTransactionInput, ParticipantsInputList) {
   'use strict';
 
   var el = React.createElement;
@@ -33,7 +34,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Direct
         newParticipantsIds.push(this.createUniqueId());
       }
       return {
-        transactionType: this.props.mode === 'edit' ? this.props.data.transactionType : 'SHARED',
+        transactionType: this.props.mode === 'edit' ? transactionUtils.getTransactionType(this.props.data) : 'SHARED',
         newParticipantsIds: newParticipantsIds
       };
     },

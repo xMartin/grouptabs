@@ -1,12 +1,14 @@
 define([
   'pouchdb',
+  'pouchdb.websql',
   'pouchdb-all-dbs',
   '../lang/class',
   '../lang/iobject',
-  './tab'
+  './tab',
+  './migrate'
 ],
 
-function (PouchDB, allDbs, createClass, iobject, Tab) {
+function (PouchDB, PouchDBWebSQLPlugin, allDbs, createClass, iobject, Tab, migrateDbs) {
   'use strict';
 
   return createClass({
@@ -14,13 +16,17 @@ function (PouchDB, allDbs, createClass, iobject, Tab) {
     constructor: function () {
       this.dbs = {};
 
+      PouchDBWebSQLPlugin.WebsqlPouchPlugin(PouchDB);  // eslint-disable-line new-cap
       allDbs(PouchDB, {noCache: true});
     },
 
     init: function (callback) {
       this._changesCallback = callback;
 
-      return this.initDbs();
+      return (
+        migrateDbs()
+        .then(this.initDbs.bind(this))
+      );
     },
 
     connect: function () {

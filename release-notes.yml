@@ -3,6 +3,19 @@ description: >
   Track expenses in a group of people!
 
 releases:
+- version: 1.0.0-alpha.15
+  date: 2018-10-29
+  changed:
+  - Update PouchDB to a custom version of v7.0.0 to migrate WebSQL data to IndexedDB
+- version: 1.0.0-alpha.14
+  date: 2018-10-21
+  changed:
+  - "Document title: most specific part first (#148)"
+- version: 1.0.0-alpha.13
+  date: 2018-06-16
+  description: Bugfix for date handling in timezones with negative offset
+  fixed:
+  - Date handling in timezones with negative offset (#147)
 - version: 1.0.0-alpha.12
   date: 2018-04-02
   description: Routing - use the URL for navigation and sharing/importing

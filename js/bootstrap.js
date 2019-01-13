@@ -13,13 +13,13 @@
       Reselect: '../node_modules/reselect/dist/reselect',
       'redux-thunk': '../node_modules/redux-thunk/dist/redux-thunk',
       pouchdb: '../node_modules/pouchdb/dist/pouchdb',
+      'pouchdb.websql': '../node_modules/pouchdb/dist/pouchdb.websql',
       'pouchdb-all-dbs': '../node_modules/pouchdb-all-dbs/dist/pouchdb.all-dbs',
-      fastclick: '../node_modules/fastclick/lib/fastclick',
       uuid: '../node_modules/pure-uuid/uuid',
       lie: '../node_modules/lie/dist/lie',
-      'smooth-scroll': '../node_modules/smooth-scroll/dist/js/smooth-scroll.polyfills',
-      history: '../node_modules/history/umd/history',
-      'redux-first-router': '../node_modules/redux-first-router/dist/redux-first-router'
+      'smooth-scroll': '../node_modules/smooth-scroll/dist/smooth-scroll',
+      'redux-first-router': '../node_modules/redux-first-router/dist/redux-first-router',
+      'rudy-history': '../node_modules/rudy-history/umd/history'
     }
   });
 
@@ -37,7 +37,6 @@
 
   function run () {
     require([
-      'fastclick',
       'react-dom',
       'react',
       'redux',
@@ -45,22 +44,19 @@
       'redux-thunk',
       'app/redux/reducer',
       'app/app',
-      'history',
+      'rudy-history',
       'app/util/standalone',
       'redux-first-router',
       'app/routes'
     ],
-    function (FastClick, ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, App, History, initStandaloneLocation, ReduxFirstRouter, routes) {
-      /* jshint -W031 */
-      new FastClick(document.body);
-      /* jshint +W031 */
+    function (ReactDOM, React, Redux, ReactRedux, ReduxThunk, appReducer, App, History, Standalone, ReduxFirstRouter, routes) {
+      Standalone.restoreLocation();
 
-      var history = History.createHashHistory();
+      var router = ReduxFirstRouter.connectRoutes(routes, {
+        createHistory: History.createHashHistory
+      });
 
-      // re-establish last visited location on iOS standalone web app
-      initStandaloneLocation(history);
-
-      var router = ReduxFirstRouter.connectRoutes(history, routes);
+      Standalone.startPersistingLocation(router.history);
 
       var rootReducer = Redux.combineReducers({location: router.reducer, app: appReducer});
       var middlewares = Redux.applyMiddleware(ReduxThunk.default, router.middleware);

@@ -156,7 +156,11 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
           el('h2', null, this.props.mode === 'new' ? 'New transaction' : 'Edit transaction'),
           (
             showSaveButton &&
-            el('button', {className: 'right create', form: 'edit-entry-form'}, 'Save')
+            el('button', {className: 'right create', form: 'edit-entry-form'},
+              el('svg', {height: 16, width: 16},
+                el('path', {d: 'm13.631 3.9906a1.0001 1.0001 0 0 0-0.6875 0.30273l-6.5937 6.5938-3.293-3.293a1.0001 1.0001 0 1 0-1.4141 1.4141l4 4a1.0001 1.0001 0 0 0 1.4141 0l7.3008-7.3008a1.0001 1.0001 0 0 0-0.72656-1.7168z', fill: '#fff'})
+              )
+            )
           )
         )
       );

@@ -26,7 +26,7 @@ table {
 	border-collapse: collapse;
 }
 td, th {
-	padding: 10px;
+	padding: 10px 12px;
 }
 th {
 	text-align: left;
@@ -44,8 +44,9 @@ button {
 	box-sizing: border-box;
 	min-height: 44px;
 	min-width: 44px;
-	padding: 10px;
+	padding: 10px 12px;
 	margin: 0;
+	border-radius: 5px;
 	cursor: pointer;
 }
 button[disabled] {
@@ -65,7 +66,6 @@ button.full-width-margin {
 button.create {
 	padding: 0 13px;
 	background: #44f;
-	border-radius: 3px;
 	color: #fff;
     z-index: 10;
 }
@@ -75,6 +75,7 @@ button.create {
 	top: 0;
 	margin: 5px;
     box-shadow: 0 0 10px rgba(100,100,100,.5);
+	border-radius: 100px; /* Pill-style rounded button */
 }
 button.selected {
 	background: #bbb;
@@ -162,11 +163,11 @@ input[type=number] {
 	background: #fff;
 	box-shadow: none;
 	border: none;
-	border-radius: 0;
+	border-radius: 5px;
 	color: #000;
 	min-height: 44px;
 	min-width: 44px;
-	padding: 10px;
+	padding: 10px 12px;
 	font: inherit;
 	margin: 0;  /* Safari has 2px */
 }
@@ -290,6 +291,13 @@ input[type=number] {
 	margin: 1em 2% 0.3em;
 }
 
+/* Whitespace to sides */
+.editEntryScene .form,
+.tabsScene {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
 .editEntryScene .form,
 .editEntryScene .button-row,
 .listScene table {
@@ -309,17 +317,30 @@ input[type=number] {
 .participantInput,
 .newParticipantInput {
 	display: flex;
+	margin-bottom: 2px;
 }
 .participantInput,
 .newParticipantInput,
 .newParticipantInput .participant input {
 	color: #999;
 }
+.participant input,
+.joinedButtonWrapper button,
+.paid-button.selected {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.newParticipantInput .joinedButtonWrapper button,
+.newParticipantInput .paid-button,
+.participantInput .paid-button:not(.selected),
+.amountInput input {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
 .participantInput > *,
 .newParticipantInput > * {
 	height: 44px;
 	vertical-align: middle;
-	border-bottom: 1px solid #f2f2f2;  /* body background */
 }
 .participantInput.selected,
 .newParticipantInput.selected,
@@ -331,7 +352,7 @@ input[type=number] {
 	font-weight: bold;
 }
 .participantInput .participant {
-	padding-left: 10px;
+	padding-left: 12px;
 	padding-right: 10px;
 	flex-grow: 1;
 	display: flex;
@@ -384,14 +405,15 @@ input[type=number] {
 	text-align: center;
 }
 .tabs button {
-	border: 0 solid #e5e5e5;
-	border-bottom-width: 1px;
-	padding: 13px 10px;
-	background: transparent url('../images/arrow.svg') right 10px center no-repeat;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 16px 12px;
+	border-radius: 0;
+	background: transparent right 10px center no-repeat;
+	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
 	text-align: left;
 }
-.tabs button:first-child {
-	border-top-width: 1px;
+.tabs button:last-child {
+	border-bottom: none;
 }
 
 .create-form input {
@@ -412,7 +434,7 @@ input[type=number] {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	height: 50px;
+	height: 56px;
 }
 
 .transactions-heading {
@@ -442,17 +464,18 @@ input[type=number] {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 12px 30px 12px 10px;
+	padding: 12px 30px 12px 12px;
 	border-top: 1px solid #e5e5e5;
 	min-height: 44px;
 	cursor: pointer;
-	background: url('../images/arrow.svg') right 10px center no-repeat;
+	background: right 10px center no-repeat;
+	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
 }
 #transactions .transaction:first-child {
 	border-top: none;
 }
 #transactions .dategroup {
-	padding: 26px 10px 6px;
+	padding: 26px 12px 6px;
 	font-size: 12px;
 	opacity: .5;
 }

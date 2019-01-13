@@ -26,7 +26,7 @@ table {
 	border-collapse: collapse;
 }
 td, th {
-	padding: 10px;
+	padding: 10px 16px;
 }
 th {
 	text-align: left;
@@ -44,7 +44,7 @@ button {
 	box-sizing: border-box;
 	min-height: 44px;
 	min-width: 44px;
-	padding: 10px;
+	padding: 10px 16px;
 	margin: 0;
 	border-radius: 100px; /* Pill-style rounded button */
 	cursor: pointer;
@@ -133,7 +133,7 @@ input[type=number] {
 	color: #000;
 	min-height: 44px;
 	min-width: 44px;
-	padding: 10px;
+	padding: 10px 16px;
 	font: inherit;
 	margin: 0;  /* Safari has 2px */
 }
@@ -242,20 +242,22 @@ input[type=number] {
 .participantInput,
 .newParticipantInput {
 	display: flex;
+	margin-bottom: 2px;
 }
 .participantInput,
 .newParticipantInput,
 .newParticipantInput .participant input {
 	color: #999;
 }
-.newParticipantInput .participant input,
-.newParticipantInput .joinedButtonWrapper button {
+.participant input,
+.joinedButtonWrapper button {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
 .newParticipantInput .joinedButtonWrapper button,
 .newParticipantInput .paid-button,
-.newParticipantInput .amountInput input {
+.participantInput .paid-button:not(.selected),
+.amountInput input {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
@@ -263,7 +265,6 @@ input[type=number] {
 .newParticipantInput > * {
 	height: 44px;
 	vertical-align: middle;
-	border-bottom: 1px solid #f2f2f2;  /* body background */
 }
 .participantInput.selected,
 .newParticipantInput.selected,
@@ -275,7 +276,7 @@ input[type=number] {
 	font-weight: bold;
 }
 .participantInput .participant {
-	padding-left: 10px;
+	padding-left: 16px;
 	padding-right: 10px;
 	flex-grow: 1;
 	display: flex;
@@ -329,7 +330,7 @@ input[type=number] {
 }
 .tabs button {
 	border-bottom: 1px solid #e5e5e5;
-	padding: 13px 10px;
+	padding: 16px 16px;
 	border-radius: 0;
 	background: transparent right 10px center no-repeat;
 	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
@@ -357,7 +358,7 @@ input[type=number] {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	height: 50px;
+	height: 56px;
 }
 
 .transactions-heading {
@@ -387,17 +388,18 @@ input[type=number] {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	padding: 12px 30px 12px 10px;
+	padding: 12px 30px 12px 16px;
 	border-top: 1px solid #e5e5e5;
 	min-height: 44px;
 	cursor: pointer;
-	background: url('../images/arrow.svg') right 10px center no-repeat;
+	background: right 10px center no-repeat;
+	background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
 }
 #transactions .transaction:first-child {
 	border-top: none;
 }
 #transactions .dategroup {
-	padding: 26px 10px 6px;
+	padding: 26px 16px 6px;
 	font-size: 12px;
 	opacity: .5;
 }

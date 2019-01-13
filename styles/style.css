@@ -46,6 +46,7 @@ button {
 	min-width: 44px;
 	padding: 10px;
 	margin: 0;
+	border-radius: 100px; /* Pill-style rounded button */
 	cursor: pointer;
 }
 button[disabled] {
@@ -65,7 +66,6 @@ button.full-width-margin {
 button.create {
 	padding: 0 13px;
 	background: #44f;
-	border-radius: 3px;
 	color: #fff;
     z-index: 10;
 }
@@ -129,7 +129,7 @@ input[type=number] {
 	background: #fff;
 	box-shadow: none;
 	border: none;
-	border-radius: 0;
+	border-radius: 100px; /* Pill-style rounded inputs */
 	color: #000;
 	min-height: 44px;
 	min-width: 44px;
@@ -216,6 +216,13 @@ input[type=number] {
 	margin: 1em 2% 0.3em;
 }
 
+/* Whitespace to sides */
+.editEntryScene .form,
+.tabsScene {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
 .editEntryScene .form,
 .editEntryScene .button-row,
 .listScene table {
@@ -240,6 +247,17 @@ input[type=number] {
 .newParticipantInput,
 .newParticipantInput .participant input {
 	color: #999;
+}
+.newParticipantInput .participant input,
+.newParticipantInput .joinedButtonWrapper button {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.newParticipantInput .joinedButtonWrapper button,
+.newParticipantInput .paid-button,
+.newParticipantInput .amountInput input {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }
 .participantInput > *,
 .newParticipantInput > * {
@@ -310,14 +328,14 @@ input[type=number] {
 	text-align: center;
 }
 .tabs button {
-	border: 0 solid #e5e5e5;
-	border-bottom-width: 1px;
+	border-bottom: 1px solid #e5e5e5;
 	padding: 13px 10px;
+	border-radius: 0;
 	background: transparent url('../images/arrow.svg') right 10px center no-repeat;
 	text-align: left;
 }
-.tabs button:first-child {
-	border-top-width: 1px;
+.tabs button:last-child {
+	border-bottom: none;
 }
 
 .create-form input {

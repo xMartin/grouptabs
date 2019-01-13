@@ -94,6 +94,36 @@ button.selected {
 	opacity: 1;
 }
 
+select {
+	cursor: pointer;
+	background: white;
+	margin: 0;
+	padding: 12px;
+	padding-right: 24px;
+	background-image:
+			linear-gradient(45deg, transparent 50%, #777 50%),
+			linear-gradient(135deg, gray 50%, transparent 50%);
+	background-position:
+			calc(100% - 20px) calc(1em + 6px),
+			calc(100% - 17px) calc(1em + 6px);
+	background-size:
+			3px 3px,
+			3px 3px;
+	background-repeat: no-repeat;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/* Chrome needs this for some reason … */
+	font-size: 18px !important;
+	font-family: SourceSansPro-Regular, sans-serif !important;
+}
+select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #000;
+}
+
 .editEntryScene .button-row {
 	margin-top: 2em;
 	text-align: center;
@@ -227,56 +257,27 @@ input[type=number] {
 	margin-top: 5px;
 	font-size: 80% !important;
 	opacity: .5;
-}
-
-select {
-	cursor: pointer;
-	background: none;
 	border: none;
-	margin: 0;
-	padding: 12px;
-	padding-right: 24px;
-	background-image:
-		linear-gradient(45deg, transparent 50%, #777 50%),
-		linear-gradient(135deg, gray 50%, transparent 50%);
-	background-position:
-		calc(100% - 20px) calc(1em + 6px),
-		calc(100% - 17px) calc(1em + 6px);
-	background-size:
-		3px 3px,
-		3px 3px;
-	background-repeat: no-repeat;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	/* Chrome needs this for some reason … */
-	font-size: 18px !important;
-	font-family: SourceSansPro-Regular, sans-serif !important;
-}
-select:-moz-focusring {
-	color: transparent;
-	text-shadow: 0 0 0 #000;
 }
 
 .direct-transaction {
-	display: flex;
-	align-items: flex-start;
-	justify-content: center;
 	padding: 24px 0;
 }
 .direct-transaction select {
-	flex-grow: 1;
-	text-align: center;
-	max-width: 37%;
+	width: calc(100% - 12px);
+	margin: 3px 6px;
 }
-.direct-transaction svg {
+.direct-transaction-amount {
+	display: flex;
+	justify-content: center;
+	margin: 12px 6px;
+}
+.direct-transaction-amount svg {
 	display: block;
 	padding: 16px 30px 8px;
 	opacity: .5;
 }
-.direct-transaction input {
+.direct-transaction-amount input {
 	width: 70px;
 	text-align: center;
 }

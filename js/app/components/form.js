@@ -125,7 +125,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Direct
             ),
             el('div', {
               style: {display: this.state.transactionType === 'SHARED' ? 'none' : ''},
-              className: 'form-row direct-transaction'
+              className: 'form-row'
             },
               el(DirectTransactionInput, {
                 ref: 'directTransactionInput',

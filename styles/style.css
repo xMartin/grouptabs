@@ -96,19 +96,22 @@ button.selected {
 
 select {
 	cursor: pointer;
-	background: white;
 	margin: 0;
 	padding: 12px;
 	padding-right: 24px;
+	color: #131313;
+	border-radius: 5px;
+	border: none;
+	background-color: #ddd;
 	background-image:
-			linear-gradient(45deg, transparent 50%, #777 50%),
-			linear-gradient(135deg, gray 50%, transparent 50%);
+		linear-gradient(45deg, transparent 50%, #777 50%),
+		linear-gradient(135deg, gray 50%, transparent 50%);
 	background-position:
-			calc(100% - 20px) calc(1em + 6px),
-			calc(100% - 17px) calc(1em + 6px);
+		calc(100% - 22px) calc(1em + 5px),
+		calc(100% - 17px) calc(1em + 5px);
 	background-size:
-			3px 3px,
-			3px 3px;
+		5px 5px,
+		5px 5px;
 	background-repeat: no-repeat;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -117,7 +120,7 @@ select {
 	-moz-appearance: none;
 	/* Chrome needs this for some reason … */
 	font-size: 18px !important;
-	font-family: SourceSansPro-Regular, sans-serif !important;
+	font-family: SourceSansPro, sans-serif !important;
 }
 select:-moz-focusring {
 	color: transparent;
@@ -254,9 +257,10 @@ input[type=number] {
 	width: auto !important;
 }
 .form-row-input.transaction-type select {
-	margin-top: 5px;
+	margin-top: 3px;
 	font-size: 80% !important;
 	opacity: .5;
+	background-color: transparent;
 	border: none;
 }
 

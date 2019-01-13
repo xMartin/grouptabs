@@ -117,7 +117,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Partic
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input'},
                 el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
-                el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, '✓ all joined')
+                el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, 'all joined')
               )
             )
           ),

@@ -20,10 +20,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       participants: PropTypes.arrayOf(PropTypes.object).isRequired
     },
 
+    getInitialState: function () {
+      return {};
+    },
+
     getValues: function () {
       return {
-        from: this.refs.from.value,
-        to: this.refs.to.value,
+        from: this.state.fromNewParticipant ? this.refs.fromNew.value : this.refs.from.value,
+        to: this.state.toNewParticipant ? this.refs.toNew.value : this.refs.to.value,
         amount: parseFloat(this.refs.amount.value || 0)
       };
     },
@@ -50,20 +54,53 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       return result;
     },
 
+    handleChangeFrom: function (event) {
+      var input = this.refs.fromNew;
+      this.setState({
+        fromNewParticipant: event.currentTarget.value === 'New participant…'
+      }, function () {
+        input.focus();
+      });
+    },
+
+    handleChangeTo: function (event) {
+      var input = this.refs.toNew;
+      this.setState({
+        toNewParticipant: event.currentTarget.value === 'New participant…'
+      }, function () {
+        input.focus();
+      });
+    },
+
     render: function () {
       var inputProps = this.participants2Inputs(this.props.participants);
+      var options = this.props.tabParticipants.concat('New participant…');
 
       return (
         el('div', {className: 'direct-transaction'},
-          el('select',
-            {
-              ref: 'from',
-              defaultValue: inputProps.from,
-              className: 'full-width'
-            },
-            this.props.tabParticipants.map(function (participant) {
-              return el('option', {key: participant}, participant);
-            })
+          el('div', {className: 'form-row'},
+            el('div', {className: 'form-row-input'},
+              el('select',
+                {
+                  ref: 'from',
+                  className: 'full-width',
+                  defaultValue: inputProps.from,
+                  onChange: this.handleChangeFrom
+                },
+                options.map(function (participant) {
+                  return el('option', {key: participant}, participant);
+                })
+              )
+            )
+          ),
+          el('div', {className: 'form-row', style: this.state.fromNewParticipant ? null : {display: 'none'}},
+            el('div', {className: 'form-row-input'},
+              el('input', {
+                ref: 'fromNew',
+                type: 'text',
+                placeholder: 'Name …'
+              })
+            )
           ),
           el('div', {className: 'direct-transaction-amount'},
             el('svg', {height: 16, width: 16},
@@ -77,15 +114,29 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               defaultValue: inputProps.amount
             })
           ),
-          el('select',
-            {
-              ref: 'to',
-              defaultValue: inputProps.to || this.props.tabParticipants[1],
-              className: 'full-width'
-            },
-            this.props.tabParticipants.map(function (participant) {
-              return el('option', {key: participant}, participant);
-            })
+          el('div', {className: 'form-row'},
+            el('div', {className: 'form-row-input'},
+              el('select',
+                {
+                  ref: 'to',
+                  className: 'full-width',
+                  defaultValue: inputProps.to || this.props.tabParticipants[1],
+                  onChange: this.handleChangeTo
+                },
+                options.map(function (participant) {
+                  return el('option', {key: participant}, participant);
+                })
+              )
+            )
+          ),
+          el('div', {className: 'form-row', style: this.state.toNewParticipant ? null : {display: 'none'}},
+            el('div', {className: 'form-row-input'},
+              el('input', {
+                ref: 'toNew',
+                type: 'text',
+                placeholder: 'Name …'
+              })
+            )
           )
         )
       );

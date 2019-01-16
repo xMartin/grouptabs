@@ -53,22 +53,64 @@ button[disabled] {
 	cursor: default;
 	color: #777;
 }
+button.selected {
+	background: #bbb;
+}
+
+select {
+	cursor: pointer;
+	margin: 0;
+	padding: 12px;
+	padding-right: 24px;
+	color: #131313;
+	border-radius: 5px;
+	border: none;
+	background-color: #ddd;
+	background-image:
+			linear-gradient(45deg, transparent 50%, #777 50%),
+			linear-gradient(135deg, gray 50%, transparent 50%);
+	background-position:
+			calc(100% - 22px) calc(1em + 5px),
+			calc(100% - 17px) calc(1em + 5px);
+	background-size:
+			5px 5px,
+			5px 5px;
+	background-repeat: no-repeat;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/* Chrome needs this for some reason … */
+	font-size: 18px !important;
+	font-family: SourceSansPro, sans-serif !important;
+}
+select:-moz-focusring {
+	color: transparent;
+	text-shadow: 0 0 0 #000;
+}
+
 button.full-width,
+select.full-width,
+select.full-width-margin,
 button.full-width-margin {
 	display: block;
 	width: 100%;
 }
-button.full-width-margin {
+button.full-width-margin,
+select.full-width-margin {
 	width: 96%;
 	margin-left: 2%;
 	margin-right: 2%;
 }
+
 button.create {
 	padding: 0 13px;
 	background: #44f;
 	color: #fff;
     z-index: 10;
 }
+
 .header button.create {
 	position: fixed;
 	right: 0;
@@ -76,9 +118,6 @@ button.create {
 	margin: 5px;
     box-shadow: 0 0 10px rgba(100,100,100,.5);
 	border-radius: 100px; /* Pill-style rounded button */
-}
-button.selected {
-	background: #bbb;
 }
 /* larger '+' Plus in button */
 .mainScene .header button.create {
@@ -93,39 +132,6 @@ button.selected {
 .header button.left:hover,
 .header button.left:focus {
 	opacity: 1;
-}
-
-select {
-	cursor: pointer;
-	margin: 0;
-	padding: 12px;
-	padding-right: 24px;
-	color: #131313;
-	border-radius: 5px;
-	border: none;
-	background-color: #ddd;
-	background-image:
-		linear-gradient(45deg, transparent 50%, #777 50%),
-		linear-gradient(135deg, gray 50%, transparent 50%);
-	background-position:
-		calc(100% - 22px) calc(1em + 5px),
-		calc(100% - 17px) calc(1em + 5px);
-	background-size:
-		5px 5px,
-		5px 5px;
-	background-repeat: no-repeat;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	/* Chrome needs this for some reason … */
-	font-size: 18px !important;
-	font-family: SourceSansPro, sans-serif !important;
-}
-select:-moz-focusring {
-	color: transparent;
-	text-shadow: 0 0 0 #000;
 }
 
 .editEntryScene .button-row {
@@ -267,10 +273,6 @@ input[type=number] {
 
 .direct-transaction {
 	padding: 24px 0;
-}
-.direct-transaction select {
-	width: calc(100% - 12px);
-	margin: 3px 6px;
 }
 .direct-transaction-amount {
 	display: flex;

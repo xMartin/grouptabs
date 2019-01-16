@@ -55,7 +55,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
 
       return (
         el('div', {className: 'direct-transaction'},
-          el('select', {ref: 'from', defaultValue: inputProps.from},
+          el('select',
+            {
+              ref: 'from',
+              defaultValue: inputProps.from,
+              className: 'full-width'
+            },
             this.props.tabParticipants.map(function (participant) {
               return el('option', {key: participant}, participant);
             })
@@ -72,7 +77,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               defaultValue: inputProps.amount
             })
           ),
-          el('select', {ref: 'to', defaultValue: inputProps.to || this.props.tabParticipants[1]},
+          el('select',
+            {
+              ref: 'to',
+              defaultValue: inputProps.to || this.props.tabParticipants[1],
+              className: 'full-width'
+            },
             this.props.tabParticipants.map(function (participant) {
               return el('option', {key: participant}, participant);
             })

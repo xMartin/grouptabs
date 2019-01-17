@@ -91,17 +91,9 @@ select:-moz-focusring {
 }
 
 button.full-width,
-select.full-width,
-select.full-width-margin,
-button.full-width-margin {
+select.full-width {
 	display: block;
 	width: 100%;
-}
-button.full-width-margin,
-select.full-width-margin {
-	width: 96%;
-	margin-left: 2%;
-	margin-right: 2%;
 }
 
 button.create {

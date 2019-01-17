@@ -10,6 +10,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
 
   var el = React.createElement;
 
+  var newParticipantOption = 'New participant…';
+
   return createReactClass({
     mixins: [PureRenderMixin],
 
@@ -21,13 +23,17 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     },
 
     getInitialState: function () {
-      return {};
+      var inputProps = this.participants2Inputs(this.props.participants);
+      return {
+        fromValue: inputProps.from || this.props.tabParticipants[0] || newParticipantOption,
+        toValue: inputProps.to || this.props.tabParticipants[1] || newParticipantOption
+      };
     },
 
     getValues: function () {
       return {
-        from: this.state.fromNewParticipant ? this.refs.fromNew.value : this.refs.from.value,
-        to: this.state.toNewParticipant ? this.refs.toNew.value : this.refs.to.value,
+        from: this.state.fromValue === newParticipantOption ? this.refs.fromNew.value : this.state.fromValue,
+        to: this.state.toValue === newParticipantOption ? this.refs.toNew.value : this.state.toValue,
         amount: parseFloat(this.refs.amount.value || 0)
       };
     },
@@ -55,36 +61,41 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     },
 
     handleChangeFrom: function (event) {
-      var input = this.refs.fromNew;
       this.setState({
-        fromNewParticipant: event.currentTarget.value === 'New participant…'
+        fromValue: event.currentTarget.value
       }, function () {
-        input.focus();
-      });
+        if (this.state.fromValue === newParticipantOption) {
+          this.refs.fromNew.focus();
+        }
+      }.bind(this));
     },
 
     handleChangeTo: function (event) {
-      var input = this.refs.toNew;
       this.setState({
-        toNewParticipant: event.currentTarget.value === 'New participant…'
+        toValue: event.currentTarget.value
       }, function () {
-        input.focus();
-      });
+        if (this.state.toValue === newParticipantOption) {
+          this.refs.toNew.focus();
+        }
+      }.bind(this));
     },
 
     render: function () {
       var inputProps = this.participants2Inputs(this.props.participants);
-      var options = this.props.tabParticipants.concat('New participant…');
+      var tabParticipants = this.props.tabParticipants;
+      var showFromNewParticipant = this.state.fromValue === newParticipantOption || !tabParticipants.length;
+      var showToNewParticipant = this.state.toValue === newParticipantOption || !tabParticipants.length;
+      var options = tabParticipants.concat(newParticipantOption);
 
       return (
         el('div', {className: 'direct-transaction'},
-          el('div', {className: 'form-row'},
+          el('div', {className: 'form-row', style: tabParticipants.length ? null : {display: 'none'}},
             el('div', {className: 'form-row-input'},
               el('select',
                 {
                   ref: 'from',
                   className: 'full-width',
-                  defaultValue: inputProps.from,
+                  value: this.state.fromValue,
                   onChange: this.handleChangeFrom
                 },
                 options.map(function (participant) {
@@ -93,7 +104,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               )
             )
           ),
-          el('div', {className: 'form-row', style: this.state.fromNewParticipant ? null : {display: 'none'}},
+          el('div', {className: 'form-row', style: showFromNewParticipant ? null : {display: 'none'}},
             el('div', {className: 'form-row-input'},
               el('input', {
                 ref: 'fromNew',
@@ -114,13 +125,13 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               defaultValue: inputProps.amount
             })
           ),
-          el('div', {className: 'form-row'},
+          el('div', {className: 'form-row', style: tabParticipants.length ? null : {display: 'none'}},
             el('div', {className: 'form-row-input'},
               el('select',
                 {
                   ref: 'to',
                   className: 'full-width',
-                  defaultValue: inputProps.to || this.props.tabParticipants[1],
+                  value: this.state.toValue,
                   onChange: this.handleChangeTo
                 },
                 options.map(function (participant) {
@@ -129,7 +140,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
               )
             )
           ),
-          el('div', {className: 'form-row', style: this.state.toNewParticipant ? null : {display: 'none'}},
+          el('div', {className: 'form-row', style: showToNewParticipant ? null : {display: 'none'}},
             el('div', {className: 'form-row-input'},
               el('input', {
                 ref: 'toNew',

@@ -2,10 +2,11 @@ define([
   'react',
   'create-react-class',
   'pure-render-mixin',
-  'prop-types'
+  'prop-types',
+  '../util/transaction'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes) {
+function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils) {
   'use strict';
 
   var el = React.createElement;
@@ -29,35 +30,48 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
         title: data.description
       };
 
-      var paymentsList = [];
-      data.participants.forEach(function (participant) {
-        if (participant.amount) {
-          paymentsList.push(participant);
-        }
-      });
-      paymentsList.sort(function (a, b) {
-        if (a.amount > b.amount || a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
-          return -1;
-        }
-        return 1;
-      });
+      var transactionType = transactionUtils.getTransactionType(data);
+
+      var paymentsList = (
+        data.participants
+        .filter(function (participant) {
+          return transactionType === 'DIRECT' ? participant.amount > 0 : !!participant.amount;
+        })
+        .sort(function (a, b) {
+          if (a.amount > b.amount || a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
+            return -1;
+          }
+          return 1;
+        })
+      );
 
       var payments = '';
       var total = 0;
       paymentsList.forEach(function (payment, idx) {
-        idx && (payments += ', ');
         payments += payment.participant + ': ' + round(payment.amount);
+
+        if (idx < paymentsList.length - 1 || data.participants.length > paymentsList.length) {
+          if (transactionType === 'DIRECT') {
+            payments += ' → ';
+          } else {
+            payments += ', ';
+          }
+        }
+
         total += payment.amount;
       });
       result.payments = el('strong', null, payments);
       result.total = round(total);
 
-      var participantsList = data.participants.map(function (participant) {
-        return participant.participant;
-      });
-      participantsList.sort(function (a, b) {
-        return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
-      });
+      var participantsList = (
+        data.participants
+        .map(function (participant) {
+          return participant.participant;
+        })
+        .sort(function (a, b) {
+          return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
+        })
+      );
 
       var participants = '';
       participantsList.forEach(function (participant) {
@@ -66,9 +80,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
             return;
           }
         }
-        participants += ', ' + participant;
+
+        participants += participant + ', ';
       });
-      result.participants = participants;
+      result.participants = participants.substring(0, participants.length - 2);
 
       return result;
     },

@@ -31,18 +31,42 @@ function (reselect) {
   function transactions2Accounts (transactions) {
     var participants = {};
     transactions.forEach(function (transaction) {
+      var share;
       var total = 0;
       transaction.participants.forEach(function (participant) {
         total += participant.amount || 0;
       });
-      var share = total / transaction.participants.length;
-      transaction.participants.forEach(function (participant) {
-        var amount = participant.amount || 0;
-        var participantName = participant.participant;
-        var storedAmount = participants[participantName] || 0;
-        var newAmount = storedAmount - share + amount;
-        participants[participantName] = newAmount;
-      });
+      if (transaction.transactionType === 'DIRECT') {
+        // Same data structure as SHARED.
+        // Everyone who paid gets this amount added.
+        // Everyone who received gets a the share between all receipients substracted.
+        var joinedParticipants = [];
+        transaction.participants.forEach(function (participant) {
+          if (participant.amount) {
+            var participantName = participant.participant;
+            var storedAmount = participants[participantName] || 0;
+            participants[participantName] = storedAmount + participant.amount;
+          } else {
+            joinedParticipants.push(participant);
+          }
+        });
+        share = total / joinedParticipants.length;
+        joinedParticipants.forEach(function (participant) {
+          var participantName = participant.participant;
+          var storedAmount = participants[participantName] || 0;
+          var newAmount = storedAmount - share;
+          participants[participantName] = newAmount;
+        });
+      } else {
+        share = total / transaction.participants.length;
+        transaction.participants.forEach(function (participant) {
+          var amount = participant.amount || 0;
+          var participantName = participant.participant;
+          var storedAmount = participants[participantName] || 0;
+          var newAmount = storedAmount - share + amount;
+          participants[participantName] = newAmount;
+        });
+      }
     });
     var result = [];
     for (var participant in participants) {

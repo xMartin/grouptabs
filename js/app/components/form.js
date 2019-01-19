@@ -4,10 +4,12 @@ define([
   'pure-render-mixin',
   'prop-types',
   '../util/date',
+  '../util/transaction',
+  './directtransactioninput',
   './participantsinputlist'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, ParticipantsInputList) {
+function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transactionUtils, DirectTransactionInput, ParticipantsInputList) {
   'use strict';
 
   var el = React.createElement;
@@ -32,6 +34,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Partic
         newParticipantsIds.push(this.createUniqueId());
       }
       return {
+        transactionType: this.props.mode === 'edit' ? transactionUtils.getTransactionType(this.props.data) : 'SHARED',
         newParticipantsIds: newParticipantsIds
       };
     },
@@ -59,8 +62,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Partic
       return {
         date: this.refs.date.value,
         description: this.refs.description.value,
-        transactionType: this.state.type,
-        participants: this.refs.participantsInputList.getValues()
+        transactionType: this.state.transactionType,
+        participants: this.refs.participantsInputList.getValues(),
+        direct: this.refs.directTransactionInput.getValues()
       };
     },
 
@@ -82,6 +86,13 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Partic
       }
     },
 
+    handleSelectTransactionType: function (event) {
+      var transactionType = event.currentTarget.value;
+      this.setState({
+        transactionType: transactionType
+      });
+    },
+
     render: function () {
       var mode = this.props.mode;
 
@@ -89,13 +100,19 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Partic
         el('form', {id: 'edit-entry-form', onSubmit: this.props.onSubmit},
           el('div', {className: 'form'},
             el('div', {className: 'form-row'},
-              el('div', {className: 'form-row-input'},
+              el('div', {className: 'form-row-input description'},
                 el('input', {
                   type: 'text',
                   placeholder: 'Description',
                   defaultValue: mode === 'edit' ? this.props.data.description : '',
                   ref: 'description'
                 })
+              ),
+              el('div', {className: 'form-row-input transaction-type'},
+                el('select', {onChange: this.handleSelectTransactionType, defaultValue: this.state.transactionType},
+                  el('option', {value: 'SHARED'}, 'Shared'),
+                  el('option', {value: 'DIRECT'}, 'Direct')
+                )
               )
             ),
             el('div', {className: 'form-row'},
@@ -107,17 +124,31 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Partic
                 })
               )
             ),
-            el(ParticipantsInputList, {
-              ref: 'participantsInputList',
-              mode: mode,
-              tabParticipants: this.props.participants,
-              participants: mode === 'edit' ? this.props.data.participants : [],
-              newParticipantsIds: this.state.newParticipantsIds
-            }),
-            el('div', {className: 'form-row'},
-              el('div', {className: 'form-row-input'},
-                el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
-                el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, 'all joined')
+            el('div', {
+              style: {display: this.state.transactionType === 'SHARED' ? 'none' : ''},
+              className: 'form-row'
+            },
+              el(DirectTransactionInput, {
+                ref: 'directTransactionInput',
+                tabParticipants: this.props.participants,
+                participants: mode === 'edit' ? this.props.data.participants : []
+              })
+            ),
+            el('div', {
+              style: {display: this.state.transactionType === 'DIRECT' ? 'none' : ''}
+            },
+              el(ParticipantsInputList, {
+                ref: 'participantsInputList',
+                mode: mode,
+                tabParticipants: this.props.participants,
+                participants: mode === 'edit' ? this.props.data.participants : [],
+                newParticipantsIds: this.state.newParticipantsIds
+              }),
+              el('div', {className: 'form-row'},
+                el('div', {className: 'form-row-input'},
+                  el('button', {type: 'button', onClick: this.handleAddParticipant}, '+ new participant'),
+                  el('button', {type: 'button', className: 'all-joined', onClick: this.handleAllJoined}, 'all joined')
+                )
               )
             )
           ),

@@ -40,22 +40,44 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
     handleSubmit: function (event) {
       event.preventDefault();
 
-      var data = this.getValues();
+      var values = this.getValues();
 
-      if (!this.validate(data)) {
+      if (!this.validate(values)) {
         alert('Please fill in all fields and have at least two participants and one person who paid.');
         return;
       }
 
-      data.participants = this.normalizeParticipants(data.participants);
+      var data = {
+        description: values.description,
+        transactionType: values.transactionType
+      };
 
-      data.transactionType = 'SHARED';
+      if (values.transactionType === 'DIRECT') {
+        data.participants = this.getParticantsFromDirect(values.direct);
+      } else {
+        data.participants = this.normalizeParticipants(values.participants);
+      }
+
+      data.date = new Date(values.date).toJSON();
       data.timestamp = new Date().toJSON();
       if (this.props.data) {
         this.props.onUpdate(iobject.merge(this.props.data, data));
       } else {
         this.props.onCreate(data);
       }
+    },
+
+    getParticantsFromDirect: function (direct) {
+      return [
+        {
+          participant: direct.from,
+          amount: direct.amount
+        },
+        {
+          participant: direct.to,
+          amount: -direct.amount
+        }
+      ];
     },
 
     normalizeParticipants: function (rawParticipants) {
@@ -82,7 +104,19 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
         return false;
       }
 
-      var joinedParticipants = data.participants.filter(function (participant) {
+      if (data.transactionType === 'DIRECT') {
+        return this.validateDirect(data.direct);
+      } else {
+        return this.validateShared(data.participants);
+      }
+    },
+
+    validateDirect: function (data) {
+      return !!data.from && !!data.to && !!data.amount && data.from !== data.to;
+    },
+
+    validateShared: function (participants) {
+      var joinedParticipants = participants.filter(function (participant) {
         return participant.status > 0;
       });
 

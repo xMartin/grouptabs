@@ -135,7 +135,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
               'Start by adding your first transaction:'
             ),
             el('div', {className: 'row'},
-              el('button', {className: 'full-width-margin create', onClick: this.handleNewEntryClick},
+              el('button', {className: 'full-width create', onClick: this.handleNewEntryClick},
                 'Add transaction'
               )
             )

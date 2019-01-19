@@ -1,4 +1,4 @@
-# Grouptabs app (#nologin)
+# Grouptabs app
 
 > Track expenses in a group of people!
 
@@ -8,9 +8,11 @@
 
 It is an offline-capable installable web app, currently with a mobile (small screens) focus.
 
-The no-login variant is currently in alpha and is supposed to replace the [remoteStorage](http://remotestorage.io/) variant soon. It uses PouchDB for persistence and to sync data to a central CouchDB data storage. Collaboration works without user accounts. Just share the tab ID.
+It uses PouchDB for persistence and to sync data to a central CouchDB data storage. Collaboration works without user accounts. Just share the tab ID.
 
 The UI is built using ReactJS and Redux.
+
+There's also a legacy version using [remoteStorage](http://remotestorage.io/) in then branch "remotestorage-legacy.
 
 ## Setup
 

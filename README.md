@@ -1,31 +1,27 @@
-To use it you need the [Dojo Toolkit](http://dojotoolkit.org/) 1.12 (for debugging or creating an optimized build use the source distribution) and [remoteStorage.js](http://remotestorage.io/integrate/) 0.14.
+# Grouptabs app (#nologin)
 
-You can use bower to install both.
+> Track expenses in a group of people!
 
-    bower install
+[![Subscribe to Release Notes](https://release-notes.com/badges/v1.svg)](https://release-notes.com/@xMartin/Grouptabs)
 
-Your `js/` directory should look like this:
+[Grouptabs](https://grouptabs.net/) lets you track shared expenses in a group of friends in a fun way.
 
-```
-root/
-+ js/
-  + dijit/
-  + dojo/
-  + app/
-  + remotestorage/
-    - remotestorage.js
-    - remotestorage.min.js
-  + util/  (only part of Dojo source distribution)
-```
+It is an offline-capable installable web app, currently with a mobile (small screens) focus.
 
-Use `index.dev.html` if you didn't create an optimized build.
+The no-login variant is currently in alpha and is supposed to replace the [remoteStorage](http://remotestorage.io/) variant soon. It uses PouchDB for persistence and to sync data to a central CouchDB data storage. Collaboration works without user accounts. Just share the tab ID.
 
-To do a build run
+The UI is built using ReactJS and Redux.
 
-    npm install
+## Setup
 
-(only the very first time) and
+1. Run `npm install` in this folder
+2. Run `npm run serve` to start a local web server or serve this folder with any static web server.
+3. Open [localhost:8080/index.dev.html](http://localhost:8080/index.dev.html) or where ever you're serving the app in your browser
 
-    ./build.sh
+For production, run `npm run build` and then use `index.html`.
 
-You need [Node.js](http://nodejs.org/) for that and the `util` package (not available via bower). Then you can use `index.html`.
+## License
+
+Grouptabs is licensed under [GPL v3 or any later version](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)). Basically you are free to use, modify, share and improve it for any purpose, as long as you include the original changes and also publish any changes you make under the same license. Contributions are very welcome! :)
+
+For more details and the full license, see the [COPYRIGHT.txt](COPYRIGHT.txt) and [LICENSE.txt](LICENSE.txt) files.

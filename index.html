@@ -1,30 +1,23 @@
 <!DOCTYPE html>
-<html manifest="app.manifest">
+<html manifest="app.appcache">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<link rel="shortcut icon" href="images/favicon.png">
 	<link rel="apple-touch-icon-precomposed" href="images/favicon-touch.png">
-
-	<!-- iPhone 5 -->
-	<link rel="apple-touch-startup-image" href="images/splash-1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)">
-	<!-- iPhone, retina -->
-	<link rel="apple-touch-startup-image" href="images/splash-920.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)">
-	<!-- iPhone -->
-	<link rel="apple-touch-startup-image" href="images/splash-460.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)">
-
-	<link rel="stylesheet" type="text/css" href="js/release/app/css/style.css">
-	<script type="text/javascript" src="js/remotestorage/release/stable/remotestorage.min.js"></script>
-	<script data-dojo-config="async:true" type="text/javascript" src="js/release/dojo/dojo.js"></script>
-	<script type="text/javascript">
-		require(["dojo/ready", "app/app"], function(ready, app){
-			ready(app.init)
-		})
-	</script>
+	<link rel="stylesheet" type="text/css" href="styles/style.css">
 	<title>Grouptabs</title>
 </head>
-<body class="claro">
-	<div id="scenes"></div>
+<body>
+	<div id="root"></div>
+
+	<div id="loader" class="loader app-loader">
+		<div></div>
+		Grouptabs
+	</div>
+
+	<script src="js/config.js"></script>
+	<script src="dist/app.js"></script>
 </body>
 </html>

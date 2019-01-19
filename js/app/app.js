@@ -1,136 +1,44 @@
 define([
-	"./RemoteStorageStoreAdapter",
-	"./sceneController",
-	"./views/Tabs",
-	"./views/Main",
-	"./views/EditEntry",
-	"./views/TransactionList"
-], function(RemoteStorageAdapter, sceneController, TabsScene, MainScene, EditEntryScene, TransactionListScene){
+  'react-redux',
+  './redux/selectors',
+  './redux/actioncreators',
+  './components/app'
+],
 
-var remoteStorageAdapter = new RemoteStorageAdapter()
-var store = remoteStorageAdapter.store
+function (ReactRedux, selectors, actionCreators, App) {
+  'use strict';
 
-var obj = {
-	
-	tab: localStorage.getItem("box") || "",
+  function mapStateToProps (state) {
+    return {
+      location: state.location,
+      initialLoadingDone: state.app.initialLoadingDone,
+      tabName: selectors.getTabName(state),
+      transaction: state.app.docsById[state.location.payload.transactionId],
+      checkingRemoteTab: state.app.checkingRemoteTab,
+      remoteTabError: state.app.remoteTabError,
+      importingTab: state.app.importingTab,
+      tabs: selectors.getTabs(state),
+      transactions: selectors.getTransactions(state),
+      accounts: selectors.getAccounts(state),
+      participants: selectors.getParticipants(state),
+      error: state.app.error
+    };
+  }
 
-	homeView: "main",
+  var mapDispatchToProps = {
+    onNavigateToTabs: actionCreators.navigateToTabs,
+    onCreateTab: actionCreators.createTab,
+    onImportTab: actionCreators.importTab,
+    onSelectTab: actionCreators.selectTab,
+    onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
+    onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
+    onCloseTransaction: actionCreators.closeTransaction,
+    onAddTransaction: actionCreators.addTransaction,
+    onUpdateTransaction: actionCreators.updateTransaction,
+    onRemoveTransaction: actionCreators.removeTransaction,
+    onError: actionCreators.setError
+  };
 
-	store: store,
+  return ReactRedux.connect(mapStateToProps, mapDispatchToProps)(App);
 
-	init: function(){
-		var sceneName, scene,
-			scenes = {
-				"tabs": new TabsScene({app: obj, controller: sceneController}),
-				"main": new MainScene({app: obj, controller: sceneController}),
-				"newEntry": new EditEntryScene({app: obj, controller: sceneController}),
-				"list": new TransactionListScene({app: obj, controller: sceneController})
-			}
-		
-		for(sceneName in scenes){
-			scene = scenes[sceneName]
-			sceneController.addScene(scene)
-		}
-		sceneController.selectScene(obj.tab ? scenes["main"] : scenes["tabs"])
-		
-		// init remote storage
-		remoteStorage.access.claim("gruppenkasse", "rw")
-		remoteStorage.displayWidget()
-		remoteStorage.gruppenkasse.init()
-		RemoteStorage.config.changeEvents.local = false  // we use `getAll` to get cached data so no need for local change events
-		remoteStorage.on("ready", function(){
-			remoteStorage.gruppenkasse.getTransactions().then(function(data){
-				var items = [],
-					dirty = false
-				for(var id in data){
-					items.push(data[id])
-				}
-				store.setData(items)
-				sceneController.refreshAll()
-				remoteStorage.gruppenkasse.on("change", function(event){
-					if(event.newValue && event.oldValue){
-						// Do nothing on update to work around https://github.com/xMartin/grouptabs/issues/34.
-						// There's no update for now anyway.
-						//console.log(event.path + " was updated")
-					}else if(event.newValue){
-						console.log("remoteStorage created " + event.path)
-						store.put(event.newValue)
-						dirty = true
-					}else if(event.oldValue){
-						console.log("remoteStorage deleted " + event.path)
-						store.remove(event.oldValue.id)
-						dirty = true
-					}
-				})
-				remoteStorage.sync.on("done", function(){
-					if(dirty){
-						sceneController.refreshAll()
-						dirty = false
-					}
-				})
-			})
-			remoteStorage.on("disconnected", function(){
-				store.setData([])
-				sceneController.refreshAll()
-				sceneController.selectScene(scenes["tabs"])
-			})
-		})
-
-	},
-	
-	getAccounts: function(){
-		var accounts = {}
-		store.query({"box": obj.tab}).forEach(function(transaction){
-			transaction.payments.forEach(function(payment){
-				var share = payment.amount / transaction.participants.length
-				transaction.participants.forEach(function(participant){
-					accounts[participant] = accounts[participant] || 0
-					accounts[participant] -= share
-					if(payment.participant == participant){
-						accounts[participant] += payment.amount
-					}
-				})
-			})
-		})
-		return accounts
-	},
-
-	tempTabs: [],
-
-	getTabs: function(){
-		var tabs = []
-		store.query(function(){return true}).forEach(function(transaction){
-			if(transaction.box && tabs.indexOf(transaction.box) === -1){
-				tabs.push(transaction.box)
-			}
-		})
-		obj.tempTabs.forEach(function(tempTab) {
-			if(tempTab !== "" && tabs.indexOf(tempTab) === -1){
-				tabs.push(tempTab)
-			}
-		})
-		return tabs
-	},
-	
-	setTab: function(tabName){
-		obj.tab = tabName
-		obj.tempTabs.push(tabName)
-		localStorage.setItem("box", tabName)
-	},
-
-	setHomeView: function(viewName){
-		obj.homeView = viewName
-	},
-	
-	saveEntry: function(data){
-		remoteStorageAdapter.put(data)
-	},
-	
-	deleteEntry: function(id){
-		remoteStorageAdapter.remove(id)
-	}
-}
-
-return obj
-
-})
+});

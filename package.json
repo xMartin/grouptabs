@@ -22,21 +22,21 @@
     "lie": "^3.3.0",
     "pouchdb": "github:xMartin/grouptabs-pouchdb-7-with-websql",
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",
-    "prop-types": "^15.6.2",
-    "pure-uuid": "^1.5.6",
-    "react": "^16.7.0",
+    "prop-types": "^15.7.2",
+    "pure-uuid": "^1.5.7",
+    "react": "^16.8.6",
     "react-addons-pure-render-mixin": "^15.6.0",
-    "react-dom": "^16.7.0",
-    "react-redux": "^6.0.0",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.3",
     "redux": "^4.0.1",
     "redux-first-router": "^2.1.1",
     "redux-thunk": "^2.3.0",
     "requirejs": "^2.3.6",
     "reselect": "^4.0.0",
-    "smooth-scroll": "^14.2.1"
+    "smooth-scroll": "^16.0.3"
   },
   "devDependencies": {
-    "eslint": "^5.12.0",
+    "eslint": "^5.16.0",
     "http-server": "^0.11.1"
   },
   "license": "GPL-3.0"

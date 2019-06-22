@@ -27,13 +27,13 @@
     "react": "^16.8.6",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-dom": "^16.8.6",
-    "react-redux": "^7.0.3",
+    "react-redux": "^7.1.0",
     "redux": "^4.0.1",
-    "redux-first-router": "^2.1.1",
+    "redux-first-router": "^2.1.2",
     "redux-thunk": "^2.3.0",
     "requirejs": "^2.3.6",
     "reselect": "^4.0.0",
-    "smooth-scroll": "^16.0.3"
+    "smooth-scroll": "^16.1.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",

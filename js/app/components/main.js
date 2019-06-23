@@ -7,10 +7,11 @@ define([
   './loader',
   './summary',
   './transactionlist',
+  './totalspending',
   './loaderror'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loader, Summary, TransactionList, LoadError) {
+function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loader, Summary, TransactionList, TotalSpending, LoadError) {
   'use strict';
 
   var el = React.createElement;
@@ -25,6 +26,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       tabId: PropTypes.string,
       accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
       transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
+      total: PropTypes.number.isRequired,
       visible: PropTypes.bool,
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
@@ -117,7 +119,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
                 '▾ Transactions'
               )
             ),
-            el(TransactionList, {data: this.props.transactions, onDetailsClick: this.props.onDetailsClick})
+            el(TransactionList, {data: this.props.transactions, onDetailsClick: this.props.onDetailsClick}),
+            el(TotalSpending, {amount: this.props.total})
           ),
           this.renderShareInfo()
         )

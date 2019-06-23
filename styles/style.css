@@ -489,6 +489,16 @@ input[type=number] {
 	font-size: 12px;
 }
 
+.total-sum {
+	opacity: .5;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 12px 30px 12px 12px;
+	border-top: 1px solid #e5e5e5;
+	text-align: right;
+}
+
 .error-message {
 	font-size: 80%;
 	color: #f31;

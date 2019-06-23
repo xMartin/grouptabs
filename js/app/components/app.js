@@ -43,6 +43,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       transactions: PropTypes.arrayOf(PropTypes.object),
       accounts: PropTypes.arrayOf(PropTypes.object),
       participants: PropTypes.arrayOf(PropTypes.string),
+      total: PropTypes.number.isRequired,
       error: PropTypes.shape({
         error: PropTypes.object,
         info: PropTypes.object
@@ -116,6 +117,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             tabId: this.props.location.payload.tabId,
             accounts: this.props.accounts,
             transactions: this.props.transactions,
+            total: this.props.total,
             visible: this.props.location.type === 'ROUTE_TAB',
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,

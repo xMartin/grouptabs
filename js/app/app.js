@@ -14,6 +14,7 @@ function (ReactRedux, selectors, actionCreators, App) {
       initialLoadingDone: state.app.initialLoadingDone,
       tabName: selectors.getTabName(state),
       transaction: state.app.docsById[state.location.payload.transactionId],
+      total: selectors.getTotal(state),
       checkingRemoteTab: state.app.checkingRemoteTab,
       remoteTabError: state.app.remoteTabError,
       importingTab: state.app.importingTab,

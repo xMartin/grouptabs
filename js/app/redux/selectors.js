@@ -154,12 +154,31 @@ function (reselect) {
     }
   );
 
+  var getTotal = reselect.createSelector(
+    [getSortedTransactions],
+    function (transactions) {
+      return (
+        transactions
+        .filter(function (transaction) {
+          return transaction.transactionType === 'SHARED';
+        })
+        .reduce(function (total, transaction) {
+          var transactionSum = transaction.participants.reduce(function (sum, participant) {
+            return sum + participant.amount;
+          }, 0);
+          return total + transactionSum;
+        }, 0)
+      );
+    }
+  );
+
   return {
     getTabs: getTabs,
     getTabName: getTabName,
     getTransactions: getSortedTransactions,
     getAccounts: getAccounts,
-    getParticipants: getParticipants
+    getParticipants: getParticipants,
+    getTotal: getTotal
   };
 
 });

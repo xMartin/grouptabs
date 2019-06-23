@@ -1,3 +1,19 @@
+/*
+main text color: #131313
+main background color: #f2f2f2
+subtle text color: #777
+button background: #ddd
+button disabled background: #777
+button selected background: #bbb
+button create color: #fff
+button create background: #44f
+button delete background: #f44
+text input background color: #fff
+participant input not joined/paid color: #999
+list item divider: #e5e5e5
+error color: #f31
+*/
+
 @font-face {
 	font-family: SourceSansPro;
 	src: url('../fonts/sourcesanspro-regular.otf.woff2') format('woff2'),
@@ -118,12 +134,14 @@ button.create {
 
 .header button.left {
 	background: transparent;
-	opacity: .5;
 	padding: 16px 10px
 }
-.header button.left:hover,
-.header button.left:focus {
-	opacity: 1;
+.header button.left path {
+	fill: #777;
+}
+.header button.left:hover path,
+.header button.left:focus path {
+	fill: inherit;
 }
 
 .editEntryScene .button-row {
@@ -145,7 +163,7 @@ button.create {
 }
 
 .fake-link {
-	color: #666;
+	color: #777;
 	text-decoration: underline;
 	cursor: pointer;
 }
@@ -162,7 +180,7 @@ input[type=number] {
 	box-shadow: none;
 	border: none;
 	border-radius: 5px;
-	color: #000;
+	color: inherit;
 	min-height: 44px;
 	min-width: 44px;
 	padding: 10px 12px;
@@ -232,7 +250,7 @@ input[type=number] {
 }
 .share-info {
 	margin-top: 1em;
-	opacity: .5;
+	color: #777;
 	text-align: center;
 }
 
@@ -274,7 +292,9 @@ input[type=number] {
 .direct-transaction-amount svg {
 	display: block;
 	padding: 16px 30px 8px;
-	opacity: .5;
+}
+.direct-transaction-amount svg path {
+	fill: #777;
 }
 .direct-transaction-amount input {
 	width: 70px;
@@ -448,11 +468,6 @@ input[type=number] {
 	text-shadow: 0 0 4px #f2f2f2;
 	cursor: pointer;
 }
-.transactions-heading-fixed a {
-	color: #000;
-	text-decoration: none;
-	margin-left: -17px;
-}
 
 #transactions .transaction {
 	-moz-box-sizing: border-box;
@@ -471,7 +486,7 @@ input[type=number] {
 #transactions .dategroup {
 	padding: 26px 12px 6px;
 	font-size: 12px;
-	opacity: .5;
+	color: #777;
 }
 #transactions .transaction .title {
 	line-height: 1.1em;
@@ -490,7 +505,7 @@ input[type=number] {
 }
 
 .total-sum {
-	opacity: .5;
+	color: #777;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;

@@ -31,7 +31,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     render: function () {
       return (
         el('div', {className: 'load-error'},
-          el('img', {src: 'images/favicon-touch.png'}),
+          el('img', {src: 'images/favicon-touch.png', alt: ''}),
           el('h2', null, 'Grouptabs'),
           el('p', null, this.props.message),
           el('button', {className: 'create', onClick: this.handleButtonClick}, 'OK')

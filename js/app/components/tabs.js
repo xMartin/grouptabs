@@ -52,7 +52,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
       return (
         el('div', {className: 'scene tabsScene' + (this.props.visible ? '' : ' hidden')},
           el('div', {className: 'header'},
-            el('img', {id: 'logo', src: 'images/favicon-touch.png'}),
+            el('img', {id: 'logo', src: 'images/favicon-touch.png', alt: ''}),
             el('h2', null, 'Grouptabs')
           ),
           (

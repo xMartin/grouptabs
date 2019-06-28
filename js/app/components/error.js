@@ -30,7 +30,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       return (
         el('div', {className: 'scene errorScene'},
           el('div', {className: 'header'},
-            el('img', {id: 'logo', src: 'images/favicon-touch.png'}),
+            el('img', {id: 'logo', src: 'images/favicon-touch.png', alt: ''}),
             el('h2', null, 'Error')
           ),
           el('p', null, 'Oops, unfortunately an error occured.'),

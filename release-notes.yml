@@ -3,6 +3,12 @@ description: >
   Track expenses in a group of people!
 
 releases:
+- version: 1.0.0-beta.2
+  date: 2019-06-29
+  improved:
+  - More consistent UI colors
+  - Improve a11y
+  - Optimize font loading for performance
 - version: 1.0.0-beta.1
   date: 2019-01-19
   description: Add feature "direct payment" - with that we consider the basic feature set complete

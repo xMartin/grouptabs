@@ -16,6 +16,7 @@ error color: #f31
 
 @font-face {
 	font-family: SourceSansPro;
+	font-display: optional;
 	src: url('../fonts/sourcesanspro-regular.otf.woff2') format('woff2'),
          url('../fonts/sourcesanspro-regular.otf.woff') format('woff');
 	font-weight: 400;
@@ -23,6 +24,7 @@ error color: #f31
 }
 @font-face {
 	font-family: SourceSansPro;
+	font-display: optional;
 	src: url('../fonts/sourcesanspro-semibold.otf.woff2') format('woff2'),
          url('../fonts/sourcesanspro-semibold.otf.woff') format('woff');
 	font-weight: 600;

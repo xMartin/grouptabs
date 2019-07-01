@@ -3,6 +3,10 @@ description: >
   Track expenses in a group of people!
 
 releases:
+- version: 1.0.0-beta.3
+  date: 2019-07-01
+  fixed:
+  - Round total spending
 - version: 1.0.0-beta.2
   date: 2019-06-29
   improved:

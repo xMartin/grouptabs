@@ -20,8 +20,10 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     },
 
     render: function () {
+      var amount = Math.round(this.props.amount * 100) / 100;
+
       return (
-        el('div', {className: 'total-sum'}, 'Total Spending: ' + this.props.amount)
+        el('div', {className: 'total-sum'}, 'Total Spending: ' + amount)
       );
     }
 

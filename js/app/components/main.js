@@ -54,8 +54,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, SmoothScroll, Loa
       window.removeEventListener('resize', this.checkTransactionsHeadingVisibility);
     },
 
-    componentWillReceiveProps: function (nextProps) {
-      if (nextProps.accounts !== this.props.accounts) {
+    componentDidUpdate: function (prevProps) {
+      if (prevProps.accounts !== this.props.accounts) {
         setTimeout(this.checkTransactionsHeadingVisibility);
       }
     },

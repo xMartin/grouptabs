@@ -65,18 +65,18 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       this.props.onError(error, info);
     },
 
-    componentWillReceiveProps: function (nextProps) {
-      if (nextProps.location.type !== this.props.location.type) {
+    componentDidUpdate: function (prevProps) {
+      if (prevProps.location.type !== this.props.location.type) {
         window.scrollTo({top: 0});
       }
 
-      this.setPageTitle(nextProps);
+      this.setPageTitle();
     },
 
-    setPageTitle: function (nextProps) {
-      var tabName = nextProps.tabName;
+    setPageTitle: function () {
+      var tabName = this.props.tabName;
 
-      switch (nextProps.location.type) {
+      switch (this.props.location.type) {
         case 'ROUTE_TAB':
           setTitle(tabName);
           break;
@@ -84,7 +84,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
           setTitle(tabName ? 'New transaction (' + tabName + ')' : '');
           break;
         case 'ROUTE_TRANSACTION':
-          var transaction = nextProps.transaction;
+          var transaction = this.props.transaction;
           setTitle(transaction ? transaction.description + ' (' + tabName + ')' : '');
           break;
         default:

@@ -25,8 +25,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
       this.refs.input.focus();
     },
 
-    componentWillReceiveProps: function (nextProps) {
-      if (!nextProps.checkingRemoteTab && this.props.checkingRemoteTab && !nextProps.remoteTabError) {
+    componentDidUpdate: function (prevProps) {
+      if (!this.props.checkingRemoteTab && prevProps.checkingRemoteTab && !this.props.remoteTabError) {
         this.refs.input.value = '';
       }
     },

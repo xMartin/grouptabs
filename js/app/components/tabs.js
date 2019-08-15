@@ -34,8 +34,8 @@ function (React, createReactClass, PureRenderMixin, PropTypes, TabListButton, Cr
       };
     },
 
-    componentWillReceiveProps: function (nextProps) {
-      if (!nextProps.visible && this.props.visible) {
+    componentDidUpdate: function (prevProps) {
+      if (!this.props.visible && prevProps.visible) {
         this.setState({
           hideImportForm: true
         });

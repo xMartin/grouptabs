@@ -39,6 +39,10 @@ body {
 	font-family: SourceSansPro, sans-serif;
 }
 
+a, a:link, a:visited, a:active {
+	color: #44f;
+}
+
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -173,6 +177,10 @@ button.create {
 	color: #f44;
 }
 
+.mini-link {
+	font-size: 80%;
+}
+
 input[type=text],
 input[type=date],
 input[type=number] {
@@ -240,6 +248,25 @@ input[type=number] {
 
 .scene.hidden {
 	display: none;
+}
+
+.scene-with-footer {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+@media (min-width: 500px) and (min-height: 780px) {
+	.scene-with-footer {
+		min-height: 92vh;
+	}
+}
+.scene-with-footer main {
+	flex-grow: 1;
+}
+.scene-with-footer footer {
+	flex-grow: 0;
+	padding: 10px 10px 15px;
+	text-align: center;
 }
 
 .empty-info,

@@ -21,25 +21,20 @@ function (React, createReactClass, PureRenderMixin, PropTypes, ParticipantStatus
       value: PropTypes.object
     },
 
-    // status:
-    //   0: none
-    //   1: joined
-    //   2: paid
-
     getInitialState: function () {
-      return {
-        status: 0
-      };
-    },
+      // 0: none, 1: joined, 2: paid
+      var status = 0;
 
-    componentWillMount: function () {
       if (this.props.value) {
         if (this.props.value.amount) {
-          this.setState({status: 2});
+          status = 2;
         } else {
-          this.setState({status: 1});
+          status = 1;
         }
       }
+      return {
+        status: status
+      };
     },
 
     handleJoinedChange: function () {

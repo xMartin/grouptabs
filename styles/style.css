@@ -31,6 +31,13 @@ error color: #f31
 	font-style: normal;
 }
 
+html,
+body,
+#root,
+#scenes {
+	height: 100%;
+}
+
 body {
 	margin: 0;
 	color: #131313;
@@ -253,11 +260,11 @@ input[type=number] {
 .scene-with-footer {
 	display: flex;
 	flex-direction: column;
-	min-height: 100vh;
+	min-height: 100%;
 }
 @media (min-width: 500px) and (min-height: 780px) {
 	.scene-with-footer {
-		min-height: 92vh;
+		min-height: calc(100% - 8vh);
 	}
 }
 .scene-with-footer main {

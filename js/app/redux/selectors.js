@@ -5,11 +5,11 @@ define([
 function (reselect) {
   'use strict';
 
-  function sortTransactions (transactions) {
-    transactions = transactions.slice();  // copy
+  function createTransactionsByRecencyComparator (prefix) {
+    return function (a, b) {
+      a = prefix ? a[prefix] : a;
+      b = prefix ? b[prefix] : b;
 
-    // order transactions by date and timestamp descending
-    return transactions.sort(function (a, b) {
       // backwards compatibility: strip time info from format being used earlier
       var dateA = a.date.substring(0, 10);
       var dateB = b.date.substring(0, 10);
@@ -25,7 +25,14 @@ function (reselect) {
           return 1;
         }
       }
-    });
+    };
+  }
+
+  function sortTransactions (transactions) {
+    transactions = transactions.slice();  // copy
+
+    // order transactions by date and timestamp descending
+    return transactions.sort(createTransactionsByRecencyComparator());
   }
 
   function transactions2Accounts (transactions) {
@@ -104,15 +111,35 @@ function (reselect) {
   }
 
   var getTabs = reselect.createSelector(
-    [getTabIds, getDocsById],
-    function (tabIds, docsById) {
-      return tabIds.map(function (tabId) {
-        var doc = docsById['info-' + tabId];
+    [getTabIds, getDocsById, getTransactionsByTab],
+    function (tabIds, docsById, transactionsByTab) {
+      var tabs = tabIds.map(function (tabId) {
+        var info = docsById['info-' + tabId];
+        var transactionIds = transactionsByTab[tabId] || [];
+        var transactions = transactionIds.map(function (transactionId) {
+          return docsById[transactionId];
+        });
+        var mostRecentTransaction = sortTransactions(transactions)[0];
         return {
           id: tabId,
-          name: doc.name
+          name: info.name,
+          mostRecentTransaction: mostRecentTransaction
         };
       });
+
+      // sort tabs by most recent transaction or name
+      var tabsWithTransactions = tabs.filter(function (tab) {
+        return tab.mostRecentTransaction;
+      })
+      .sort(createTransactionsByRecencyComparator('mostRecentTransaction'));
+      var tabsWithoutTransactions = tabs.filter(function (tab) {
+        return !tab.mostRecentTransaction;
+      })
+      .sort(function (a, b) {
+        return a < b ? -1 : 1;
+      });
+  
+      return tabsWithTransactions.concat(tabsWithoutTransactions);
     }
   );
 

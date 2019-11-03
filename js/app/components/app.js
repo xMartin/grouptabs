@@ -42,7 +42,6 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
       importingTab: PropTypes.bool,
       transactions: PropTypes.arrayOf(PropTypes.object),
       accounts: PropTypes.arrayOf(PropTypes.object),
-      participants: PropTypes.arrayOf(PropTypes.string),
       total: PropTypes.number.isRequired,
       error: PropTypes.shape({
         error: PropTypes.object,
@@ -136,7 +135,7 @@ function (React, createReactClass, PropTypes, Tabs, Main, EditEntry, ErrorView) 
             el(EditEntry, {
               mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
               data: this.props.transaction,
-              participants: this.props.participants,
+              accounts: this.props.accounts,
               checkingRemoteTab: this.props.checkingRemoteTab,
               remoteTabError: this.props.remoteTabError,
               importingTab: this.props.importingTab,

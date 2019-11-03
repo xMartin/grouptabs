@@ -18,15 +18,18 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
     displayName: 'DirectTransactionInput',
 
     propTypes: {
-      tabParticipants: PropTypes.arrayOf(PropTypes.string).isRequired,
+      accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
       participants: PropTypes.arrayOf(PropTypes.object).isRequired
     },
 
     getInitialState: function () {
       var inputProps = this.participants2Inputs(this.props.participants);
+      var accounts = this.props.accounts;
+      var mostNegativeParticipant = accounts[0] && accounts[0].participant;
+      var mostPositiveParticipant = accounts[accounts.length - 1] && accounts[accounts.length - 1].participant;
       return {
-        fromValue: inputProps.from || this.props.tabParticipants[0] || newParticipantOption,
-        toValue: inputProps.to || this.props.tabParticipants[1] || newParticipantOption
+        fromValue: inputProps.from || mostNegativeParticipant || newParticipantOption,
+        toValue: inputProps.to || mostPositiveParticipant || newParticipantOption
       };
     },
 
@@ -82,7 +85,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes) {
 
     render: function () {
       var inputProps = this.participants2Inputs(this.props.participants);
-      var tabParticipants = this.props.tabParticipants;
+      var tabParticipants = this.props.accounts.map(function (account) {
+        return account.participant;
+      });
       var showFromNewParticipant = this.state.fromValue === newParticipantOption || !tabParticipants.length;
       var showToNewParticipant = this.state.toValue === newParticipantOption || !tabParticipants.length;
       var options = tabParticipants.concat(newParticipantOption);

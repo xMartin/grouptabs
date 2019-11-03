@@ -22,14 +22,14 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transa
     propTypes: {
       mode: PropTypes.oneOf(['new', 'edit']).isRequired,
       data: PropTypes.object,
-      participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+      accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
       onSubmit: PropTypes.func.isRequired,
       onDelete: PropTypes.func.isRequired
     },
 
     getInitialState: function () {
       var newParticipantsIds = [];
-      if (this.props.participants.length < 2) {
+      if (this.props.accounts.length < 2) {
         newParticipantsIds.push(this.createUniqueId());
         newParticipantsIds.push(this.createUniqueId());
       }
@@ -130,7 +130,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transa
             },
               el(DirectTransactionInput, {
                 ref: 'directTransactionInput',
-                tabParticipants: this.props.participants,
+                accounts: this.props.accounts,
                 participants: mode === 'edit' ? this.props.data.participants : []
               })
             ),
@@ -140,7 +140,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transa
               el(ParticipantsInputList, {
                 ref: 'participantsInputList',
                 mode: mode,
-                tabParticipants: this.props.participants,
+                tabParticipants: this.props.accounts.map(function (account) {
+                  return account.participant;
+                }),
                 participants: mode === 'edit' ? this.props.data.participants : [],
                 newParticipantsIds: this.state.newParticipantsIds
               }),

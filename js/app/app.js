@@ -21,7 +21,6 @@ function (ReactRedux, selectors, actionCreators, App) {
       tabs: selectors.getTabs(state),
       transactions: selectors.getTransactions(state),
       accounts: selectors.getAccounts(state),
-      participants: selectors.getParticipants(state),
       error: state.app.error
     };
   }

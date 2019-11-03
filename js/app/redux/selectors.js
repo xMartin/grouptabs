@@ -88,12 +88,6 @@ function (reselect) {
     return result;
   }
 
-  function accounts2Participants (accounts) {
-    return accounts.map(function (account) {
-      return account.participant;
-    });
-  }
-
   function getTabIds (state) {
     return state.app.tabs;
   }
@@ -174,13 +168,6 @@ function (reselect) {
     }
   );
 
-  var getParticipants = reselect.createSelector(
-    [getAccounts],
-    function (accounts) {
-      return accounts2Participants(accounts);
-    }
-  );
-
   var getTotal = reselect.createSelector(
     [getSortedTransactions],
     function (transactions) {
@@ -204,7 +191,6 @@ function (reselect) {
     getTabName: getTabName,
     getTransactions: getSortedTransactions,
     getAccounts: getAccounts,
-    getParticipants: getParticipants,
     getTotal: getTotal
   };
 

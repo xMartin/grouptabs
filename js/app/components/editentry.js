@@ -22,7 +22,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
     propTypes: {
       mode: PropTypes.oneOf(['new', 'edit']).isRequired,
       data: PropTypes.object,
-      participants: PropTypes.arrayOf(PropTypes.string).isRequired,
+      accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
       checkingRemoteTab: PropTypes.bool,
       remoteTabError: PropTypes.string,
       importingTab: PropTypes.bool,
@@ -180,7 +180,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, iobject, Loader, 
         el(Form, {
           mode: this.props.mode,
           data: this.props.data,
-          participants: this.props.participants,
+          accounts: this.props.accounts,
           onSubmit: this.handleSubmit,
           onDelete: this.handleDelete,
           ref: 'form'

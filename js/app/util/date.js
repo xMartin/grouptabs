@@ -15,6 +15,12 @@ define(function () {
         return parseInt(x, 10);
       });
       return new Date(params[0], params[1] - 1, params[2]);
+    },
+
+    addDays: function (date, days) {
+      var ms = date.getTime();
+      var daysInMs = days * 1000 * 60 * 60 * 24;
+      return new Date(ms + daysInMs);
     }
 
   };

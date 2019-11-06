@@ -357,6 +357,22 @@ input[type=number] {
 	width: 100%;
 	overflow: hidden;
 }
+.editEntryScene .date-input {
+	display: flex;
+}
+.editEntryScene .date-input > * {
+	width: auto;
+	flex-grow: 1;
+	border-radius: 0;
+}
+.editEntryScene .date-input > :first-child {
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+.editEntryScene .date-input > :last-child {
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
 .participantInput,
 .newParticipantInput {
 	display: flex;

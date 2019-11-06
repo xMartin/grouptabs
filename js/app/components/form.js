@@ -3,13 +3,13 @@ define([
   'create-react-class',
   'pure-render-mixin',
   'prop-types',
-  '../util/date',
   '../util/transaction',
+  './dateinput',
   './directtransactioninput',
   './participantsinputlist'
 ],
 
-function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transactionUtils, DirectTransactionInput, ParticipantsInputList) {
+function (React, createReactClass, PureRenderMixin, PropTypes, transactionUtils, DateInput, DirectTransactionInput, ParticipantsInputList) {
   'use strict';
 
   var el = React.createElement;
@@ -49,18 +49,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transa
       return '' + Math.round(Math.random() * 100000000);
     },
 
-    formatDate: function (date) {
-      date = date || new Date();
-      var month = date.getMonth() + 1;
-      month = month < 10 ? '0' + month : month;
-      var day = date.getDate();
-      day = day < 10 ? '0' + day : day;
-      return '' + date.getFullYear() + '-' + month + '-' + day;
-    },
-
     getValues: function () {
       return {
-        date: this.refs.date.value,
+        date: this.refs.dateInput.getValue(),
         description: this.refs.description.value,
         transactionType: this.state.transactionType,
         participants: this.refs.participantsInputList.getValues(),
@@ -117,10 +108,9 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, transa
             ),
             el('div', {className: 'form-row'},
               el('div', {className: 'form-row-input'},
-                el('input', {
-                  type: 'date',
-                  defaultValue: this.formatDate(mode === 'edit' ? dateUtils.parseDate(this.props.data.date) : new Date()),
-                  ref: 'date'
+                el(DateInput, {
+                  ref: 'dateInput',
+                  date: this.props.data && this.props.data.date
                 })
               )
             ),

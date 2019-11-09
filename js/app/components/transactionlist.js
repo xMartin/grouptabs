@@ -28,11 +28,11 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Transa
         return transactions;
       }
       // XXX Refactor structuring of date groups with a proper loop
-      var date = dateUtils.parseDate(transactions[0].date).toLocaleDateString();
+      var date = dateUtils.formatHumanDate(transactions[0].date);
       var dateGroups = [];
       var dateGroupTransactions = [];
       transactions.forEach(function (transaction) {
-        var currentDate = dateUtils.parseDate(transaction.date).toLocaleDateString();
+        var currentDate = dateUtils.formatHumanDate(transaction.date);
         if (currentDate !== date) {
           dateGroups.push({
             date: date,
@@ -41,7 +41,7 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils, Transa
           dateGroupTransactions = [];
         }
         dateGroupTransactions.push(transaction);
-        date = dateUtils.parseDate(transaction.date).toLocaleDateString();
+        date = dateUtils.formatHumanDate(transaction.date);
       });
       dateGroups.push({
         date: date,

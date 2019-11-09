@@ -23,28 +23,20 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils) {
     getInitialState: function () {
       var inputDate = this.props.date && dateUtils.parseDate(this.props.date);
       return {
-        date: this.formatDate(inputDate || new Date())
+        date: dateUtils.formatDate(inputDate || new Date())
       };
-    },
-
-    formatDate: function (date) {
-      var month = date.getMonth() + 1;
-      month = month < 10 ? '0' + month : month;
-      var day = date.getDate();
-      day = day < 10 ? '0' + day : day;
-      return '' + date.getFullYear() + '-' + month + '-' + day;
     },
 
     handleTodayClick: function () {
       this.setState({
-        date: this.formatDate(new Date())
+        date: dateUtils.formatDate(new Date())
       });
     },
 
     handleYesterdayClick: function () {
       var yesterday = dateUtils.addDays(new Date(), -1);
       this.setState({
-        date: this.formatDate(yesterday)
+        date: dateUtils.formatDate(yesterday)
       });
     },
 
@@ -53,15 +45,6 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils) {
       this.setState({
         date: value
       });
-    },
-
-    isToday: function () {
-      return this.state.date === this.formatDate(new Date());
-    },
-
-    isYesterday: function () {
-      var yesterday = dateUtils.addDays(new Date(), -1);
-      return this.state.date === this.formatDate(yesterday);
     },
 
     getValue: function () {
@@ -73,12 +56,12 @@ function (React, createReactClass, PureRenderMixin, PropTypes, dateUtils) {
         el('div', {className: 'form-row-input date-input'},
           el('button', {
             type: 'button',
-            className: this.isToday() ? 'selected' : '',
+            className: dateUtils.isToday(this.state.date) ? 'selected' : '',
             onClick: this.handleTodayClick
           }, 'today'),
           el('button', {
             type: 'button',
-            className: this.isYesterday() ? 'selected' : '',
+            className: dateUtils.isYesterday(this.state.date) ? 'selected' : '',
             onClick: this.handleYesterdayClick
           }, 'yesterday'),
           el('input', {

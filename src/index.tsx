@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { connectRoutes } from 'redux-first-router';
 // @ts-ignore
 import { createHashHistory } from 'rudy-history';
-import { combineReducers, applyMiddleware, compose as reduxCompose, createStore } from 'redux';
+import { combineReducers, applyMiddleware, compose as reduxCompose, createStore, Store } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { restoreLocation, startPersistingLocation } from './util/standalone';
@@ -22,11 +22,13 @@ const router: any = connectRoutes(routes, {
 startPersistingLocation(router.history);
 
 const rootReducer = combineReducers({location: router.reducer, app: appReducer});
+export type AllState = ReturnType<typeof rootReducer> & {location: any};
+
 const middlewares = applyMiddleware(ReduxThunk, router.middleware);
 
 // @ts-ignore
 const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;
-const store = createStore(rootReducer, compose(router.enhancer, middlewares));
+const store: Store<AllState> = createStore(rootReducer, compose(router.enhancer, middlewares));
 
 const components = (
   <Provider store={store}>

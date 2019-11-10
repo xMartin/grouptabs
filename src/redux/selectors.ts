@@ -1,9 +1,12 @@
 import * as reselect from 'reselect';
+import { Transaction, Info, Account, TransactionType, Tab } from '../types';
+import { AllState } from '..';
 
-function createTransactionsByRecencyComparator (prefix) {
-  return function (a, b) {
-    a = prefix ? a[prefix] : a;
-    b = prefix ? b[prefix] : b;
+function createTransactionsByRecencyComparator (prefix?: string) {
+  type PrefixedArg = {[id: string]: any};
+  return function (a: Transaction | PrefixedArg, b: Transaction | PrefixedArg): number {
+    a = prefix ? (a as PrefixedArg)[prefix] : a as Transaction;
+    b = prefix ? (b as PrefixedArg)[prefix] : b as Transaction;
 
     // backwards compatibility: strip time info from format being used earlier
     var dateA = a.date.substring(0, 10);
@@ -23,17 +26,17 @@ function createTransactionsByRecencyComparator (prefix) {
   };
 }
 
-function sortTransactions (transactions) {
+function sortTransactions (transactions: Transaction[]) {
   transactions = transactions.slice();  // copy
 
   // order transactions by date and timestamp descending
   return transactions.sort(createTransactionsByRecencyComparator());
 }
 
-function transactions2Accounts (transactions) {
-  var participants = {};
+function transactions2Accounts (transactions: Transaction[]): Account[] {
+  var participants: {[name: string]: number} = {};
   transactions.forEach(function (transaction) {
-    var share;
+    var share: number;
     var total = 0;
     transaction.participants.forEach(function (participant) {
       total += participant.amount || 0;
@@ -42,7 +45,7 @@ function transactions2Accounts (transactions) {
       // Same data structure as SHARED.
       // Everyone who paid gets this amount added.
       // Everyone who received gets a the share between all receipients substracted.
-      var joinedParticipants = [];
+      var joinedParticipants: Account[] = [];
       transaction.participants.forEach(function (participant) {
         if (participant.amount) {
           var participantName = participant.participant;
@@ -72,9 +75,10 @@ function transactions2Accounts (transactions) {
   });
   var result = [];
   for (var participant in participants) {
-    var resultObj = {};
-    resultObj.participant = participant;
-    resultObj.amount = participants[participant];
+    var resultObj = {
+      participant,
+      amount: participants[participant],
+    };
     result.push(resultObj);
   }
   result.sort(function (a, b) {
@@ -83,36 +87,36 @@ function transactions2Accounts (transactions) {
   return result;
 }
 
-function getTabIds (state) {
+function getTabIds (state: AllState) {
   return state.app.tabs;
 }
 
-function getDocsById (state) {
+function getDocsById (state: AllState) {
   return state.app.docsById;
 }
 
-function getCurrentTab (state) {
+function getCurrentTab (state: AllState) {
   return state.location.payload.tabId;
 }
 
-function getTransactionsByTab (state) {
+function getTransactionsByTab (state: AllState) {
   return state.app.transactionsByTab;
 }
 
 var getTabs = reselect.createSelector(
   [getTabIds, getDocsById, getTransactionsByTab],
   function (tabIds, docsById, transactionsByTab) {
-    var tabs = tabIds.map(function (tabId) {
-      var info = docsById['info-' + tabId];
+    var tabs: Tab[] = tabIds.map(function (tabId) {
+      var info = docsById['info-' + tabId] as Info;
       var transactionIds = transactionsByTab[tabId] || [];
       var transactions = transactionIds.map(function (transactionId) {
-        return docsById[transactionId];
+        return docsById[transactionId] as Transaction;
       });
       var mostRecentTransaction = sortTransactions(transactions)[0];
       return {
         id: tabId,
         name: info.name,
-        mostRecentTransaction: mostRecentTransaction
+        mostRecentTransaction
       };
     });
 
@@ -135,7 +139,7 @@ var getTabs = reselect.createSelector(
 var getTabName = reselect.createSelector(
   [getTabs, getCurrentTab],
   function (tabs, currentTab) {
-    var tab;
+    var tab: Tab | undefined;
     tabs.forEach(function (_tab) {
       if (_tab.id === currentTab) {
         tab = _tab;
@@ -150,7 +154,7 @@ var getSortedTransactions = reselect.createSelector(
   function (docsById, currentTab, transactionsByTab) {
     var transactionIds = transactionsByTab[currentTab] || [];
     var transactions = transactionIds.map(function (transactionId) {
-      return docsById[transactionId];
+      return docsById[transactionId] as Transaction;
     });
     return sortTransactions(transactions);
   }
@@ -169,7 +173,7 @@ var getTotal = reselect.createSelector(
     return (
       transactions
       .filter(function (transaction) {
-        return transaction.transactionType === 'SHARED';
+        return transaction.transactionType === TransactionType.SHARED;
       })
       .reduce(function (total, transaction) {
         var transactionSum = transaction.participants.reduce(function (sum, participant) {
@@ -182,9 +186,9 @@ var getTotal = reselect.createSelector(
 );
 
 export default {
-  getTabs: getTabs,
-  getTabName: getTabName,
+  getTabs,
+  getTabName,
   getTransactions: getSortedTransactions,
-  getAccounts: getAccounts,
-  getTotal: getTotal
+  getAccounts,
+  getTotal,
 };

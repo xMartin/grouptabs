@@ -3,6 +3,7 @@ import PouchDB from 'pouchdb';
 import allDbs from 'pouchdb-all-dbs';
 import Tab from './tab';
 import config from '../config';
+import { Info } from '../types';
 
 type changesCallback = (actionMap: any) => void;
 
@@ -94,7 +95,7 @@ export default class {
     db.startSyncing();
   }
 
-  checkTab(tabId: string) {
+  checkTab(tabId: string): Promise<Info> {
     const dbName = 'tab/' + tabId
     const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
 

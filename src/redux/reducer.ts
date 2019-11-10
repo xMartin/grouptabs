@@ -1,7 +1,31 @@
 import iarray from '../lang/iarray';
 import iobject from '../lang/iobject';
+import { ActionMap, Transaction, Info } from '../types';
+import { Reducer } from 'redux';
 
-function docsReducer (state, actionMap) {
+interface AppState {
+  initialLoadingDone: boolean;
+  checkingRemoteTab: boolean;
+  remoteTabError: string;
+  importingTab: boolean,
+  docsById: {[id: string]: Transaction | Info},
+  tabs: string[],
+  transactionsByTab: {[tabId: string]: string[]},
+  error: any;
+}
+
+const initialState: AppState = {
+  initialLoadingDone: false,
+  checkingRemoteTab: false,
+  remoteTabError: '',
+  importingTab: false,
+  docsById: {},
+  tabs: [],
+  transactionsByTab: {},
+  error: null
+};
+
+function docsReducer (state: AppState, actionMap: ActionMap): AppState {
   var docsById = state.docsById;
   var tabs = state.tabs;
   var transactionsByTab = state.transactionsByTab;
@@ -40,100 +64,91 @@ function docsReducer (state, actionMap) {
     }
   });
 
-  return iobject.merge(state, {
-    docsById: docsById,
-    tabs: tabs,
-    transactionsByTab: transactionsByTab
-  });
+  return {
+    ...state,
+    docsById,
+    tabs,
+    transactionsByTab
+  };
 }
 
-var initialState = {
-  initialLoadingDone: false,
-  checkingRemoteTab: false,
-  remoteTabError: null,
-  importingTab: false,
-  docsById: {},
-  tabs: [],
-  transactionsByTab: {},
-  error: null
-};
-
-export default function (state, action) {
-  if (!state) {
-    return initialState;
-  }
-
+const reducer: Reducer<AppState, any> = (state = initialState, action) => {
   switch (action.type) {
     case 'UPDATE_FROM_DB':
-      return iobject.merge(docsReducer(state, action.actionMap), {
+      return {
+        ...docsReducer(state, action.actionMap),
         initialLoadingDone: true,
         importingTab: false
-      });
+      };
 
     case 'CREATE_TAB':
-      return iobject.merge(
-        docsReducer(state, {
+      return {
+        ...docsReducer(state, {
           createOrUpdate: [action.doc],
           delete: []
         })
-      );
+      };
 
     case 'CHECK_REMOTE_TAB':
-      return iobject.merge(state, {
+      return {
+        ...state,
         checkingRemoteTab: true,
         remoteTabError: initialState.remoteTabError
-      });
+      };
 
     case 'CHECK_REMOTE_TAB_FAILURE':
-      return iobject.merge(state, {
+      return {
+        ...state,
         checkingRemoteTab: false,
         remoteTabError: action.error
-      });
+      };
 
     case 'IMPORT_TAB':
-      return iobject.merge(
-        docsReducer(state, {
+      return {
+        ...docsReducer(state, {
           createOrUpdate: [action.doc],
           delete: []
         }),
-        {
-          checkingRemoteTab: false,
-          remoteTabError: initialState.remoteTabError,
-          importingTab: true
-        }
-      );
+        checkingRemoteTab: false,
+        remoteTabError: initialState.remoteTabError,
+        importingTab: true
+      };
 
     case 'CREATE_OR_UPDATE_TRANSACTION':
-      return iobject.merge(
-        docsReducer(state, {
+      return {
+        ...docsReducer(state, {
           createOrUpdate: [action.doc],
           delete: []
         })
-      );
+      };
 
     case 'REMOVE_TRANSACTION':
-      return iobject.merge(
-        docsReducer(state, {
+      return {
+        ...docsReducer(state, {
           createOrUpdate: [],
           delete: [action.doc]
         })
-      );
+      };
 
     case 'SET_ERROR':
-      return iobject.merge(state, {
+      return {
+        ...state,
         error: {
           error: action.error,
           info: action.info
         }
-      });
+      };
 
     case 'ROUTE_TABS':
     case 'ROUTE_TAB':
-      return iobject.merge(state, {
+      return {
+        ...state,
         remoteTabError: initialState.remoteTabError
-      });
+      };
 
     default:
       return state;
   }
 };
+
+export default reducer;

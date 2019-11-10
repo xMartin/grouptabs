@@ -1,6 +1,8 @@
-import UUID from 'uuid';
+import uuidv4 from 'uuid/v4';
 import iobject from '../lang/iobject';
 import DbManager from '../db/manager'
+import { AllState } from '..';
+import { Transaction } from '../types';
 
 var db = new DbManager();
 
@@ -13,7 +15,7 @@ function generateTabId() {
   return result;
 }
 
-function checkTab(dispatch, id, shouldNavigateToTab) {
+function checkTab(dispatch: any, id: string, shouldNavigateToTab?: boolean) {
   dispatch({
     type: 'CHECK_REMOTE_TAB'
   });
@@ -69,7 +71,7 @@ function checkTab(dispatch, id, shouldNavigateToTab) {
 
 var actionCreators = {
   connectDb: function () {
-    return function (dispatch) {
+    return function (dispatch: any) {
       return (
         db.init(function (actionMap) {
           dispatch({
@@ -83,7 +85,7 @@ var actionCreators = {
   },
 
   ensureConnectedDb: function () {
-    return function (dispatch, getState) {
+    return function (dispatch: any, getState: () => AllState) {
       if (getState().app.initialLoadingDone) {
         return Promise.resolve();
       }
@@ -92,8 +94,8 @@ var actionCreators = {
     };
   },
 
-  createTab: function (name) {
-    return function (dispatch) {
+  createTab: function (name: string) {
+    return function (dispatch: any) {
       var id = generateTabId();
 
       var doc = {
@@ -115,7 +117,7 @@ var actionCreators = {
     };
   },
 
-  selectTab: function (id) {
+  selectTab: function (id: string) {
     return {
       type: 'ROUTE_TAB',
       payload: {
@@ -124,8 +126,8 @@ var actionCreators = {
     };
   },
 
-  importTab: function (id) {
-    return function (dispatch) {
+  importTab: function (id: string) {
+    return function (dispatch: any) {
       id = id.toLowerCase();
       // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
       id = id.replace(/.*?([a-z0-9]+$)/, '$1');
@@ -134,8 +136,8 @@ var actionCreators = {
     };
   },
 
-  importTabFromUrl: function (id) {
-    return function (dispatch) {
+  importTabFromUrl: function (id: string) {
+    return function (dispatch: any) {
       return checkTab(dispatch, id);
     };
   },
@@ -146,10 +148,10 @@ var actionCreators = {
     };
   },
 
-  addTransaction: function (transaction) {
-    return function (dispatch, getState) {
+  addTransaction: function (transaction: Transaction) {
+    return function (dispatch: any, getState: () => AllState) {
       var doc = iobject.merge(transaction, {
-        id: new UUID(4).format(),
+        id: uuidv4(),
         type: 'transaction',
         tabId: getState().location.payload.tabId
       });
@@ -167,8 +169,8 @@ var actionCreators = {
     };
   },
 
-  updateTransaction: function (transaction) {
-    return function (dispatch, getState) {
+  updateTransaction: function (transaction: Transaction) {
+    return function (dispatch: any, getState: () => AllState) {
       dispatch({
         type: 'CREATE_OR_UPDATE_TRANSACTION',
         doc: transaction
@@ -182,8 +184,8 @@ var actionCreators = {
     };
   },
 
-  removeTransaction: function (doc) {
-    return function (dispatch, getState) {
+  removeTransaction: function (doc: any) {
+    return function (dispatch: any, getState: () => AllState) {
       dispatch({
         type: 'REMOVE_TRANSACTION',
         doc: doc
@@ -197,7 +199,7 @@ var actionCreators = {
     };
   },
 
-  navigateToAddTransaction: function (tabId) {
+  navigateToAddTransaction: function (tabId: string) {
     return {
       type: 'ROUTE_NEW_TRANSACTION',
       payload: {
@@ -206,7 +208,7 @@ var actionCreators = {
     };
   },
 
-  navigateToUpdateTransaction: function (tabId, transactionId) {
+  navigateToUpdateTransaction: function (tabId: string, transactionId: string) {
     return {
       type: 'ROUTE_TRANSACTION',
       payload: {
@@ -217,7 +219,7 @@ var actionCreators = {
   },
 
   closeTransaction: function () {
-    return function (dispatch, getState) {
+    return function (dispatch: any, getState: () => AllState) {
       dispatch({
         type: 'ROUTE_TAB',
         payload: {
@@ -227,7 +229,7 @@ var actionCreators = {
     };
   },
 
-  setError: function (error, info) {
+  setError: function (error: any, info: any) {
     return {
       type: 'SET_ERROR',
       error: error,

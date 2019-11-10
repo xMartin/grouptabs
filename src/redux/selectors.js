@@ -141,7 +141,7 @@ var getTabName = reselect.createSelector(
         tab = _tab;
       }
     });
-    return tab && tab.name || '';
+    return tab ? tab.name : '';
   }
 );
 

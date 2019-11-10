@@ -33,7 +33,7 @@ export default createReactClass({
         return transactionType === 'DIRECT' ? participant.amount > 0 : !!participant.amount;
       })
       .sort(function (a, b) {
-        if (a.amount > b.amount || a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase()) {
+        if (a.amount > b.amount || (a.amount === b.amount && a.participant.toLowerCase() < b.participant.toLowerCase())) {
           return -1;
         }
         return 1;

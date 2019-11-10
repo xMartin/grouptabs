@@ -74,7 +74,7 @@ export default createReactClass({
         ),
         el(ParticipantStatusInput, {
           status: status,
-          amount: this.props.value && this.props.value.amount || undefined,
+          amount: this.props.value ? this.props.value.amount : undefined,
           onJoinedChange: this.handleJoinedChange,
           onPaidChange: this.handlePaidChange,
           ref: 'status'

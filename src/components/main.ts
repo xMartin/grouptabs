@@ -1,66 +1,71 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types'; 
+import React, { PureComponent } from 'react';
+// @ts-ignore
 import SmoothScroll from 'smooth-scroll';
 import Loader from './loader';
 import Summary from './summary';
 import TransactionList from './transactionlist';
 import TotalSpending from './totalspending';
 import LoadError from './loaderror';
+import { Transaction } from '../types';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  tabName?: string;
+  tabId?: string;
+  accounts: Account[];
+  transactions: Transaction[];
+  total: number;
+  visible?: boolean;
+  checkingRemoteTab?: boolean;
+  remoteTabError?: string;
+  importingTab?: boolean;
+  onChangeTabClick: () => void;
+  onNavigateToAddTransaction: (tabId: string) => void;
+  onDetailsClick: (tabId: string, transactionId: string) => void;
+}
 
-  displayName: 'Main',
+interface State {
+  transactionsHeadingIsOutOfViewport: boolean;
+}
 
-  propTypes: {
-    tabName: PropTypes.string,
-    tabId: PropTypes.string,
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
-    total: PropTypes.number.isRequired,
-    visible: PropTypes.bool,
-    checkingRemoteTab: PropTypes.bool,
-    remoteTabError: PropTypes.string,
-    importingTab: PropTypes.bool,
-    onChangeTabClick: PropTypes.func.isRequired,
-    onNavigateToAddTransaction: PropTypes.func.isRequired,
-    onDetailsClick: PropTypes.func.isRequired
-  },
+export default class Main extends PureComponent<Props, State> {
 
-  getInitialState: function () {
-    return {
+  scroller?: any;
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
       transactionsHeadingIsOutOfViewport: false
     };
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
     window.addEventListener('resize', this.checkTransactionsHeadingVisibility);
     this.checkTransactionsHeadingVisibility();
     this.scroller = new SmoothScroll();
-  },
+  }
 
-  componentWillUnmount: function () {
+  componentWillUnmount() {
     window.removeEventListener('scroll', this.checkTransactionsHeadingVisibility);
     window.removeEventListener('resize', this.checkTransactionsHeadingVisibility);
-  },
+  }
 
-  componentDidUpdate: function (prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.accounts !== this.props.accounts) {
       setTimeout(this.checkTransactionsHeadingVisibility);
     }
-  },
+  }
 
-  checkTransactionsHeadingVisibility: function () {
+  checkTransactionsHeadingVisibility = () => {
     if (!this.refs.transactionsHeading) {
       return;
     }
 
     var scrollBottomY = window.innerHeight + window.scrollY;
+    // @ts-ignore
     var headingY = this.refs.transactionsHeading.offsetTop;
     var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
     if (transactionsHeadingIsOutOfViewport !== this.state.transactionsHeadingIsOutOfViewport) {
@@ -68,17 +73,20 @@ export default createReactClass({
         transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport
       });
     }
-  },
+  }
 
-  handleNewEntryClick: function () {
+  handleNewEntryClick = () => {
+    if (!this.props.tabId) {
+      throw new Error('Tab ID missing.');
+    }
     this.props.onNavigateToAddTransaction(this.props.tabId);
-  },
+  };
 
-  handleTransitionsTeaserClick: function () {
+  handleTransitionsTeaserClick = () => {
     this.scroller.animateScroll(this.refs.transactionsHeading);
-  },
+  };
 
-  renderHeader: function (showAddButton) {
+  renderHeader(showAddButton?: boolean) {
     return (
       el('div', {className: 'header'},
         el('button', {className: 'left', onClick: this.props.onChangeTabClick},
@@ -95,9 +103,9 @@ export default createReactClass({
         )
       )
     );
-  },
+  }
 
-  renderSummary: function () {
+  renderSummary() {
     return (
       el(React.Fragment, null,
         el('div', {className: 'row'},
@@ -120,9 +128,9 @@ export default createReactClass({
         this.renderShareInfo()
       )
     );
-  },
+  }
 
-  renderEmptyState: function () {
+  renderEmptyState() {
     return (
       el(React.Fragment, null,
         el('div', {className: 'empty-info'},
@@ -141,9 +149,9 @@ export default createReactClass({
         this.renderShareInfo()
       )
     );
-  },
+  }
 
-  renderShareInfo: function () {
+  renderShareInfo() {
     return (
       el('div', {className: 'share-info'},
         el('p', null,
@@ -153,9 +161,9 @@ export default createReactClass({
         )
       )
     );
-  },
+  }
 
-  renderContent: function () {
+  renderContent() {
     if (this.props.remoteTabError) {
       return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
     }
@@ -165,9 +173,9 @@ export default createReactClass({
     }
 
     return this.renderSummary();
-  },
+  }
 
-  render: function () {
+  render() {
     var isLoading = this.props.checkingRemoteTab || this.props.importingTab;
 
     return (
@@ -180,4 +188,4 @@ export default createReactClass({
     );
   }
 
-});
+}

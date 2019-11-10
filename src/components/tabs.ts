@@ -1,49 +1,50 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import TabListButton from './tablistbutton';
 import CreateForm from './createform';
 import ImportForm from './importform';
+import { Tab } from '../types';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  data: Tab[];
+  visible?: boolean;
+  checkingRemoteTab?: boolean;
+  remoteTabError?: string;
+  onTabClick: (id: string) => void;
+  onCreateNewTab: (name: string) => void;
+  onImportTab: (id: string) => void;
+}
 
-  displayName: 'Tabs',
+interface State {
+  hideImportForm: boolean;
+}
 
-  propTypes: {
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    visible: PropTypes.bool,
-    checkingRemoteTab: PropTypes.bool,
-    remoteTabError: PropTypes.string,
-    onTabClick: PropTypes.func.isRequired,
-    onCreateNewTab: PropTypes.func.isRequired,
-    onImportTab: PropTypes.func.isRequired
-  },
+export default class Tabs extends PureComponent<Props, State> {
 
-  getInitialState: function () {
-    return {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
       hideImportForm: true
     };
-  },
+  }
 
-  componentDidUpdate: function (prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (!this.props.visible && prevProps.visible) {
       this.setState({
         hideImportForm: true
       });
     }
-  },
+  }
 
-  handleShowImportFormClick: function () {
+  handleShowImportFormClick = () => {
     this.setState({
       hideImportForm: false
     });
-  },
+  };
 
-  render: function () {
+  render() {
     return (
       el('div', {className: 'scene scene-with-footer tabsScene' + (this.props.visible ? '' : ' hidden')},
         el('main', null,
@@ -55,9 +56,9 @@ export default createReactClass({
             this.props.data.length
             ?
             el('div', {className: 'row tabs'},
-              this.props.data.map(function (tab) {
+              this.props.data.map((tab) => {
                 return el(TabListButton, {key: tab.id, data: tab, onClick: this.props.onTabClick});
-              }.bind(this))
+              })
             )
             :
             el('div', {className: 'empty-info'},
@@ -92,4 +93,4 @@ export default createReactClass({
     );
   }
 
-});
+}

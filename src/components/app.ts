@@ -1,6 +1,5 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { Transaction, Tab } from '../types';
 import Tabs from './tabs';
 import Main from './main';
 import EditEntry from './editentry';
@@ -10,7 +9,7 @@ var el = React.createElement;
 
 var titleBase = 'Grouptabs';
 
-function setTitle (input) {
+function setTitle (input?: string) {
   var documentTitle = document.title;
   var result = input ? input + ' – ' + titleBase : titleBase;
 
@@ -19,55 +18,50 @@ function setTitle (input) {
   }
 }
 
-export default createReactClass({
+interface Props {
+  location: {
+    type: string,
+    payload: any,
+  };
+  initialLoadingDone?: boolean;
+  tabName?: string;
+  transaction?: Transaction;
+  tabs: Tab[];
+  checkingRemoteTab?: boolean;
+  remoteTabError?: string;
+  importingTab?: boolean;
+  transactions: Transaction[];
+  accounts: Account[];
+  total: number;
+  error?: any;
+  onNavigateToTabs: () => void;
+  onCreateTab: (name: string) => void;
+  onImportTab: (id: string) => void;
+  onSelectTab: (id: string) => void;
+  onNavigateToAddTransaction: (tabId: string) => void;
+  onNavigateToUpdateTransaction: (tabId: string, transactionId: string) => void;
+  onCloseTransaction: () => void;
+  onAddTransaction: (transaction: Transaction) => void;
+  onUpdateTransaction: (transaction: Transaction) => void;
+  onRemoveTransaction: (doc: any) => void;
+  onError: (error: any, info: any) => void;
+}
 
-  displayName: 'App',
+export default class App extends Component<Props> {
 
-  propTypes: {
-    location: PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      payload: PropTypes.object.isRequired
-    }).isRequired,
-    initialLoadingDone: PropTypes.bool,
-    tabName: PropTypes.string,
-    transaction: PropTypes.object,
-    tabs: PropTypes.arrayOf(PropTypes.object).isRequired,
-    checkingRemoteTab: PropTypes.bool,
-    remoteTabError: PropTypes.string,
-    importingTab: PropTypes.bool,
-    transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    total: PropTypes.number.isRequired,
-    error: PropTypes.shape({
-      error: PropTypes.object,
-      info: PropTypes.object
-    }),
-    onNavigateToTabs: PropTypes.func.isRequired,
-    onCreateTab: PropTypes.func.isRequired,
-    onImportTab: PropTypes.func.isRequired,
-    onSelectTab: PropTypes.func.isRequired,
-    onNavigateToAddTransaction: PropTypes.func.isRequired,
-    onNavigateToUpdateTransaction: PropTypes.func.isRequired,
-    onCloseTransaction: PropTypes.func.isRequired,
-    onAddTransaction: PropTypes.func.isRequired,
-    onUpdateTransaction: PropTypes.func.isRequired,
-    onRemoveTransaction: PropTypes.func.isRequired,
-    onError: PropTypes.func.isRequired
-  },
-
-  componentDidCatch: function (error, info) {
+  componentDidCatch(error: any, info: any) {
     this.props.onError(error, info);
-  },
+  }
 
-  componentDidUpdate: function (prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (prevProps.location.type !== this.props.location.type) {
       window.scrollTo({top: 0});
     }
 
     this.setPageTitle();
-  },
+  }
 
-  setPageTitle: function () {
+  setPageTitle() {
     var tabName = this.props.tabName;
 
     switch (this.props.location.type) {
@@ -84,9 +78,9 @@ export default createReactClass({
       default:
         setTitle();
     }
-  },
+  }
 
-  render: function () {
+  render() {
     if (this.props.error) {
       return (
         el('div', {id: 'scenes'},
@@ -144,4 +138,4 @@ export default createReactClass({
     );
   }
 
-});
+}

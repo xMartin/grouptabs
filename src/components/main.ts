@@ -6,7 +6,7 @@ import Summary from './summary';
 import TransactionList from './transactionlist';
 import TotalSpending from './totalspending';
 import LoadError from './loaderror';
-import { Transaction } from '../types';
+import { Account, Transaction } from '../types';
 
 var el = React.createElement;
 
@@ -109,7 +109,7 @@ export default class Main extends PureComponent<Props, State> {
     return (
       el(React.Fragment, null,
         el('div', {className: 'row'},
-          el(Summary, {data: this.props.accounts})
+          el(Summary, {accounts: this.props.accounts})
         ),
         el('div', {className: 'row'},
           el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Transaction, Tab } from '../types';
+import { Account, Transaction, Tab } from '../types';
 import Tabs from './tabs';
 import Main from './main';
 import EditEntry from './editentry';

@@ -3,9 +3,9 @@ import PouchDB from 'pouchdb';
 import allDbs from 'pouchdb-all-dbs';
 import Tab from './tab';
 import config from '../config';
-import { Info } from '../types';
+import { Info, ActionMap } from '../types';
 
-type changesCallback = (actionMap: any) => void;
+type changesCallback = (actionMap: ActionMap) => void;
 
 export default class {
 
@@ -28,7 +28,7 @@ export default class {
   async connect() {
     const docsPerDb = await Promise.all(this.getAllDbs().map(async (db) => {
       const docs = await db.db.connect();
-      return await this.transformDocs(db.tabId, docs);
+      return this.transformDocs(db.tabId, docs);
     }));
     let flat: any[] = [];
     docsPerDb.forEach((docs) => {
@@ -137,7 +137,7 @@ export default class {
     return this.dbs[tabId] = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));
   }
 
-  _changesHandler(tabId: string, changes: any) {
+  _changesHandler(tabId: string, changes: any[]) {
     const createOrUpdate = (
       changes
       .filter((change: any) => !change.deleted)

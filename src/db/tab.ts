@@ -4,7 +4,7 @@ export default class {
 
   remoteDbLocation: string;
   
-  private _onChangesHandler: (results: any) => void;
+  private _onChangesHandler: (results: any[]) => void;
 
   db: PouchDB.Database;
 
@@ -16,7 +16,7 @@ export default class {
 
   syncHandle: any;
 
-  constructor(localDbName: string, remoteDbLocation: string, changesCallback: (changes: any) => void) {
+  constructor(localDbName: string, remoteDbLocation: string, changesCallback: (changes: any[]) => void) {
     if (!localDbName || typeof localDbName !== 'string') {
       throw new Error('missing localDbName parameter');
     }
@@ -35,7 +35,7 @@ export default class {
 
   async connect() {
     await this.replicateFromRemote();
-    const docs: object[] = await this.fetchAll();
+    const docs: {[key: string]: any}[] = await this.fetchAll();
     const info = await this.db.info();
     this._lastSequenceNumber = info.update_seq;
     this.startSyncing();    

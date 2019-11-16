@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 
 interface Props {
   checkingRemoteTab?: boolean;
@@ -8,36 +8,39 @@ interface Props {
 
 var el = React.createElement;
 
-export default class ImportForm extends PureComponent<Props> {
+const ImportForm: React.FC<Props> = ({ checkingRemoteTab, remoteTabError, onSubmit }) => {
+  const inputEl = React.useRef<HTMLInputElement>(null);
 
-  componentDidMount() {
-    (this.refs.input as HTMLInputElement).focus();
-  }
-
-  componentDidUpdate (prevProps: Props) {
-    if (!this.props.checkingRemoteTab && prevProps.checkingRemoteTab && !this.props.remoteTabError) {
-      (this.refs.input as HTMLInputElement).value = '';
+  // Empty input after import
+  useEffect(() => {
+    if (inputEl.current && !checkingRemoteTab && !remoteTabError) {
+      inputEl.current.value = '';
     }
-  }
+  // we only care about the error prop if the checking prop changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkingRemoteTab]);
 
-  handleSubmit = (event: Event) => {
+  // Focus input on mount
+  useEffect(() => {
+    inputEl.current && inputEl.current.focus();
+  }, []);
+
+  const handleSubmit = (event: Event) => {
     event.preventDefault();
-    var input = this.refs.input as HTMLInputElement;
-    var tabId = input.value.trim();
+    const tabId = inputEl.current && inputEl.current.value.trim();
     if (tabId) {
-      this.props.onSubmit(tabId);
+      onSubmit(tabId);
     }
-  }
+  };
 
-  render() {
-    return (
-      el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
-        el('div', {className: 'row-label'}, 'Open shared tab:'),
-        el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID …', disabled: this.props.checkingRemoteTab, ref: 'input'}),
-        el('button', {disabled: this.props.checkingRemoteTab}, this.props.checkingRemoteTab ? 'Checking…' : 'Open'),
-        el('div', {className: 'error-message'}, this.props.remoteTabError)
-      )
-    );
-  }
-
+  return (
+    el('form', {onSubmit: handleSubmit, className: 'import-form'},
+      el('div', {className: 'row-label'}, 'Open shared tab:'),
+      el('input', {type: 'text', className: 'full-width', placeholder: 'Tab ID …', disabled: checkingRemoteTab, ref: inputEl}),
+      el('button', {disabled: checkingRemoteTab}, checkingRemoteTab ? 'Checking…' : 'Open'),
+      el('div', {className: 'error-message'}, remoteTabError)
+    )
+  );
 }
+
+export default ImportForm;

@@ -122,7 +122,7 @@ export default class Main extends PureComponent<Props, State> {
               '▾ Transactions'
             )
           ),
-          el(TransactionList, {data: this.props.transactions, onDetailsClick: this.props.onDetailsClick}),
+          el(TransactionList, {transactions: this.props.transactions, onDetailsClick: this.props.onDetailsClick}),
           el(TotalSpending, {amount: this.props.total})
         ),
         this.renderShareInfo()

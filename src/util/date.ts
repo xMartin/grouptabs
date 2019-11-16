@@ -4,7 +4,7 @@ export default {
    * Parses a date string in the format `yyyy-MM-dd` as being used by `<input type="date">`
    * consistently across different hosts (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
    */
-  parseDate: function (input) {
+  parseDate: function (input: string) {
     // backwards compatibility: strip time info from format being used earlier
     input = input.substring(0, 10);
 
@@ -17,15 +17,15 @@ export default {
   /**
    * Formats a date to the format `yyyy-MM-dd` as being used by `<input type="date">`
    */
-  formatDate: function (date) {
-    var month = date.getMonth() + 1;
+  formatDate: function (date: Date) {
+    var month: number | string = date.getMonth() + 1;
     month = month < 10 ? '0' + month : month;
-    var day = date.getDate();
+    var day: string | number = date.getDate();
     day = day < 10 ? '0' + day : day;
     return '' + date.getFullYear() + '-' + month + '-' + day;
   },
 
-  formatHumanDate: function (date) {
+  formatHumanDate: function (date: Date | string) {
     if (typeof date === 'string') {
       date = this.parseDate(date);
     }
@@ -41,17 +41,17 @@ export default {
     return date.toLocaleDateString();
   },
 
-  addDays: function (date, days) {
+  addDays: function (date: Date, days: number) {
     var ms = date.getTime();
     var daysInMs = days * 1000 * 60 * 60 * 24;
     return new Date(ms + daysInMs);
   },
 
-  isSameDay: function(date1, date2) {
+  isSameDay: function(date1: Date, date2: Date) {
     return this.formatDate(date1) === this.formatDate(date2);
   },
 
-  isToday: function (date) {
+  isToday: function (date: Date | string) {
     if (typeof date === 'string') {
       date = this.parseDate(date);
     }
@@ -60,7 +60,7 @@ export default {
     return this.isSameDay(today, date);
   },
 
-  isYesterday: function (date) {
+  isYesterday: function (date: Date | string) {
     if (typeof date === 'string') {
       date = this.parseDate(date);
     }

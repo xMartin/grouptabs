@@ -1,41 +1,35 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+
+interface Props {
+  checkingRemoteTab?: boolean;
+  remoteTabError?: string;
+  onSubmit: (tabId: string) => void;
+}
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+export default class ImportForm extends PureComponent<Props> {
 
-  displayName: 'ImportForm',
+  componentDidMount() {
+    (this.refs.input as HTMLInputElement).focus();
+  }
 
-  propTypes: {
-    checkingRemoteTab: PropTypes.bool,
-    remoteTabError: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired
-  },
-
-  componentDidMount: function () {
-    this.refs.input.focus();
-  },
-
-  componentDidUpdate: function (prevProps) {
+  componentDidUpdate (prevProps: Props) {
     if (!this.props.checkingRemoteTab && prevProps.checkingRemoteTab && !this.props.remoteTabError) {
-      this.refs.input.value = '';
+      (this.refs.input as HTMLInputElement).value = '';
     }
-  },
+  }
 
-  handleSubmit: function (event) {
+  handleSubmit = (event: Event) => {
     event.preventDefault();
-    var input = this.refs.input;
+    var input = this.refs.input as HTMLInputElement;
     var tabId = input.value.trim();
     if (tabId) {
       this.props.onSubmit(tabId);
     }
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       el('form', {onSubmit: this.handleSubmit, className: 'import-form'},
         el('div', {className: 'row-label'}, 'Open shared tab:'),
@@ -46,4 +40,4 @@ export default createReactClass({
     );
   }
 
-});
+}

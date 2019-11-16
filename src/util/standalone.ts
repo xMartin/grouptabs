@@ -5,7 +5,7 @@
 // In other similar environments, e.g. Chrome on Android add to homescreen
 // the app is not restarted when re-opened.
 
-var isStandaloneSafari = !!window.navigator.standalone && window.navigator.userAgent.indexOf('Safari') >= 0;
+var isStandaloneSafari = !!(window.navigator as any).standalone && window.navigator.userAgent.indexOf('Safari') >= 0;
 var storageKey = 'grouptabs_last_visited_location';
 
 export function restoreLocation () {
@@ -19,7 +19,7 @@ export function restoreLocation () {
   }
 }
 
-export function startPersistingLocation (history) {
+export function startPersistingLocation (history: any) {
   if (!isStandaloneSafari) {
     return;
   }

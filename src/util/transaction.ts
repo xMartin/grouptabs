@@ -1,3 +1,5 @@
+import { Transaction, TransactionType } from "../types";
+
 export default {
 
   /**
@@ -6,8 +8,8 @@ export default {
    * Old transaction data might not have `transactionType` specified as "DIRECT"
    * but semantically still be a direct transaction.
    */
-  getTransactionType: function (transaction) {
-    if (transaction.transactionType === 'DIRECT') {
+  getTransactionType: function (transaction: Transaction): TransactionType {
+    if (transaction.transactionType === TransactionType.DIRECT) {
       return transaction.transactionType;
     }
 
@@ -18,11 +20,11 @@ export default {
         return participant.amount;
       });
       if (amounts[0] && amounts[0] === -amounts[1]) {
-        return 'DIRECT';
+        return TransactionType.DIRECT;
       }
     }
 
-    return 'SHARED';
+    return TransactionType.SHARED;
   }
 
 };

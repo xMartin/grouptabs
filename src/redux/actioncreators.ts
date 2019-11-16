@@ -2,52 +2,182 @@ import uuidv4 from 'uuid/v4';
 import iobject from '../lang/iobject';
 import DbManager from '../db/manager'
 import { AllState } from '..';
-import { Transaction } from '../types';
+import { Transaction, Info, ActionMap, DocumentType } from '../types';
+import { ThunkAction } from 'redux-thunk';
+
+export const CHECK_REMOTE_TAB = 'CHECK_REMOTE_TAB';
+export const CHECK_REMOTE_TAB_FAILURE = 'CHECK_REMOTE_TAB_FAILURE';
+export const CREATE_TAB = 'CREATE_TAB';
+export const IMPORT_TAB = 'IMPORT_TAB';
+export const UPDATE_FROM_DB = 'UPDATE_FROM_DB';
+export const CREATE_OR_UPDATE_TRANSACTION = 'CREATE_OR_UPDATE_TRANSACTION';
+export const REMOVE_TRANSACTION = 'REMOVE_TRANSACTION';
+export const SET_ERROR = 'SET_ERROR';
+export const ROUTE_TAB = 'ROUTE_TAB';
+export const ROUTE_TABS = 'ROUTE_TABS';
+export const ROUTE_TRANSACTION = 'ROUTE_TRANSACTION';
+export const ROUTE_NEW_TRANSACTION = 'ROUTE_NEW_TRANSACTION';
+
+interface CheckRemoteTabAction {
+  type: typeof CHECK_REMOTE_TAB;
+}
+
+const createCheckRemoteTabAction = (): CheckRemoteTabAction => ({
+  type: CHECK_REMOTE_TAB
+});
+
+interface CheckRemoteTabFailureAction {
+  type: typeof CHECK_REMOTE_TAB_FAILURE;
+  error: string;
+}
+
+const createCheckRemoteTabFailureAction = (error: string): CheckRemoteTabFailureAction => ({
+  type: CHECK_REMOTE_TAB_FAILURE,
+  error
+});
+
+interface CreateTabAction {
+  type: typeof CREATE_TAB;
+  doc: Info;
+}
+
+const createCreateTabAction = (doc: Info): CreateTabAction => ({
+  type: CREATE_TAB,
+  doc
+});
+
+interface ImportTabAction {
+  type: typeof IMPORT_TAB;
+  doc: Info;
+}
+
+const createImportTabAction = (doc: Info): ImportTabAction => ({
+  type: IMPORT_TAB,
+  doc
+});
+
+interface UpdateFromDbAction {
+  type: typeof UPDATE_FROM_DB;
+  actionMap: ActionMap;
+}
+
+const createUpdateFromDbAction = (actionMap: ActionMap): UpdateFromDbAction => ({
+  type: UPDATE_FROM_DB,
+  actionMap
+});
+
+interface CreateOrUpdateTransactionAction {
+  type: typeof CREATE_OR_UPDATE_TRANSACTION;
+  doc: Transaction;
+}
+
+const createCreateOrUpdateTransactionAction = (doc: Transaction): CreateOrUpdateTransactionAction => ({
+  type: CREATE_OR_UPDATE_TRANSACTION,
+  doc
+});
+
+interface RemoveTransactionAction {
+  type: typeof REMOVE_TRANSACTION;
+  doc: Transaction;
+}
+
+const createRemoveTransactionAction = (doc: Transaction): RemoveTransactionAction => ({
+  type: REMOVE_TRANSACTION,
+  doc
+});
+
+interface SetErrorAction {
+  type: typeof SET_ERROR;
+  error: any;
+  info: any;
+}
+
+export const setError = (error: any, info: any) => ({
+  type: SET_ERROR,
+  error,
+  info
+});
+
+interface SelectTabAction {
+  type: typeof ROUTE_TAB;
+  payload: {tabId: string};
+}
+
+export const selectTab = (id: string): SelectTabAction => ({
+  type: ROUTE_TAB,
+  payload: {
+    tabId: id
+  }
+});
+
+interface NavigateToTabsAction {
+  type: typeof ROUTE_TABS;
+}
+
+export const navigateToTabs = (): NavigateToTabsAction => ({
+  type: ROUTE_TABS
+});
+
+interface NavigateToUpdateTransactionAction {
+  type: typeof ROUTE_TRANSACTION;
+  payload: {tabId: string, transactionId: string};
+}
+
+export const navigateToUpdateTransaction = (tabId: string, transactionId: string): NavigateToUpdateTransactionAction => ({
+  type: ROUTE_TRANSACTION,
+  payload: {
+    tabId: tabId,
+    transactionId: transactionId
+  }
+});
+
+interface NavigateToAddTransactionAction {
+  type: typeof ROUTE_NEW_TRANSACTION;
+  payload: {tabId: string};
+}
+
+export const navigateToAddTransaction = (tabId: string): NavigateToAddTransactionAction => ({
+  type: ROUTE_NEW_TRANSACTION,
+  payload: {
+    tabId: tabId
+  }
+});
+
+export type GTAction = CheckRemoteTabAction | CheckRemoteTabFailureAction | CreateTabAction | ImportTabAction | UpdateFromDbAction | CreateOrUpdateTransactionAction | RemoveTransactionAction | SetErrorAction | SelectTabAction | NavigateToTabsAction | NavigateToUpdateTransactionAction | NavigateToAddTransactionAction;
+
+type GTThunkAction = ThunkAction<Promise<void>, AllState, {}, GTAction>;
 
 var db = new DbManager();
 
-function generateTabId() {
+const generateTabId = () => {
   var chars = '0123456789abcdefghijklmnopqrstuvwxyz';
   var result = '';
   for (var i = 0; i < 7; ++i) {
     result += chars.substr(Math.floor(Math.random() * chars.length), 1);
   }
   return result;
-}
+};
 
-function checkTab(dispatch: any, id: string, shouldNavigateToTab?: boolean) {
-  dispatch({
-    type: 'CHECK_REMOTE_TAB'
-  });
+const checkTab = (dispatch: any, id: string, shouldNavigateToTab?: boolean) => {
+  dispatch(createCheckRemoteTabAction());
 
   return (
     db.checkTab(id)
     .then(function (infoDoc) {
-      dispatch({
-        type: 'IMPORT_TAB',
-        doc: {
-          id: 'info',
-          type: 'info',
-          name: infoDoc.name,
-          tabId: id
-        }
-      });
+      dispatch(createImportTabAction({
+        id: 'info',
+        type: DocumentType.INFO,
+        name: infoDoc.name,
+        tabId: id
+      }));
 
       if (shouldNavigateToTab) {
-        dispatch({
-          type: 'ROUTE_TAB',
-          payload: {
-            tabId: id
-          }
-        });
+        dispatch(selectTab(id));
       }
 
       db.connectTab(id)
       .then(function (actionMap) {
-        dispatch({
-          type: 'UPDATE_FROM_DB',
-          actionMap: actionMap
-        });
+        dispatch(createUpdateFromDbAction(actionMap));
       })
       .catch(console.error.bind(console));
     })
@@ -59,183 +189,122 @@ function checkTab(dispatch: any, id: string, shouldNavigateToTab?: boolean) {
         message = 'Error: unable to import tab. Please try again.';
       }
 
-      dispatch({
-        type: 'CHECK_REMOTE_TAB_FAILURE',
-        error: message
-      });
+      dispatch(createCheckRemoteTabFailureAction(message));
 
       console.error(error);
     })
   );
-}
-
-var actionCreators = {
-  connectDb: function () {
-    return function (dispatch: any) {
-      return (
-        db.init(function (actionMap) {
-          dispatch({
-            type: 'UPDATE_FROM_DB',
-            actionMap: actionMap
-          });
-        })
-        .then(db.connect.bind(db))
-      );
-    };
-  },
-
-  ensureConnectedDb: function () {
-    return function (dispatch: any, getState: () => AllState) {
-      if (getState().app.initialLoadingDone) {
-        return Promise.resolve();
-      }
-
-      return dispatch(actionCreators.connectDb());
-    };
-  },
-
-  createTab: function (name: string) {
-    return function (dispatch: any) {
-      var id = generateTabId();
-
-      var doc = {
-        id: 'info',
-        type: 'info',
-        name: name,
-        tabId: id
-      };
-
-      dispatch({
-        type: 'CREATE_TAB',
-        doc: doc
-      });
-
-      db.createTab(doc)
-      .catch(console.error.bind(console));
-
-      dispatch(actionCreators.selectTab(id));
-    };
-  },
-
-  selectTab: function (id: string) {
-    return {
-      type: 'ROUTE_TAB',
-      payload: {
-        tabId: id
-      }
-    };
-  },
-
-  importTab: function (id: string) {
-    return function (dispatch: any) {
-      id = id.toLowerCase();
-      // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
-      id = id.replace(/.*?([a-z0-9]+$)/, '$1');
-
-      checkTab(dispatch, id, true);
-    };
-  },
-
-  importTabFromUrl: function (id: string) {
-    return function (dispatch: any) {
-      return checkTab(dispatch, id);
-    };
-  },
-
-  navigateToTabs: function () {
-    return {
-      type: 'ROUTE_TABS'
-    };
-  },
-
-  addTransaction: function (transaction: Transaction) {
-    return function (dispatch: any, getState: () => AllState) {
-      var doc = iobject.merge(transaction, {
-        id: uuidv4(),
-        type: 'transaction',
-        tabId: getState().location.payload.tabId
-      });
-
-      dispatch({
-        type: 'CREATE_OR_UPDATE_TRANSACTION',
-        doc: doc
-      });
-
-      db.createDoc(doc)
-      .catch(console.error.bind(console));
-
-      var tabId = getState().location.payload.tabId;
-      dispatch(actionCreators.selectTab(tabId));
-    };
-  },
-
-  updateTransaction: function (transaction: Transaction) {
-    return function (dispatch: any, getState: () => AllState) {
-      dispatch({
-        type: 'CREATE_OR_UPDATE_TRANSACTION',
-        doc: transaction
-      });
-
-      db.updateDoc(transaction)
-      .catch(console.error.bind(console));
-
-      var tabId = getState().location.payload.tabId;
-      dispatch(actionCreators.selectTab(tabId));
-    };
-  },
-
-  removeTransaction: function (doc: any) {
-    return function (dispatch: any, getState: () => AllState) {
-      dispatch({
-        type: 'REMOVE_TRANSACTION',
-        doc: doc
-      });
-
-      db.deleteDoc(doc)
-      .catch(console.error.bind(console));
-
-      var tabId = getState().location.payload.tabId;
-      dispatch(actionCreators.selectTab(tabId));
-    };
-  },
-
-  navigateToAddTransaction: function (tabId: string) {
-    return {
-      type: 'ROUTE_NEW_TRANSACTION',
-      payload: {
-        tabId: tabId
-      }
-    };
-  },
-
-  navigateToUpdateTransaction: function (tabId: string, transactionId: string) {
-    return {
-      type: 'ROUTE_TRANSACTION',
-      payload: {
-        tabId: tabId,
-        transactionId: transactionId
-      }
-    };
-  },
-
-  closeTransaction: function () {
-    return function (dispatch: any, getState: () => AllState) {
-      dispatch({
-        type: 'ROUTE_TAB',
-        payload: {
-          tabId: getState().location.payload.tabId
-        }
-      });
-    };
-  },
-
-  setError: function (error: any, info: any) {
-    return {
-      type: 'SET_ERROR',
-      error: error,
-      info: info
-    };
-  }
 };
 
-export default actionCreators;
+export const connectDb = (): GTThunkAction => {
+  return function (dispatch) {
+    return (
+      db.init(function (actionMap) {
+        dispatch(createUpdateFromDbAction(actionMap));
+      })
+      .then(db.connect.bind(db))
+    );
+  };
+};
+
+export const ensureConnectedDb = (): GTThunkAction => {
+  return function (dispatch, getState) {
+    if (getState().app.initialLoadingDone) {
+      return Promise.resolve();
+    }
+
+    return dispatch(connectDb());
+  };
+};
+
+export const createTab = (name: string): GTThunkAction => {
+  return function (dispatch) {
+    var id = generateTabId();
+
+    var doc: Info = {
+      id: 'info',
+      type: DocumentType.INFO,
+      name: name,
+      tabId: id
+    };
+
+    dispatch(createCreateTabAction(doc));
+    dispatch(selectTab(id));
+
+    return (
+      db.createTab(doc)
+      .catch(console.error.bind(console))
+    );
+  };
+};
+
+export const importTab = (id: string): GTThunkAction => {
+  return function (dispatch) {
+    id = id.toLowerCase();
+    // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
+    id = id.replace(/.*?([a-z0-9]+$)/, '$1');
+
+    return checkTab(dispatch, id, true);
+  };
+};
+
+export const importTabFromUrl = (id: string): GTThunkAction => {
+  return function (dispatch) {
+    return checkTab(dispatch, id);
+  };
+};
+
+export const addTransaction = (transaction: Transaction): GTThunkAction => {
+  return function (dispatch, getState) {
+    var doc = iobject.merge(transaction, {
+      id: uuidv4(),
+      type: DocumentType.TRANSACTION,
+      tabId: getState().location.payload.tabId
+    }) as Transaction;
+
+    dispatch(createCreateOrUpdateTransactionAction(doc));
+
+    var tabId = getState().location.payload.tabId;
+    dispatch(selectTab(tabId));
+
+    return (
+      db.createDoc(doc)
+      .catch(console.error.bind(console))  
+    )
+  };
+};
+
+export const updateTransaction = (transaction: Transaction): GTThunkAction => {
+  return function (dispatch, getState) {
+    dispatch(createCreateOrUpdateTransactionAction(transaction));
+
+    var tabId = getState().location.payload.tabId;
+    dispatch(selectTab(tabId));
+
+    return (
+      db.updateDoc(transaction)
+      .catch(console.error.bind(console))  
+    )
+  };
+};
+
+export const removeTransaction = (doc: Transaction): GTThunkAction => {
+  return function (dispatch, getState) {
+    dispatch(createRemoveTransactionAction(doc));
+
+    var tabId = getState().location.payload.tabId;
+    dispatch(selectTab(tabId));
+
+    return (
+      db.deleteDoc(doc)
+      .catch(console.error.bind(console))  
+    )
+  };
+};
+
+export const closeTransaction = (): GTThunkAction => {
+  return async function (dispatch, getState) {
+    const tabId = getState().location.payload.tabId;
+    dispatch(selectTab(tabId));
+  };
+};

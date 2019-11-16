@@ -1,4 +1,4 @@
-import actionCreators from './redux/actioncreators';
+import { navigateToTabs, ensureConnectedDb, importTabFromUrl } from './redux/actioncreators';
 import { AllState } from "./";
 
 function checkTabLocally (state: AllState) {
@@ -14,11 +14,11 @@ function checkTabLocally (state: AllState) {
 }
 
 function tabThunk (dispatch: (action: any) => Promise<void>, getState: () => AllState) {
-  dispatch(actionCreators.ensureConnectedDb())
+  dispatch(ensureConnectedDb())
   .then(function () {
     if (!checkTabLocally(getState())) {
       var tabId = getState().location.payload.tabId;
-      dispatch(actionCreators.importTabFromUrl(tabId));
+      dispatch(importTabFromUrl(tabId));
     }
   });
 }
@@ -27,7 +27,7 @@ export default {
   ROUTE_TABS: {
     path: '/',
     thunk: function (dispatch: (action: any) => Promise<void>) {
-      dispatch(actionCreators.ensureConnectedDb());
+      dispatch(ensureConnectedDb());
     }
   },
 
@@ -49,7 +49,7 @@ export default {
   ROUTE_CATCH_ALL: {
     path: '*',
     thunk: function (dispatch: (action: any) => Promise<void>) {
-      dispatch(actionCreators.navigateToTabs());
+      dispatch(navigateToTabs());
     }
   }
 

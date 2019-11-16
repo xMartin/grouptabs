@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import selectors from './redux/selectors';
-import actionCreators from './redux/actioncreators';
+import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addTransaction, updateTransaction, removeTransaction } from './redux/actioncreators';
 import App from './components/app';
 import { AllState } from "./";
 import { Transaction } from "./types";
@@ -23,17 +23,17 @@ function mapStateToProps (state: AllState) {
 }
 
 var mapDispatchToProps = {
-  onNavigateToTabs: actionCreators.navigateToTabs,
-  onCreateTab: actionCreators.createTab,
-  onImportTab: actionCreators.importTab,
-  onSelectTab: actionCreators.selectTab,
-  onNavigateToAddTransaction: actionCreators.navigateToAddTransaction,
-  onNavigateToUpdateTransaction: actionCreators.navigateToUpdateTransaction,
-  onCloseTransaction: actionCreators.closeTransaction,
-  onAddTransaction: actionCreators.addTransaction,
-  onUpdateTransaction: actionCreators.updateTransaction,
-  onRemoveTransaction: actionCreators.removeTransaction,
-  onError: actionCreators.setError
+  onNavigateToTabs: navigateToTabs,
+  onCreateTab: createTab,
+  onImportTab: importTab,
+  onSelectTab: selectTab,
+  onNavigateToAddTransaction: navigateToAddTransaction,
+  onNavigateToUpdateTransaction: navigateToUpdateTransaction,
+  onCloseTransaction: closeTransaction,
+  onAddTransaction: addTransaction,
+  onUpdateTransaction: updateTransaction,
+  onRemoveTransaction: removeTransaction,
+  onError: setError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -43,7 +43,7 @@ interface Props {
   onCloseTransaction: () => void;
   onAddTransaction: (transaction: Transaction) => void;
   onUpdateTransaction: (transaction: Transaction) => void;
-  onRemoveTransaction: (doc: any) => void;
+  onRemoveTransaction: (doc: Transaction) => void;
   onError: (error: any, info: any) => void;
 }
 

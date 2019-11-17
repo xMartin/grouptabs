@@ -3,6 +3,7 @@ import TabListButton from './tablistbutton';
 import CreateForm from './createform';
 import ImportForm from './importform';
 import { Tab } from '../types';
+import logo from '../images/logo.png';
 
 var el = React.createElement;
 
@@ -49,7 +50,7 @@ export default class Tabs extends PureComponent<Props, State> {
       el('div', {className: 'scene scene-with-footer tabsScene' + (this.props.visible ? '' : ' hidden')},
         el('main', null,
           el('div', {className: 'header'},
-            el('img', {id: 'logo', src: 'favicon-touch.png', alt: ''}),
+            el('img', {id: 'logo', src: logo, alt: ''}),
             el('h2', null, 'Grouptabs')
           ),
           (

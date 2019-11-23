@@ -1,5 +1,6 @@
-import { navigateToTabs, ensureConnectedDb, importTabFromUrl } from './redux/actioncreators';
+import { navigateToTabs, ensureConnectedDb, importTabFromUrl, GTThunkAction } from './redux/actioncreators';
 import { AllState } from "./";
+import { RouteThunk, RoutesMap } from 'redux-first-router';
 
 function checkTabLocally (state: AllState) {
   var tabId = state.location.payload.tabId;
@@ -13,20 +14,19 @@ function checkTabLocally (state: AllState) {
   return false;
 }
 
-function tabThunk (dispatch: (action: any) => Promise<void>, getState: () => AllState) {
-  dispatch(ensureConnectedDb())
-  .then(function () {
-    if (!checkTabLocally(getState())) {
-      var tabId = getState().location.payload.tabId;
-      dispatch(importTabFromUrl(tabId));
-    }
-  });
-}
+const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {
+  const gtDispatch = dispatch as (action: GTThunkAction) => Promise<void>;
+  await gtDispatch(ensureConnectedDb());
+  if (!checkTabLocally(getState())) {
+    var tabId = getState().location.payload.tabId;
+    dispatch(importTabFromUrl(tabId));
+  }
+};
 
-export default {
+const routes: RoutesMap<{}, AllState> = {
   ROUTE_TABS: {
     path: '/',
-    thunk: function (dispatch: (action: any) => Promise<void>) {
+    thunk: function (dispatch) {
       dispatch(ensureConnectedDb());
     }
   },
@@ -48,9 +48,10 @@ export default {
 
   ROUTE_CATCH_ALL: {
     path: '*',
-    thunk: function (dispatch: (action: any) => Promise<void>) {
+    thunk: function (dispatch) {
       dispatch(navigateToTabs());
     }
   }
-
 };
+
+export default routes;

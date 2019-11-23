@@ -145,7 +145,7 @@ export const navigateToAddTransaction = (tabId: string): NavigateToAddTransactio
 
 export type GTAction = CheckRemoteTabAction | CheckRemoteTabFailureAction | CreateTabAction | ImportTabAction | UpdateFromDbAction | CreateOrUpdateTransactionAction | RemoveTransactionAction | SetErrorAction | SelectTabAction | NavigateToTabsAction | NavigateToUpdateTransactionAction | NavigateToAddTransactionAction;
 
-type GTThunkAction = ThunkAction<Promise<void>, AllState, {}, GTAction>;
+export type GTThunkAction = ThunkAction<Promise<void>, AllState, {}, GTAction>;
 
 var db = new DbManager();
 

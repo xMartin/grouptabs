@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connectRoutes } from 'redux-first-router';
+import { connectRoutes, LocationState } from 'redux-first-router';
 // @ts-ignore
 import { createHashHistory } from 'rudy-history';
 import { combineReducers, applyMiddleware, compose as reduxCompose, createStore, Store } from 'redux';
@@ -23,7 +23,7 @@ const router: any = connectRoutes(routes, {
 startPersistingLocation(router.history);
 
 const rootReducer = combineReducers({location: router.reducer, app: appReducer});
-export type AllState = ReturnType<typeof rootReducer> & {location: any};
+export type AllState = ReturnType<typeof rootReducer> & {location: LocationState};
 
 export interface Services {
   dbManager: DbManager;

@@ -1,7 +1,7 @@
 import PouchDB from 'pouchdb';
 // @ts-ignore
 import allDbs from 'pouchdb-all-dbs';
-import Tab from './tab';
+import Tab, { Document } from './tab';
 import config from '../config';
 import { Info, ActionMap } from '../types';
 
@@ -137,17 +137,17 @@ export default class DbManager {
     return this.dbs[tabId] = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));
   }
 
-  _changesHandler(tabId: string, changes: any[]) {
+  _changesHandler(tabId: string, changes: PouchDB.Core.ChangesResponseChange<any>[]) {
     const createOrUpdate = (
       changes
-      .filter((change: any) => !change.deleted)
-      .map((change: any) => this.transformDoc(tabId, change.doc))
+      .filter((change) => !change.deleted)
+      .map((change) => this.transformDoc(tabId, change.doc))
     );
 
     const delete_ = (
       changes
-      .filter((change: any) => change.deleted)
-      .map((change: any) => this.transformDoc(tabId, change.doc))
+      .filter((change) => change.deleted)
+      .map((change) => this.transformDoc(tabId, change.doc))
     );
 
     if (!this._changesCallback) {
@@ -160,11 +160,11 @@ export default class DbManager {
     });
   }
 
-  transformDocs(tabId: string, docs: any[]) {
+  transformDocs(tabId: string, docs: Document[]) {
     return docs.map(this.transformDoc.bind(this, tabId));
   }
 
-  transformDoc(tabId: string, dbDoc: any) {
+  transformDoc(tabId: string, dbDoc: Document) {
     const doc = {...dbDoc};
     doc.id = doc._id;
     doc.tabId = tabId;

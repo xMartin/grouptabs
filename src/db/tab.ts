@@ -1,10 +1,13 @@
 import PouchDB from 'pouchdb';
 
+export type Document = PouchDB.Core.Document<any>;
+type ChangesHander = (results: PouchDB.Core.ChangesResponseChange<any>[]) => void;
+
 export default class {
 
   remoteDbLocation: string;
   
-  private _onChangesHandler: (results: any[]) => void;
+  private _onChangesHandler: ChangesHander;
 
   db: PouchDB.Database;
 
@@ -16,7 +19,7 @@ export default class {
 
   syncHandle: any;
 
-  constructor(localDbName: string, remoteDbLocation: string, changesCallback: (changes: any[]) => void) {
+  constructor(localDbName: string, remoteDbLocation: string, changesCallback: ChangesHander) {
     if (!localDbName || typeof localDbName !== 'string') {
       throw new Error('missing localDbName parameter');
     }
@@ -35,14 +38,14 @@ export default class {
 
   async connect() {
     await this.replicateFromRemote();
-    const docs: {[key: string]: any}[] = await this.fetchAll();
+    const docs = await this.fetchAll();
     const info = await this.db.info();
     this._lastSequenceNumber = info.update_seq;
     this.startSyncing();    
     return docs;
   }
 
-  async createDoc(doc: any) {
+  async createDoc(doc: Document) {
     if (doc._id) {
       const response = await this.db.put(doc);
       console.log('db: put doc (created)', response);
@@ -53,7 +56,7 @@ export default class {
     console.log('db: posted doc', response);
   }
 
-  async updateDoc(doc: any) {
+  async updateDoc(doc: Document) {
     const fetchedDoc = await this.db.get(doc._id);
     const docWithLatestRev = {...doc, ...{_rev: fetchedDoc._rev}};
     const response = await this.db.put(docWithLatestRev);
@@ -74,7 +77,7 @@ export default class {
   replicateFromRemote() {
     console.info('replication start');
 
-    return new Promise((resolve: () => void) => {
+    return new Promise((resolve) => {
       this.db.replicate.from(this.remoteDb, {
         batch_size: 100
       })
@@ -88,7 +91,7 @@ export default class {
         console.info('replication complete');
         resolve();
       })
-      .on('error', (err: any) => {
+      .on('error', (err) => {
         console.error('replication error', err);
         // resolve even in error case
         // incomplete replication can be handled by next sync
@@ -102,7 +105,7 @@ export default class {
       include_docs: true,
       attachments: true
     });
-    return result.rows.map((row: any) => row.doc);
+    return result.rows.map((row) => row.doc);
   }
 
   startSyncing() {
@@ -119,7 +122,7 @@ export default class {
     this.syncHandle = this.db.sync(this.remoteDb, {
       batch_size: 100
     })
-    .on('error', (err: any) => {
+    .on('error', (err) => {
       console.error('replication error', err);
       this._isSyncing = false;
       this._emitChanges();
@@ -147,7 +150,7 @@ export default class {
       since: this._lastSequenceNumber,
       include_docs: true
     })
-    .on('complete', (info: any) => {
+    .on('complete', (info) => {
       this._lastSequenceNumber = info.last_seq;
 
       if (!info.results.length) {

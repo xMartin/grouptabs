@@ -3,6 +3,16 @@ description: >
   Track expenses in a group of people!
 
 releases:
+- version: 1.0.0
+  date: 2019-11-24
+  description: UX improvements and upgrade to latest PouchDB dropping WebSQL support
+  added:
+  - Link to website (#146)
+  - Add date buttons for "today" and "yesterday" in addition to date picker (#42)
+  improved:
+  - Upgrade to official PouchDB v7 with smaller file size and removing WebSQL support
+  - Sort tab list by most recent transaction (#158)
+  - Preselect most likely participant of a new direct transaction (#157)
 - version: 1.0.0-beta.3
   date: 2019-07-01
   fixed:

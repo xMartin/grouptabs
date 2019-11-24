@@ -7,7 +7,7 @@ import { Info, ActionMap } from '../types';
 
 type changesCallback = (actionMap: ActionMap) => void;
 
-export default class {
+export default class DbManager {
 
   dbs: {[dbName: string]: Tab};
 

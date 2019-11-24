@@ -6,6 +6,7 @@ import { createHashHistory } from 'rudy-history';
 import { combineReducers, applyMiddleware, compose as reduxCompose, createStore, Store } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import DbManager from './db/manager';
 import { restoreLocation, startPersistingLocation } from './util/standalone';
 import appReducer from './redux/reducer';
 import App from './app';
@@ -24,7 +25,14 @@ startPersistingLocation(router.history);
 const rootReducer = combineReducers({location: router.reducer, app: appReducer});
 export type AllState = ReturnType<typeof rootReducer> & {location: any};
 
-const middlewares = applyMiddleware(ReduxThunk, router.middleware);
+export interface Services {
+  dbManager: DbManager;
+}
+const dbManager = new DbManager();
+const thunkMiddleware = ReduxThunk.withExtraArgument({
+  dbManager
+});
+const middlewares = applyMiddleware(thunkMiddleware, router.middleware);
 
 // @ts-ignore
 const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;

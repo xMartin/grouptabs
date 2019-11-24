@@ -1,7 +1,7 @@
 import uuidv4 from 'uuid/v4';
 import iobject from '../lang/iobject';
 import DbManager from '../db/manager'
-import { AllState } from '..';
+import { AllState, Services } from '..';
 import { Transaction, Info, ActionMap, DocumentType } from '../types';
 import { ThunkAction } from 'redux-thunk';
 
@@ -145,9 +145,7 @@ export const navigateToAddTransaction = (tabId: string): NavigateToAddTransactio
 
 export type GTAction = CheckRemoteTabAction | CheckRemoteTabFailureAction | CreateTabAction | ImportTabAction | UpdateFromDbAction | CreateOrUpdateTransactionAction | RemoveTransactionAction | SetErrorAction | SelectTabAction | NavigateToTabsAction | NavigateToUpdateTransactionAction | NavigateToAddTransactionAction;
 
-export type GTThunkAction = ThunkAction<Promise<void>, AllState, {}, GTAction>;
-
-var db = new DbManager();
+export type GTThunkAction = ThunkAction<Promise<void>, AllState, Services, GTAction>;
 
 const generateTabId = () => {
   var chars = '0123456789abcdefghijklmnopqrstuvwxyz';
@@ -158,11 +156,11 @@ const generateTabId = () => {
   return result;
 };
 
-const checkTab = (dispatch: any, id: string, shouldNavigateToTab?: boolean) => {
+const checkTab = (dispatch: (action: GTThunkAction | GTAction) => void, id: string, dbManager: DbManager, shouldNavigateToTab?: boolean) => {
   dispatch(createCheckRemoteTabAction());
 
   return (
-    db.checkTab(id)
+    dbManager.checkTab(id)
     .then(function (infoDoc) {
       dispatch(createImportTabAction({
         id: 'info',
@@ -175,7 +173,7 @@ const checkTab = (dispatch: any, id: string, shouldNavigateToTab?: boolean) => {
         dispatch(selectTab(id));
       }
 
-      db.connectTab(id)
+      dbManager.connectTab(id)
       .then(function (actionMap) {
         dispatch(createUpdateFromDbAction(actionMap));
       })
@@ -196,115 +194,83 @@ const checkTab = (dispatch: any, id: string, shouldNavigateToTab?: boolean) => {
   );
 };
 
-export const connectDb = (): GTThunkAction => {
-  return function (dispatch) {
-    return (
-      db.init(function (actionMap) {
-        dispatch(createUpdateFromDbAction(actionMap));
-      })
-      .then(db.connect.bind(db))
-    );
-  };
+export const connectDb = (): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+  await dbManager.init((actionMap) => {
+    dispatch(createUpdateFromDbAction(actionMap));
+  });
+  dbManager.connect();
 };
 
-export const ensureConnectedDb = (): GTThunkAction => {
-  return function (dispatch, getState) {
-    if (getState().app.initialLoadingDone) {
-      return Promise.resolve();
-    }
+export const ensureConnectedDb = (): GTThunkAction => async (dispatch, getState) => {
+  if (getState().app.initialLoadingDone) {
+    return;
+  }
 
-    return dispatch(connectDb());
-  };
+  return dispatch(connectDb());
 };
 
-export const createTab = (name: string): GTThunkAction => {
-  return function (dispatch) {
-    var id = generateTabId();
+export const createTab = (name: string): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+  const id = generateTabId();
 
-    var doc: Info = {
-      id: 'info',
-      type: DocumentType.INFO,
-      name: name,
-      tabId: id
-    };
-
-    dispatch(createCreateTabAction(doc));
-    dispatch(selectTab(id));
-
-    return (
-      db.createTab(doc)
-      .catch(console.error.bind(console))
-    );
+  const doc: Info = {
+    id: 'info',
+    type: DocumentType.INFO,
+    name: name,
+    tabId: id
   };
+
+  dispatch(createCreateTabAction(doc));
+  dispatch(selectTab(id));
+
+  await dbManager.createTab(doc);
 };
 
-export const importTab = (id: string): GTThunkAction => {
-  return function (dispatch) {
-    id = id.toLowerCase();
-    // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
-    id = id.replace(/.*?([a-z0-9]+$)/, '$1');
+export const importTab = (id: string): GTThunkAction => (dispatch, getState, { dbManager }) => {
+  id = id.toLowerCase();
+  // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
+  id = id.replace(/.*?([a-z0-9]+$)/, '$1');
 
-    return checkTab(dispatch, id, true);
-  };
+  return checkTab(dispatch, id, dbManager, true);
 };
 
-export const importTabFromUrl = (id: string): GTThunkAction => {
-  return function (dispatch) {
-    return checkTab(dispatch, id);
-  };
+export const importTabFromUrl = (id: string): GTThunkAction => (dispatch, getState, { dbManager }) => {
+  return checkTab(dispatch, id, dbManager);
 };
 
-export const addTransaction = (transaction: Transaction): GTThunkAction => {
-  return function (dispatch, getState) {
-    var doc = iobject.merge(transaction, {
-      id: uuidv4(),
-      type: DocumentType.TRANSACTION,
-      tabId: getState().location.payload.tabId
-    }) as Transaction;
+export const addTransaction = (transaction: Transaction): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+  const doc = iobject.merge(transaction, {
+    id: uuidv4(),
+    type: DocumentType.TRANSACTION,
+    tabId: getState().location.payload.tabId
+  }) as Transaction;
 
-    dispatch(createCreateOrUpdateTransactionAction(doc));
+  dispatch(createCreateOrUpdateTransactionAction(doc));
 
-    var tabId = getState().location.payload.tabId;
-    dispatch(selectTab(tabId));
+  const tabId = getState().location.payload.tabId;
+  dispatch(selectTab(tabId));
 
-    return (
-      db.createDoc(doc)
-      .catch(console.error.bind(console))  
-    )
-  };
+  await dbManager.createDoc(doc);
 };
 
-export const updateTransaction = (transaction: Transaction): GTThunkAction => {
-  return function (dispatch, getState) {
-    dispatch(createCreateOrUpdateTransactionAction(transaction));
+export const updateTransaction = (transaction: Transaction): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+  dispatch(createCreateOrUpdateTransactionAction(transaction));
 
-    var tabId = getState().location.payload.tabId;
-    dispatch(selectTab(tabId));
+  const tabId = getState().location.payload.tabId;
+  dispatch(selectTab(tabId));
 
-    return (
-      db.updateDoc(transaction)
-      .catch(console.error.bind(console))  
-    )
-  };
+  await dbManager.updateDoc(transaction);
 };
 
-export const removeTransaction = (doc: Transaction): GTThunkAction => {
-  return function (dispatch, getState) {
-    dispatch(createRemoveTransactionAction(doc));
+export const removeTransaction = (doc: Transaction): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+  dispatch(createRemoveTransactionAction(doc));
 
-    var tabId = getState().location.payload.tabId;
-    dispatch(selectTab(tabId));
+  var tabId = getState().location.payload.tabId;
+  dispatch(selectTab(tabId));
 
-    return (
-      db.deleteDoc(doc)
-      .catch(console.error.bind(console))  
-    )
-  };
+  await dbManager.deleteDoc(doc);
 };
 
-export const closeTransaction = (): GTThunkAction => {
-  return async function (dispatch, getState) {
-    const tabId = getState().location.payload.tabId;
-    dispatch(selectTab(tabId));
-  };
+export const closeTransaction = (): GTThunkAction => async (dispatch, getState) => {
+  const tabId = getState().location.payload.tabId;
+  dispatch(selectTab(tabId));
 };

@@ -5,6 +5,12 @@ import Tab, { Document } from './tab';
 import config from '../config';
 import { Info, ActionMap } from '../types';
 
+interface Entity {
+  id: string;
+  type: string;
+  tabId: string;
+  [key: string]: any;
+}
 type changesCallback = (actionMap: ActionMap) => void;
 
 export default class DbManager {
@@ -28,7 +34,8 @@ export default class DbManager {
   async connect() {
     const docsPerDb = await Promise.all(this.getAllDbs().map(async (db) => {
       const docs = await db.db.connect();
-      return this.transformDocs(db.tabId, docs);
+      // @ts-ignore (apparently items in docs could be undefined)
+      return this.docsToEntities(db.tabId, docs);
     }));
     let flat: any[] = [];
     docsPerDb.forEach((docs) => {
@@ -61,34 +68,21 @@ export default class DbManager {
     }, 7500);
   }
 
-  async createDoc(doc: any) {
-    const dbDoc = {...doc};
-
-    if (doc.id) {
-      dbDoc._id = doc.id;
-      delete dbDoc.id;
-    }
-
-    delete dbDoc.tabId;
-
-    await this.dbs[doc.tabId].createDoc(dbDoc);
+  async createDoc(entity: Entity) {
+    const doc = this.entityToDoc(entity);
+    await this.dbs[doc.tabId].createDoc(doc);
   }
 
-  async updateDoc(doc: any) {
-    const dbDoc = {...doc};
-
-    dbDoc._id = doc.id;
-    delete dbDoc.id;
-    delete dbDoc.tabId;
-
-    await this.dbs[doc.tabId].updateDoc(dbDoc);
+  async updateDoc(entity: Entity) {
+    const doc = this.entityToDoc(entity);
+    await this.dbs[doc.tabId].updateDoc(doc);
   }
 
-  async deleteDoc(doc: any) {
+  async deleteDoc(doc: Entity) {
     await this.dbs[doc.tabId].deleteDoc(doc.id);
   }
 
-  async createTab(doc: any) {
+  async createTab(doc: Entity) {
     const db = this.initDb('tab/' + doc.tabId);
 
     await this.createDoc(doc);
@@ -109,7 +103,8 @@ export default class DbManager {
 
     const docs = await db.connect();
     return {
-      createOrUpdate: this.transformDocs(id, docs),
+      // @ts-ignore (apparently items in docs could be undefined)
+      createOrUpdate: this.docsToEntities(id, docs),
       delete: []
     };
   }
@@ -137,17 +132,19 @@ export default class DbManager {
     return this.dbs[tabId] = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));
   }
 
-  _changesHandler(tabId: string, changes: PouchDB.Core.ChangesResponseChange<any>[]) {
+  _changesHandler(tabId: string, changes: PouchDB.Core.ChangesResponseChange<Document>[]) {
     const createOrUpdate = (
       changes
       .filter((change) => !change.deleted)
-      .map((change) => this.transformDoc(tabId, change.doc))
+      // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
+      .map((change) => this.docToEntity(tabId, change.doc))
     );
 
     const delete_ = (
       changes
       .filter((change) => change.deleted)
-      .map((change) => this.transformDoc(tabId, change.doc))
+      // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
+      .map((change) => this.docToEntity(tabId, change.doc))
     );
 
     if (!this._changesCallback) {
@@ -160,17 +157,30 @@ export default class DbManager {
     });
   }
 
-  transformDocs(tabId: string, docs: Document[]) {
-    return docs.map(this.transformDoc.bind(this, tabId));
+  entityToDoc(entity: Entity): Document {
+    const doc: any = {...entity};
+
+    doc._id = doc.id;
+    delete doc.id;
+    delete doc.tabId;
+
+    return doc as Document;
   }
 
-  transformDoc(tabId: string, dbDoc: Document) {
-    const doc = {...dbDoc};
-    doc.id = doc._id;
-    doc.tabId = tabId;
-    delete doc._rev;
-    delete doc._id;
-    return doc;
+  docsToEntities(tabId: string, docs: Document[]): Entity[] {
+    return docs.map(this.docToEntity.bind(this, tabId));
+  }
+
+  docToEntity(tabId: string, doc: Document): Entity {
+    const docCopy = {...doc};
+    delete docCopy._rev;
+    delete docCopy._id;
+    const entity: Entity = {
+      ...docCopy,
+      id: doc._id,
+      tabId
+    };
+    return entity;
   }
 
 }

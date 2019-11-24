@@ -36,6 +36,8 @@ export interface Info {
   name: string;
 }
 
+export type Entity = Transaction | Info;
+
 export interface Tab {
   id: string;
   name: string;

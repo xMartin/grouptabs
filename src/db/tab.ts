@@ -1,7 +1,7 @@
 import PouchDB from 'pouchdb';
 
-export type Document = PouchDB.Core.Document<any>;
-type ChangesHander = (results: PouchDB.Core.ChangesResponseChange<any>[]) => void;
+export type Document = PouchDB.Core.Document<{type: string, [key: string]: any}>;
+type ChangesHander = (results: PouchDB.Core.ChangesResponseChange<Document>[]) => void;
 
 export default class {
 
@@ -146,7 +146,7 @@ export default class {
   }
 
   private _emitChanges() {
-    this.db.changes({
+    this.db.changes<Document>({
       since: this._lastSequenceNumber,
       include_docs: true
     })

@@ -1,6 +1,6 @@
 import iarray from '../lang/iarray';
 import iobject from '../lang/iobject';
-import { ActionMap, Transaction, Info, DocumentType } from '../types';
+import { ActionMap, DocumentType, Entity } from '../types';
 import { Reducer } from 'redux';
 import { GTAction, UPDATE_FROM_DB, CREATE_TAB, CHECK_REMOTE_TAB, CHECK_REMOTE_TAB_FAILURE, IMPORT_TAB, CREATE_OR_UPDATE_TRANSACTION, REMOVE_TRANSACTION, SET_ERROR, ROUTE_TABS, ROUTE_TAB } from './actioncreators';
 
@@ -9,7 +9,7 @@ interface AppState {
   checkingRemoteTab: boolean;
   remoteTabError: string;
   importingTab: boolean,
-  docsById: {[id: string]: Transaction | Info},
+  docsById: {[id: string]: Entity},
   tabs: string[],
   transactionsByTab: {[tabId: string]: string[]},
   error: any;

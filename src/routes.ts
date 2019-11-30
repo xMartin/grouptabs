@@ -1,17 +1,12 @@
 import { navigateToTabs, ensureConnectedDb, importTabFromUrl, GTThunkAction } from './redux/actioncreators';
 import { AllState } from "./";
 import { RouteThunk, RoutesMap } from 'redux-first-router';
+import { loadTabIds } from './db/tabidpersistor';
 
 function checkTabLocally (state: AllState) {
-  var tabId = state.location.payload.tabId;
-  var tabs = state.app.tabs;
-  for (var i = 0; i < tabs.length; ++i) {
-    if (tabs[i] === tabId) {
-      return true;
-    }
-  }
-
-  return false;
+  const tabId = state.location.payload.tabId;
+  const tabs = loadTabIds();
+  return tabs.includes(tabId);
 }
 
 const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {

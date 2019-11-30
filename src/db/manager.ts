@@ -124,6 +124,9 @@ export default class DbManager {
   }
 
   initDb(tabId: string): Tab {
+    if (this.dbs[tabId]) {
+      throw new Error(`DB "${tabId}" already initialized.`);
+    }
     const dbName = 'tab/' + tabId;
     const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
     const tab = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));

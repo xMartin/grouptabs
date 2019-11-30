@@ -1,9 +1,8 @@
 import PouchDB from 'pouchdb';
-// @ts-ignore
-import allDbs from 'pouchdb-all-dbs';
 import Tab, { Document } from './tab';
 import config from '../config';
 import { Info, ActionMap } from '../types';
+import { loadTabIds, addTabId } from './tabidpersistor';
 
 interface Entity extends Record<string, any> {
   id: string;
@@ -21,8 +20,6 @@ export default class DbManager {
 
   constructor() {
     this.dbs = {};
-
-    allDbs(PouchDB, {noCache: true});
   }
 
   init(callback: changesCallback) {
@@ -54,9 +51,7 @@ export default class DbManager {
   initAllDbsListener() {
     setInterval(async () => {
       const knownTabIds = Object.keys(this.dbs);
-      // @ts-ignore
-      const dbNames: string[] = await PouchDB.allDbs();
-      const tabIds = dbNames.map((dbName) => dbName.substring(4));  // strip "tab/"
+      const tabIds = loadTabIds();
       const newTabIds = tabIds.filter((tabId) => knownTabIds.indexOf(tabId) === -1);
       newTabIds.forEach(async (tabId) => {
         const actionMap = await this.connectTab(tabId);
@@ -83,7 +78,7 @@ export default class DbManager {
   }
 
   async createTab(doc: Entity) {
-    const db = this.initDb('tab/' + doc.tabId);
+    const db = this.initDb(doc.tabId);
 
     await this.createDoc(doc);
     db.startSyncing();
@@ -99,7 +94,7 @@ export default class DbManager {
   }
 
   async connectTab(id: string) {
-    const db = this.initDb('tab/' + id);
+    const db = this.initDb(id);
 
     const docs = await db.connect();
     return {
@@ -120,16 +115,18 @@ export default class DbManager {
     return allDbs;
   }
 
-  async initDbs() {
-    // @ts-ignore
-    const dbNames: string[] = await PouchDB.allDbs();
-    dbNames.forEach((dbName) => this.initDb(dbName));
+  initDbs() {
+    const tabIds = loadTabIds();
+    tabIds.forEach((tabId) => this.initDb(tabId));
   }
 
-  initDb(dbName: string): Tab {
+  initDb(tabId: string): Tab {
+    const dbName = 'tab/' + tabId;
     const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
-    const tabId = dbName.substring(4);  // strip "tab/"
-    return this.dbs[tabId] = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));
+    const tab = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));
+    this.dbs[tabId] = tab;
+    addTabId(tabId);
+    return tab;
   }
 
   _changesHandler(tabId: string, changes: PouchDB.Core.ChangesResponseChange<Document>[]) {

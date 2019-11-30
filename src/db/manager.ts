@@ -3,7 +3,7 @@ import MemoryAdapter from 'pouchdb-adapter-memory';
 import Tab, { Document } from './tab';
 import config from '../config';
 import { Info, ActionMap } from '../types';
-import { loadTabIds, addTabId } from './tabidpersistor';
+import { loadTabIds, addTabId, migrateFromPouchDbAllDbsToLocalStorage } from './tabidpersistor';
 
 PouchDB.plugin(MemoryAdapter);
 
@@ -26,10 +26,11 @@ export default class DbManager {
     this.dbs = {};
   }
 
-  init(callback: changesCallback) {
+  async init(callback: changesCallback): Promise<void> {
     this._changesCallback = callback;
 
-    return this.initDbs();
+    await migrateFromPouchDbAllDbsToLocalStorage();
+    this.initDbs();
   }
 
   async connect() {
@@ -121,7 +122,7 @@ export default class DbManager {
     return allDbs;
   }
 
-  initDbs() {
+  initDbs(): void {
     const tabIds = loadTabIds();
     tabIds.forEach((tabId) => this.initDb(tabId));
   }

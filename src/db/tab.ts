@@ -1,17 +1,18 @@
 import PouchDB from 'pouchdb';
 
-export type Document = PouchDB.Core.Document<{type: string, [key: string]: any}>;
-type ChangesHander = (results: PouchDB.Core.ChangesResponseChange<Document>[]) => void;
+export type Document = PouchDB.Core.Document<Record<string, any> & {type: string}>;
+type Database = PouchDB.Database<Document>;
+type ChangesHandler = (results: PouchDB.Core.ChangesResponseChange<Document>[]) => void;
 
 export default class {
 
   remoteDbLocation: string;
   
-  private _onChangesHandler: ChangesHander;
+  private _onChangesHandler: ChangesHandler;
 
-  db: PouchDB.Database;
+  db: Database;
 
-  remoteDb: PouchDB.Database;
+  remoteDb: Database;
 
   private _lastSequenceNumber?: number | string;
 
@@ -19,15 +20,7 @@ export default class {
 
   syncHandle: any;
 
-  constructor(localDbName: string, remoteDbLocation: string, changesCallback: ChangesHander) {
-    if (!localDbName || typeof localDbName !== 'string') {
-      throw new Error('missing localDbName parameter');
-    }
-
-    if (!remoteDbLocation || typeof remoteDbLocation !== 'string') {
-      throw new Error('missing remoteDbLocation parameter');
-    }
-
+  constructor(localDbName: string, remoteDbLocation: string, changesCallback: ChangesHandler) {
     this.remoteDbLocation = remoteDbLocation;
 
     this._onChangesHandler = changesCallback;
@@ -70,7 +63,8 @@ export default class {
       _rev: fetchedDoc._rev,
       _deleted: true
     };
-    const response = await this.db.put(deleteDoc);
+    // for deleting we don't need a full document but `put` argument types require it
+    const response = await this.db.put(deleteDoc as PouchDB.Core.PutDocument<Document>);
     console.log('db: deleted doc', response);
   }
 

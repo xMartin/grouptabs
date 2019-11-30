@@ -5,12 +5,12 @@ import Tab, { Document } from './tab';
 import config from '../config';
 import { Info, ActionMap } from '../types';
 
-interface Entity {
+interface Entity extends Record<string, any> {
   id: string;
   type: string;
   tabId: string;
-  [key: string]: any;
 }
+
 type changesCallback = (actionMap: ActionMap) => void;
 
 export default class DbManager {
@@ -90,7 +90,7 @@ export default class DbManager {
   }
 
   checkTab(tabId: string): Promise<Info> {
-    const dbName = 'tab/' + tabId
+    const dbName = 'tab/' + tabId;
     const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
 
     const db = new PouchDB(remoteDbLocation);
@@ -111,7 +111,7 @@ export default class DbManager {
 
   getAllDbs(): {tabId: string, db: Tab}[] {
     const allDbs = [];
-    for (var dbName in this.dbs) {
+    for (const dbName in this.dbs) {
       allDbs.push({
         tabId: dbName,
         db: this.dbs[dbName]
@@ -123,7 +123,7 @@ export default class DbManager {
   async initDbs() {
     // @ts-ignore
     const dbNames: string[] = await PouchDB.allDbs();
-    dbNames.map((dbName) => this.initDb(dbName));
+    dbNames.forEach((dbName) => this.initDb(dbName));
   }
 
   initDb(dbName: string): Tab {

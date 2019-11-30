@@ -7,10 +7,11 @@ import { loadTabIds, addTabId } from './tabidpersistor';
 
 PouchDB.plugin(MemoryAdapter);
 
-interface Entity extends Record<string, any> {
+interface Entity {
   id: string;
   type: string;
   tabId: string;
+  // ...
 }
 
 type changesCallback = (actionMap: ActionMap) => void;
@@ -68,22 +69,24 @@ export default class DbManager {
 
   async createDoc(entity: Entity) {
     const doc = this.entityToDoc(entity);
-    await this.dbs[doc.tabId].createDoc(doc);
+    await this.dbs[entity.tabId].createDoc(doc);
   }
 
   async updateDoc(entity: Entity) {
     const doc = this.entityToDoc(entity);
-    await this.dbs[doc.tabId].updateDoc(doc);
+    console.log(this.dbs);
+    console.log(doc);
+    await this.dbs[entity.tabId].updateDoc(doc);
   }
 
-  async deleteDoc(doc: Entity) {
-    await this.dbs[doc.tabId].deleteDoc(doc.id);
+  async deleteDoc(entity: Entity) {
+    await this.dbs[entity.tabId].deleteDoc(entity.id);
   }
 
-  async createTab(doc: Entity) {
-    const db = this.initDb(doc.tabId);
+  async createTab(entity: Entity) {
+    const db = this.initDb(entity.tabId);
 
-    await this.createDoc(doc);
+    await this.createDoc(entity);
     db.startSyncing();
   }
 

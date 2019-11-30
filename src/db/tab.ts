@@ -1,6 +1,11 @@
 import PouchDB from 'pouchdb';
 
-export type Document = PouchDB.Core.Document<Record<string, any> & {type: string}>;
+interface Content {
+  _rev?: string;
+  type: string;
+  // ...
+}
+export type Document = PouchDB.Core.Document<Content>;
 type Database = PouchDB.Database<Document>;
 type ChangesHandler = (results: PouchDB.Core.ChangesResponseChange<Document>[]) => void;
 

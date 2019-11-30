@@ -12,15 +12,38 @@ It uses PouchDB for persistence and to sync data to a central CouchDB data stora
 
 The UI is built using ReactJS and Redux.
 
-There's also a legacy version using [remoteStorage](http://remotestorage.io/) in then branch "remotestorage-legacy.
+The app is based on [Create React App](https://github.com/facebook/create-react-app) with TypeScript.
 
-## Setup
+## Available Scripts
 
-1. Run `npm install` in this folder
-2. Run `npm run serve` to start a local web server or serve this folder with any static web server.
-3. Open [localhost:8080/index.dev.html](http://localhost:8080/index.dev.html) or where ever you're serving the app in your browser
+In the project directory, you can run:
 
-For production, run `npm run build` and then use `index.html`.
+### `npm start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+## Config
+
+Environment variable `REACT_APP_BACKEND_URL` (default "https://grouptabs-app.xmartin.de:5984").
 
 ## License
 

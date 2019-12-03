@@ -1,5 +1,4 @@
 import Manager from './manager';
-import { Document } from './tab';
 
 it('converts an entity to a doc', () => {
   const manager = new Manager();
@@ -20,7 +19,7 @@ it('converts an entity to a doc', () => {
 
 it('converts a doc to an entity', () => {
   const manager = new Manager();
-  const doc: Document = {
+  const doc: any = {
     _id: 'ID',
     _rev: 'rev',
     type: 'T',

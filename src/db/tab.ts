@@ -41,6 +41,8 @@ export default class {
     } catch (error) {
       if (error.name === 'indexed_db_went_bad') {
         console.info('Accessing IndexedDB failed. Falling back to in-memory.');
+        const { default: MemoryAdapter } = await import('pouchdb-adapter-memory');
+        PouchDB.plugin(MemoryAdapter);
         this.db = new PouchDB(this.localDbName, {adapter: 'memory'});
       }
     }

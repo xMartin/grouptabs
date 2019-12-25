@@ -1,11 +1,8 @@
 import PouchDB from 'pouchdb';
-import MemoryAdapter from 'pouchdb-adapter-memory';
 import Tab, { Document } from './tab';
 import config from '../config';
 import { Info, ActionMap } from '../types';
 import { loadTabIds, addTabId, migrateFromPouchDbAllDbsToLocalStorage } from './tabidpersistor';
-
-PouchDB.plugin(MemoryAdapter);
 
 interface Entity {
   id: string;

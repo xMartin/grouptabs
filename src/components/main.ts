@@ -20,6 +20,7 @@ interface Props {
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
   importingTab?: boolean;
+  tabDataMissing?: boolean;
   onChangeTabClick: () => void;
   onNavigateToAddTransaction: (tabId: string) => void;
   onDetailsClick: (tabId: string, transactionId: string) => void;
@@ -164,6 +165,11 @@ export default class Main extends PureComponent<Props, State> {
   }
 
   renderContent() {
+    console.warn('tabMissingError', this.props.tabDataMissing);
+    if (this.props.tabDataMissing) {
+      return 'tab data missing';
+    }
+
     if (this.props.remoteTabError) {
       return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
     }

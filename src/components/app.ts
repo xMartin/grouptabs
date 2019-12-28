@@ -34,6 +34,7 @@ interface Props {
   accounts: Account[];
   total: number;
   error?: any;
+  tabDataMissing?: boolean;
   onNavigateToTabs: () => void;
   onCreateTab: (name: string) => void;
   onImportTab: (id: string) => void;
@@ -110,6 +111,7 @@ export default class App extends Component<Props> {
           checkingRemoteTab: this.props.checkingRemoteTab,
           remoteTabError: this.props.remoteTabError,
           importingTab: this.props.importingTab,
+          tabDataMissing: this.props.tabDataMissing,
           onChangeTabClick: this.props.onNavigateToTabs,
           onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
           onDetailsClick: this.props.onNavigateToUpdateTransaction

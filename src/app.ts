@@ -6,6 +6,7 @@ import { AllState } from "./";
 import { Transaction } from "./types";
 
 function mapStateToProps (state: AllState) {
+  const currentTabId = selectors.getCurrentTabId(state);
   return {
     location: state.location,
     initialLoadingDone: state.app.initialLoadingDone,
@@ -18,7 +19,8 @@ function mapStateToProps (state: AllState) {
     tabs: selectors.getTabs(state),
     transactions: selectors.getTransactions(state),
     accounts: selectors.getAccounts(state),
-    error: state.app.error
+    error: state.app.error,
+    tabDataMissing: currentTabId && !state.app.docsById['info-' + currentTabId] ? true : false,
   };
 }
 

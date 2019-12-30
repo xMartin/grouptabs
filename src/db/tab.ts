@@ -25,36 +25,22 @@ export default class {
 
   syncHandle: any;
 
-  constructor(localDbName: string, remoteDbLocation: string, changesCallback: ChangesHandler) {
+  constructor(localDbName: string, remoteDbLocation: string, changesCallback: ChangesHandler, adapter?: string) {
     this.localDbName = localDbName;
     this.remoteDbLocation = remoteDbLocation;
 
     this._onChangesHandler = changesCallback;
 
-    this.db = new PouchDB(localDbName);
+    this.db = new PouchDB(localDbName, {adapter});
     this.remoteDb = new PouchDB(remoteDbLocation);
   }
 
-  async checkIndexedDb() {
-    try {
-      await this.db.get('info');
-    } catch (error) {
-      if (error.name === 'indexed_db_went_bad') {
-        console.info('Accessing IndexedDB failed. Falling back to in-memory.');
-        const { default: MemoryAdapter } = await import('pouchdb-adapter-memory');
-        PouchDB.plugin(MemoryAdapter);
-        this.db = new PouchDB(this.localDbName, {adapter: 'memory'});
-      }
-    }
-  }
-
   async connect() {
-    await this.checkIndexedDb();
     await this.replicateFromRemote();
     const docs = await this.fetchAll();
     const info = await this.db.info();
     this._lastSequenceNumber = info.update_seq;
-    this.startSyncing();    
+    this.startSyncing();
     return docs;
   }
 

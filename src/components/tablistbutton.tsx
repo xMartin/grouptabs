@@ -9,7 +9,7 @@ interface Props {
 const TabListButton: React.FC<Props> = ({ data, onClick }) => {
   return (
     <button className="full-width" onClick={() => onClick(data.id)}>
-      {data.name}
+      {data.info?.name}
     </button>
   );
 };

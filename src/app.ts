@@ -9,7 +9,7 @@ function mapStateToProps (state: AllState) {
   return {
     location: state.location,
     initialLoadingDone: state.app.initialLoadingDone,
-    tabName: selectors.getTabName(state),
+    tabInfo: selectors.getTabInfo(state),
     transaction: state.app.docsById[state.location.payload.transactionId] as Transaction,
     total: selectors.getTotal(state),
     checkingRemoteTab: state.app.checkingRemoteTab,

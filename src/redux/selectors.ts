@@ -95,7 +95,7 @@ function getDocsById (state: AllState) {
   return state.app.docsById;
 }
 
-function getCurrentTab (state: AllState) {
+function getCurrentTabId (state: AllState) {
   return state.location.payload.tabId;
 }
 
@@ -115,7 +115,7 @@ var getTabs = reselect.createSelector(
       var mostRecentTransaction = sortTransactions(transactions)[0];
       return {
         id: tabId,
-        name: info.name,
+        info,
         mostRecentTransaction
       };
     });
@@ -136,8 +136,8 @@ var getTabs = reselect.createSelector(
   }
 );
 
-var getTabName = reselect.createSelector(
-  [getTabs, getCurrentTab],
+var getTabInfo = reselect.createSelector(
+  [getTabs, getCurrentTabId],
   function (tabs, currentTab) {
     var tab: Tab | undefined;
     tabs.forEach(function (_tab) {
@@ -145,12 +145,12 @@ var getTabName = reselect.createSelector(
         tab = _tab;
       }
     });
-    return tab ? tab.name : '';
+    return tab?.info;
   }
 );
 
 var getSortedTransactions = reselect.createSelector(
-  [getDocsById, getCurrentTab, getTransactionsByTab],
+  [getDocsById, getCurrentTabId, getTransactionsByTab],
   function (docsById, currentTab, transactionsByTab) {
     var transactionIds = transactionsByTab[currentTab] || [];
     var transactions = transactionIds.map(function (transactionId) {
@@ -186,8 +186,9 @@ var getTotal = reselect.createSelector(
 );
 
 export default {
+  getCurrentTabId,
   getTabs,
-  getTabName,
+  getTabInfo,
   getTransactions: getSortedTransactions,
   getAccounts,
   getTotal,

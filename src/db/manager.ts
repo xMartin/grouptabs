@@ -15,6 +15,8 @@ type changesCallback = (actionMap: ActionMap) => void;
 
 export default class DbManager {
 
+  private isIndexedDbAvailable?: boolean;
+
   dbs: {[dbName: string]: Tab};
 
   private _changesCallback?: changesCallback;
@@ -27,7 +29,24 @@ export default class DbManager {
     this._changesCallback = callback;
 
     await migrateFromPouchDbAllDbsToLocalStorage();
+    await this.checkIndexedDb();
     this.initDbs();
+  }
+
+  private async checkIndexedDb() {
+    try {
+      const db = new PouchDB('test');
+      await db.get('test');
+      this.isIndexedDbAvailable = true;
+      db.destroy();
+    } catch (error) {
+      if (error.name === 'indexed_db_went_bad') {
+        this.isIndexedDbAvailable = false;
+        console.info('Accessing IndexedDB failed. Falling back to in-memory.');
+        const { default: MemoryAdapter } = await import('pouchdb-adapter-memory');
+        PouchDB.plugin(MemoryAdapter);
+      }
+    }
   }
 
   async connect() {
@@ -130,7 +149,12 @@ export default class DbManager {
     }
     const dbName = 'tab/' + tabId;
     const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
-    const tab = new Tab(dbName, remoteDbLocation, () => this._changesHandler.bind(this, tabId));
+    const tab = new Tab(
+      dbName,
+      remoteDbLocation,
+      () => this._changesHandler.bind(this, tabId),
+      this.isIndexedDbAvailable === false ? 'memory' : undefined
+    );
     this.dbs[tabId] = tab;
     addTabId(tabId);
     return tab;

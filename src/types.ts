@@ -40,6 +40,6 @@ export type Entity = Transaction | Info;
 
 export interface Tab {
   id: string;
-  name: string;
+  info: Info;
   mostRecentTransaction?: Transaction;
 }

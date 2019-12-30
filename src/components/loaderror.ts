@@ -3,17 +3,17 @@ import logo from '../images/logo.png';
 
 interface Props {
   message: string;
-  onOkClick: () => void;
+  onOkClick?: () => void;
 }
 
 const el = React.createElement;
 
 const LoadError: React.FC<Props> = ({ message, onOkClick }) => {
   const handleButtonClick = () => {
-    if (message === 'Error: unable to import tab. Please try again.') {
-      window.location.reload();
-    } else {
+    if (onOkClick) {
       onOkClick();
+    } else {
+      window.location.reload();
     }
   };
 

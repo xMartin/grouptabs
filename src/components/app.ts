@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Account, Transaction, Tab } from '../types';
+import { Account, Transaction, Tab, Info } from '../types';
 import Tabs from './tabs';
 import Main from './main';
 import EditEntry from './editentry';
@@ -24,7 +24,7 @@ interface Props {
     payload: any,
   };
   initialLoadingDone?: boolean;
-  tabName?: string;
+  tabInfo?: Info;
   transaction?: Transaction;
   tabs: Tab[];
   checkingRemoteTab?: boolean;
@@ -63,7 +63,7 @@ export default class App extends Component<Props> {
   }
 
   setPageTitle() {
-    var tabName = this.props.tabName;
+    var tabName = this.props.tabInfo?.name || '';
 
     switch (this.props.location.type) {
       case 'ROUTE_TAB':
@@ -102,7 +102,7 @@ export default class App extends Component<Props> {
           onImportTab: this.props.onImportTab
         }),
         el(Main, {
-          tabName: this.props.tabName,
+          tabInfo: this.props.tabInfo,
           tabId: this.props.location.payload.tabId,
           accounts: this.props.accounts,
           transactions: this.props.transactions,
@@ -111,7 +111,6 @@ export default class App extends Component<Props> {
           checkingRemoteTab: this.props.checkingRemoteTab,
           remoteTabError: this.props.remoteTabError,
           importingTab: this.props.importingTab,
-          tabDataMissing: this.props.tabDataMissing,
           onChangeTabClick: this.props.onNavigateToTabs,
           onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
           onDetailsClick: this.props.onNavigateToUpdateTransaction

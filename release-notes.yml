@@ -6,6 +6,7 @@ releases:
 - version: next
   improved:
   - Faster app loading for most cases by loading PouchDB memory adapter only if IndexedDB is not available (e.g. Firefox private mode)
+  - Display meaningful error when refreshing app being offline and without indexedDB available
   fixed:
   - PouchDB in-memory fallback when creating a new tab
 - version: 1.1.0

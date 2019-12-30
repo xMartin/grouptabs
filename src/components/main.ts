@@ -6,12 +6,12 @@ import Summary from './summary';
 import TransactionList from './transactionlist';
 import TotalSpending from './totalspending';
 import LoadError from './loaderror';
-import { Account, Transaction } from '../types';
+import { Account, Transaction, Info } from '../types';
 
 var el = React.createElement;
 
 interface Props {
-  tabName?: string;
+  tabInfo?: Info;
   tabId?: string;
   accounts: Account[];
   transactions: Transaction[];
@@ -20,7 +20,6 @@ interface Props {
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
   importingTab?: boolean;
-  tabDataMissing?: boolean;
   onChangeTabClick: () => void;
   onNavigateToAddTransaction: (tabId: string) => void;
   onDetailsClick: (tabId: string, transactionId: string) => void;
@@ -95,7 +94,7 @@ export default class Main extends PureComponent<Props, State> {
             el('path', {d: 'm2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z'})
           )
         ),
-        el('h2', null, this.props.tabName),
+        el('h2', null, this.props.tabInfo?.name || ''),
         (
           showAddButton &&
           el('button', {className: 'create', onClick: this.handleNewEntryClick},
@@ -165,9 +164,8 @@ export default class Main extends PureComponent<Props, State> {
   }
 
   renderContent() {
-    console.warn('tabMissingError', this.props.tabDataMissing);
-    if (this.props.tabDataMissing) {
-      return 'tab data missing';
+    if (!this.props.tabInfo) {
+      return el(LoadError, {message: 'Error: Tab data missing. Are you offline? Try refreshing.'});
     }
 
     if (this.props.remoteTabError) {

@@ -89,24 +89,24 @@ export default class {
   }
 
   replicateFromRemote() {
-    console.info('replication start');
+    console.info(`replication start (${this.localDbName})`);
 
     return new Promise((resolve) => {
       this.db.replicate.from(this.remoteDb, {
         batch_size: 100
       })
       .on('paused', () => {
-        console.info('replication paused');
+        console.info(`replication paused (${this.localDbName})`);
       })
       .on('active', () => {
-        console.info('replication active');
+        console.info(`replication active (${this.localDbName})`);
       })
       .on('complete', () => {
-        console.info('replication complete');
+        console.info(`replication complete (${this.localDbName})`);
         resolve();
       })
       .on('error', (err) => {
-        console.error('replication error', err);
+        console.error(`replication error (${this.localDbName}`, err);
         // resolve even in error case
         // incomplete replication can be handled by next sync
         resolve();

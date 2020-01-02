@@ -16,9 +16,19 @@ export const migrateFromPouchDbAllDbsToLocalStorage = async () => {
   try {
     // @ts-ignore
     const dbNames: string[] = await PouchDB.allDbs();
-    const tabIds = dbNames.map((dbName) => dbName.substring(4));  // strip "tab/"
-    localStorage.setItem(KEY, JSON.stringify(tabIds));
-    console.info(`Migrated ${tabIds.length} tab(s) to local storage: ${tabIds.join(', ')}.`);
+    const tabIds: string[] = [];
+    dbNames.forEach((dbName) => {
+      if (dbName.length > 10 && dbName.startsWith('tab/')) {
+        const tabId = dbName.substring(4);  // strip "tab/"
+        tabIds.push(tabId);
+      } else {
+        console.warn(`Invalid DB name "${dbName}"`);
+      }
+    });
+    if (tabIds.length) {
+      tabIds.forEach((tabId) => addTabId(tabId));
+      console.info(`Migrated ${tabIds.length} tab(s) to local storage: ${tabIds.join(', ')}.`);
+    }
     try {
       // @ts-ignore
       await PouchDB.resetAllDbs();
@@ -55,6 +65,9 @@ export const loadTabIds = (): string[] => {
 };
 
 export const addTabId = (tabId: string): void => {
+  if (tabId.length < 7) {
+    throw new Error(`Invalid Tab ID "${tabId}"`);
+  }
   const tabIds = loadTabIds();
   if (!tabIds.includes(tabId)) {
     tabIds.push(tabId);

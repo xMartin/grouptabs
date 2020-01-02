@@ -36,15 +36,16 @@ export default class DbManager {
   private async checkIndexedDb() {
     try {
       const db = new PouchDB('test');
-      await db.get('test');
       this.isIndexedDbAvailable = true;
-      db.destroy();
+      await db.destroy();
     } catch (error) {
       if (error.name === 'indexed_db_went_bad') {
         this.isIndexedDbAvailable = false;
         console.info('Accessing IndexedDB failed. Falling back to in-memory.');
         const { default: MemoryAdapter } = await import('pouchdb-adapter-memory');
         PouchDB.plugin(MemoryAdapter);
+      } else {
+        throw error;
       }
     }
   }

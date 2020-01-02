@@ -156,42 +156,34 @@ const generateTabId = () => {
   return result;
 };
 
-const checkTab = (dispatch: (action: GTThunkAction | GTAction) => void, id: string, dbManager: DbManager, shouldNavigateToTab?: boolean) => {
+const checkTab = async (dispatch: (action: GTThunkAction | GTAction) => void, id: string, dbManager: DbManager, shouldNavigateToTab?: boolean): Promise<void> => {
   dispatch(createCheckRemoteTabAction());
 
-  return (
-    dbManager.checkTab(id)
-    .then(function (infoDoc) {
-      dispatch(createImportTabAction({
-        id: 'info',
-        type: DocumentType.INFO,
-        name: infoDoc.name,
-        tabId: id
-      }));
+  try {
+    const infoDoc = await dbManager.checkTab(id);
+    dispatch(createImportTabAction({
+      id: 'info',
+      type: DocumentType.INFO,
+      name: infoDoc.name,
+      tabId: id
+    }));
 
-      if (shouldNavigateToTab) {
-        dispatch(selectTab(id));
-      }
+    if (shouldNavigateToTab) {
+      dispatch(selectTab(id));
+    }
 
-      dbManager.connectTab(id)
-      .then(function (actionMap) {
-        dispatch(createUpdateFromDbAction(actionMap));
-      })
-      .catch(console.error.bind(console));
-    })
-    .catch(function (error) {
-      var message;
-      if (error.name === 'not_found') {
-        message = 'Could not find a tab with the ID "' + id + '".';
-      } else {
-        message = 'Error: unable to import tab. Please try again.';
-      }
-
-      dispatch(createCheckRemoteTabFailureAction(message));
-
-      console.error(error);
-    })
-  );
+    dbManager.connectTab(id)
+    .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
+  } catch (error) {
+    let message;
+    if (error.name === 'not_found') {
+      message = 'Could not find a tab with the ID "' + id + '".';
+    } else {
+      message = 'Error: unable to import tab. Please try again.';
+    }
+    dispatch(createCheckRemoteTabFailureAction(message));
+    console.error(error);
+  };
 };
 
 export const connectDb = (): GTThunkAction => async (dispatch, getState, { dbManager }) => {

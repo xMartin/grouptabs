@@ -3,7 +3,9 @@ description: >
   Track expenses in a group of people!
 
 releases:
-- version: next
+- version: 1.2.0
+  date: 2020-01-13
+  description: Bugfixes and improvements
   improved:
   - Faster app loading for most cases by loading PouchDB memory adapter only if IndexedDB is not available (e.g. Firefox private mode)
   - Display meaningful error when refreshing app being offline and without indexedDB available

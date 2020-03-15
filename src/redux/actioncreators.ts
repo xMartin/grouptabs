@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+import { v4 as uuidv4 } from 'uuid';
 import iobject from '../lang/iobject';
 import DbManager from '../db/manager'
 import { AllState, Services } from '..';

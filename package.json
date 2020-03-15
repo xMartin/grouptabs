@@ -12,8 +12,8 @@
   "homepage": "https://grouptabs.net/",
   "dependencies": {
     "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.28",
-    "@types/react": "^16.9.22",
+    "@types/node": "^12.12.30",
+    "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
     "create-react-class": "^15.6.3",
     "pouchdb": "^7.2.1",
@@ -21,17 +21,17 @@
     "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",
     "prop-types": "^15.7.2",
     "pure-render-mixin": "^1.0.2",
-    "pure-uuid": "^1.6.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "react-redux": "^7.2.0",
-    "react-scripts": "3.3.0",
+    "react-scripts": "3.4.0",
     "redux": "^4.0.5",
     "redux-first-router": "^2.1.5",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "smooth-scroll": "^16.1.2",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.3",
+    "uuid": "^7.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,8 +61,8 @@
     "@types/react-redux": "^7.1.7",
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-first-router": "^2.1.5",
-    "@types/uuid": "^3.4.7",
+    "@types/uuid": "^7.0.0",
     "jest-localstorage-mock": "^2.4.0",
-    "react-test-renderer": "^16.12.0"
+    "react-test-renderer": "^16.13.0"
   }
 }

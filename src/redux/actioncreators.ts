@@ -229,7 +229,7 @@ export const importTabFromUrl = (id: string): GTThunkAction => (dispatch, getSta
   return checkTab(dispatch, id, dbManager);
 };
 
-export const addTransaction = (transaction: Transaction): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+export const addTransaction = (transaction: Partial<Transaction>): GTThunkAction => async (dispatch, getState, { dbManager }) => {
   const doc = iobject.merge(transaction, {
     id: uuidv4(),
     type: DocumentType.TRANSACTION,

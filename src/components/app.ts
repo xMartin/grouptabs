@@ -42,7 +42,7 @@ interface Props {
   onNavigateToAddTransaction: (tabId: string) => void;
   onNavigateToUpdateTransaction: (tabId: string, transactionId: string) => void;
   onCloseTransaction: () => void;
-  onAddTransaction: (transaction: Transaction) => void;
+  onAddTransaction: (transaction: Partial<Transaction>) => void;
   onUpdateTransaction: (transaction: Transaction) => void;
   onRemoveTransaction: (doc: Transaction) => void;
   onError: (error: any, info: any) => void;

@@ -36,7 +36,7 @@ export default createReactClass({
 
   componentDidMount: function () {
     if (this.props.mode === 'new') {
-      this.refs.description.focus();
+      this.refs.description && this.refs.description.focus();
     }
   },
 

@@ -1,38 +1,33 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent, ReactFragment } from 'react';
 import iobject from '../lang/iobject';
 import Loader from './loader';
 import Form from './form';
 import LoadError from './loaderror';
+import { Transaction, Account, TransactionType } from '../types';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  mode: 'new' | 'edit';
+  data?: Transaction;
+  accounts: Account[];
+  checkingRemoteTab?: boolean;
+  remoteTabError?: string;
+  importingTab?: boolean;
+  onCloseClick: () => void;
+  onCreate: (transaction: Partial<Transaction>) => void;
+  onUpdate: (transaction: Transaction) => void;
+  onDelete: (transaction: Transaction) => void;
+  onChangeTabClick: () => void;
+}
 
-  displayName: 'EditEntry',
+export default class EditEntry extends PureComponent<Props> {
 
-  propTypes: {
-    mode: PropTypes.oneOf(['new', 'edit']).isRequired,
-    data: PropTypes.object,
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    checkingRemoteTab: PropTypes.bool,
-    remoteTabError: PropTypes.string,
-    importingTab: PropTypes.bool,
-    onCloseClick: PropTypes.func.isRequired,
-    onCreate: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onChangeTabClick: PropTypes.func.isRequired
-  },
+  getValues() {
+    return (this.refs.form as any).getValues();
+  }
 
-  getValues: function () {
-    return this.refs.form.getValues();
-  },
-
-  handleSubmit: function (event) {
+  handleSubmit(event: any) {
     event.preventDefault();
 
     var values = this.getValues();
@@ -42,12 +37,12 @@ export default createReactClass({
       return;
     }
 
-    var data = {
+    var data: Partial<Transaction> = {
       description: values.description,
       transactionType: values.transactionType
     };
 
-    if (values.transactionType === 'DIRECT') {
+    if (values.transactionType === TransactionType.DIRECT) {
       data.participants = this.getParticantsFromDirect(values.direct);
     } else {
       data.participants = this.normalizeParticipants(values.participants);
@@ -56,13 +51,13 @@ export default createReactClass({
     data.date = new Date(values.date).toJSON();
     data.timestamp = new Date().toJSON();
     if (this.props.data) {
-      this.props.onUpdate(iobject.merge(this.props.data, data));
+      this.props.onUpdate(iobject.merge(this.props.data, data) as Transaction);
     } else {
       this.props.onCreate(data);
     }
-  },
+  }
 
-  getParticantsFromDirect: function (direct) {
+  getParticantsFromDirect(direct: any): Account[] {
     return [
       {
         participant: direct.from,
@@ -73,24 +68,24 @@ export default createReactClass({
         amount: -direct.amount
       }
     ];
-  },
+  }
 
-  normalizeParticipants: function (rawParticipants) {
+  normalizeParticipants(rawParticipants: any): Account[] {
     return (
       rawParticipants
-      .filter(function (participant) {
+      .filter(function (participant: any) {
         return participant.status > 0;
       })
-      .map(function (participant) {
+      .map(function (participant: any) {
         return {
           participant: participant.participant,
           amount: participant.amount
         };
       })
     );
-  },
+  }
 
-  validate: function (data) {
+  validate(data: any): boolean {
     if (!data.description) {
       return false;
     }
@@ -104,13 +99,13 @@ export default createReactClass({
     } else {
       return this.validateShared(data.participants);
     }
-  },
+  }
 
-  validateDirect: function (data) {
+  validateDirect(data: any): boolean {
     return !!data.from && !!data.to && !!data.amount && data.from !== data.to;
-  },
+  }
 
-  validateShared: function (participants) {
+  validateShared(participants: any[]): boolean {
     var joinedParticipants = participants.filter(function (participant) {
       return participant.status > 0;
     });
@@ -134,13 +129,17 @@ export default createReactClass({
     }
 
     return true;
-  },
+  }
 
-  handleDelete: function () {
-    this.props.onDelete(this.props.data);
-  },
+  handleDelete() {
+    if (this.props.data) {
+      this.props.onDelete(this.props.data);
+    } else {
+      throw new Error();
+    }
+  }
 
-  renderHeader: function (showSaveButton) {
+  renderHeader(showSaveButton: boolean): ReactFragment {
     return (
       el('div', {className: 'header'},
         el('button', {className: 'left', onClick: this.props.onCloseClick},
@@ -159,9 +158,9 @@ export default createReactClass({
         )
       )
     );
-  },
+  }
 
-  renderContent: function () {
+  renderContent(): ReactFragment {
     if (this.props.remoteTabError) {
       return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
     }
@@ -181,9 +180,9 @@ export default createReactClass({
         ref: 'form'
       })
     );
-  },
+  }
 
-  render: function () {
+  render(): ReactFragment {
     var isLoading = this.props.checkingRemoteTab || this.props.importingTab;
 
     return (
@@ -196,4 +195,4 @@ export default createReactClass({
     );
   }
 
-});
+}

@@ -1,85 +1,86 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent, SyntheticEvent, ReactFragment } from 'react';
 import transactionUtils from '../util/transaction';
 import DateInput from './dateinput';
 import DirectTransactionInput from './directtransactioninput';
 import ParticipantsInputList from './participantsinputlist';
+import { Transaction, Account, TransactionType } from '../types';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  mode: 'new' | 'edit';
+  data?: Transaction;
+  accounts: Account[];
+  onSubmit: (transaction: Transaction) => void;
+  onDelete: () => void;
+}
 
-  displayName: 'Form',
+interface State {
+  transactionType: TransactionType;
+  newParticipantsIds: string[];
+}
 
-  propTypes: {
-    mode: PropTypes.oneOf(['new', 'edit']).isRequired,
-    data: PropTypes.object,
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired
-  },
+export default class Form extends PureComponent<Props, State> {
 
-  getInitialState: function () {
+  constructor(props: Props) {
+    super(props);
     var newParticipantsIds = [];
     if (this.props.accounts.length < 2) {
       newParticipantsIds.push(this.createUniqueId());
       newParticipantsIds.push(this.createUniqueId());
     }
-    return {
-      transactionType: this.props.mode === 'edit' ? transactionUtils.getTransactionType(this.props.data) : 'SHARED',
+    this.state = {
+      transactionType: this.props.mode === 'edit' && this.props.data ? transactionUtils.getTransactionType(this.props.data) : TransactionType.SHARED,
       newParticipantsIds: newParticipantsIds
     };
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     if (this.props.mode === 'new') {
-      this.refs.description && this.refs.description.focus();
+      this.refs.description && (this.refs.description as HTMLInputElement).focus();
     }
-  },
+  }
 
-  createUniqueId: function () {
+  createUniqueId() {
     return '' + Math.round(Math.random() * 100000000);
-  },
+  }
 
-  getValues: function () {
+  getValues() {
     return {
-      date: this.refs.dateInput.getValue(),
-      description: this.refs.description.value,
+      date: (this.refs.dateInput as any).getValue(),
+      description: (this.refs.description as HTMLInputElement).value,
       transactionType: this.state.transactionType,
-      participants: this.refs.participantsInputList.getValues(),
-      direct: this.refs.directTransactionInput.getValues()
+      participants: (this.refs.participantsInputList as any).getValues(),
+      direct: (this.refs.directTransactionInput as any).getValues()
     };
-  },
+  }
 
-  handleAddParticipant: function () {
+  handleAddParticipant() {
     this.setState({
       newParticipantsIds: this.state.newParticipantsIds.concat(this.createUniqueId())
-    }, function () {
-      this.refs.participantsInputList.focusLastInput();
-    }.bind(this));
-  },
+    }, () => {
+      (this.refs.participantsInputList as any).focusLastInput();
+    });
+  }
 
-  handleAllJoined: function () {
-    this.refs.participantsInputList.setAllJoined();
-  },
+  handleAllJoined() {
+    (this.refs.participantsInputList as any).setAllJoined();
+  }
 
-  handleDelete: function () {
+  handleDelete() {
     if (confirm('Do you really want to delete the transaction?')) {  // eslint-disable-line no-restricted-globals
       this.props.onDelete();
     }
-  },
+  }
 
-  handleSelectTransactionType: function (event) {
+  handleSelectTransactionType(event: SyntheticEvent<HTMLInputElement>) {
     var transactionType = event.currentTarget.value;
     this.setState({
-      transactionType: transactionType
+      transactionType: TransactionType[transactionType as keyof typeof TransactionType]
     });
-  },
+  }
 
-  render: function () {
+  render(): ReactFragment {
     var mode = this.props.mode;
 
     return (
@@ -90,14 +91,14 @@ export default createReactClass({
               el('input', {
                 type: 'text',
                 placeholder: 'Description',
-                defaultValue: mode === 'edit' ? this.props.data.description : '',
+                defaultValue: mode === 'edit' && this.props.data ? this.props.data.description : '',
                 ref: 'description'
               })
             ),
             el('div', {className: 'form-row-input transaction-type'},
               el('select', {onChange: this.handleSelectTransactionType, defaultValue: this.state.transactionType},
-                el('option', {value: 'SHARED'}, 'Shared'),
-                el('option', {value: 'DIRECT'}, 'Direct')
+                el('option', {value: TransactionType.SHARED}, 'Shared'),
+                el('option', {value: TransactionType.DIRECT}, 'Direct')
               )
             )
           ),
@@ -110,17 +111,17 @@ export default createReactClass({
             )
           ),
           el('div', {
-            style: {display: this.state.transactionType === 'SHARED' ? 'none' : ''},
+            style: {display: this.state.transactionType === TransactionType.SHARED ? 'none' : ''},
             className: 'form-row'
           },
             el(DirectTransactionInput, {
               ref: 'directTransactionInput',
               accounts: this.props.accounts,
-              participants: mode === 'edit' ? this.props.data.participants : []
+              participants: mode === 'edit' && this.props.data ? this.props.data.participants : []
             })
           ),
           el('div', {
-            style: {display: this.state.transactionType === 'DIRECT' ? 'none' : ''}
+            style: {display: this.state.transactionType === TransactionType.DIRECT ? 'none' : ''}
           },
             el(ParticipantsInputList, {
               ref: 'participantsInputList',
@@ -128,7 +129,7 @@ export default createReactClass({
               tabParticipants: this.props.accounts.map(function (account) {
                 return account.participant;
               }),
-              participants: mode === 'edit' ? this.props.data.participants : [],
+              participants: mode === 'edit' && this.props.data ? this.props.data.participants : [],
               newParticipantsIds: this.state.newParticipantsIds
             }),
             el('div', {className: 'form-row'},
@@ -147,4 +148,4 @@ export default createReactClass({
       )
     );
   }
-});
+}

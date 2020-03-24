@@ -1,31 +1,26 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  status: 0 | 1 | 2;
+  amount?: number;
+  onJoinedChange: () => void;
+  onPaidChange: () => void;
+  onAmountChange: (amount: number) => void;
+}
 
-  displayName: 'ParticipationStatusInput',
+export default class ParticipationStatusInput extends PureComponent<Props> {
 
-  propTypes: {
-    status: PropTypes.number.isRequired,
-    amount: PropTypes.number,
-    onJoinedChange: PropTypes.func.isRequired,
-    onPaidChange: PropTypes.func.isRequired,
-  },
+  getAmount() {
+    return parseFloat((this.refs.amount as HTMLInputElement).value || '0');
+  }
 
-  getAmount: function () {
-    return parseFloat(this.refs.amount.value || 0);
-  },
+  focusAmount() {
+    (this.refs.amount as HTMLInputElement).focus();
+  }
 
-  focusAmount: function () {
-    this.refs.amount.focus();
-  },
-
-  render: function () {
+  render() {
     return (
       el('span', {className: 'participationStatus'},
         el('span', {className: 'joinedButtonWrapper' + (this.props.status === 2 ? ' hidden' : '')},
@@ -56,4 +51,4 @@ export default createReactClass({
     );
   }
 
-});
+}

@@ -104,7 +104,7 @@ exports[`renders empty form 1`] = `
               <input
                 onChange={[Function]}
                 type="date"
-                value="2020-03-24"
+                value="2020-03-26"
               />
             </div>
           </div>
@@ -512,7 +512,7 @@ exports[`renders prefilled form 1`] = `
               className="form-row-input date-input"
             >
               <button
-                className="selected"
+                className=""
                 onClick={[Function]}
                 type="button"
               >

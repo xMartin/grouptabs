@@ -1,38 +1,33 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
 import ParticipantInput from './participantinput';
 import NewParticipantInput from './newparticipantinput';
+import { Account } from '../types';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  mode: 'new' | 'edit';
+  tabParticipants: string[];
+  participants: Account[];
+  newParticipantsIds: string[];
+}
 
-  displayName: 'ParticipantsInputList',
+export default class ParticipantsInputList extends PureComponent<Props> {
 
-  propTypes: {
-    mode: PropTypes.string.isRequired,
-    tabParticipants: PropTypes.arrayOf(PropTypes.string).isRequired,
-    participants: PropTypes.arrayOf(PropTypes.object).isRequired,
-    newParticipantsIds: PropTypes.arrayOf(PropTypes.string).isRequired
-  },
-
-  focusLastInput: function () {
+  focusLastInput() {
     var newParticipantsIds = this.props.newParticipantsIds;
     var lastNewParticipantId = newParticipantsIds[newParticipantsIds.length - 1];
     var lastInput = this.refs['participant-' + lastNewParticipantId];
-    lastInput.focusParticipantInput();
-  },
+    (lastInput as NewParticipantInput).focusParticipantInput();
+  }
 
-  setAllJoined: function () {
+  setAllJoined() {
     this.getOwnedParticipantComponents().forEach(function (participantComponent) {
       participantComponent.setJoined();
     });
-  },
+  }
 
-  findParticipantDefaultValue: function (participant) {
+  findParticipantDefaultValue(participant: string) {
     var value = null;
     this.props.participants.forEach(function (participantValue) {
       if (participantValue.participant === participant) {
@@ -40,19 +35,19 @@ export default createReactClass({
       }
     });
     return value;
-  },
+  }
 
-  getOwnedParticipantComponents: function () {
+  getOwnedParticipantComponents() {
     return Object.keys(this.refs)
       .filter(function (ref) {
         return ref.indexOf('participant') === 0;
       })
-      .map(function (ref) {
-        return this.refs[ref];
-      }.bind(this));
-  },
+      .map((ref) => {
+        return this.refs[ref] as ParticipantInput | NewParticipantInput;
+      });
+  }
 
-  getValues: function () {
+  getValues() {
     var participants = this.getOwnedParticipantComponents().map(function (participantComponent) {
       return participantComponent.getValue();
     });
@@ -62,11 +57,11 @@ export default createReactClass({
     });
 
     return nonEmptyParticipants;
-  },
+  }
 
-  renderParticipantInputs: function (participants, mode) {
-    var participantPropsList = participants.map(function (participant, idx) {
-      var props = {
+  renderParticipantInputs(participants: string[], mode: Props['mode']) {
+    var participantPropsList = participants.map((participant, idx) => {
+      var props: any = {
         participant: participant,
         key: participant,
         ref: 'participant' + idx
@@ -78,11 +73,11 @@ export default createReactClass({
         props.value = {amount: 0};
       }
       return props;
-    }.bind(this));
+    });
 
     // sort participants by 1) amount paid 2) joined 3) alphabetical
     participantPropsList.sort(function (a, b) {
-      var sortableValue = function (value) {
+      var sortableValue = function (value: any) {
         return value ? value.amount : -1;
       };
       var sortableValueA = sortableValue(a.value);
@@ -96,18 +91,18 @@ export default createReactClass({
     return participantPropsList.map(function (props) {
       return el(ParticipantInput, props);
     });
-  },
+  }
 
-  renderNewParticipantInputs: function (newParticipantsIds) {
+  renderNewParticipantInputs(newParticipantsIds: string[]) {
     return newParticipantsIds.map(function (newParticipantId) {
       return el(NewParticipantInput, {
         key: newParticipantId,
         ref: 'participant-' + newParticipantId
       });
     });
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       el('div', {className: 'form-row'},
         el('div', {className: 'form-row-input'},
@@ -117,4 +112,4 @@ export default createReactClass({
       )
     );
   }
-});
+}

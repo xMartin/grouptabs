@@ -1,43 +1,50 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent, SyntheticEvent, ReactFragment } from 'react';
+import { Account } from '../types';
 
 var el = React.createElement;
 
 var newParticipantOption = 'New participant…';
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  accounts: Account[];
+  participants: Account[];
+}
 
-  displayName: 'DirectTransactionInput',
+interface State {
+  fromValue: string;
+  toValue: string;
+}
 
-  propTypes: {
-    accounts: PropTypes.arrayOf(PropTypes.object).isRequired,
-    participants: PropTypes.arrayOf(PropTypes.object).isRequired
-  },
+interface Inputs {
+  from?: string;
+  to?: string;
+  amount?: number;
+}
 
-  getInitialState: function () {
+export default class DirectTransactionInput extends PureComponent<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
     var inputProps = this.participants2Inputs(this.props.participants);
     var accounts = this.props.accounts;
     var mostNegativeParticipant = accounts[0] && accounts[0].participant;
     var mostPositiveParticipant = accounts[accounts.length - 1] && accounts[accounts.length - 1].participant;
-    return {
+    this.state = {
       fromValue: inputProps.from || mostNegativeParticipant || newParticipantOption,
       toValue: inputProps.to || mostPositiveParticipant || newParticipantOption
     };
-  },
+  }
 
-  getValues: function () {
+  getValues() {
     return {
-      from: this.state.fromValue === newParticipantOption ? this.refs.fromNew.value : this.state.fromValue,
-      to: this.state.toValue === newParticipantOption ? this.refs.toNew.value : this.state.toValue,
-      amount: parseFloat(this.refs.amount.value || 0)
+      from: this.state.fromValue === newParticipantOption ? (this.refs.fromNew as HTMLInputElement).value : this.state.fromValue,
+      to: this.state.toValue === newParticipantOption ? (this.refs.toNew as HTMLInputElement).value : this.state.toValue,
+      amount: parseFloat((this.refs.amount as HTMLInputElement).value || '0')
     };
-  },
+  }
 
-  participants2Inputs: function (participants) {
-    var result = {};
+  participants2Inputs(participants: Account[]): Inputs {
+    var result: Inputs = {};
 
     for (var i = 0; i < participants.length; ++i) {
       var participant = participants[i];
@@ -56,29 +63,29 @@ export default createReactClass({
     }
 
     return result;
-  },
+  }
 
-  handleChangeFrom: function (event) {
+  handleChangeFrom(event: SyntheticEvent<HTMLInputElement>) {
     this.setState({
       fromValue: event.currentTarget.value
-    }, function () {
+    }, () => {
       if (this.state.fromValue === newParticipantOption) {
-        this.refs.fromNew.focus();
+        (this.refs.fromNew as HTMLInputElement).focus();
       }
-    }.bind(this));
-  },
+    });
+  }
 
-  handleChangeTo: function (event) {
+  handleChangeTo(event: SyntheticEvent<HTMLInputElement>) {
     this.setState({
       toValue: event.currentTarget.value
-    }, function () {
+    }, () => {
       if (this.state.toValue === newParticipantOption) {
-        this.refs.toNew.focus();
+        (this.refs.toNew as HTMLInputElement).focus();
       }
-    }.bind(this));
-  },
+    });
+  }
 
-  render: function () {
+  render(): ReactFragment {
     var inputProps = this.participants2Inputs(this.props.participants);
     var tabParticipants = this.props.accounts.map(function (account) {
       return account.participant;
@@ -153,4 +160,4 @@ export default createReactClass({
     );
   }
 
-});
+}

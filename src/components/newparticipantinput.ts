@@ -1,67 +1,66 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
+import React, { PureComponent } from 'react';
 import ParticipantStatusInput from './participantstatusinput';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
 
-  displayName: 'NewParticipantInput',
+}
 
-  // status:
-  //   0: none
-  //   1: joined
-  //   2: paid
+interface State {
+  status: 0 | 1 | 2;  // 0: none, 1: joined, 2: paid
+}
 
-  getInitialState: function () {
-    return {
+export default class NewParticipantInput extends PureComponent<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
       status: 1
     };
-  },
+  }
 
-  handleJoinedChange: function () {
+  handleJoinedChange() {
     if (this.state.status === 0) {
       this.setState({status: 1});
     } else {
       this.setState({status: 0});
     }
-  },
+  }
 
-  handlePaidChange: function () {
+  handlePaidChange() {
     if (this.state.status < 2) {
       this.setState({status: 2});
-      setTimeout(function(){
-        this.refs.status.focusAmount();
-      }.bind(this));
+      setTimeout(() => {
+        (this.refs.status as ParticipantStatusInput).focusAmount();
+      });
     } else {
       this.setState({status: 1});
     }
-  },
+  }
 
-  getValue: function () {
-    var participant = this.refs.participant.value.trim();
-    var amount = this.state.status === 2 ? this.refs.status.getAmount() : 0;
+  getValue() {
+    var participant = (this.refs.participant as HTMLInputElement).value.trim();
+    var amount = this.state.status === 2 ? (this.refs.status as ParticipantStatusInput).getAmount() : 0;
 
     return {
       participant: participant,
       status: this.state.status,
       amount: amount
     };
-  },
+  }
 
-  setJoined: function () {
+  setJoined() {
     if (this.state.status === 0) {
       this.setState({status: 1});
     }
-  },
+  }
 
-  focusParticipantInput: function () {
-    this.refs.participant.focus();
-  },
+  focusParticipantInput() {
+    (this.refs.participant as HTMLInputElement).focus();
+  }
 
-  render: function () {
+  render() {
     var status = this.state.status;
 
     return (
@@ -73,10 +72,11 @@ export default createReactClass({
           status: status,
           onJoinedChange: this.handleJoinedChange,
           onPaidChange: this.handlePaidChange,
+          // @ts-ignore
           ref: 'status'
         })
       )
     );
   }
 
-});
+}

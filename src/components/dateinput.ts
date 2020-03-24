@@ -1,52 +1,51 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
-import PureRenderMixin from 'pure-render-mixin';
-import PropTypes from 'prop-types';
+import React, { PureComponent, SyntheticEvent, ReactFragment } from 'react';
 import dateUtils from '../util/date';
 
 var el = React.createElement;
 
-export default createReactClass({
-  mixins: [PureRenderMixin],
+interface Props {
+  date?: string;
+}
 
-  displayName: 'DateInput',
+interface State {
+  date: string;
+}
 
-  propTypes: {
-    date: PropTypes.string
-  },
+export default class DateInput extends PureComponent<Props, State> {
 
-  getInitialState: function () {
+  constructor(props: Props) {
+    super(props);
     var inputDate = this.props.date && dateUtils.parseDate(this.props.date);
-    return {
+    this.state = {
       date: dateUtils.formatDate(inputDate || new Date())
     };
-  },
+  }
 
-  handleTodayClick: function () {
+  handleTodayClick() {
     this.setState({
       date: dateUtils.formatDate(new Date())
     });
-  },
+  }
 
-  handleYesterdayClick: function () {
+  handleYesterdayClick() {
     var yesterday = dateUtils.addDays(new Date(), -1);
     this.setState({
       date: dateUtils.formatDate(yesterday)
     });
-  },
+  }
 
-  handleDateChange: function (event) {
-    var value = event.target.value;
+  handleDateChange(event: SyntheticEvent<HTMLInputElement>) {
+    var value = event.currentTarget.value;
     this.setState({
       date: value
     });
-  },
+  }
 
-  getValue: function () {
+  getValue() {
     return this.state.date;
-  },
+  }
 
-  render: function () {
+  render(): ReactFragment {
     return (
       el('div', {className: 'form-row-input date-input'},
         el('button', {
@@ -68,4 +67,4 @@ export default createReactClass({
     );
   }
 
-});
+}

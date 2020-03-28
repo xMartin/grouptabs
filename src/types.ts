@@ -43,3 +43,36 @@ export interface Tab {
   info: Info;
   mostRecentTransaction?: Transaction;
 }
+
+export enum TransactionFormParticipantStatus {
+  NONE = 0, JOINED = 1, PAID = 2,
+}
+
+export enum TransactionFormParticipantInputType {
+  NEW, EXISTING,
+}
+
+export interface TransactionFormSharedState {
+  id: string;
+  inputType: TransactionFormParticipantInputType;
+  participant?: string;
+  status: TransactionFormParticipantStatus;
+  amount?: number;
+}
+
+interface TransactionFormDirectState {
+  from?: string;
+  fromNew?: string;
+  to?: string;
+  toNew?: string;
+  amount?: number;
+  options: string[];
+}
+
+export interface TransactionFormState {
+  transactionType: TransactionType;
+  date: string;
+  description?: string;
+  shared: TransactionFormSharedState[];
+  direct: TransactionFormDirectState;
+}

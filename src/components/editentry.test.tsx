@@ -1,19 +1,25 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import EditEntry from './editentry';
-import { TransactionType, DocumentType } from '../types';
+import { TransactionType, TransactionFormParticipantStatus, TransactionFormParticipantInputType } from '../types';
+import { createFormData } from '../util/transactionform';
 
 it('renders loader when checking remote tab', () => {
   const tree = renderer
     .create(
       <EditEntry
         mode='new'
-        accounts={[]}
         checkingRemoteTab={true}
+        onInitForm={jest.fn()}
+        onUpdateForm={jest.fn()}
+        onUpdateSharedForm={jest.fn()}
+        onUpdateDirectForm={jest.fn()}
+        onUpdateParticipant={jest.fn()}
+        onAddParticipant={jest.fn()}
+        onSetAllJoined={jest.fn()}
         onChangeTabClick={jest.fn()}
         onCloseClick={jest.fn()}
-        onCreate={jest.fn()}
-        onUpdate={jest.fn()}
+        onSave={jest.fn()}
         onDelete={jest.fn()}
       />
     )
@@ -26,11 +32,17 @@ it('renders empty form', () => {
     .create(
       <EditEntry
         mode='new'
-        accounts={[]}
+        formState={createFormData([])}
+        onInitForm={jest.fn()}
+        onUpdateForm={jest.fn()}
+        onUpdateSharedForm={jest.fn()}
+        onUpdateDirectForm={jest.fn()}
+        onUpdateParticipant={jest.fn()}
+        onAddParticipant={jest.fn()}
+        onSetAllJoined={jest.fn()}
         onChangeTabClick={jest.fn()}
         onCloseClick={jest.fn()}
-        onCreate={jest.fn()}
-        onUpdate={jest.fn()}
+        onSave={jest.fn()}
         onDelete={jest.fn()}
       />
     )
@@ -43,11 +55,16 @@ it('renders loader in edit mode with no data', () => {
     .create(
       <EditEntry
         mode='edit'
-        accounts={[]}
+        onInitForm={jest.fn()}
+        onUpdateForm={jest.fn()}
+        onUpdateSharedForm={jest.fn()}
+        onUpdateDirectForm={jest.fn()}
+        onUpdateParticipant={jest.fn()}
+        onAddParticipant={jest.fn()}
+        onSetAllJoined={jest.fn()}
         onChangeTabClick={jest.fn()}
         onCloseClick={jest.fn()}
-        onCreate={jest.fn()}
-        onUpdate={jest.fn()}
+        onSave={jest.fn()}
         onDelete={jest.fn()}
       />
     )
@@ -60,30 +77,40 @@ it('renders prefilled form', () => {
     .create(
       <EditEntry
         mode='edit'
-        data={{
-          id: '123',
-          type: DocumentType.TRANSACTION,
-          tabId: '321',
+        formState={{
           description: 'DESCRIPTION',
           transactionType: TransactionType.SHARED,
           date: '2020-03-24',
-          timestamp: '2020-03-24T20:23:21z',
-          participants: [
+          shared: [
             {
+              id: '1',
+              inputType: TransactionFormParticipantInputType.EXISTING,
               participant: 'Martin',
+              status: TransactionFormParticipantStatus.JOINED,
               amount: 5,
             },
             {
+              id: '2',
+              inputType: TransactionFormParticipantInputType.EXISTING,
               participant: 'Jan',
+              status: TransactionFormParticipantStatus.JOINED,
               amount: 0,
             },
-          ]
+          ],
+          direct: {
+            options: []
+          }
         }}
-        accounts={[]}
+        onInitForm={jest.fn()}
+        onUpdateForm={jest.fn()}
+        onUpdateSharedForm={jest.fn()}
+        onUpdateDirectForm={jest.fn()}
+        onUpdateParticipant={jest.fn()}
+        onAddParticipant={jest.fn()}
+        onSetAllJoined={jest.fn()}
         onChangeTabClick={jest.fn()}
         onCloseClick={jest.fn()}
-        onCreate={jest.fn()}
-        onUpdate={jest.fn()}
+        onSave={jest.fn()}
         onDelete={jest.fn()}
       />
     )

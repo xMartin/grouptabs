@@ -1,50 +1,58 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, SyntheticEvent } from 'react';
+import { TransactionFormParticipantStatus as Status } from '../types';
+import { control } from '../util/form';
 
 var el = React.createElement;
 
 interface Props {
-  status: 0 | 1 | 2;
+  status: Status;
   amount?: number;
   onJoinedChange: () => void;
   onPaidChange: () => void;
-  onAmountChange: (amount: number) => void;
+  onAmountChange: (amount?: number) => void;
 }
 
 export default class ParticipationStatusInput extends PureComponent<Props> {
-
-  getAmount() {
-    return parseFloat((this.refs.amount as HTMLInputElement).value || '0');
+  
+  private amountInput: React.RefObject<HTMLInputElement>;
+  
+  constructor(props: Props) {
+    super(props);
+    this.amountInput = React.createRef();
   }
 
-  focusAmount() {
-    (this.refs.amount as HTMLInputElement).focus();
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.status !== Status.PAID && this.props.status === Status.PAID) {
+      this.amountInput.current?.focus();
+    }
   }
-
+  
   render() {
+    const { status, amount } = this.props;
+
     return (
       el('span', {className: 'participationStatus'},
         el('span', {className: 'joinedButtonWrapper' + (this.props.status === 2 ? ' hidden' : '')},
           el('button', {
             type: 'button',
-            className: this.props.status > 0 ? ' selected' : '',
-            ref: 'joined',
+            className: status > Status.NONE ? ' selected' : '',
             onClick: this.props.onJoinedChange
           }, 'joined')
         ),
         el('button', {
           type: 'button',
-          className: 'paid-button' + (this.props.status === 2 ? ' selected' : ''),
-          ref: 'paid',
+          className: 'paid-button' + (status === Status.PAID ? ' selected' : ''),
           onClick: this.props.onPaidChange
         }, 'paid'),
-        el('span', {className: 'amountInput' + (this.props.status < 2 ? ' hidden' : '')},
+        el('span', {className: 'amountInput' + (status < Status.PAID ? ' hidden' : '')},
           el('input', {
+            ref: this.amountInput,
             type: 'number',
             step: 'any',
-            disabled: this.props.status !== 2 ? 'disabled' : '',
+            disabled: status !== Status.PAID ? 'disabled' : '',
             placeholder: 0,
-            defaultValue: this.props.amount,
-            ref: 'amount'
+            value: control(amount),
+            onChange: (event: SyntheticEvent<HTMLInputElement>) => this.props.onAmountChange(event.currentTarget.value ? parseFloat(event.currentTarget.value) : undefined)
           })
         )
       )

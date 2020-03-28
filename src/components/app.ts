@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Account, Transaction, Tab, Info } from '../types';
+import { Account, Transaction, Tab, Info, TransactionFormState, TransactionFormSharedState } from '../types';
 import Tabs from './tabs';
 import Main from './main';
 import EditEntry from './editentry';
@@ -35,6 +35,7 @@ interface Props {
   total: number;
   error?: any;
   tabDataMissing?: boolean;
+  transactionFormState?: TransactionFormState;
   onNavigateToTabs: () => void;
   onCreateTab: (name: string) => void;
   onImportTab: (id: string) => void;
@@ -42,9 +43,16 @@ interface Props {
   onNavigateToAddTransaction: (tabId: string) => void;
   onNavigateToUpdateTransaction: (tabId: string, transactionId: string) => void;
   onCloseTransaction: () => void;
-  onAddTransaction: (transaction: Partial<Transaction>) => void;
-  onUpdateTransaction: (transaction: Transaction) => void;
-  onRemoveTransaction: (doc: Transaction) => void;
+  onAddOrUpdateTransaction: () => void;
+  onRemoveTransaction: () => void;
+  onInitTransactionForm: () => void;
+  onResetTransactionForm: () => void;
+  onUpdateTransactionForm: <K extends keyof TransactionFormState>(key: K, value: TransactionFormState[K]) => void;
+  onUpdateTransactionSharedForm: <K extends keyof TransactionFormState['shared']>(key: K, value: TransactionFormState['shared'][K]) => void;
+  onUpdateTransactionDirectForm: <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]) => void;
+  onUpdateTransactionParticipant: <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
+  onAddParticipant: () => void;
+  onSetAllJoined: () => void;
   onError: (error: any, info: any) => void;
 }
 
@@ -124,16 +132,21 @@ export default class App extends Component<Props> {
         ) &&
           el(EditEntry, {
             mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
-            data: this.props.transaction,
-            accounts: this.props.accounts,
+            formState: this.props.transactionFormState,
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,
             importingTab: this.props.importingTab,
             onChangeTabClick: this.props.onNavigateToTabs,
             onCloseClick: this.props.onCloseTransaction,
-            onCreate: this.props.onAddTransaction,
-            onUpdate: this.props.onUpdateTransaction,
-            onDelete: this.props.onRemoveTransaction
+            onSave: this.props.onAddOrUpdateTransaction,
+            onDelete: this.props.onRemoveTransaction,
+            onInitForm: this.props.onInitTransactionForm,
+            onUpdateForm: this.props.onUpdateTransactionForm,
+            onUpdateSharedForm: this.props.onUpdateTransactionSharedForm,
+            onUpdateDirectForm: this.props.onUpdateTransactionDirectForm,
+            onUpdateParticipant: this.props.onUpdateTransactionParticipant,
+            onAddParticipant: this.props.onAddParticipant,
+            onSetAllJoined: this.props.onSetAllJoined,
           })
       )
     );

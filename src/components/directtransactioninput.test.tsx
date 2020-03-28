@@ -1,13 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import DirectTransactionInput from './directtransactioninput';
+import { NEW_PARTICIPANT_OPTION } from '../util/transactionform';
 
 it('renders empty', () => {
   const tree = renderer
     .create(
       <DirectTransactionInput
-        accounts={[]}
-        participants={[]}
+        data={{
+          options: ['Jan', 'Martin', NEW_PARTICIPANT_OPTION]
+        }}
+        onChange={jest.fn()}
       />
     )
     .toJSON();
@@ -18,26 +21,13 @@ it('renders prefilled', () => {
   const tree = renderer
     .create(
       <DirectTransactionInput
-        accounts={[
-          {
-            participant: 'Martin',
-            amount: 2.5,
-          },
-          {
-            participant: 'Jan',
-            amount: -2.5,
-          },
-        ]}
-        participants={[
-          {
-            participant: 'Martin',
-            amount: 1,
-          },
-          {
-            participant: 'Jan',
-            amount: 0,
-          },
-        ]}
+        data={{
+          from: 'Martin',
+          to: 'Jan',
+          amount: 11,
+          options: ['Jan', 'Martin', NEW_PARTICIPANT_OPTION],
+        }}
+        onChange={jest.fn()}
       />
     )
     .toJSON();

@@ -1,142 +1,46 @@
-import React, { PureComponent, ReactFragment } from 'react';
-import iobject from '../lang/iobject';
+import React, { PureComponent, ReactFragment, SyntheticEvent } from 'react';
 import Loader from './loader';
 import Form from './form';
 import LoadError from './loaderror';
-import { Transaction, Account, TransactionType } from '../types';
+import { TransactionFormState, TransactionFormSharedState } from '../types';
+import { validate } from '../util/transactionform';
 
 var el = React.createElement;
 
 interface Props {
   mode: 'new' | 'edit';
-  data?: Transaction;
-  accounts: Account[];
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
   importingTab?: boolean;
+  formState?: TransactionFormState;
+  onInitForm: () => void;
+  onUpdateForm: <K extends keyof TransactionFormState>(key: K, value: TransactionFormState[K]) => void;
+  onUpdateSharedForm: <K extends keyof TransactionFormState['shared']>(key: K, value: TransactionFormState['shared'][K]) => void;
+  onUpdateDirectForm: <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]) => void;
+  onUpdateParticipant: <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
+  onAddParticipant: () => void;
+  onSetAllJoined: () => void;
   onCloseClick: () => void;
-  onCreate: (transaction: Partial<Transaction>) => void;
-  onUpdate: (transaction: Transaction) => void;
-  onDelete: (transaction: Transaction) => void;
   onChangeTabClick: () => void;
+  onSave: () => void;
+  onDelete: () => void;
 }
 
 export default class EditEntry extends PureComponent<Props> {
 
-  getValues() {
-    return (this.refs.form as any).getValues();
+  componentDidMount() {
+    this.props.onInitForm();
   }
 
-  handleSubmit(event: any) {
+  handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    var values = this.getValues();
-
-    if (!this.validate(values)) {
+    if (!validate(this.props.formState as TransactionFormState)) {
       alert('Please fill in all fields and have at least two participants and one person who paid.');
       return;
     }
 
-    var data: Partial<Transaction> = {
-      description: values.description,
-      transactionType: values.transactionType
-    };
-
-    if (values.transactionType === TransactionType.DIRECT) {
-      data.participants = this.getParticantsFromDirect(values.direct);
-    } else {
-      data.participants = this.normalizeParticipants(values.participants);
-    }
-
-    data.date = new Date(values.date).toJSON();
-    data.timestamp = new Date().toJSON();
-    if (this.props.data) {
-      this.props.onUpdate(iobject.merge(this.props.data, data) as Transaction);
-    } else {
-      this.props.onCreate(data);
-    }
-  }
-
-  getParticantsFromDirect(direct: any): Account[] {
-    return [
-      {
-        participant: direct.from,
-        amount: direct.amount
-      },
-      {
-        participant: direct.to,
-        amount: -direct.amount
-      }
-    ];
-  }
-
-  normalizeParticipants(rawParticipants: any): Account[] {
-    return (
-      rawParticipants
-      .filter(function (participant: any) {
-        return participant.status > 0;
-      })
-      .map(function (participant: any) {
-        return {
-          participant: participant.participant,
-          amount: participant.amount
-        };
-      })
-    );
-  }
-
-  validate(data: any): boolean {
-    if (!data.description) {
-      return false;
-    }
-
-    if (!data.date) {
-      return false;
-    }
-
-    if (data.transactionType === 'DIRECT') {
-      return this.validateDirect(data.direct);
-    } else {
-      return this.validateShared(data.participants);
-    }
-  }
-
-  validateDirect(data: any): boolean {
-    return !!data.from && !!data.to && !!data.amount && data.from !== data.to;
-  }
-
-  validateShared(participants: any[]): boolean {
-    var joinedParticipants = participants.filter(function (participant) {
-      return participant.status > 0;
-    });
-
-    if (joinedParticipants.length < 2) {
-      return false;
-    }
-
-    // every joined participant needs a name
-    for (var i = 0; i < joinedParticipants.length; i++) {
-      if (!joinedParticipants[i].participant) {
-        return false;
-      }
-    }
-
-    var payingParticipants = joinedParticipants.filter(function (participant) {
-      return participant.amount;
-    });
-    if (!payingParticipants.length) {
-      return false;
-    }
-
-    return true;
-  }
-
-  handleDelete() {
-    if (this.props.data) {
-      this.props.onDelete(this.props.data);
-    } else {
-      throw new Error();
-    }
+    this.props.onSave();
   }
 
   renderHeader(showSaveButton: boolean): ReactFragment {
@@ -160,34 +64,42 @@ export default class EditEntry extends PureComponent<Props> {
     );
   }
 
-  renderContent(): ReactFragment {
+  renderContent() {
     if (this.props.remoteTabError) {
       return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
     }
 
-    if (this.props.mode === 'edit' && !this.props.data) {
+    if (this.props.mode === 'edit' && !this.props.formState) {
       var message = 'Could not find transaction.';
       return el(LoadError, {message: message, onOkClick: this.props.onCloseClick});
+    }
+
+    if (!this.props.formState) {
+      return null;
     }
 
     return (
       el(Form, {
         mode: this.props.mode,
-        data: this.props.data,
-        accounts: this.props.accounts,
+        data: this.props.formState,
+        onUpdateForm: this.props.onUpdateForm,
+        onUpdateSharedForm: this.props.onUpdateSharedForm,
+        onUpdateDirectForm: this.props.onUpdateDirectForm,
+        onUpdateParticipant: this.props.onUpdateParticipant,
+        onAddParticipant: this.props.onAddParticipant,
+        onSetAllJoined: this.props.onSetAllJoined,
         onSubmit: this.handleSubmit,
-        onDelete: this.handleDelete,
-        ref: 'form'
+        onDelete: this.props.onDelete,
       })
     );
   }
 
-  render(): ReactFragment {
+  render() {
     var isLoading = this.props.checkingRemoteTab || this.props.importingTab;
 
     return (
       el('div', {className: 'scene editEntryScene'},
-        this.renderHeader(!isLoading && !(this.props.remoteTabError || (this.props.mode === 'edit' && !this.props.data))),
+        this.renderHeader(!isLoading && !(this.props.remoteTabError || (this.props.mode === 'edit' && !this.props.formState))),
         el(Loader, {show: isLoading},
           this.renderContent()
         )

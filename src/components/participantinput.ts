@@ -1,82 +1,43 @@
 import React, { PureComponent } from 'react';
 import ParticipantStatusInput from './participantstatusinput';
+import { TransactionFormParticipantStatus as Status, TransactionFormSharedState } from '../types';
 
 var el = React.createElement;
 
 interface Props {
-  participant: string;
-  value?: { amount: number };
+  id: string;
+  participant?: string;
+  status: Status;
+  amount?: number;
+  onChange: <K extends 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
 }
 
-interface State {
-  status: 0 | 1 | 2;  // 0: none, 1: joined, 2: paid
-}
+export default class ParticipantInput extends PureComponent<Props> {
 
-export default class ParticipantInput extends PureComponent<Props, State> {
-
-  constructor(props: Props) {
-    super(props);
-    var status: State['status'] = 0;
-
-    if (props.value) {
-      if (props.value.amount) {
-        status = 2;
-      } else {
-        status = 1;
-      }
-    }
-    this.state = {
-      status: status
-    };
+  handleJoinedChange = () => {
+    const status = this.props.status === Status.NONE ? Status.JOINED : Status.NONE;
+    this.props.onChange(this.props.id, 'status', status);
   }
 
-  handleJoinedChange() {
-    if (this.state.status === 0) {
-      this.setState({status: 1});
-    } else {
-      this.setState({status: 0});
-    }
-  }
-
-  handlePaidChange() {
-    if (this.state.status < 2) {
-      this.setState({status: 2}, (this.refs.status as ParticipantStatusInput).focusAmount);
-    } else {
-      this.setState({status: 1});
-    }
-  }
-
-  getValue() {
-    var amount = this.state.status === 2 ? (this.refs.status as ParticipantStatusInput).getAmount() : 0;
-
-    return {
-      participant: this.props.participant,
-      status: this.state.status,
-      amount: amount
-    };
-  }
-
-  setJoined() {
-    if (this.state.status === 0) {
-      this.setState({status: 1});
-    }
+  handlePaidChange = () => {
+    const status = this.props.status < Status.PAID ? Status.PAID : Status.JOINED;
+    this.props.onChange(this.props.id, 'status', status);
   }
 
   render() {
-    var status = this.state.status;
+    const { status, amount } = this.props;
 
     return (
-      el('div', {className: 'participantInput' + (status > 0 ? ' selected' : '') + (status === 2 ? ' paid' : '')},
+      el('div', {className: 'participantInput' + (status > Status.NONE ? ' selected' : '') + (status === Status.PAID ? ' paid' : '')},
         el('span', {className: 'participant'},
           this.props.participant
         ),
         el(ParticipantStatusInput, {
-          status: status,
-          amount: this.props.value ? this.props.value.amount : undefined,
+          status,
+          amount,
           onJoinedChange: this.handleJoinedChange,
           onPaidChange: this.handlePaidChange,
-          // @ts-ignore
-          ref: 'status'
+          onAmountChange: (amount?: number) => this.props.onChange(this.props.id, 'amount', amount)
         })
       )
     );

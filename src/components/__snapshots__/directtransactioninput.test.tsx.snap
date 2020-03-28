@@ -6,6 +6,32 @@ exports[`renders empty 1`] = `
 >
   <div
     className="form-row"
+    style={null}
+  >
+    <div
+      className="form-row-input"
+    >
+      <select
+        className="full-width"
+        onChange={[Function]}
+        value=""
+      >
+        <option>
+          Jan
+        </option>
+        <option>
+          Martin
+        </option>
+        <option
+          value="NEW_PARTICIPANT"
+        >
+          New participant…
+        </option>
+      </select>
+    </div>
+  </div>
+  <div
+    className="form-row"
     style={
       Object {
         "display": "none",
@@ -15,27 +41,11 @@ exports[`renders empty 1`] = `
     <div
       className="form-row-input"
     >
-      <select
-        className="full-width"
-        onChange={[Function]}
-        value="New participant…"
-      >
-        <option>
-          New participant…
-        </option>
-      </select>
-    </div>
-  </div>
-  <div
-    className="form-row"
-    style={null}
-  >
-    <div
-      className="form-row-input"
-    >
       <input
+        onChange={[Function]}
         placeholder="Name …"
         type="text"
+        value=""
       />
     </div>
   </div>
@@ -51,10 +61,38 @@ exports[`renders empty 1`] = `
       />
     </svg>
     <input
+      onChange={[Function]}
       placeholder={0}
       step="any"
       type="number"
+      value=""
     />
+  </div>
+  <div
+    className="form-row"
+    style={null}
+  >
+    <div
+      className="form-row-input"
+    >
+      <select
+        className="full-width"
+        onChange={[Function]}
+        value=""
+      >
+        <option>
+          Jan
+        </option>
+        <option>
+          Martin
+        </option>
+        <option
+          value="NEW_PARTICIPANT"
+        >
+          New participant…
+        </option>
+      </select>
+    </div>
   </div>
   <div
     className="form-row"
@@ -67,27 +105,11 @@ exports[`renders empty 1`] = `
     <div
       className="form-row-input"
     >
-      <select
-        className="full-width"
-        onChange={[Function]}
-        value="New participant…"
-      >
-        <option>
-          New participant…
-        </option>
-      </select>
-    </div>
-  </div>
-  <div
-    className="form-row"
-    style={null}
-  >
-    <div
-      className="form-row-input"
-    >
       <input
+        onChange={[Function]}
         placeholder="Name …"
         type="text"
+        value=""
       />
     </div>
   </div>
@@ -111,12 +133,14 @@ exports[`renders prefilled 1`] = `
         value="Martin"
       >
         <option>
-          Martin
-        </option>
-        <option>
           Jan
         </option>
         <option>
+          Martin
+        </option>
+        <option
+          value="NEW_PARTICIPANT"
+        >
           New participant…
         </option>
       </select>
@@ -134,8 +158,10 @@ exports[`renders prefilled 1`] = `
       className="form-row-input"
     >
       <input
+        onChange={[Function]}
         placeholder="Name …"
         type="text"
+        value=""
       />
     </div>
   </div>
@@ -151,10 +177,11 @@ exports[`renders prefilled 1`] = `
       />
     </svg>
     <input
-      defaultValue={1}
+      onChange={[Function]}
       placeholder={0}
       step="any"
       type="number"
+      value={11}
     />
   </div>
   <div
@@ -170,12 +197,14 @@ exports[`renders prefilled 1`] = `
         value="Jan"
       >
         <option>
-          Martin
-        </option>
-        <option>
           Jan
         </option>
         <option>
+          Martin
+        </option>
+        <option
+          value="NEW_PARTICIPANT"
+        >
           New participant…
         </option>
       </select>
@@ -193,8 +222,10 @@ exports[`renders prefilled 1`] = `
       className="form-row-input"
     >
       <input
+        onChange={[Function]}
         placeholder="Name …"
         type="text"
+        value=""
       />
     </div>
   </div>

@@ -7,6 +7,7 @@ it('renders prefilled input', () => {
     .create(
       <DateInput
         date='2020-03-22'
+        onChange={jest.fn()}
       />
     )
     .toJSON();

@@ -92,8 +92,6 @@ export default class DbManager {
 
   async updateDoc(entity: Entity) {
     const doc = this.entityToDoc(entity);
-    console.log(this.dbs);
-    console.log(doc);
     await this.dbs[entity.tabId].updateDoc(doc);
   }
 

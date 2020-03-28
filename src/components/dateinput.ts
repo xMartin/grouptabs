@@ -1,66 +1,47 @@
-import React, { PureComponent, SyntheticEvent, ReactFragment } from 'react';
+import React, { PureComponent, SyntheticEvent } from 'react';
 import dateUtils from '../util/date';
 
 var el = React.createElement;
 
 interface Props {
-  date?: string;
-}
-
-interface State {
   date: string;
+  onChange: (date: string) => void;
 }
 
-export default class DateInput extends PureComponent<Props, State> {
+export default class DateInput extends PureComponent<Props> {
 
-  constructor(props: Props) {
-    super(props);
-    var inputDate = this.props.date && dateUtils.parseDate(this.props.date);
-    this.state = {
-      date: dateUtils.formatDate(inputDate || new Date())
-    };
+  handleTodayClick = () => {
+    this.props.onChange(dateUtils.formatDate(new Date()));
   }
 
-  handleTodayClick() {
-    this.setState({
-      date: dateUtils.formatDate(new Date())
-    });
-  }
-
-  handleYesterdayClick() {
+  handleYesterdayClick = () => {
     var yesterday = dateUtils.addDays(new Date(), -1);
-    this.setState({
-      date: dateUtils.formatDate(yesterday)
-    });
+    this.props.onChange(dateUtils.formatDate(yesterday));
   }
 
-  handleDateChange(event: SyntheticEvent<HTMLInputElement>) {
+  handleDateChange = (event: SyntheticEvent<HTMLInputElement>) => {
     var value = event.currentTarget.value;
-    this.setState({
-      date: value
-    });
+    this.props.onChange(value);
   }
 
-  getValue() {
-    return this.state.date;
-  }
+  render() {
+    const { date } = this.props;
 
-  render(): ReactFragment {
     return (
       el('div', {className: 'form-row-input date-input'},
         el('button', {
           type: 'button',
-          className: dateUtils.isToday(this.state.date) ? 'selected' : '',
+          className: dateUtils.isToday(date) ? 'selected' : '',
           onClick: this.handleTodayClick
         }, 'today'),
         el('button', {
           type: 'button',
-          className: dateUtils.isYesterday(this.state.date) ? 'selected' : '',
+          className: dateUtils.isYesterday(date) ? 'selected' : '',
           onClick: this.handleYesterdayClick
         }, 'yesterday'),
         el('input', {
           type: 'date',
-          value: this.state.date,
+          value: date,
           onChange: this.handleDateChange
         })
       )

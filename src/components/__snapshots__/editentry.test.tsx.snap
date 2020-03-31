@@ -106,7 +106,7 @@ exports[`renders empty form 1`] = `
               <input
                 onChange={[Function]}
                 type="date"
-                value="2020-03-31"
+                value="2020-02-20"
               />
             </div>
           </div>
@@ -341,12 +341,14 @@ exports[`renders empty form 1`] = `
               className="form-row-input"
             >
               <button
+                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
               </button>
               <button
                 className="all-joined"
+                onClick={[MockFunction]}
                 type="button"
               >
                 all joined
@@ -768,12 +770,14 @@ exports[`renders prefilled form 1`] = `
               className="form-row-input"
             >
               <button
+                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
               </button>
               <button
                 className="all-joined"
+                onClick={[MockFunction]}
                 type="button"
               >
                 all joined

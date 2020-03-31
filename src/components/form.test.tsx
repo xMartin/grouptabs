@@ -4,6 +4,27 @@ import Form from './form';
 import { TransactionType, DocumentType } from '../types';
 import { createFormData } from '../util/transactionform';
 
+let realDate: any;
+
+beforeAll(() => {
+  const currentDate = new Date('2020-02-20T20:20:20.202Z');
+  realDate = Date;
+  global.Date = class extends Date {
+    constructor(date: any, ...args: any[]) {
+      if (date) {
+        // @ts-ignore
+        return super(date, ...args);
+      }
+
+      return currentDate;
+    }
+  } as any;
+});
+
+afterAll(() => {
+  global.Date = realDate;
+});
+
 it('renders empty form', () => {
   const tree = renderer
     .create(

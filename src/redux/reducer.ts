@@ -2,7 +2,7 @@ import iarray from '../util/immutablearray';
 import iobject from '../util/immutableobject';
 import { ActionMap, DocumentType, Entity, TransactionFormState, TransactionFormParticipantStatus } from '../types';
 import { Reducer } from 'redux';
-import { GTAction, UPDATE_FROM_DB, CREATE_TAB, CHECK_REMOTE_TAB, CHECK_REMOTE_TAB_FAILURE, IMPORT_TAB, CREATE_OR_UPDATE_TRANSACTION, REMOVE_TRANSACTION, SET_TRANSACTION_FORM, RESET_TRANSACTION_FORM, SET_ERROR, ROUTE_TABS, ROUTE_TAB, UPDATE_TRANSACTION_FORM, UPDATE_TRANSACTION_DIRECT_FORM, UPDATE_TRANSACTION_PARTICIPANT, ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM } from './actioncreators';
+import { GTAction, UPDATE_FROM_DB, CREATE_TAB, CHECK_REMOTE_TAB, CHECK_REMOTE_TAB_FAILURE, IMPORT_TAB, CREATE_OR_UPDATE_TRANSACTION, REMOVE_TRANSACTION, SET_TRANSACTION_FORM, RESET_TRANSACTION_FORM, SET_ERROR, ROUTE_TABS, ROUTE_TAB, UPDATE_TRANSACTION_FORM, UPDATE_TRANSACTION_DIRECT_FORM, UPDATE_TRANSACTION_PARTICIPANT, ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM, SET_CREATE_TAB_INPUT_VALUE, RESET_CREATE_TAB_INPUT_VALUE, SET_IMPORT_TAB_INPUT_VALUE, RESET_IMPORT_TAB_INPUT_VALUE } from './actioncreators';
 import { createNewParticipant } from '../util/transactionform';
 
 interface AppState {
@@ -13,6 +13,8 @@ interface AppState {
   docsById: {[id: string]: Entity};
   tabs: string[];
   transactionsByTab: {[tabId: string]: string[]};
+  createTabInput?: string;
+  importTabInput?: string;
   transactionForm?: TransactionFormState;
   error: any;
 }
@@ -131,6 +133,30 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
           createOrUpdate: [],
           delete: [action.doc]
         })
+      };
+
+    case SET_CREATE_TAB_INPUT_VALUE:
+      return {
+        ...state,
+        createTabInput: action.value,
+      };
+
+    case RESET_CREATE_TAB_INPUT_VALUE:
+      return {
+        ...state,
+        createTabInput: initialState.createTabInput,
+      };
+
+    case SET_IMPORT_TAB_INPUT_VALUE:
+      return {
+        ...state,
+        importTabInput: action.value,
+      };
+
+    case RESET_IMPORT_TAB_INPUT_VALUE:
+      return {
+        ...state,
+        importTabInput: initialState.importTabInput,
       };
 
     case SET_TRANSACTION_FORM:

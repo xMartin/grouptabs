@@ -30,6 +30,8 @@ interface Props {
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
   importingTab?: boolean;
+  createTabInputValue?: string;
+  importTabInputValue?: string;
   transactions: Transaction[];
   accounts: Account[];
   total: number;
@@ -37,7 +39,9 @@ interface Props {
   tabDataMissing?: boolean;
   transactionFormState?: TransactionFormState;
   onNavigateToTabs: () => void;
+  onCreateTabInputChange: (value: string) => void;
   onCreateTab: (name: string) => void;
+  onImportTabInputChange: (value: string) => void;
   onImportTab: (id: string) => void;
   onSelectTab: (id: string) => void;
   onNavigateToAddTransaction: (tabId: string) => void;
@@ -105,8 +109,12 @@ export default class App extends Component<Props> {
           visible: this.props.location.type === 'ROUTE_TABS',
           checkingRemoteTab: this.props.checkingRemoteTab,
           remoteTabError: this.props.remoteTabError,
+          createTabInputValue: this.props.createTabInputValue,
+          importTabInputValue: this.props.importTabInputValue,
           onTabClick: this.props.onSelectTab,
+          onCreateTabInputChange: this.props.onCreateTabInputChange,
           onCreateNewTab: this.props.onCreateTab,
+          onImportTabInputChange: this.props.onImportTabInputChange,
           onImportTab: this.props.onImportTab
         }),
         el(Main, {

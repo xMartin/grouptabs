@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import selectors from './redux/selectors';
-import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addOrUpdateTransaction, removeTransaction, initTransactionForm, resetTransactionForm, updateTransactionForm, updateTransactionSharedForm, updateTransactionDirectForm, updateTransactionParticipant, addParticipantToTransactionSharedForm, setAllJoinedOnTransactionSharedForm } from './redux/actioncreators';
+import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addOrUpdateTransaction, removeTransaction, initTransactionForm, resetTransactionForm, updateTransactionForm, updateTransactionSharedForm, updateTransactionDirectForm, updateTransactionParticipant, addParticipantToTransactionSharedForm, setAllJoinedOnTransactionSharedForm, setCreateTabInputValue, setImportTabInputValue } from './redux/actioncreators';
 import App from './components/app';
 import { AllState } from "./";
 import { Transaction } from "./types";
@@ -15,6 +15,8 @@ function mapStateToProps (state: AllState) {
     checkingRemoteTab: state.app.checkingRemoteTab,
     remoteTabError: state.app.remoteTabError,
     importingTab: state.app.importingTab,
+    createTabInputValue: state.app.createTabInput,
+    importTabInputValue: state.app.importTabInput,
     tabs: selectors.getTabs(state),
     transactions: selectors.getTransactions(state),
     accounts: selectors.getAccounts(state),
@@ -25,7 +27,9 @@ function mapStateToProps (state: AllState) {
 
 var mapDispatchToProps = {
   onNavigateToTabs: navigateToTabs,
+  onCreateTabInputChange: setCreateTabInputValue,
   onCreateTab: createTab,
+  onImportTabInputChange: setImportTabInputValue,
   onImportTab: importTab,
   onSelectTab: selectTab,
   onNavigateToAddTransaction: navigateToAddTransaction,

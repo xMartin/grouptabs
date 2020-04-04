@@ -12,6 +12,10 @@ export const IMPORT_TAB = 'IMPORT_TAB';
 export const UPDATE_FROM_DB = 'UPDATE_FROM_DB';
 export const CREATE_OR_UPDATE_TRANSACTION = 'CREATE_OR_UPDATE_TRANSACTION';
 export const REMOVE_TRANSACTION = 'REMOVE_TRANSACTION';
+export const SET_CREATE_TAB_INPUT_VALUE = 'SET_CREATE_TAB_INPUT_VALUE';
+export const RESET_CREATE_TAB_INPUT_VALUE = 'RESET_CREATE_TAB_INPUT_VALUE';
+export const SET_IMPORT_TAB_INPUT_VALUE = 'SET_IMPORT_TAB_INPUT_VALUE';
+export const RESET_IMPORT_TAB_INPUT_VALUE = 'RESET_IMPORT_TAB_INPUT_VALUE';
 export const SET_TRANSACTION_FORM = 'SET_TRANSACTION_FORM';
 export const RESET_TRANSACTION_FORM = 'RESET_TRANSACTION_FORM';
 export const UPDATE_TRANSACTION_FORM = 'UPDATE_TRANSACTION_FORM';
@@ -92,6 +96,42 @@ interface RemoveTransactionAction {
 const createRemoveTransactionAction = (doc: Transaction): RemoveTransactionAction => ({
   type: REMOVE_TRANSACTION,
   doc
+});
+
+interface SetCreateTabInputValueAction {
+  type: typeof SET_CREATE_TAB_INPUT_VALUE;
+  value: string;
+}
+
+export const setCreateTabInputValue = (value: string): SetCreateTabInputValueAction => ({
+  type: SET_CREATE_TAB_INPUT_VALUE,
+  value,
+});
+
+interface ResetCreateTabInputValueAction {
+  type: typeof RESET_CREATE_TAB_INPUT_VALUE;
+}
+
+export const resetCreateTabInputValue = (): ResetCreateTabInputValueAction => ({
+  type: RESET_CREATE_TAB_INPUT_VALUE,
+});
+
+interface SetImportTabInputValueAction {
+  type: typeof SET_IMPORT_TAB_INPUT_VALUE;
+  value: string;
+}
+
+export const setImportTabInputValue = (value: string): SetImportTabInputValueAction => ({
+  type: SET_IMPORT_TAB_INPUT_VALUE,
+  value,
+});
+
+interface ResetImportTabInputValueAction {
+  type: typeof RESET_IMPORT_TAB_INPUT_VALUE;
+}
+
+export const resetImportTabInputValue = (): ResetImportTabInputValueAction => ({
+  type: RESET_IMPORT_TAB_INPUT_VALUE,
 });
 
 interface SetTransactionFormAction {
@@ -235,7 +275,7 @@ export const navigateToAddTransaction = (tabId: string): NavigateToAddTransactio
   }
 });
 
-export type GTAction = CheckRemoteTabAction | CheckRemoteTabFailureAction | CreateTabAction | ImportTabAction | UpdateFromDbAction | CreateOrUpdateTransactionAction | RemoveTransactionAction | SetTransactionFormAction | ResetTransactionFormAction | UpdateTransactionFormAction<keyof TransactionFormState> | UpdateTransactionSharedFormAction<keyof TransactionFormState['shared']> | UpdateTransactionSharedFormAction<keyof TransactionFormState['shared']> | UpdateTransactionDirectFormAction<keyof TransactionFormState['direct']> | UpdateTransactionParticipantAction<'participant' | 'status' | 'amount'> | AddParticipantToTransactionSharedFormAction | SetAllJoinedOnTransactionSharedFormAction | SetErrorAction | SelectTabAction | NavigateToTabsAction | NavigateToUpdateTransactionAction | NavigateToAddTransactionAction;
+export type GTAction = CheckRemoteTabAction | CheckRemoteTabFailureAction | CreateTabAction | ImportTabAction | UpdateFromDbAction | CreateOrUpdateTransactionAction | RemoveTransactionAction | SetCreateTabInputValueAction | ResetCreateTabInputValueAction | SetImportTabInputValueAction | ResetImportTabInputValueAction | SetTransactionFormAction | ResetTransactionFormAction | UpdateTransactionFormAction<keyof TransactionFormState> | UpdateTransactionSharedFormAction<keyof TransactionFormState['shared']> | UpdateTransactionSharedFormAction<keyof TransactionFormState['shared']> | UpdateTransactionDirectFormAction<keyof TransactionFormState['direct']> | UpdateTransactionParticipantAction<'participant' | 'status' | 'amount'> | AddParticipantToTransactionSharedFormAction | SetAllJoinedOnTransactionSharedFormAction | SetErrorAction | SelectTabAction | NavigateToTabsAction | NavigateToUpdateTransactionAction | NavigateToAddTransactionAction;
 
 export type GTThunkAction = ThunkAction<Promise<void>, AllState, Services, GTAction>;
 
@@ -248,7 +288,7 @@ const generateTabId = () => {
   return result;
 };
 
-const checkTab = async (dispatch: (action: GTThunkAction | GTAction) => void, id: string, dbManager: DbManager, shouldNavigateToTab?: boolean): Promise<void> => {
+const checkTab = async (dispatch: (action: GTThunkAction | GTAction) => void, id: string, dbManager: DbManager, viaImportForm?: boolean): Promise<void> => {
   dispatch(createCheckRemoteTabAction());
 
   try {
@@ -260,8 +300,9 @@ const checkTab = async (dispatch: (action: GTThunkAction | GTAction) => void, id
       tabId: id
     }));
 
-    if (shouldNavigateToTab) {
+    if (viaImportForm) {
       dispatch(selectTab(id));
+      dispatch(resetImportTabInputValue());    
     }
 
     dbManager.connectTab(id)
@@ -305,6 +346,7 @@ export const createTab = (name: string): GTThunkAction => async (dispatch, getSt
 
   dispatch(createCreateTabAction(doc));
   dispatch(selectTab(id));
+  dispatch(resetCreateTabInputValue());
 
   await dbManager.createTab(doc);
 };

@@ -1,5 +1,5 @@
-import iarray from '../lang/iarray';
-import iobject from '../lang/iobject';
+import iarray from '../util/immutablearray';
+import iobject from '../util/immutableobject';
 import { ActionMap, DocumentType, Entity, TransactionFormState, TransactionFormParticipantStatus } from '../types';
 import { Reducer } from 'redux';
 import { GTAction, UPDATE_FROM_DB, CREATE_TAB, CHECK_REMOTE_TAB, CHECK_REMOTE_TAB_FAILURE, IMPORT_TAB, CREATE_OR_UPDATE_TRANSACTION, REMOVE_TRANSACTION, SET_TRANSACTION_FORM, RESET_TRANSACTION_FORM, SET_ERROR, ROUTE_TABS, ROUTE_TAB, UPDATE_TRANSACTION_FORM, UPDATE_TRANSACTION_DIRECT_FORM, UPDATE_TRANSACTION_PARTICIPANT, ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM } from './actioncreators';

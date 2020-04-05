@@ -1,13 +1,14 @@
 import React, { PureComponent } from 'react';
 import ParticipantInput from './participantinput';
 import NewParticipantInput from './newparticipantinput';
-import { TransactionFormState, TransactionFormParticipantInputType, TransactionFormSharedState } from '../types';
+import { TransactionFormState, TransactionFormParticipantInputType } from '../types';
+import { PropsFromRedux } from '../app';
 
 var el = React.createElement;
 
 interface Props {
   inputs: TransactionFormState['shared'];
-  onChangeParticipant: <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
+  onChangeParticipant: PropsFromRedux['onUpdateTransactionParticipant'];
 }
 
 export default class ParticipantsInputList extends PureComponent<Props> {

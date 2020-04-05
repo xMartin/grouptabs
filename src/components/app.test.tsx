@@ -4,7 +4,7 @@ import App from './app';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  const props = {
+  const props: any = {
     location: {
       type: '',
       payload: {}

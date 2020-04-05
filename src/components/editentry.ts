@@ -1,9 +1,9 @@
-import React, { PureComponent, ReactFragment, SyntheticEvent } from 'react';
+import React, { PureComponent, ReactFragment } from 'react';
 import Loader from './loader';
 import Form from './form';
 import LoadError from './loaderror';
-import { TransactionFormState, TransactionFormSharedState } from '../types';
-import { validate } from '../util/transactionform';
+import { TransactionFormState } from '../types';
+import { PropsFromRedux } from '../app';
 
 var el = React.createElement;
 
@@ -14,10 +14,10 @@ interface Props {
   importingTab?: boolean;
   formState?: TransactionFormState;
   onInitForm: () => void;
-  onUpdateForm: <K extends keyof TransactionFormState>(key: K, value: TransactionFormState[K]) => void;
-  onUpdateSharedForm: <K extends keyof TransactionFormState['shared']>(key: K, value: TransactionFormState['shared'][K]) => void;
-  onUpdateDirectForm: <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]) => void;
-  onUpdateParticipant: <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
+  onUpdateForm: PropsFromRedux['onUpdateTransactionForm'];
+  onUpdateSharedForm: PropsFromRedux['onUpdateTransactionSharedForm'];
+  onUpdateDirectForm: PropsFromRedux['onUpdateTransactionDirectForm'];
+  onUpdateParticipant: PropsFromRedux['onUpdateTransactionParticipant'];
   onAddParticipant: () => void;
   onSetAllJoined: () => void;
   onCloseClick: () => void;
@@ -30,17 +30,6 @@ export default class EditEntry extends PureComponent<Props> {
 
   componentDidMount() {
     this.props.onInitForm();
-  }
-
-  handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (!validate(this.props.formState as TransactionFormState)) {
-      alert('Please fill in all fields and have at least two participants and one person who paid.');
-      return;
-    }
-
-    this.props.onSave();
   }
 
   renderHeader(showSaveButton: boolean): ReactFragment {
@@ -88,7 +77,7 @@ export default class EditEntry extends PureComponent<Props> {
         onUpdateParticipant: this.props.onUpdateParticipant,
         onAddParticipant: this.props.onAddParticipant,
         onSetAllJoined: this.props.onSetAllJoined,
-        onSubmit: this.handleSubmit,
+        onSave: this.props.onSave,
         onDelete: this.props.onDelete,
       })
     );

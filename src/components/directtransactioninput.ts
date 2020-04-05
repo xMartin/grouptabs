@@ -2,6 +2,7 @@ import React, { PureComponent, SyntheticEvent } from 'react';
 import { TransactionFormState } from '../types';
 import { NEW_PARTICIPANT_OPTION } from '../util/transactionform';
 import { control } from '../util/form';
+import { PropsFromRedux } from '../app';
 
 var el = React.createElement;
 
@@ -9,7 +10,7 @@ var newParticipantOptionLabel = 'New participant…';
 
 interface Props {
   data: TransactionFormState['direct'];
-  onChange: <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]) => void;
+  onChange: PropsFromRedux['onUpdateTransactionDirectForm'];
 }
 
 export default class DirectTransactionInput extends PureComponent<Props> {

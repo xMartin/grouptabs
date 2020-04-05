@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import ParticipantStatusInput from './participantstatusinput';
-import { TransactionFormParticipantStatus as Status, TransactionFormSharedState } from '../types';
+import { TransactionFormParticipantStatus as Status } from '../types';
+import { PropsFromRedux } from '../app';
 
 var el = React.createElement;
 
@@ -9,7 +10,7 @@ interface Props {
   participant?: string;
   status: Status;
   amount?: number;
-  onChange: <K extends 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
+  onChange: PropsFromRedux['onUpdateTransactionParticipant'];
 }
 
 export default class ParticipantInput extends PureComponent<Props> {

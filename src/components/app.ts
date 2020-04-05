@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Account, Transaction, Tab, Info, TransactionFormState, TransactionFormSharedState } from '../types';
 import Tabs from './tabs';
 import Main from './main';
 import EditEntry from './editentry';
 import ErrorView from './error';
+import { PropsFromRedux } from '../app';
 
 var el = React.createElement;
 
@@ -18,47 +18,7 @@ function setTitle (input?: string) {
   }
 }
 
-interface Props {
-  location: {
-    type: string,
-    payload: any,
-  };
-  initialLoadingDone?: boolean;
-  tabInfo?: Info;
-  transaction?: Transaction;
-  tabs: Tab[];
-  checkingRemoteTab?: boolean;
-  remoteTabError?: string;
-  importingTab?: boolean;
-  createTabInputValue?: string;
-  importTabInputValue?: string;
-  transactions: Transaction[];
-  accounts: Account[];
-  total: number;
-  error?: any;
-  tabDataMissing?: boolean;
-  transactionFormState?: TransactionFormState;
-  onNavigateToTabs: () => void;
-  onCreateTabInputChange: (value: string) => void;
-  onCreateTab: (name: string) => void;
-  onImportTabInputChange: (value: string) => void;
-  onImportTab: (id: string) => void;
-  onSelectTab: (id: string) => void;
-  onNavigateToAddTransaction: (tabId: string) => void;
-  onNavigateToUpdateTransaction: (tabId: string, transactionId: string) => void;
-  onCloseTransaction: () => void;
-  onAddOrUpdateTransaction: () => void;
-  onRemoveTransaction: () => void;
-  onInitTransactionForm: () => void;
-  onResetTransactionForm: () => void;
-  onUpdateTransactionForm: <K extends keyof TransactionFormState>(key: K, value: TransactionFormState[K]) => void;
-  onUpdateTransactionSharedForm: <K extends keyof TransactionFormState['shared']>(key: K, value: TransactionFormState['shared'][K]) => void;
-  onUpdateTransactionDirectForm: <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]) => void;
-  onUpdateTransactionParticipant: <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
-  onAddParticipant: () => void;
-  onSetAllJoined: () => void;
-  onError: (error: any, info: any) => void;
-}
+interface Props extends PropsFromRedux {}
 
 export default class App extends Component<Props> {
 

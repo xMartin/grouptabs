@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import selectors from './redux/selectors';
 import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addOrUpdateTransaction, removeTransaction, initTransactionForm, resetTransactionForm, updateTransactionForm, updateTransactionSharedForm, updateTransactionDirectForm, updateTransactionParticipant, addParticipantToTransactionSharedForm, setAllJoinedOnTransactionSharedForm, setCreateTabInputValue, setImportTabInputValue } from './redux/actioncreators';
 import App from './components/app';
@@ -48,4 +48,12 @@ var mapDispatchToProps = {
   onError: setError
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+// https://react-redux.js.org/using-react-redux/static-typing#inferring-the-connected-props-automatically
+export type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(App);

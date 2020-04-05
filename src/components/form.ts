@@ -2,25 +2,38 @@ import React, { PureComponent, SyntheticEvent } from 'react';
 import DateInput from './dateinput';
 import DirectTransactionInput from './directtransactioninput';
 import ParticipantsInputList from './participantsinputlist';
-import { TransactionType, TransactionFormState, TransactionFormSharedState } from '../types';
+import { TransactionType, TransactionFormState } from '../types';
 import { control } from '../util/form';
+import { PropsFromRedux } from '../app';
+import { validate } from '../util/transactionform';
 
 var el = React.createElement;
 
 interface Props {
   mode: 'new' | 'edit';
   data: TransactionFormState;
-  onUpdateForm: <K extends keyof TransactionFormState>(key: K, value: TransactionFormState[K]) => void;
-  onUpdateSharedForm: <K extends keyof TransactionFormState['shared']>(key: K, value: TransactionFormState['shared'][K]) => void;
-  onUpdateDirectForm: <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]) => void;
-  onUpdateParticipant: <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]) => void;
+  onUpdateForm: PropsFromRedux['onUpdateTransactionForm'];
+  onUpdateSharedForm: PropsFromRedux['onUpdateTransactionSharedForm'];
+  onUpdateDirectForm: PropsFromRedux['onUpdateTransactionDirectForm'];
+  onUpdateParticipant: PropsFromRedux['onUpdateTransactionParticipant'];
   onAddParticipant: () => void;
   onSetAllJoined: () => void;
-  onSubmit: (event: SyntheticEvent<HTMLFormElement>) => void;
+  onSave: () => void;
   onDelete: () => void;
 }
 
 export default class Form extends PureComponent<Props> {
+
+  handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!validate(this.props.data)) {
+      alert('Please fill in all fields and have at least two participants and one person who paid.');
+      return;
+    }
+
+    this.props.onSave();
+  }
 
   handleDelete = () => {
     if (confirm('Do you really want to delete the transaction?')) {  // eslint-disable-line no-restricted-globals
@@ -38,10 +51,10 @@ export default class Form extends PureComponent<Props> {
   }
 
   render() {
-    const { mode, data, onSubmit, onUpdateForm, onUpdateDirectForm } = this.props;
+    const { mode, data, onUpdateForm, onUpdateDirectForm } = this.props;
 
     return (
-      el('form', {id: 'edit-entry-form', onSubmit},
+      el('form', {id: 'edit-entry-form', onSubmit: this.handleSubmit},
         el('div', {className: 'form'},
           el('div', {className: 'form-row'},
             el('div', {className: 'form-row-input description'},

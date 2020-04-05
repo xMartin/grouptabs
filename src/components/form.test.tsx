@@ -37,7 +37,7 @@ it('renders empty form', () => {
         onUpdateParticipant={jest.fn()}
         onAddParticipant={jest.fn()}
         onSetAllJoined={jest.fn()}
-        onSubmit={jest.fn()}
+        onSave={jest.fn()}
         onDelete={jest.fn()}
       />
     )
@@ -87,7 +87,7 @@ it('renders prefilled form', () => {
         onUpdateParticipant={jest.fn()}
         onAddParticipant={jest.fn()}
         onSetAllJoined={jest.fn()}
-        onSubmit={jest.fn()}
+        onSave={jest.fn()}
         onDelete={jest.fn()}
       />
     )

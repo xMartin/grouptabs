@@ -31,10 +31,14 @@ interface State {
 
 export default class Main extends PureComponent<Props, State> {
 
+  private transactionsHeading: React.RefObject<HTMLElement>;
+
   scroller?: any;
 
   constructor(props: Props) {
     super(props);
+
+    this.transactionsHeading = React.createRef();
 
     this.state = {
       transactionsHeadingIsOutOfViewport: false
@@ -60,13 +64,13 @@ export default class Main extends PureComponent<Props, State> {
   }
 
   checkTransactionsHeadingVisibility = () => {
-    if (!this.refs.transactionsHeading) {
+    if (!this.transactionsHeading.current) {
       return;
     }
 
     var scrollBottomY = window.innerHeight + window.scrollY;
     // @ts-ignore
-    var headingY = this.refs.transactionsHeading.offsetTop;
+    var headingY = this.transactionsHeading.current.offsetTop;
     var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
     if (transactionsHeadingIsOutOfViewport !== this.state.transactionsHeadingIsOutOfViewport) {
       this.setState({
@@ -83,7 +87,7 @@ export default class Main extends PureComponent<Props, State> {
   };
 
   handleTransitionsTeaserClick = () => {
-    this.scroller.animateScroll(this.refs.transactionsHeading);
+    this.scroller.animateScroll(this.transactionsHeading.current);
   };
 
   renderHeader(showAddButton?: boolean) {
@@ -112,7 +116,7 @@ export default class Main extends PureComponent<Props, State> {
           el(Summary, {accounts: this.props.accounts})
         ),
         el('div', {className: 'row'},
-          el('h3', {ref: 'transactionsHeading', className: 'transactions-heading'}, 'Transactions'),
+          el('h3', {ref: this.transactionsHeading, className: 'transactions-heading'}, 'Transactions'),
           (
             this.state.transactionsHeadingIsOutOfViewport &&
             el('h3', {

@@ -351,10 +351,17 @@ export const createTab = (name: string): GTThunkAction => async (dispatch, getSt
   await dbManager.createTab(doc);
 };
 
-export const importTab = (id: string): GTThunkAction => (dispatch, getState, { dbManager }) => {
+export const importTab = (id: string): GTThunkAction => async (dispatch, getState, { dbManager }) => {
   id = id.toLowerCase();
   // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
   id = id.replace(/.*?([a-z0-9]+$)/, '$1');
+
+  // if tab is already imported, just show it
+  if (getState().app.tabs.includes(id)) {
+    dispatch(selectTab(id));
+    dispatch(resetImportTabInputValue());
+    return;
+  }
 
   return checkTab(dispatch, id, dbManager, true);
 };

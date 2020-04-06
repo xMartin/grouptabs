@@ -1,6 +1,6 @@
 export interface ActionMap {
-  createOrUpdate: any[];
-  delete: any[];
+  createOrUpdate: Entity[];
+  delete: Entity[];
 }
 
 export enum DocumentType {

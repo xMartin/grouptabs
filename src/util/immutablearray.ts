@@ -1,26 +1,22 @@
 // immutable array helpers
 
 export default class ImmutableArrayHelper {
-  static add(array: any[], item: any): any[] {
-    return array.concat(item);
-  }
-
-  static addUniq(array: any[], item: any): any[] {
+  static addUniq<T>(array: T[], item: T): T[] {
     var index = array.indexOf(item);
     if (index !== -1) {
       return array;
     }
 
-    return ImmutableArrayHelper.add(array, item);
+    return array.concat(item);
   }
 
-  static remove(array: any[], index: number): any[] {
+  static remove<T>(array: T[], index: number): T[] {
     array = array.slice();  // copy
     array.splice(index, 1);
     return array;
   }
 
-  static removeItem(array: any[], item: any): any[] {
+  static removeItem<T >(array: T[], item: T): T[] {
     var index = array.indexOf(item);
 
     if (index !== -1) {

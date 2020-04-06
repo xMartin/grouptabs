@@ -1,5 +1,4 @@
 import iarray from '../util/immutablearray';
-import iobject from '../util/immutableobject';
 import { ActionMap, DocumentType, Entity, TransactionFormState, TransactionFormParticipantStatus } from '../types';
 import { Reducer } from 'redux';
 import { GTAction, UPDATE_FROM_DB, CREATE_TAB, CHECK_REMOTE_TAB, CHECK_REMOTE_TAB_FAILURE, IMPORT_TAB, CREATE_OR_UPDATE_TRANSACTION, REMOVE_TRANSACTION, SET_TRANSACTION_FORM, RESET_TRANSACTION_FORM, SET_ERROR, ROUTE_TABS, ROUTE_TAB, UPDATE_TRANSACTION_FORM, UPDATE_TRANSACTION_DIRECT_FORM, UPDATE_TRANSACTION_PARTICIPANT, ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM, SET_CREATE_TAB_INPUT_VALUE, RESET_CREATE_TAB_INPUT_VALUE, SET_IMPORT_TAB_INPUT_VALUE, RESET_IMPORT_TAB_INPUT_VALUE } from './actioncreators';
@@ -42,12 +41,16 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
       return;
     }
 
-    docsById = iobject.remove(docsById, doc.id);
+    docsById = {...docsById};
+    delete docsById[doc.id];
 
     var tabId = dbDoc.tabId;
     if (doc.type === DocumentType.TRANSACTION) {
       var transactions = transactionsByTab[tabId];
-      transactionsByTab = iobject.set(transactionsByTab, tabId, iarray.removeItem(transactions, doc.id));
+      transactionsByTab = {
+        ...transactionsByTab,
+        [tabId]: iarray.removeItem(transactions, doc.id)
+      };
     }
   });
 
@@ -55,17 +58,24 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
     var tabId = doc.tabId;
 
     if (doc.type === DocumentType.INFO) {
-      doc = iobject.merge(doc, {
-        id: 'info-' + tabId
-      });
+      doc = {
+        ...doc,
+        id: 'info-' + tabId,
+      };
 
       tabs = iarray.addUniq(tabs, tabId);
     }
 
-    docsById = iobject.set(docsById, doc.id, doc);
+    docsById = {
+      ...docsById,
+      [doc.id]: doc,
+    };
 
     if (doc.type === DocumentType.TRANSACTION) {
-      transactionsByTab = iobject.set(transactionsByTab, tabId, iarray.addUniq(transactionsByTab[tabId] || [], doc.id));
+      transactionsByTab = {
+        ...transactionsByTab,
+        [tabId]: iarray.addUniq(transactionsByTab[tabId] || [], doc.id)
+      };
     }
   });
 

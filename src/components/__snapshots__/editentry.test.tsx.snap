@@ -53,17 +53,19 @@ exports[`renders empty form 1`] = `
             className="form-row-input description"
           >
             <input
-              defaultValue=""
+              autoFocus={true}
+              onChange={[Function]}
               placeholder="Description"
               type="text"
+              value=""
             />
           </div>
           <div
             className="form-row-input transaction-type"
           >
             <select
-              defaultValue="SHARED"
               onChange={[Function]}
+              value="SHARED"
             >
               <option
                 value="SHARED"
@@ -104,7 +106,7 @@ exports[`renders empty form 1`] = `
               <input
                 onChange={[Function]}
                 type="date"
-                value="2020-03-24"
+                value="2020-02-20"
               />
             </div>
           </div>
@@ -134,9 +136,11 @@ exports[`renders empty form 1`] = `
                 <select
                   className="full-width"
                   onChange={[Function]}
-                  value="New participant…"
+                  value="NEW_PARTICIPANT"
                 >
-                  <option>
+                  <option
+                    value="NEW_PARTICIPANT"
+                  >
                     New participant…
                   </option>
                 </select>
@@ -150,8 +154,10 @@ exports[`renders empty form 1`] = `
                 className="form-row-input"
               >
                 <input
+                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -167,9 +173,11 @@ exports[`renders empty form 1`] = `
                 />
               </svg>
               <input
+                onChange={[Function]}
                 placeholder={0}
                 step="any"
                 type="number"
+                value=""
               />
             </div>
             <div
@@ -186,9 +194,11 @@ exports[`renders empty form 1`] = `
                 <select
                   className="full-width"
                   onChange={[Function]}
-                  value="New participant…"
+                  value="NEW_PARTICIPANT"
                 >
-                  <option>
+                  <option
+                    value="NEW_PARTICIPANT"
+                  >
                     New participant…
                   </option>
                 </select>
@@ -202,8 +212,10 @@ exports[`renders empty form 1`] = `
                 className="form-row-input"
               >
                 <input
+                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -229,8 +241,11 @@ exports[`renders empty form 1`] = `
                   className="participant"
                 >
                   <input
+                    autoFocus={true}
+                    onChange={[Function]}
                     placeholder="Name …"
                     type="text"
+                    value=""
                   />
                 </span>
                 <span
@@ -259,9 +274,11 @@ exports[`renders empty form 1`] = `
                   >
                     <input
                       disabled="disabled"
+                      onChange={[Function]}
                       placeholder={0}
                       step="any"
                       type="number"
+                      value=""
                     />
                   </span>
                 </span>
@@ -273,8 +290,11 @@ exports[`renders empty form 1`] = `
                   className="participant"
                 >
                   <input
+                    autoFocus={true}
+                    onChange={[Function]}
                     placeholder="Name …"
                     type="text"
+                    value=""
                   />
                 </span>
                 <span
@@ -303,9 +323,11 @@ exports[`renders empty form 1`] = `
                   >
                     <input
                       disabled="disabled"
+                      onChange={[Function]}
                       placeholder={0}
                       step="any"
                       type="number"
+                      value=""
                     />
                   </span>
                 </span>
@@ -319,14 +341,14 @@ exports[`renders empty form 1`] = `
               className="form-row-input"
             >
               <button
-                onClick={[Function]}
+                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
               </button>
               <button
                 className="all-joined"
-                onClick={[Function]}
+                onClick={[MockFunction]}
                 type="button"
               >
                 all joined
@@ -477,17 +499,18 @@ exports[`renders prefilled form 1`] = `
             className="form-row-input description"
           >
             <input
-              defaultValue="DESCRIPTION"
+              onChange={[Function]}
               placeholder="Description"
               type="text"
+              value="DESCRIPTION"
             />
           </div>
           <div
             className="form-row-input transaction-type"
           >
             <select
-              defaultValue="SHARED"
               onChange={[Function]}
+              value="SHARED"
             >
               <option
                 value="SHARED"
@@ -512,7 +535,7 @@ exports[`renders prefilled form 1`] = `
               className="form-row-input date-input"
             >
               <button
-                className="selected"
+                className=""
                 onClick={[Function]}
                 type="button"
               >
@@ -558,24 +581,26 @@ exports[`renders prefilled form 1`] = `
                 <select
                   className="full-width"
                   onChange={[Function]}
-                  value="Martin"
-                >
-                  <option>
-                    New participant…
-                  </option>
-                </select>
+                  value=""
+                />
               </div>
             </div>
             <div
               className="form-row"
-              style={null}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
             >
               <div
                 className="form-row-input"
               >
                 <input
+                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -591,10 +616,11 @@ exports[`renders prefilled form 1`] = `
                 />
               </svg>
               <input
-                defaultValue={5}
+                onChange={[Function]}
                 placeholder={0}
                 step="any"
                 type="number"
+                value=""
               />
             </div>
             <div
@@ -611,24 +637,26 @@ exports[`renders prefilled form 1`] = `
                 <select
                   className="full-width"
                   onChange={[Function]}
-                  value="New participant…"
-                >
-                  <option>
-                    New participant…
-                  </option>
-                </select>
+                  value=""
+                />
               </div>
             </div>
             <div
               className="form-row"
-              style={null}
+              style={
+                Object {
+                  "display": "none",
+                }
+              }
             >
               <div
                 className="form-row-input"
               >
                 <input
+                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
+                  value=""
                 />
               </div>
             </div>
@@ -648,15 +676,12 @@ exports[`renders prefilled form 1`] = `
               className="form-row-input"
             >
               <div
-                className="newParticipantInput selected"
+                className="participantInput selected"
               >
                 <span
                   className="participant"
                 >
-                  <input
-                    placeholder="Name …"
-                    type="text"
-                  />
+                  Martin
                 </span>
                 <span
                   className="participationStatus"
@@ -684,23 +709,22 @@ exports[`renders prefilled form 1`] = `
                   >
                     <input
                       disabled="disabled"
+                      onChange={[Function]}
                       placeholder={0}
                       step="any"
                       type="number"
+                      value={5}
                     />
                   </span>
                 </span>
               </div>
               <div
-                className="newParticipantInput selected"
+                className="participantInput selected"
               >
                 <span
                   className="participant"
                 >
-                  <input
-                    placeholder="Name …"
-                    type="text"
-                  />
+                  Jan
                 </span>
                 <span
                   className="participationStatus"
@@ -728,9 +752,11 @@ exports[`renders prefilled form 1`] = `
                   >
                     <input
                       disabled="disabled"
+                      onChange={[Function]}
                       placeholder={0}
                       step="any"
                       type="number"
+                      value={0}
                     />
                   </span>
                 </span>
@@ -744,14 +770,14 @@ exports[`renders prefilled form 1`] = `
               className="form-row-input"
             >
               <button
-                onClick={[Function]}
+                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
               </button>
               <button
                 className="all-joined"
-                onClick={[Function]}
+                onClick={[MockFunction]}
                 type="button"
               >
                 all joined

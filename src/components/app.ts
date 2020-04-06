@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Account, Transaction, Tab, Info } from '../types';
 import Tabs from './tabs';
 import Main from './main';
 import EditEntry from './editentry';
 import ErrorView from './error';
+import { PropsFromRedux } from '../app';
 
 var el = React.createElement;
 
@@ -18,35 +18,7 @@ function setTitle (input?: string) {
   }
 }
 
-interface Props {
-  location: {
-    type: string,
-    payload: any,
-  };
-  initialLoadingDone?: boolean;
-  tabInfo?: Info;
-  transaction?: Transaction;
-  tabs: Tab[];
-  checkingRemoteTab?: boolean;
-  remoteTabError?: string;
-  importingTab?: boolean;
-  transactions: Transaction[];
-  accounts: Account[];
-  total: number;
-  error?: any;
-  tabDataMissing?: boolean;
-  onNavigateToTabs: () => void;
-  onCreateTab: (name: string) => void;
-  onImportTab: (id: string) => void;
-  onSelectTab: (id: string) => void;
-  onNavigateToAddTransaction: (tabId: string) => void;
-  onNavigateToUpdateTransaction: (tabId: string, transactionId: string) => void;
-  onCloseTransaction: () => void;
-  onAddTransaction: (transaction: Partial<Transaction>) => void;
-  onUpdateTransaction: (transaction: Transaction) => void;
-  onRemoveTransaction: (doc: Transaction) => void;
-  onError: (error: any, info: any) => void;
-}
+interface Props extends PropsFromRedux {}
 
 export default class App extends Component<Props> {
 
@@ -91,50 +63,61 @@ export default class App extends Component<Props> {
     }
 
     return (
-      el('div', {id: 'scenes'},
-        el(Tabs, {
-          data: this.props.tabs,
-          visible: this.props.location.type === 'ROUTE_TABS',
-          checkingRemoteTab: this.props.checkingRemoteTab,
-          remoteTabError: this.props.remoteTabError,
-          onTabClick: this.props.onSelectTab,
-          onCreateNewTab: this.props.onCreateTab,
-          onImportTab: this.props.onImportTab
-        }),
-        el(Main, {
-          tabInfo: this.props.tabInfo,
-          tabId: this.props.location.payload.tabId,
-          accounts: this.props.accounts,
-          transactions: this.props.transactions,
-          total: this.props.total,
-          visible: this.props.location.type === 'ROUTE_TAB',
-          checkingRemoteTab: this.props.checkingRemoteTab,
-          remoteTabError: this.props.remoteTabError,
-          importingTab: this.props.importingTab,
-          onChangeTabClick: this.props.onNavigateToTabs,
-          onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
-          onDetailsClick: this.props.onNavigateToUpdateTransaction
-        }),
-        (
-          !!this.props.initialLoadingDone
-          && (
-            this.props.location.type === 'ROUTE_NEW_TRANSACTION'
-            || this.props.location.type === 'ROUTE_TRANSACTION'
-          )
-        ) &&
-          el(EditEntry, {
-            mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
-            data: this.props.transaction,
+      el(React.StrictMode, null,
+        el('div', {id: 'scenes'},
+          el(Tabs, {
+            data: this.props.tabs,
+            visible: this.props.location.type === 'ROUTE_TABS',
+            checkingRemoteTab: this.props.checkingRemoteTab,
+            remoteTabError: this.props.remoteTabError,
+            createTabInputValue: this.props.createTabInputValue,
+            importTabInputValue: this.props.importTabInputValue,
+            onTabClick: this.props.onSelectTab,
+            onCreateTabInputChange: this.props.onCreateTabInputChange,
+            onCreateNewTab: this.props.onCreateTab,
+            onImportTabInputChange: this.props.onImportTabInputChange,
+            onImportTab: this.props.onImportTab
+          }),
+          el(Main, {
+            tabInfo: this.props.tabInfo,
+            tabId: this.props.location.payload.tabId,
             accounts: this.props.accounts,
+            transactions: this.props.transactions,
+            total: this.props.total,
+            visible: this.props.location.type === 'ROUTE_TAB',
             checkingRemoteTab: this.props.checkingRemoteTab,
             remoteTabError: this.props.remoteTabError,
             importingTab: this.props.importingTab,
             onChangeTabClick: this.props.onNavigateToTabs,
-            onCloseClick: this.props.onCloseTransaction,
-            onCreate: this.props.onAddTransaction,
-            onUpdate: this.props.onUpdateTransaction,
-            onDelete: this.props.onRemoveTransaction
-          })
+            onNavigateToAddTransaction: this.props.onNavigateToAddTransaction,
+            onDetailsClick: this.props.onNavigateToUpdateTransaction
+          }),
+          (
+            !!this.props.initialLoadingDone
+            && (
+              this.props.location.type === 'ROUTE_NEW_TRANSACTION'
+              || this.props.location.type === 'ROUTE_TRANSACTION'
+            )
+          ) &&
+            el(EditEntry, {
+              mode: this.props.location.type === 'ROUTE_NEW_TRANSACTION' ? 'new' : 'edit',
+              formState: this.props.transactionFormState,
+              checkingRemoteTab: this.props.checkingRemoteTab,
+              remoteTabError: this.props.remoteTabError,
+              importingTab: this.props.importingTab,
+              onChangeTabClick: this.props.onNavigateToTabs,
+              onCloseClick: this.props.onCloseTransaction,
+              onSave: this.props.onAddOrUpdateTransaction,
+              onDelete: this.props.onRemoveTransaction,
+              onInitForm: this.props.onInitTransactionForm,
+              onUpdateForm: this.props.onUpdateTransactionForm,
+              onUpdateSharedForm: this.props.onUpdateTransactionSharedForm,
+              onUpdateDirectForm: this.props.onUpdateTransactionDirectForm,
+              onUpdateParticipant: this.props.onUpdateTransactionParticipant,
+              onAddParticipant: this.props.onAddParticipant,
+              onSetAllJoined: this.props.onSetAllJoined,
+            })
+        )
       )
     );
   }

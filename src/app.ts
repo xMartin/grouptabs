@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import selectors from './redux/selectors';
-import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addTransaction, updateTransaction, removeTransaction } from './redux/actioncreators';
+import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addOrUpdateTransaction, removeTransaction, initTransactionForm, resetTransactionForm, updateTransactionForm, updateTransactionSharedForm, updateTransactionDirectForm, updateTransactionParticipant, addParticipantToTransactionSharedForm, setAllJoinedOnTransactionSharedForm, setCreateTabInputValue, setImportTabInputValue } from './redux/actioncreators';
 import App from './components/app';
 import { AllState } from "./";
 import { Transaction } from "./types";
@@ -15,25 +15,45 @@ function mapStateToProps (state: AllState) {
     checkingRemoteTab: state.app.checkingRemoteTab,
     remoteTabError: state.app.remoteTabError,
     importingTab: state.app.importingTab,
+    createTabInputValue: state.app.createTabInput,
+    importTabInputValue: state.app.importTabInput,
     tabs: selectors.getTabs(state),
     transactions: selectors.getTransactions(state),
     accounts: selectors.getAccounts(state),
+    transactionFormState: state.app.transactionForm,
     error: state.app.error
   };
 }
 
 var mapDispatchToProps = {
   onNavigateToTabs: navigateToTabs,
+  onCreateTabInputChange: setCreateTabInputValue,
   onCreateTab: createTab,
+  onImportTabInputChange: setImportTabInputValue,
   onImportTab: importTab,
   onSelectTab: selectTab,
   onNavigateToAddTransaction: navigateToAddTransaction,
   onNavigateToUpdateTransaction: navigateToUpdateTransaction,
   onCloseTransaction: closeTransaction,
-  onAddTransaction: addTransaction,
-  onUpdateTransaction: updateTransaction,
+  onAddOrUpdateTransaction: addOrUpdateTransaction,
   onRemoveTransaction: removeTransaction,
+  onInitTransactionForm: initTransactionForm,
+  onResetTransactionForm: resetTransactionForm,
+  onUpdateTransactionForm: updateTransactionForm,
+  onUpdateTransactionSharedForm: updateTransactionSharedForm,
+  onUpdateTransactionDirectForm: updateTransactionDirectForm,
+  onUpdateTransactionParticipant: updateTransactionParticipant,
+  onAddParticipant: addParticipantToTransactionSharedForm,
+  onSetAllJoined: setAllJoinedOnTransactionSharedForm,
   onError: setError
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+// https://react-redux.js.org/using-react-redux/static-typing#inferring-the-connected-props-automatically
+export type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(App);

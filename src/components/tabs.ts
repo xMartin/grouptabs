@@ -12,8 +12,12 @@ interface Props {
   visible?: boolean;
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
+  createTabInputValue?: string;
+  importTabInputValue?: string;
   onTabClick: (id: string) => void;
+  onCreateTabInputChange: (value: string) => void;
   onCreateNewTab: (name: string) => void;
+  onImportTabInputChange: (value: string) => void;
   onImportTab: (id: string) => void;
 }
 
@@ -73,7 +77,11 @@ export default class Tabs extends PureComponent<Props, State> {
             )
           ),
           el('div', {className: 'row'},
-            el(CreateForm, {onSubmit: this.props.onCreateNewTab})
+            el(CreateForm, {
+              tabName: this.props.createTabInputValue,
+              onTabNameChange: this.props.onCreateTabInputChange,
+              onSubmit: this.props.onCreateNewTab,
+            })
           ),
           el('div', {className: 'row'},
             this.state.hideImportForm
@@ -81,7 +89,9 @@ export default class Tabs extends PureComponent<Props, State> {
             : el(ImportForm, {
                 checkingRemoteTab: this.props.checkingRemoteTab,
                 remoteTabError: this.props.remoteTabError,
-                onSubmit: this.props.onImportTab
+                tabId: this.props.importTabInputValue,
+                onTabIdChange: this.props.onImportTabInputChange,
+                onSubmit: this.props.onImportTab,
               })
           )
         ),

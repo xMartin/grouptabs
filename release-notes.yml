@@ -3,6 +3,14 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.2.1
+    date: 2020-04-07
+    description: Bugfixes and improvements
+    fixed:
+      - Persist last opened tab on Android PWA (#171) 
+      - Handle case of importing an already imported tab (#172)
+    changed:
+      - Manage state of the transaction form globally together with the rest of the app's state using Redux
   - version: 1.2.0
     date: 2020-01-13
     description: Bugfixes and improvements

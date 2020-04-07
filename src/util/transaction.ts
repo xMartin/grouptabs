@@ -1,7 +1,6 @@
 import { Transaction, TransactionType } from "../types";
 
 export default {
-
   /**
    * Determines transaction type from transaction data.
    *
@@ -25,6 +24,5 @@ export default {
     }
 
     return TransactionType.SHARED;
-  }
-
+  },
 };

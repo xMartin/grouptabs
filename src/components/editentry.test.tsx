@@ -1,13 +1,17 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import EditEntry from './editentry';
-import { TransactionType, TransactionFormParticipantStatus, TransactionFormParticipantInputType } from '../types';
-import { createFormData } from '../util/transactionform';
+import React from "react";
+import renderer from "react-test-renderer";
+import EditEntry from "./editentry";
+import {
+  TransactionType,
+  TransactionFormParticipantStatus,
+  TransactionFormParticipantInputType,
+} from "../types";
+import { createFormData } from "../util/transactionform";
 
 let realDate: any;
 
 beforeAll(() => {
-  const currentDate = new Date('2020-02-20T20:20:20.202Z');
+  const currentDate = new Date("2020-02-20T20:20:20.202Z");
   realDate = Date;
   global.Date = class extends Date {
     constructor(date: any, ...args: any[]) {
@@ -25,11 +29,11 @@ afterAll(() => {
   global.Date = realDate;
 });
 
-it('renders loader when checking remote tab', () => {
+it("renders loader when checking remote tab", () => {
   const tree = renderer
     .create(
       <EditEntry
-        mode='new'
+        mode="new"
         checkingRemoteTab={true}
         onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
@@ -48,11 +52,11 @@ it('renders loader when checking remote tab', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('renders empty form', () => {
+it("renders empty form", () => {
   const tree = renderer
     .create(
       <EditEntry
-        mode='new'
+        mode="new"
         formState={createFormData([])}
         onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
@@ -71,11 +75,11 @@ it('renders empty form', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('renders loader in edit mode with no data', () => {
+it("renders loader in edit mode with no data", () => {
   const tree = renderer
     .create(
       <EditEntry
-        mode='edit'
+        mode="edit"
         onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
         onUpdateSharedForm={jest.fn()}
@@ -93,34 +97,34 @@ it('renders loader in edit mode with no data', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('renders prefilled form', () => {
+it("renders prefilled form", () => {
   const tree = renderer
     .create(
       <EditEntry
-        mode='edit'
+        mode="edit"
         formState={{
-          description: 'DESCRIPTION',
+          description: "DESCRIPTION",
           transactionType: TransactionType.SHARED,
-          date: '2020-03-24',
+          date: "2020-03-24",
           shared: [
             {
-              id: '1',
+              id: "1",
               inputType: TransactionFormParticipantInputType.EXISTING,
-              participant: 'Martin',
+              participant: "Martin",
               status: TransactionFormParticipantStatus.JOINED,
               amount: 5,
             },
             {
-              id: '2',
+              id: "2",
               inputType: TransactionFormParticipantInputType.EXISTING,
-              participant: 'Jan',
+              participant: "Jan",
               status: TransactionFormParticipantStatus.JOINED,
               amount: 0,
             },
           ],
           direct: {
-            options: []
-          }
+            options: [],
+          },
         }}
         onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}

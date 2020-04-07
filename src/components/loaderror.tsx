@@ -1,5 +1,5 @@
-import React, { memo } from 'react';
-import logo from '../images/logo.png';
+import React, { memo } from "react";
+import logo from "../images/logo.png";
 
 interface Props {
   message: string;
@@ -16,11 +16,13 @@ const LoadError: React.FC<Props> = ({ message, onOkClick }) => {
   };
 
   return (
-    <div className='load-error'>
-      <img src={logo} alt='' />
+    <div className="load-error">
+      <img src={logo} alt="" />
       <h2>Grouptabs</h2>
       <p>{message}</p>
-      <button className='create' onClick={handleButtonClick}>OK</button>
+      <button className="create" onClick={handleButtonClick}>
+        OK
+      </button>
     </div>
   );
 };

@@ -1,9 +1,14 @@
-import { navigateToTabs, ensureConnectedDb, importTabFromUrl, GTThunkAction } from './redux/actioncreators';
+import {
+  navigateToTabs,
+  ensureConnectedDb,
+  importTabFromUrl,
+  GTThunkAction,
+} from "./redux/actioncreators";
 import { AllState } from "./";
-import { RouteThunk, RoutesMap } from 'redux-first-router';
-import { loadTabIds } from './db/tabidpersistor';
+import { RouteThunk, RoutesMap } from "redux-first-router";
+import { loadTabIds } from "./db/tabidpersistor";
 
-function checkTabLocally (state: AllState) {
+function checkTabLocally(state: AllState) {
   const tabId = state.location.payload.tabId;
   const tabs = loadTabIds();
   return tabs.includes(tabId);
@@ -20,33 +25,33 @@ const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {
 
 const routes: RoutesMap<{}, AllState> = {
   ROUTE_TABS: {
-    path: '/',
+    path: "/",
     thunk: function (dispatch) {
       dispatch(ensureConnectedDb());
-    }
+    },
   },
 
   ROUTE_TAB: {
-    path: '/tabs/:tabId',
-    thunk: tabThunk
+    path: "/tabs/:tabId",
+    thunk: tabThunk,
   },
 
   ROUTE_NEW_TRANSACTION: {
-    path: '/tabs/:tabId/transactions/create',
-    thunk: tabThunk
+    path: "/tabs/:tabId/transactions/create",
+    thunk: tabThunk,
   },
 
   ROUTE_TRANSACTION: {
-    path: '/tabs/:tabId/transactions/:transactionId',
-    thunk: tabThunk
+    path: "/tabs/:tabId/transactions/:transactionId",
+    thunk: tabThunk,
   },
 
   ROUTE_CATCH_ALL: {
-    path: '*',
+    path: "*",
     thunk: function (dispatch) {
       dispatch(navigateToTabs());
-    }
-  }
+    },
+  },
 };
 
 export default routes;

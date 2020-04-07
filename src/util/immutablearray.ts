@@ -11,12 +11,12 @@ export default class ImmutableArrayHelper {
   }
 
   static remove<T>(array: T[], index: number): T[] {
-    array = array.slice();  // copy
+    array = array.slice(); // copy
     array.splice(index, 1);
     return array;
   }
 
-  static removeItem<T >(array: T[], item: T): T[] {
+  static removeItem<T>(array: T[], item: T): T[] {
     var index = array.indexOf(item);
 
     if (index !== -1) {

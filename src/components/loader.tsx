@@ -1,8 +1,8 @@
-import React, { memo } from 'react';
+import React, { memo } from "react";
 
 interface Props {
   show?: boolean;
-  children: React.ReactNode;  // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/33602
+  children: React.ReactNode; // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/33602
 }
 
 const Loader: React.FC<Props> = ({ show, children }) => {

@@ -1,10 +1,28 @@
-import { Account, TransactionType, TransactionFormParticipantStatus as Status, TransactionFormParticipantInputType as InputType, Transaction, DocumentType, TransactionFormState, TransactionFormSharedState } from '../types';
-import { createFormData, NEW_PARTICIPANT_OPTION, mapFormDataToTransaction, validate } from './transactionform';
-import dateUtils from './date';
+import {
+  Account,
+  TransactionType,
+  TransactionFormParticipantStatus as Status,
+  TransactionFormParticipantInputType as InputType,
+  Transaction,
+  DocumentType,
+  TransactionFormState,
+  TransactionFormSharedState,
+} from "../types";
+import {
+  createFormData,
+  NEW_PARTICIPANT_OPTION,
+  mapFormDataToTransaction,
+  validate,
+} from "./transactionform";
+import dateUtils from "./date";
 
-describe('createFormData', () => {
-  function expectSharedToBeLikeEmpty(participants: TransactionFormState['shared']) {
-    const participantNames = participants.map((participant) => participant.participant);
+describe("createFormData", () => {
+  function expectSharedToBeLikeEmpty(
+    participants: TransactionFormState["shared"]
+  ) {
+    const participantNames = participants.map(
+      (participant) => participant.participant
+    );
     expect(participantNames).toEqual([undefined, undefined]);
 
     const inputTypes = participants.map((participant) => participant.inputType);
@@ -17,8 +35,13 @@ describe('createFormData', () => {
     expect(amounts).toEqual([undefined, undefined]);
   }
 
-  function expectSharedToBeLikeNew(participants: TransactionFormState['shared'], expectedParticpantNames: string[]) {
-    const participantNames = participants.map((participant) => participant.participant);
+  function expectSharedToBeLikeNew(
+    participants: TransactionFormState["shared"],
+    expectedParticpantNames: string[]
+  ) {
+    const participantNames = participants.map(
+      (participant) => participant.participant
+    );
     expect(participantNames).toEqual(expectedParticpantNames);
 
     const inputTypes = participants.map((participant) => participant.inputType);
@@ -31,7 +54,7 @@ describe('createFormData', () => {
     expect(new Set(amounts)).toEqual(new Set([undefined]));
   }
 
-  function expectDirectToBeLikeEmpty(data: TransactionFormState['direct']) {
+  function expectDirectToBeLikeEmpty(data: TransactionFormState["direct"]) {
     expect(data.from).toBe(NEW_PARTICIPANT_OPTION);
     expect(data.to).toBe(NEW_PARTICIPANT_OPTION);
     expect(data.fromNew).toBeUndefined();
@@ -39,7 +62,10 @@ describe('createFormData', () => {
     expect(data.options).toEqual([NEW_PARTICIPANT_OPTION]);
   }
 
-  function expectDirectToBeLikeNew(data: TransactionFormState['direct'], accounts: Account[]) {
+  function expectDirectToBeLikeNew(
+    data: TransactionFormState["direct"],
+    accounts: Account[]
+  ) {
     const participants = accounts.map((account) => account.participant);
 
     expect(data.from).toBe(participants[0]);
@@ -49,7 +75,7 @@ describe('createFormData', () => {
     expect(data.options).toEqual(participants.concat(NEW_PARTICIPANT_OPTION));
   }
 
-  it('creates empty form data for new tab', () => {
+  it("creates empty form data for new tab", () => {
     const accounts: Account[] = [];
 
     const result = createFormData(accounts);
@@ -62,18 +88,18 @@ describe('createFormData', () => {
     expectDirectToBeLikeEmpty(result.direct);
   });
 
-  it('creates empty form data for filled tab', () => {
+  it("creates empty form data for filled tab", () => {
     const accounts: Account[] = [
       {
-        participant: 'Martin',
+        participant: "Martin",
         amount: -25,
       },
       {
-        participant: 'Jan',
+        participant: "Jan",
         amount: 1,
       },
       {
-        participant: 'Koos',
+        participant: "Koos",
         amount: 24,
       },
     ];
@@ -85,44 +111,44 @@ describe('createFormData', () => {
     expect(result.date).toBe(dateUtils.formatDate(new Date()));
 
     // Expect participants ordered by name as they all have status NONE.
-    expectSharedToBeLikeNew(result.shared, ['Jan', 'Koos', 'Martin']);
+    expectSharedToBeLikeNew(result.shared, ["Jan", "Koos", "Martin"]);
     expectDirectToBeLikeNew(result.direct, accounts);
   });
 
-  it('creates shared transaction form data', () => {
+  it("creates shared transaction form data", () => {
     const accounts: Account[] = [
       {
-        participant: 'Martin',
+        participant: "Martin",
         amount: -25,
       },
       {
-        participant: 'Jan',
+        participant: "Jan",
         amount: 1,
       },
       {
-        participant: 'Koos',
+        participant: "Koos",
         amount: 24,
       },
     ];
 
     const transaction: Transaction = {
-      id: '1',
+      id: "1",
       type: DocumentType.TRANSACTION,
-      timestamp: '2020-02-20T20:20:20.202Z',
-      tabId: '123',
-      description: 'foo',
-      date: '2020-02-20',
+      timestamp: "2020-02-20T20:20:20.202Z",
+      tabId: "123",
+      description: "foo",
+      date: "2020-02-20",
       transactionType: TransactionType.SHARED,
       participants: [
         {
-          participant: 'Koos',
+          participant: "Koos",
           amount: 0,
         },
         {
-          participant: 'Martin',
+          participant: "Martin",
           amount: 11,
         },
-      ]
+      ],
     };
 
     const result = createFormData(accounts, transaction);
@@ -130,291 +156,300 @@ describe('createFormData', () => {
     expect(result.transactionType).toBe(TransactionType.SHARED);
 
     // Expect participants ordered by name as they all have status NONE.
-    const participants = result.shared.map((participant) => participant.participant);
-    expect(participants).toEqual(['Martin', 'Koos', 'Jan']);
+    const participants = result.shared.map(
+      (participant) => participant.participant
+    );
+    expect(participants).toEqual(["Martin", "Koos", "Jan"]);
     const statuss = result.shared.map((participant) => participant.status);
     expect(statuss).toEqual([Status.PAID, Status.JOINED, Status.NONE]);
 
     const amounts = result.shared.map((participant) => participant.amount);
     expect(amounts).toEqual([11, undefined, undefined]);
 
-    const inputTypes = result.shared.map((participant) => participant.inputType);
-    expect(new Set(inputTypes)).toEqual(new Set([InputType.EXISTING]));  
+    const inputTypes = result.shared.map(
+      (participant) => participant.inputType
+    );
+    expect(new Set(inputTypes)).toEqual(new Set([InputType.EXISTING]));
 
     expectDirectToBeLikeNew(result.direct, accounts);
   });
 
-  it('creates direct transaction form data', () => {
+  it("creates direct transaction form data", () => {
     const accounts: Account[] = [
       {
-        participant: 'Martin',
+        participant: "Martin",
         amount: -25,
       },
       {
-        participant: 'Jan',
+        participant: "Jan",
         amount: 1,
       },
       {
-        participant: 'Koos',
+        participant: "Koos",
         amount: 24,
       },
     ];
 
     const transaction: Transaction = {
-      id: '1',
+      id: "1",
       type: DocumentType.TRANSACTION,
-      timestamp: '2020-02-20T20:20:20.202Z',
-      tabId: '123',
-      description: 'foo',
-      date: '2020-02-20',
+      timestamp: "2020-02-20T20:20:20.202Z",
+      tabId: "123",
+      description: "foo",
+      date: "2020-02-20",
       transactionType: TransactionType.DIRECT,
       participants: [
         {
-          participant: 'Koos',
+          participant: "Koos",
           amount: 3.5,
         },
         {
-          participant: 'Martin',
+          participant: "Martin",
           amount: -3.5,
         },
-      ]
+      ],
     };
 
     const result = createFormData(accounts, transaction);
 
     expect(result.transactionType).toBe(TransactionType.DIRECT);
-    
-    // Expect participants ordered by name as they all have status NONE.
-    expectSharedToBeLikeNew(result.shared, ['Jan', 'Koos', 'Martin']);
 
-    expect(result.direct.from).toBe('Koos');
+    // Expect participants ordered by name as they all have status NONE.
+    expectSharedToBeLikeNew(result.shared, ["Jan", "Koos", "Martin"]);
+
+    expect(result.direct.from).toBe("Koos");
     expect(result.direct.fromNew).toBeUndefined();
-    expect(result.direct.to).toBe('Martin');
+    expect(result.direct.to).toBe("Martin");
     expect(result.direct.toNew).toBeUndefined();
-    expect(result.direct.options).toEqual(['Martin', 'Jan', 'Koos', NEW_PARTICIPANT_OPTION]);
+    expect(result.direct.options).toEqual([
+      "Martin",
+      "Jan",
+      "Koos",
+      NEW_PARTICIPANT_OPTION,
+    ]);
   });
 });
 
-describe('mapFormDataToTransaction', () => {
-  it('maps a shared transaction', () => {
+describe("mapFormDataToTransaction", () => {
+  it("maps a shared transaction", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.SHARED,
-      date: '2020-02-20',
-      description: 'Description',
+      date: "2020-02-20",
+      description: "Description",
       shared: [
         {
-          id: '1',
+          id: "1",
           inputType: InputType.EXISTING,
-          participant: 'Martin',
+          participant: "Martin",
           status: Status.JOINED,
         },
         {
-          id: '2',
+          id: "2",
           inputType: InputType.EXISTING,
-          participant: 'Jan',
+          participant: "Jan",
           status: Status.PAID,
           amount: 11.5,
         },
         {
-          id: '3',
+          id: "3",
           inputType: InputType.EXISTING,
-          participant: 'Koos',
+          participant: "Koos",
           status: Status.NONE,
         },
         {
-          id: '4',
+          id: "4",
           inputType: InputType.NEW,
-          participant: 'Tilman',
+          participant: "Tilman",
           status: Status.JOINED,
         },
         {
-          id: '5',
+          id: "5",
           inputType: InputType.NEW,
           status: Status.JOINED,
         },
       ],
       direct: {
-        options: []
+        options: [],
       },
     };
 
-    const transaction = mapFormDataToTransaction(formData, 'TABID', 'ID');
+    const transaction = mapFormDataToTransaction(formData, "TABID", "ID");
 
-    expect(transaction.id).toBe('ID');
-    expect(transaction.tabId).toBe('TABID');
+    expect(transaction.id).toBe("ID");
+    expect(transaction.tabId).toBe("TABID");
     expect(transaction.transactionType).toBe(TransactionType.SHARED);
     expect(transaction.description).toBe(formData.description);
     expect(transaction.date).toBe(formData.date);
     expect(transaction.participants).toEqual([
       {
-        participant: 'Martin',
+        participant: "Martin",
         amount: 0,
       },
       {
-        participant: 'Jan',
+        participant: "Jan",
         amount: 11.5,
       },
       {
-        participant: 'Tilman',
+        participant: "Tilman",
         amount: 0,
       },
     ]);
   });
 
-  it('maps a direct transaction', () => {
+  it("maps a direct transaction", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.DIRECT,
-      date: '2020-02-20',
-      description: 'Description',
+      date: "2020-02-20",
+      description: "Description",
       shared: [],
       direct: {
-        from: 'Martin',
-        to: 'Jan',
+        from: "Martin",
+        to: "Jan",
         amount: 10,
-        options: []
+        options: [],
       },
     };
 
-    const transaction = mapFormDataToTransaction(formData, 'TABID', 'ID');
+    const transaction = mapFormDataToTransaction(formData, "TABID", "ID");
 
-    expect(transaction.id).toBe('ID');
-    expect(transaction.tabId).toBe('TABID');
+    expect(transaction.id).toBe("ID");
+    expect(transaction.tabId).toBe("TABID");
     expect(transaction.transactionType).toBe(TransactionType.DIRECT);
     expect(transaction.description).toBe(formData.description);
     expect(transaction.date).toBe(formData.date);
     expect(transaction.participants).toEqual([
       {
-        participant: 'Martin',
+        participant: "Martin",
         amount: 10,
       },
       {
-        participant: 'Jan',
+        participant: "Jan",
         amount: -10,
       },
     ]);
   });
 
-  it('maps a direct transaction with new participants', () => {
+  it("maps a direct transaction with new participants", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.DIRECT,
-      date: '2020-02-20',
-      description: 'Description',
+      date: "2020-02-20",
+      description: "Description",
       shared: [],
       direct: {
         from: NEW_PARTICIPANT_OPTION,
-        fromNew: 'Martin',
+        fromNew: "Martin",
         to: NEW_PARTICIPANT_OPTION,
-        toNew: 'Jan',
+        toNew: "Jan",
         amount: 10,
-        options: []
+        options: [],
       },
     };
 
-    const transaction = mapFormDataToTransaction(formData, 'TABID', 'ID');
+    const transaction = mapFormDataToTransaction(formData, "TABID", "ID");
 
-    expect(transaction.id).toBe('ID');
-    expect(transaction.tabId).toBe('TABID');
+    expect(transaction.id).toBe("ID");
+    expect(transaction.tabId).toBe("TABID");
     expect(transaction.transactionType).toBe(TransactionType.DIRECT);
     expect(transaction.description).toBe(formData.description);
     expect(transaction.date).toBe(formData.date);
     expect(transaction.participants).toEqual([
       {
-        participant: 'Martin',
+        participant: "Martin",
         amount: 10,
       },
       {
-        participant: 'Jan',
+        participant: "Jan",
         amount: -10,
       },
     ]);
   });
 });
 
-describe('validate', () => {
-  it('validates a completed shared form', () => {
+describe("validate", () => {
+  it("validates a completed shared form", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.SHARED,
-      description: 'Test',
-      date: '2020-02-20',
+      description: "Test",
+      date: "2020-02-20",
       direct: {
-        options: []
+        options: [],
       },
       shared: [
         {
-          id: '1',
+          id: "1",
           inputType: InputType.EXISTING,
-          participant: 'Martin',
+          participant: "Martin",
           status: Status.JOINED,
         },
         {
-          id: '2',
+          id: "2",
           inputType: InputType.EXISTING,
-          participant: 'Jan',
+          participant: "Jan",
           status: Status.PAID,
           amount: 1,
-        }
-      ]
+        },
+      ],
     };
 
     expect(validate(formData)).toBeTruthy();
   });
 
-  it('does not validate an incomplete shared form', () => {
+  it("does not validate an incomplete shared form", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.SHARED,
-      description: 'test',
-      date: '2020-02-20',
+      description: "test",
+      date: "2020-02-20",
       direct: {
-        options: []
+        options: [],
       },
       shared: [
         {
-          id: '1',
+          id: "1",
           inputType: InputType.EXISTING,
-          participant: 'Martin',
+          participant: "Martin",
           status: Status.JOINED,
         },
         {
-          id: '2',
+          id: "2",
           inputType: InputType.EXISTING,
-          participant: 'Jan',
+          participant: "Jan",
           status: Status.NONE,
-        }
-      ]
+        },
+      ],
     };
 
     expect(validate(formData)).toBeFalsy();
   });
 
-  it('validates a completed direct form', () => {
+  it("validates a completed direct form", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.DIRECT,
-      description: 'Test',
-      date: '2020-02-20',
+      description: "Test",
+      date: "2020-02-20",
       direct: {
-        from: 'Martin',
-        to: 'Jan',
+        from: "Martin",
+        to: "Jan",
         amount: 11,
-        options: []
+        options: [],
       },
-      shared: []
+      shared: [],
     };
 
     expect(validate(formData)).toBeTruthy();
   });
 
-  it('validates an incomplete direct form', () => {
+  it("validates an incomplete direct form", () => {
     const formData: TransactionFormState = {
       transactionType: TransactionType.DIRECT,
-      description: 'Test',
-      date: '2020-02-20',
+      description: "Test",
+      date: "2020-02-20",
       direct: {
         from: NEW_PARTICIPANT_OPTION,
-        to: 'Jan',
+        to: "Jan",
         amount: 11,
-        options: []
+        options: [],
       },
-      shared: []
+      shared: [],
     };
 
     expect(validate(formData)).toBeFalsy();

@@ -1,42 +1,56 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { connectRoutes, LocationState } from 'redux-first-router';
+import React from "react";
+import ReactDOM from "react-dom";
+import { connectRoutes, LocationState } from "redux-first-router";
 // @ts-ignore
-import { createHashHistory } from 'rudy-history';
-import { combineReducers, applyMiddleware, compose as reduxCompose, createStore, Store } from 'redux';
-import ReduxThunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import DbManager from './db/manager';
-import { restoreLocation, startPersistingLocation } from './util/standalone';
-import appReducer from './redux/reducer';
-import App from './app';
-import routes from './routes';
-import * as serviceWorker from './serviceWorker';
-import './index.css';
+import { createHashHistory } from "rudy-history";
+import {
+  combineReducers,
+  applyMiddleware,
+  compose as reduxCompose,
+  createStore,
+  Store,
+} from "redux";
+import ReduxThunk from "redux-thunk";
+import { Provider } from "react-redux";
+import DbManager from "./db/manager";
+import { restoreLocation, startPersistingLocation } from "./util/standalone";
+import appReducer from "./redux/reducer";
+import App from "./app";
+import routes from "./routes";
+import * as serviceWorker from "./serviceWorker";
+import "./index.css";
 
 restoreLocation();
 
 const router: any = connectRoutes(routes, {
-  createHistory: createHashHistory
+  createHistory: createHashHistory,
 });
 
 startPersistingLocation(router.history);
 
-const rootReducer = combineReducers({location: router.reducer, app: appReducer});
-export type AllState = ReturnType<typeof rootReducer> & {location: LocationState};
+const rootReducer = combineReducers({
+  location: router.reducer,
+  app: appReducer,
+});
+export type AllState = ReturnType<typeof rootReducer> & {
+  location: LocationState;
+};
 
 export interface Services {
   dbManager: DbManager;
 }
 const dbManager = new DbManager();
 const thunkMiddleware = ReduxThunk.withExtraArgument({
-  dbManager
+  dbManager,
 });
 const middlewares = applyMiddleware(thunkMiddleware, router.middleware);
 
 // @ts-ignore
 const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;
-const store: Store<AllState> = createStore(rootReducer, compose(router.enhancer, middlewares));
+const store: Store<AllState> = createStore(
+  rootReducer,
+  compose(router.enhancer, middlewares)
+);
 
 const components = (
   <Provider store={store}>
@@ -44,7 +58,7 @@ const components = (
   </Provider>
 );
 
-ReactDOM.render(components, document.getElementById('root'));
+ReactDOM.render(components, document.getElementById("root"));
 
 const unsubscribe = store.subscribe(() => {
   if (store.getState().app.initialLoadingDone) {
@@ -53,14 +67,14 @@ const unsubscribe = store.subscribe(() => {
   }
 });
 
-function hideAppLoader () {
-  const loader = document.getElementById('loader');
+function hideAppLoader() {
+  const loader = document.getElementById("loader");
   if (!loader) {
-    throw new Error('Loader element missing in DOM');
+    throw new Error("Loader element missing in DOM");
   }
-  loader.classList.add('hidden');
+  loader.classList.add("hidden");
   setTimeout(() => {
-    loader.style.display = 'none';
+    loader.style.display = "none";
   }, 500);
 }
 

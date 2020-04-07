@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './app';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./app";
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
+it("renders without crashing", () => {
+  const div = document.createElement("div");
   const props: any = {
     location: {
-      type: '',
-      payload: {}
+      type: "",
+      payload: {},
     },
     tabs: [],
     accounts: [],
@@ -33,7 +33,7 @@ it('renders without crashing', () => {
     onUpdateTransactionParticipant: jest.fn(),
     onAddParticipant: jest.fn(),
     onSetAllJoined: jest.fn(),
-};
-  ReactDOM.render(<App {...props}/>, div);
+  };
+  ReactDOM.render(<App {...props} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

@@ -1,17 +1,46 @@
-import iarray from '../util/immutablearray';
-import { ActionMap, DocumentType, Entity, TransactionFormState, TransactionFormParticipantStatus } from '../types';
-import { Reducer } from 'redux';
-import { GTAction, UPDATE_FROM_DB, CREATE_TAB, CHECK_REMOTE_TAB, CHECK_REMOTE_TAB_FAILURE, IMPORT_TAB, CREATE_OR_UPDATE_TRANSACTION, REMOVE_TRANSACTION, SET_TRANSACTION_FORM, RESET_TRANSACTION_FORM, SET_ERROR, ROUTE_TABS, ROUTE_TAB, UPDATE_TRANSACTION_FORM, UPDATE_TRANSACTION_DIRECT_FORM, UPDATE_TRANSACTION_PARTICIPANT, ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM, SET_CREATE_TAB_INPUT_VALUE, RESET_CREATE_TAB_INPUT_VALUE, SET_IMPORT_TAB_INPUT_VALUE, RESET_IMPORT_TAB_INPUT_VALUE } from './actioncreators';
-import { createNewParticipant } from '../util/transactionform';
+import iarray from "../util/immutablearray";
+import {
+  ActionMap,
+  DocumentType,
+  Entity,
+  TransactionFormState,
+  TransactionFormParticipantStatus,
+} from "../types";
+import { Reducer } from "redux";
+import {
+  GTAction,
+  UPDATE_FROM_DB,
+  CREATE_TAB,
+  CHECK_REMOTE_TAB,
+  CHECK_REMOTE_TAB_FAILURE,
+  IMPORT_TAB,
+  CREATE_OR_UPDATE_TRANSACTION,
+  REMOVE_TRANSACTION,
+  SET_TRANSACTION_FORM,
+  RESET_TRANSACTION_FORM,
+  SET_ERROR,
+  ROUTE_TABS,
+  ROUTE_TAB,
+  UPDATE_TRANSACTION_FORM,
+  UPDATE_TRANSACTION_DIRECT_FORM,
+  UPDATE_TRANSACTION_PARTICIPANT,
+  ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM,
+  SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM,
+  SET_CREATE_TAB_INPUT_VALUE,
+  RESET_CREATE_TAB_INPUT_VALUE,
+  SET_IMPORT_TAB_INPUT_VALUE,
+  RESET_IMPORT_TAB_INPUT_VALUE,
+} from "./actioncreators";
+import { createNewParticipant } from "../util/transactionform";
 
 interface AppState {
   initialLoadingDone: boolean;
   checkingRemoteTab: boolean;
   remoteTabError: string;
   importingTab: boolean;
-  docsById: {[id: string]: Entity};
+  docsById: { [id: string]: Entity };
   tabs: string[];
-  transactionsByTab: {[tabId: string]: string[]};
+  transactionsByTab: { [tabId: string]: string[] };
   createTabInput?: string;
   importTabInput?: string;
   transactionForm?: TransactionFormState;
@@ -21,15 +50,15 @@ interface AppState {
 const initialState: AppState = {
   initialLoadingDone: false,
   checkingRemoteTab: false,
-  remoteTabError: '',
+  remoteTabError: "",
   importingTab: false,
   docsById: {},
   tabs: [],
   transactionsByTab: {},
-  error: null
+  error: null,
 };
 
-function docsReducer (state: AppState, actionMap: ActionMap): AppState {
+function docsReducer(state: AppState, actionMap: ActionMap): AppState {
   var docsById = state.docsById;
   var tabs = state.tabs;
   var transactionsByTab = state.transactionsByTab;
@@ -41,7 +70,7 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
       return;
     }
 
-    docsById = {...docsById};
+    docsById = { ...docsById };
     delete docsById[doc.id];
 
     var tabId = dbDoc.tabId;
@@ -49,7 +78,7 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
       var transactions = transactionsByTab[tabId];
       transactionsByTab = {
         ...transactionsByTab,
-        [tabId]: iarray.removeItem(transactions, doc.id)
+        [tabId]: iarray.removeItem(transactions, doc.id),
       };
     }
   });
@@ -60,7 +89,7 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
     if (doc.type === DocumentType.INFO) {
       doc = {
         ...doc,
-        id: 'info-' + tabId,
+        id: "info-" + tabId,
       };
 
       tabs = iarray.addUniq(tabs, tabId);
@@ -74,7 +103,7 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
     if (doc.type === DocumentType.TRANSACTION) {
       transactionsByTab = {
         ...transactionsByTab,
-        [tabId]: iarray.addUniq(transactionsByTab[tabId] || [], doc.id)
+        [tabId]: iarray.addUniq(transactionsByTab[tabId] || [], doc.id),
       };
     }
   });
@@ -83,7 +112,7 @@ function docsReducer (state: AppState, actionMap: ActionMap): AppState {
     ...state,
     docsById,
     tabs,
-    transactionsByTab
+    transactionsByTab,
   };
 }
 
@@ -93,56 +122,56 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
       return {
         ...docsReducer(state, action.actionMap),
         initialLoadingDone: true,
-        importingTab: false
+        importingTab: false,
       };
 
     case CREATE_TAB:
       return {
         ...docsReducer(state, {
           createOrUpdate: [action.doc],
-          delete: []
-        })
+          delete: [],
+        }),
       };
 
     case CHECK_REMOTE_TAB:
       return {
         ...state,
         checkingRemoteTab: true,
-        remoteTabError: initialState.remoteTabError
+        remoteTabError: initialState.remoteTabError,
       };
 
     case CHECK_REMOTE_TAB_FAILURE:
       return {
         ...state,
         checkingRemoteTab: false,
-        remoteTabError: action.error
+        remoteTabError: action.error,
       };
 
     case IMPORT_TAB:
       return {
         ...docsReducer(state, {
           createOrUpdate: [action.doc],
-          delete: []
+          delete: [],
         }),
         checkingRemoteTab: false,
         remoteTabError: initialState.remoteTabError,
-        importingTab: true
+        importingTab: true,
       };
 
     case CREATE_OR_UPDATE_TRANSACTION:
       return {
         ...docsReducer(state, {
           createOrUpdate: [action.doc],
-          delete: []
-        })
+          delete: [],
+        }),
       };
 
     case REMOVE_TRANSACTION:
       return {
         ...docsReducer(state, {
           createOrUpdate: [],
-          delete: [action.doc]
-        })
+          delete: [action.doc],
+        }),
       };
 
     case SET_CREATE_TAB_INPUT_VALUE:
@@ -172,13 +201,13 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
     case SET_TRANSACTION_FORM:
       return {
         ...state,
-        transactionForm: action.payload
+        transactionForm: action.payload,
       };
 
     case RESET_TRANSACTION_FORM:
       return {
         ...state,
-        transactionForm: initialState.transactionForm
+        transactionForm: initialState.transactionForm,
       };
 
     case UPDATE_TRANSACTION_FORM:
@@ -192,7 +221,7 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
           [action.key]: action.value,
         },
       };
-    
+
     case UPDATE_TRANSACTION_DIRECT_FORM:
       if (!state.transactionForm) {
         throw new Error();
@@ -204,7 +233,7 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
           direct: {
             ...state.transactionForm.direct,
             [action.key]: action.value,
-          }
+          },
         },
       };
 
@@ -227,7 +256,7 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
         transactionForm: {
           ...state.transactionForm,
           shared: participants,
-        }
+        },
       };
     }
 
@@ -240,9 +269,9 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
         transactionForm: {
           ...state.transactionForm,
           shared: state.transactionForm.shared.concat(createNewParticipant()),
-        }
+        },
       };
-    
+
     case SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM:
       if (!state.transactionForm) {
         throw new Error();
@@ -260,23 +289,23 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
               status: TransactionFormParticipantStatus.JOINED,
             };
           }),
-        }
+        },
       };
-      
+
     case SET_ERROR:
       return {
         ...state,
         error: {
           error: action.error,
-          info: action.info
-        }
+          info: action.info,
+        },
       };
 
     case ROUTE_TABS:
     case ROUTE_TAB:
       return {
         ...state,
-        remoteTabError: initialState.remoteTabError
+        remoteTabError: initialState.remoteTabError,
       };
 
     default:

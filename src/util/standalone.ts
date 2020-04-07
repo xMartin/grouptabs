@@ -5,10 +5,13 @@
 // In other similar environments, e.g. Chrome on Android add to homescreen
 // the app is not always restarted when re-opened but will get killed after a while as well.
 
-const isStandalone = !!(window.navigator as any).standalone || window.matchMedia('(display-mode: standalone)').matches || document.referrer.includes('android-app://');
-const storageKey = 'grouptabs_last_visited_location';
+const isStandalone =
+  !!(window.navigator as any).standalone ||
+  window.matchMedia("(display-mode: standalone)").matches ||
+  document.referrer.includes("android-app://");
+const storageKey = "grouptabs_last_visited_location";
 
-export function restoreLocation () {
+export function restoreLocation() {
   if (!isStandalone) {
     return;
   }
@@ -19,7 +22,7 @@ export function restoreLocation () {
   }
 }
 
-export function startPersistingLocation (history: any) {
+export function startPersistingLocation(history: any) {
   if (!isStandalone) {
     return;
   }

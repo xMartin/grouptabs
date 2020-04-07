@@ -1,8 +1,12 @@
-import PouchDB from 'pouchdb';
-import Tab, { Document } from './tab';
-import config from '../config';
-import { Info, ActionMap } from '../types';
-import { loadTabIds, addTabId, migrateFromPouchDbAllDbsToLocalStorage } from './tabidpersistor';
+import PouchDB from "pouchdb";
+import Tab, { Document } from "./tab";
+import config from "../config";
+import { Info, ActionMap } from "../types";
+import {
+  loadTabIds,
+  addTabId,
+  migrateFromPouchDbAllDbsToLocalStorage,
+} from "./tabidpersistor";
 
 interface Entity {
   id: string;
@@ -14,10 +18,9 @@ interface Entity {
 type changesCallback = (actionMap: ActionMap) => void;
 
 export default class DbManager {
-
   private isIndexedDbAvailable?: boolean;
 
-  dbs: {[dbName: string]: Tab};
+  dbs: { [dbName: string]: Tab };
 
   private _changesCallback?: changesCallback;
 
@@ -35,14 +38,16 @@ export default class DbManager {
 
   private async checkIndexedDb() {
     try {
-      const db = new PouchDB('test');
+      const db = new PouchDB("test");
       this.isIndexedDbAvailable = true;
       await db.destroy();
     } catch (error) {
-      if (error.name === 'indexed_db_went_bad') {
+      if (error.name === "indexed_db_went_bad") {
         this.isIndexedDbAvailable = false;
-        console.info('Accessing IndexedDB failed. Falling back to in-memory.');
-        const { default: MemoryAdapter } = await import('pouchdb-adapter-memory');
+        console.info("Accessing IndexedDB failed. Falling back to in-memory.");
+        const { default: MemoryAdapter } = await import(
+          "pouchdb-adapter-memory"
+        );
         PouchDB.plugin(MemoryAdapter);
       } else {
         throw error;
@@ -51,21 +56,23 @@ export default class DbManager {
   }
 
   async connect() {
-    const docsPerDb = await Promise.all(this.getAllDbs().map(async (db) => {
-      const docs = await db.db.connect();
-      // @ts-ignore (apparently items in docs could be undefined)
-      return this.docsToEntities(db.tabId, docs);
-    }));
+    const docsPerDb = await Promise.all(
+      this.getAllDbs().map(async (db) => {
+        const docs = await db.db.connect();
+        // @ts-ignore (apparently items in docs could be undefined)
+        return this.docsToEntities(db.tabId, docs);
+      })
+    );
     let flat: any[] = [];
     docsPerDb.forEach((docs) => {
       flat = flat.concat(docs);
     });
     if (!this._changesCallback) {
-      throw new Error('Callback not set.');
+      throw new Error("Callback not set.");
     }
     this._changesCallback({
       createOrUpdate: flat,
-      delete: []
+      delete: [],
     });
     this.initAllDbsListener();
   }
@@ -74,11 +81,13 @@ export default class DbManager {
     setInterval(async () => {
       const knownTabIds = Object.keys(this.dbs);
       const tabIds = loadTabIds();
-      const newTabIds = tabIds.filter((tabId) => knownTabIds.indexOf(tabId) === -1);
+      const newTabIds = tabIds.filter(
+        (tabId) => knownTabIds.indexOf(tabId) === -1
+      );
       newTabIds.forEach(async (tabId) => {
         const actionMap = await this.connectTab(tabId);
         if (!this._changesCallback) {
-          throw new Error('Callback not set.');
+          throw new Error("Callback not set.");
         }
         this._changesCallback(actionMap);
       });
@@ -107,12 +116,13 @@ export default class DbManager {
   }
 
   checkTab(tabId: string): Promise<Info> {
-    const dbName = 'tab/' + tabId;
-    const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
+    const dbName = "tab/" + tabId;
+    const remoteDbLocation =
+      config.backendUrl + "/" + encodeURIComponent(dbName);
 
     const db = new PouchDB(remoteDbLocation);
 
-    return db.get('info');
+    return db.get("info");
   }
 
   async connectTab(id: string) {
@@ -122,16 +132,16 @@ export default class DbManager {
     return {
       // @ts-ignore (apparently items in docs could be undefined)
       createOrUpdate: this.docsToEntities(id, docs),
-      delete: []
+      delete: [],
     };
   }
 
-  getAllDbs(): {tabId: string, db: Tab}[] {
+  getAllDbs(): { tabId: string; db: Tab }[] {
     const allDbs = [];
     for (const dbName in this.dbs) {
       allDbs.push({
         tabId: dbName,
-        db: this.dbs[dbName]
+        db: this.dbs[dbName],
       });
     }
     return allDbs;
@@ -146,46 +156,46 @@ export default class DbManager {
     if (this.dbs[tabId]) {
       throw new Error(`DB "${tabId}" already initialized.`);
     }
-    const dbName = 'tab/' + tabId;
-    const remoteDbLocation = config.backendUrl + '/' + encodeURIComponent(dbName);
+    const dbName = "tab/" + tabId;
+    const remoteDbLocation =
+      config.backendUrl + "/" + encodeURIComponent(dbName);
     const tab = new Tab(
       dbName,
       remoteDbLocation,
       () => this._changesHandler.bind(this, tabId),
-      this.isIndexedDbAvailable === false ? 'memory' : undefined
+      this.isIndexedDbAvailable === false ? "memory" : undefined
     );
     this.dbs[tabId] = tab;
     addTabId(tabId);
     return tab;
   }
 
-  _changesHandler(tabId: string, changes: PouchDB.Core.ChangesResponseChange<Document>[]) {
-    const createOrUpdate = (
-      changes
+  _changesHandler(
+    tabId: string,
+    changes: PouchDB.Core.ChangesResponseChange<Document>[]
+  ) {
+    const createOrUpdate = changes
       .filter((change) => !change.deleted)
       // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
-      .map((change) => this.docToEntity(tabId, change.doc))
-    );
+      .map((change) => this.docToEntity(tabId, change.doc));
 
-    const delete_ = (
-      changes
+    const delete_ = changes
       .filter((change) => change.deleted)
       // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
-      .map((change) => this.docToEntity(tabId, change.doc))
-    );
+      .map((change) => this.docToEntity(tabId, change.doc));
 
     if (!this._changesCallback) {
-      throw new Error('Callback not set.');
+      throw new Error("Callback not set.");
     }
 
     this._changesCallback({
       createOrUpdate,
-      delete: delete_
+      delete: delete_,
     });
   }
 
   entityToDoc(entity: Entity): Document {
-    const doc: any = {...entity};
+    const doc: any = { ...entity };
 
     doc._id = doc.id;
     delete doc.id;
@@ -199,15 +209,14 @@ export default class DbManager {
   }
 
   docToEntity(tabId: string, doc: Document): Entity {
-    const docCopy = {...doc};
+    const docCopy = { ...doc };
     delete docCopy._rev;
     delete docCopy._id;
     const entity: Entity = {
       ...docCopy,
       id: doc._id,
-      tabId
+      tabId,
     };
     return entity;
   }
-
 }

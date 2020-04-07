@@ -1,16 +1,39 @@
-import { connect, ConnectedProps } from 'react-redux';
-import selectors from './redux/selectors';
-import { navigateToTabs, selectTab, navigateToAddTransaction, navigateToUpdateTransaction, setError, createTab, importTab, closeTransaction, addOrUpdateTransaction, removeTransaction, initTransactionForm, resetTransactionForm, updateTransactionForm, updateTransactionSharedForm, updateTransactionDirectForm, updateTransactionParticipant, addParticipantToTransactionSharedForm, setAllJoinedOnTransactionSharedForm, setCreateTabInputValue, setImportTabInputValue } from './redux/actioncreators';
-import App from './components/app';
+import { connect, ConnectedProps } from "react-redux";
+import selectors from "./redux/selectors";
+import {
+  navigateToTabs,
+  selectTab,
+  navigateToAddTransaction,
+  navigateToUpdateTransaction,
+  setError,
+  createTab,
+  importTab,
+  closeTransaction,
+  addOrUpdateTransaction,
+  removeTransaction,
+  initTransactionForm,
+  resetTransactionForm,
+  updateTransactionForm,
+  updateTransactionSharedForm,
+  updateTransactionDirectForm,
+  updateTransactionParticipant,
+  addParticipantToTransactionSharedForm,
+  setAllJoinedOnTransactionSharedForm,
+  setCreateTabInputValue,
+  setImportTabInputValue,
+} from "./redux/actioncreators";
+import App from "./components/app";
 import { AllState } from "./";
 import { Transaction } from "./types";
 
-function mapStateToProps (state: AllState) {
+function mapStateToProps(state: AllState) {
   return {
     location: state.location,
     initialLoadingDone: state.app.initialLoadingDone,
     tabInfo: selectors.getTabInfo(state),
-    transaction: state.app.docsById[state.location.payload.transactionId] as Transaction,
+    transaction: state.app.docsById[
+      state.location.payload.transactionId
+    ] as Transaction,
     total: selectors.getTotal(state),
     checkingRemoteTab: state.app.checkingRemoteTab,
     remoteTabError: state.app.remoteTabError,
@@ -21,7 +44,7 @@ function mapStateToProps (state: AllState) {
     transactions: selectors.getTransactions(state),
     accounts: selectors.getAccounts(state),
     transactionFormState: state.app.transactionForm,
-    error: state.app.error
+    error: state.app.error,
   };
 }
 
@@ -45,13 +68,10 @@ var mapDispatchToProps = {
   onUpdateTransactionParticipant: updateTransactionParticipant,
   onAddParticipant: addParticipantToTransactionSharedForm,
   onSetAllJoined: setAllJoinedOnTransactionSharedForm,
-  onError: setError
+  onError: setError,
 };
 
-const connector = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 // https://react-redux.js.org/using-react-redux/static-typing#inferring-the-connected-props-automatically
 export type PropsFromRedux = ConnectedProps<typeof connector>;

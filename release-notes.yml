@@ -3,92 +3,92 @@ description: >
   Track expenses in a group of people!
 
 releases:
-- version: 1.2.0
-  date: 2020-01-13
-  description: Bugfixes and improvements
-  improved:
-  - Faster app loading for most cases by loading PouchDB memory adapter only if IndexedDB is not available (e.g. Firefox private mode)
-  - Display meaningful error when refreshing app being offline and without indexedDB available
-  fixed:
-  - PouchDB in-memory fallback when creating a new tab
-- version: 1.1.0
-  date: 2019-12-21
-  description: Move to create-react-app with TypeScript as a technical foundation, including PWA support
-  added:
-  - PWA and Add to Home Screen support via service worker offline support and web manifest
-  changed:
-  - Based on create-react-app with TypeScript instead of vanilla require.js
-  - Persist tab IDs in local storage instead of pouchdb-all-dbs, including migration
-  fixed:
-  - Support private mode in Firefox (#125)
-  - Fix preventing importing from URL initially, if tab already exists locally
-- version: 1.0.0
-  date: 2019-11-24
-  description: UX improvements and upgrade to latest PouchDB dropping WebSQL support
-  added:
-  - Link to website (#146)
-  - Add date buttons for "today" and "yesterday" in addition to date picker (#42)
-  improved:
-  - Upgrade to official PouchDB v7 with smaller file size and removing WebSQL support
-  - Sort tab list by most recent transaction (#158)
-  - Preselect most likely participant of a new direct transaction (#157)
-- version: 1.0.0-beta.3
-  date: 2019-07-01
-  fixed:
-  - Round total spending
-- version: 1.0.0-beta.2
-  date: 2019-06-29
-  improved:
-  - More consistent UI colors
-  - Improve a11y
-  - Optimize font loading for performance
-- version: 1.0.0-beta.1
-  date: 2019-01-19
-  description: Add feature "direct payment" - with that we consider the basic feature set complete
-  added:
-  - Direct payment feature (#45)
-  improved:
-  - Visual UI face lift
-- version: 1.0.0-alpha.15
-  date: 2018-10-29
-  changed:
-  - Update PouchDB to a custom version of v7.0.0 to migrate WebSQL data to IndexedDB
-- version: 1.0.0-alpha.14
-  date: 2018-10-21
-  changed:
-  - "Document title: most specific part first (#148)"
-- version: 1.0.0-alpha.13
-  date: 2018-06-16
-  description: Bugfix for date handling in timezones with negative offset
-  fixed:
-  - Date handling in timezones with negative offset (#147)
-- version: 1.0.0-alpha.12
-  date: 2018-04-02
-  description: Routing - use the URL for navigation and sharing/importing
-  added:
-  - Keep added tabs in sync between multiple browser tabs/windows
-  - Add routing with redux-little-router (naviagtion, automatic importing, ...)
-  - Also show tab ID for sharing in empty tab view (#137)
-  - Add current tab name and transaction description to document title (#141)
-  improved:
-  - Highlight participants in transaction form bold for status "paid" (#133)
-  - Better design and more whitespace in transaction list
-  - Accept full tab URLs as import input, too
-  fixed:
-  - Position of arrows in tab list
-- version: 1.0.0-alpha.11
-  date: 2018-01-01
-  description: Styles and accessibility
-  improved:
-  - Improve perceived loading performance
-  - Show outlines for better accessibility
-  - Improve transaction list styling
-  fixed:
-  - Font loading and rendering
-- version: 1.0.0-alpha.10
-  date: 2017-11-29
-  description: Combined main view
-  changed:
-  - Combine accounts summary and transaction list
-  fixed:
-  - Font weights
+  - version: 1.2.0
+    date: 2020-01-13
+    description: Bugfixes and improvements
+    improved:
+      - Faster app loading for most cases by loading PouchDB memory adapter only if IndexedDB is not available (e.g. Firefox private mode)
+      - Display meaningful error when refreshing app being offline and without indexedDB available
+    fixed:
+      - PouchDB in-memory fallback when creating a new tab
+  - version: 1.1.0
+    date: 2019-12-21
+    description: Move to create-react-app with TypeScript as a technical foundation, including PWA support
+    added:
+      - PWA and Add to Home Screen support via service worker offline support and web manifest
+    changed:
+      - Based on create-react-app with TypeScript instead of vanilla require.js
+      - Persist tab IDs in local storage instead of pouchdb-all-dbs, including migration
+    fixed:
+      - Support private mode in Firefox (#125)
+      - Fix preventing importing from URL initially, if tab already exists locally
+  - version: 1.0.0
+    date: 2019-11-24
+    description: UX improvements and upgrade to latest PouchDB dropping WebSQL support
+    added:
+      - Link to website (#146)
+      - Add date buttons for "today" and "yesterday" in addition to date picker (#42)
+    improved:
+      - Upgrade to official PouchDB v7 with smaller file size and removing WebSQL support
+      - Sort tab list by most recent transaction (#158)
+      - Preselect most likely participant of a new direct transaction (#157)
+  - version: 1.0.0-beta.3
+    date: 2019-07-01
+    fixed:
+      - Round total spending
+  - version: 1.0.0-beta.2
+    date: 2019-06-29
+    improved:
+      - More consistent UI colors
+      - Improve a11y
+      - Optimize font loading for performance
+  - version: 1.0.0-beta.1
+    date: 2019-01-19
+    description: Add feature "direct payment" - with that we consider the basic feature set complete
+    added:
+      - Direct payment feature (#45)
+    improved:
+      - Visual UI face lift
+  - version: 1.0.0-alpha.15
+    date: 2018-10-29
+    changed:
+      - Update PouchDB to a custom version of v7.0.0 to migrate WebSQL data to IndexedDB
+  - version: 1.0.0-alpha.14
+    date: 2018-10-21
+    changed:
+      - "Document title: most specific part first (#148)"
+  - version: 1.0.0-alpha.13
+    date: 2018-06-16
+    description: Bugfix for date handling in timezones with negative offset
+    fixed:
+      - Date handling in timezones with negative offset (#147)
+  - version: 1.0.0-alpha.12
+    date: 2018-04-02
+    description: Routing - use the URL for navigation and sharing/importing
+    added:
+      - Keep added tabs in sync between multiple browser tabs/windows
+      - Add routing with redux-little-router (naviagtion, automatic importing, ...)
+      - Also show tab ID for sharing in empty tab view (#137)
+      - Add current tab name and transaction description to document title (#141)
+    improved:
+      - Highlight participants in transaction form bold for status "paid" (#133)
+      - Better design and more whitespace in transaction list
+      - Accept full tab URLs as import input, too
+    fixed:
+      - Position of arrows in tab list
+  - version: 1.0.0-alpha.11
+    date: 2018-01-01
+    description: Styles and accessibility
+    improved:
+      - Improve perceived loading performance
+      - Show outlines for better accessibility
+      - Improve transaction list styling
+    fixed:
+      - Font loading and rendering
+  - version: 1.0.0-alpha.10
+    date: 2017-11-29
+    description: Combined main view
+    changed:
+      - Combine accounts summary and transaction list
+    fixed:
+      - Font weights

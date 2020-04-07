@@ -1,41 +1,53 @@
-import DbManager from '../db/manager'
-import { AllState, Services } from '..';
-import { Transaction, Info, ActionMap, DocumentType, TransactionFormState, TransactionFormSharedState } from '../types';
-import { ThunkAction } from 'redux-thunk';
-import { createFormData, mapFormDataToTransaction } from '../util/transactionform';
-import selectors from './selectors';
+import DbManager from "../db/manager";
+import { AllState, Services } from "..";
+import {
+  Transaction,
+  Info,
+  ActionMap,
+  DocumentType,
+  TransactionFormState,
+  TransactionFormSharedState,
+} from "../types";
+import { ThunkAction } from "redux-thunk";
+import {
+  createFormData,
+  mapFormDataToTransaction,
+} from "../util/transactionform";
+import selectors from "./selectors";
 
-export const CHECK_REMOTE_TAB = 'CHECK_REMOTE_TAB';
-export const CHECK_REMOTE_TAB_FAILURE = 'CHECK_REMOTE_TAB_FAILURE';
-export const CREATE_TAB = 'CREATE_TAB';
-export const IMPORT_TAB = 'IMPORT_TAB';
-export const UPDATE_FROM_DB = 'UPDATE_FROM_DB';
-export const CREATE_OR_UPDATE_TRANSACTION = 'CREATE_OR_UPDATE_TRANSACTION';
-export const REMOVE_TRANSACTION = 'REMOVE_TRANSACTION';
-export const SET_CREATE_TAB_INPUT_VALUE = 'SET_CREATE_TAB_INPUT_VALUE';
-export const RESET_CREATE_TAB_INPUT_VALUE = 'RESET_CREATE_TAB_INPUT_VALUE';
-export const SET_IMPORT_TAB_INPUT_VALUE = 'SET_IMPORT_TAB_INPUT_VALUE';
-export const RESET_IMPORT_TAB_INPUT_VALUE = 'RESET_IMPORT_TAB_INPUT_VALUE';
-export const SET_TRANSACTION_FORM = 'SET_TRANSACTION_FORM';
-export const RESET_TRANSACTION_FORM = 'RESET_TRANSACTION_FORM';
-export const UPDATE_TRANSACTION_FORM = 'UPDATE_TRANSACTION_FORM';
-export const UPDATE_TRANSACTION_SHARED_FORM = 'UPDATE_TRANSACTION_SHARED_FORM';
-export const UPDATE_TRANSACTION_DIRECT_FORM = 'UPDATE_TRANSACTION_DIRECT_FORM';
-export const UPDATE_TRANSACTION_PARTICIPANT = 'UPDATE_TRANSACTION_PARTICIPANT';
-export const ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM = 'ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM';
-export const SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM = 'SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM';
-export const SET_ERROR = 'SET_ERROR';
-export const ROUTE_TAB = 'ROUTE_TAB';
-export const ROUTE_TABS = 'ROUTE_TABS';
-export const ROUTE_TRANSACTION = 'ROUTE_TRANSACTION';
-export const ROUTE_NEW_TRANSACTION = 'ROUTE_NEW_TRANSACTION';
+export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
+export const CHECK_REMOTE_TAB_FAILURE = "CHECK_REMOTE_TAB_FAILURE";
+export const CREATE_TAB = "CREATE_TAB";
+export const IMPORT_TAB = "IMPORT_TAB";
+export const UPDATE_FROM_DB = "UPDATE_FROM_DB";
+export const CREATE_OR_UPDATE_TRANSACTION = "CREATE_OR_UPDATE_TRANSACTION";
+export const REMOVE_TRANSACTION = "REMOVE_TRANSACTION";
+export const SET_CREATE_TAB_INPUT_VALUE = "SET_CREATE_TAB_INPUT_VALUE";
+export const RESET_CREATE_TAB_INPUT_VALUE = "RESET_CREATE_TAB_INPUT_VALUE";
+export const SET_IMPORT_TAB_INPUT_VALUE = "SET_IMPORT_TAB_INPUT_VALUE";
+export const RESET_IMPORT_TAB_INPUT_VALUE = "RESET_IMPORT_TAB_INPUT_VALUE";
+export const SET_TRANSACTION_FORM = "SET_TRANSACTION_FORM";
+export const RESET_TRANSACTION_FORM = "RESET_TRANSACTION_FORM";
+export const UPDATE_TRANSACTION_FORM = "UPDATE_TRANSACTION_FORM";
+export const UPDATE_TRANSACTION_SHARED_FORM = "UPDATE_TRANSACTION_SHARED_FORM";
+export const UPDATE_TRANSACTION_DIRECT_FORM = "UPDATE_TRANSACTION_DIRECT_FORM";
+export const UPDATE_TRANSACTION_PARTICIPANT = "UPDATE_TRANSACTION_PARTICIPANT";
+export const ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM =
+  "ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM";
+export const SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM =
+  "SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM";
+export const SET_ERROR = "SET_ERROR";
+export const ROUTE_TAB = "ROUTE_TAB";
+export const ROUTE_TABS = "ROUTE_TABS";
+export const ROUTE_TRANSACTION = "ROUTE_TRANSACTION";
+export const ROUTE_NEW_TRANSACTION = "ROUTE_NEW_TRANSACTION";
 
 interface CheckRemoteTabAction {
   type: typeof CHECK_REMOTE_TAB;
 }
 
 const createCheckRemoteTabAction = (): CheckRemoteTabAction => ({
-  type: CHECK_REMOTE_TAB
+  type: CHECK_REMOTE_TAB,
 });
 
 interface CheckRemoteTabFailureAction {
@@ -43,9 +55,11 @@ interface CheckRemoteTabFailureAction {
   error: string;
 }
 
-const createCheckRemoteTabFailureAction = (error: string): CheckRemoteTabFailureAction => ({
+const createCheckRemoteTabFailureAction = (
+  error: string
+): CheckRemoteTabFailureAction => ({
   type: CHECK_REMOTE_TAB_FAILURE,
-  error
+  error,
 });
 
 interface CreateTabAction {
@@ -55,7 +69,7 @@ interface CreateTabAction {
 
 const createCreateTabAction = (doc: Info): CreateTabAction => ({
   type: CREATE_TAB,
-  doc
+  doc,
 });
 
 interface ImportTabAction {
@@ -65,7 +79,7 @@ interface ImportTabAction {
 
 const createImportTabAction = (doc: Info): ImportTabAction => ({
   type: IMPORT_TAB,
-  doc
+  doc,
 });
 
 interface UpdateFromDbAction {
@@ -73,9 +87,11 @@ interface UpdateFromDbAction {
   actionMap: ActionMap;
 }
 
-const createUpdateFromDbAction = (actionMap: ActionMap): UpdateFromDbAction => ({
+const createUpdateFromDbAction = (
+  actionMap: ActionMap
+): UpdateFromDbAction => ({
   type: UPDATE_FROM_DB,
-  actionMap
+  actionMap,
 });
 
 interface CreateOrUpdateTransactionAction {
@@ -83,9 +99,11 @@ interface CreateOrUpdateTransactionAction {
   doc: Transaction;
 }
 
-const createCreateOrUpdateTransactionAction = (doc: Transaction): CreateOrUpdateTransactionAction => ({
+const createCreateOrUpdateTransactionAction = (
+  doc: Transaction
+): CreateOrUpdateTransactionAction => ({
   type: CREATE_OR_UPDATE_TRANSACTION,
-  doc
+  doc,
 });
 
 interface RemoveTransactionAction {
@@ -93,9 +111,11 @@ interface RemoveTransactionAction {
   doc: Transaction;
 }
 
-const createRemoveTransactionAction = (doc: Transaction): RemoveTransactionAction => ({
+const createRemoveTransactionAction = (
+  doc: Transaction
+): RemoveTransactionAction => ({
   type: REMOVE_TRANSACTION,
-  doc
+  doc,
 });
 
 interface SetCreateTabInputValueAction {
@@ -103,7 +123,9 @@ interface SetCreateTabInputValueAction {
   value: string;
 }
 
-export const setCreateTabInputValue = (value: string): SetCreateTabInputValueAction => ({
+export const setCreateTabInputValue = (
+  value: string
+): SetCreateTabInputValueAction => ({
   type: SET_CREATE_TAB_INPUT_VALUE,
   value,
 });
@@ -121,7 +143,9 @@ interface SetImportTabInputValueAction {
   value: string;
 }
 
-export const setImportTabInputValue = (value: string): SetImportTabInputValueAction => ({
+export const setImportTabInputValue = (
+  value: string
+): SetImportTabInputValueAction => ({
   type: SET_IMPORT_TAB_INPUT_VALUE,
   value,
 });
@@ -139,9 +163,11 @@ interface SetTransactionFormAction {
   payload: TransactionFormState;
 }
 
-const createSetTransactionFormAction = (payload: TransactionFormState): SetTransactionFormAction => ({
+const createSetTransactionFormAction = (
+  payload: TransactionFormState
+): SetTransactionFormAction => ({
   type: SET_TRANSACTION_FORM,
-  payload
+  payload,
 });
 
 interface ResetTransactionFormAction {
@@ -149,7 +175,7 @@ interface ResetTransactionFormAction {
 }
 
 export const resetTransactionForm = (): ResetTransactionFormAction => ({
-  type: RESET_TRANSACTION_FORM
+  type: RESET_TRANSACTION_FORM,
 });
 
 interface UpdateTransactionFormAction<K extends keyof TransactionFormState> {
@@ -158,44 +184,69 @@ interface UpdateTransactionFormAction<K extends keyof TransactionFormState> {
   value: TransactionFormState[K];
 }
 
-export const updateTransactionForm = <K extends keyof TransactionFormState>(key: K, value: TransactionFormState[K]): UpdateTransactionFormAction<K> => ({
+export const updateTransactionForm = <K extends keyof TransactionFormState>(
+  key: K,
+  value: TransactionFormState[K]
+): UpdateTransactionFormAction<K> => ({
   type: UPDATE_TRANSACTION_FORM,
   key,
   value,
 });
 
-interface UpdateTransactionSharedFormAction<K extends keyof TransactionFormState['shared']> {
+interface UpdateTransactionSharedFormAction<
+  K extends keyof TransactionFormState["shared"]
+> {
   type: typeof UPDATE_TRANSACTION_SHARED_FORM;
   key: K;
-  value: TransactionFormState['shared'][K];
+  value: TransactionFormState["shared"][K];
 }
 
-export const updateTransactionSharedForm = <K extends keyof TransactionFormState['shared']>(key: K, value: TransactionFormState['shared'][K]): UpdateTransactionSharedFormAction<K> => ({
+export const updateTransactionSharedForm = <
+  K extends keyof TransactionFormState["shared"]
+>(
+  key: K,
+  value: TransactionFormState["shared"][K]
+): UpdateTransactionSharedFormAction<K> => ({
   type: UPDATE_TRANSACTION_SHARED_FORM,
   key,
   value,
 });
 
-interface UpdateTransactionDirectFormAction<K extends keyof TransactionFormState['direct']> {
+interface UpdateTransactionDirectFormAction<
+  K extends keyof TransactionFormState["direct"]
+> {
   type: typeof UPDATE_TRANSACTION_DIRECT_FORM;
   key: K;
-  value: TransactionFormState['direct'][K];
+  value: TransactionFormState["direct"][K];
 }
 
-export const updateTransactionDirectForm = <K extends keyof TransactionFormState['direct']>(key: K, value: TransactionFormState['direct'][K]): UpdateTransactionDirectFormAction<K> => ({
+export const updateTransactionDirectForm = <
+  K extends keyof TransactionFormState["direct"]
+>(
+  key: K,
+  value: TransactionFormState["direct"][K]
+): UpdateTransactionDirectFormAction<K> => ({
   type: UPDATE_TRANSACTION_DIRECT_FORM,
   key,
   value,
 });
 
-interface UpdateTransactionParticipantAction<K extends 'participant' | 'status' | 'amount'> {
+interface UpdateTransactionParticipantAction<
+  K extends "participant" | "status" | "amount"
+> {
   type: typeof UPDATE_TRANSACTION_PARTICIPANT;
   id: string;
   key: K;
   value: TransactionFormSharedState[K];
 }
 
-export const updateTransactionParticipant = <K extends 'participant' | 'status' | 'amount'>(id: string, key: K, value: TransactionFormSharedState[K]): UpdateTransactionParticipantAction<K> => ({
+export const updateTransactionParticipant = <
+  K extends "participant" | "status" | "amount"
+>(
+  id: string,
+  key: K,
+  value: TransactionFormSharedState[K]
+): UpdateTransactionParticipantAction<K> => ({
   type: UPDATE_TRANSACTION_PARTICIPANT,
   id,
   key,
@@ -227,19 +278,19 @@ interface SetErrorAction {
 export const setError = (error: any, info: any): SetErrorAction => ({
   type: SET_ERROR,
   error,
-  info
+  info,
 });
 
 interface SelectTabAction {
   type: typeof ROUTE_TAB;
-  payload: {tabId: string};
+  payload: { tabId: string };
 }
 
 export const selectTab = (id: string): SelectTabAction => ({
   type: ROUTE_TAB,
   payload: {
-    tabId: id
-  }
+    tabId: id,
+  },
 });
 
 interface NavigateToTabsAction {
@@ -247,86 +298,136 @@ interface NavigateToTabsAction {
 }
 
 export const navigateToTabs = (): NavigateToTabsAction => ({
-  type: ROUTE_TABS
+  type: ROUTE_TABS,
 });
 
 interface NavigateToUpdateTransactionAction {
   type: typeof ROUTE_TRANSACTION;
-  payload: {tabId: string, transactionId: string};
+  payload: { tabId: string; transactionId: string };
 }
 
-export const navigateToUpdateTransaction = (tabId: string, transactionId: string): NavigateToUpdateTransactionAction => ({
+export const navigateToUpdateTransaction = (
+  tabId: string,
+  transactionId: string
+): NavigateToUpdateTransactionAction => ({
   type: ROUTE_TRANSACTION,
   payload: {
     tabId: tabId,
-    transactionId: transactionId
-  }
+    transactionId: transactionId,
+  },
 });
 
 interface NavigateToAddTransactionAction {
   type: typeof ROUTE_NEW_TRANSACTION;
-  payload: {tabId: string};
+  payload: { tabId: string };
 }
 
-export const navigateToAddTransaction = (tabId: string): NavigateToAddTransactionAction => ({
+export const navigateToAddTransaction = (
+  tabId: string
+): NavigateToAddTransactionAction => ({
   type: ROUTE_NEW_TRANSACTION,
   payload: {
-    tabId: tabId
-  }
+    tabId: tabId,
+  },
 });
 
-export type GTAction = CheckRemoteTabAction | CheckRemoteTabFailureAction | CreateTabAction | ImportTabAction | UpdateFromDbAction | CreateOrUpdateTransactionAction | RemoveTransactionAction | SetCreateTabInputValueAction | ResetCreateTabInputValueAction | SetImportTabInputValueAction | ResetImportTabInputValueAction | SetTransactionFormAction | ResetTransactionFormAction | UpdateTransactionFormAction<keyof TransactionFormState> | UpdateTransactionSharedFormAction<keyof TransactionFormState['shared']> | UpdateTransactionSharedFormAction<keyof TransactionFormState['shared']> | UpdateTransactionDirectFormAction<keyof TransactionFormState['direct']> | UpdateTransactionParticipantAction<'participant' | 'status' | 'amount'> | AddParticipantToTransactionSharedFormAction | SetAllJoinedOnTransactionSharedFormAction | SetErrorAction | SelectTabAction | NavigateToTabsAction | NavigateToUpdateTransactionAction | NavigateToAddTransactionAction;
+export type GTAction =
+  | CheckRemoteTabAction
+  | CheckRemoteTabFailureAction
+  | CreateTabAction
+  | ImportTabAction
+  | UpdateFromDbAction
+  | CreateOrUpdateTransactionAction
+  | RemoveTransactionAction
+  | SetCreateTabInputValueAction
+  | ResetCreateTabInputValueAction
+  | SetImportTabInputValueAction
+  | ResetImportTabInputValueAction
+  | SetTransactionFormAction
+  | ResetTransactionFormAction
+  | UpdateTransactionFormAction<keyof TransactionFormState>
+  | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
+  | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
+  | UpdateTransactionDirectFormAction<keyof TransactionFormState["direct"]>
+  | UpdateTransactionParticipantAction<"participant" | "status" | "amount">
+  | AddParticipantToTransactionSharedFormAction
+  | SetAllJoinedOnTransactionSharedFormAction
+  | SetErrorAction
+  | SelectTabAction
+  | NavigateToTabsAction
+  | NavigateToUpdateTransactionAction
+  | NavigateToAddTransactionAction;
 
-export type GTThunkAction = ThunkAction<Promise<void>, AllState, Services, GTAction>;
+export type GTThunkAction = ThunkAction<
+  Promise<void>,
+  AllState,
+  Services,
+  GTAction
+>;
 
 const generateTabId = () => {
-  var chars = '0123456789abcdefghijklmnopqrstuvwxyz';
-  var result = '';
+  var chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+  var result = "";
   for (var i = 0; i < 7; ++i) {
     result += chars.substr(Math.floor(Math.random() * chars.length), 1);
   }
   return result;
 };
 
-const checkTab = async (dispatch: (action: GTThunkAction | GTAction) => void, id: string, dbManager: DbManager, viaImportForm?: boolean): Promise<void> => {
+const checkTab = async (
+  dispatch: (action: GTThunkAction | GTAction) => void,
+  id: string,
+  dbManager: DbManager,
+  viaImportForm?: boolean
+): Promise<void> => {
   dispatch(createCheckRemoteTabAction());
 
   try {
     const infoDoc = await dbManager.checkTab(id);
-    dispatch(createImportTabAction({
-      id: 'info',
-      type: DocumentType.INFO,
-      name: infoDoc.name,
-      tabId: id
-    }));
+    dispatch(
+      createImportTabAction({
+        id: "info",
+        type: DocumentType.INFO,
+        name: infoDoc.name,
+        tabId: id,
+      })
+    );
 
     if (viaImportForm) {
       dispatch(selectTab(id));
-      dispatch(resetImportTabInputValue());    
+      dispatch(resetImportTabInputValue());
     }
 
-    dbManager.connectTab(id)
-    .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
+    dbManager
+      .connectTab(id)
+      .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
   } catch (error) {
     let message;
-    if (error.name === 'not_found') {
+    if (error.name === "not_found") {
       message = 'Could not find a tab with the ID "' + id + '".';
     } else {
-      message = 'Error: unable to import tab. Please try again.';
+      message = "Error: unable to import tab. Please try again.";
     }
     dispatch(createCheckRemoteTabFailureAction(message));
     console.error(error);
-  };
+  }
 };
 
-export const connectDb = (): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+export const connectDb = (): GTThunkAction => async (
+  dispatch,
+  getState,
+  { dbManager }
+) => {
   await dbManager.init((actionMap) => {
     dispatch(createUpdateFromDbAction(actionMap));
   });
   dbManager.connect();
 };
 
-export const ensureConnectedDb = (): GTThunkAction => async (dispatch, getState) => {
+export const ensureConnectedDb = (): GTThunkAction => async (
+  dispatch,
+  getState
+) => {
   if (getState().app.initialLoadingDone) {
     return;
   }
@@ -334,14 +435,18 @@ export const ensureConnectedDb = (): GTThunkAction => async (dispatch, getState)
   return dispatch(connectDb());
 };
 
-export const createTab = (name: string): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+export const createTab = (name: string): GTThunkAction => async (
+  dispatch,
+  getState,
+  { dbManager }
+) => {
   const id = generateTabId();
 
   const doc: Info = {
-    id: 'info',
+    id: "info",
     type: DocumentType.INFO,
     name: name,
-    tabId: id
+    tabId: id,
   };
 
   dispatch(createCreateTabAction(doc));
@@ -351,10 +456,14 @@ export const createTab = (name: string): GTThunkAction => async (dispatch, getSt
   await dbManager.createTab(doc);
 };
 
-export const importTab = (id: string): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+export const importTab = (id: string): GTThunkAction => async (
+  dispatch,
+  getState,
+  { dbManager }
+) => {
   id = id.toLowerCase();
-  // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2" 
-  id = id.replace(/.*?([a-z0-9]+$)/, '$1');
+  // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2"
+  id = id.replace(/.*?([a-z0-9]+$)/, "$1");
 
   // if tab is already imported, just show it
   if (getState().app.tabs.includes(id)) {
@@ -366,11 +475,19 @@ export const importTab = (id: string): GTThunkAction => async (dispatch, getStat
   return checkTab(dispatch, id, dbManager, true);
 };
 
-export const importTabFromUrl = (id: string): GTThunkAction => (dispatch, getState, { dbManager }) => {
+export const importTabFromUrl = (id: string): GTThunkAction => (
+  dispatch,
+  getState,
+  { dbManager }
+) => {
   return checkTab(dispatch, id, dbManager);
 };
 
-export const addOrUpdateTransaction = (): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+export const addOrUpdateTransaction = (): GTThunkAction => async (
+  dispatch,
+  getState,
+  { dbManager }
+) => {
   const state = getState();
   const tabId = state.location.payload.tabId;
   const transactionId = state.location.payload.transactionId;
@@ -381,7 +498,7 @@ export const addOrUpdateTransaction = (): GTThunkAction => async (dispatch, getS
   }
 
   const transaction = mapFormDataToTransaction(formState, tabId, transactionId);
-  
+
   dispatch(createCreateOrUpdateTransactionAction(transaction));
 
   dispatch(selectTab(tabId));
@@ -395,7 +512,11 @@ export const addOrUpdateTransaction = (): GTThunkAction => async (dispatch, getS
   }
 };
 
-export const removeTransaction = (): GTThunkAction => async (dispatch, getState, { dbManager }) => {
+export const removeTransaction = (): GTThunkAction => async (
+  dispatch,
+  getState,
+  { dbManager }
+) => {
   const state = getState();
   const id = state.location.payload.transactionId;
   let doc;
@@ -417,22 +538,30 @@ export const removeTransaction = (): GTThunkAction => async (dispatch, getState,
   await dbManager.deleteDoc(doc);
 };
 
-export const closeTransaction = (): GTThunkAction => async (dispatch, getState) => {
+export const closeTransaction = (): GTThunkAction => async (
+  dispatch,
+  getState
+) => {
   const tabId = getState().location.payload.tabId;
   dispatch(selectTab(tabId));
 
   dispatch(resetTransactionForm());
 };
 
-export const initTransactionForm = (): GTThunkAction => async (dispatch, getState) => {
+export const initTransactionForm = (): GTThunkAction => async (
+  dispatch,
+  getState
+) => {
   const state = getState();
   const transactionId = state.location.payload.transactionId;
   const transaction = state.app.docsById[transactionId] as Transaction;
-  
+
   if (transactionId && !transaction) {
-    throw new Error(`No transaction in the store with the ID "${transactionId}"`);
+    throw new Error(
+      `No transaction in the store with the ID "${transactionId}"`
+    );
   }
-  
+
   const formState = createFormData(selectors.getAccounts(state), transaction);
   dispatch(createSetTransactionFormAction(formState));
 };

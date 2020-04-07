@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 // @ts-ignore
-import SmoothScroll from 'smooth-scroll';
-import Loader from './loader';
-import Summary from './summary';
-import TransactionList from './transactionlist';
-import TotalSpending from './totalspending';
-import LoadError from './loaderror';
-import { Account, Transaction, Info } from '../types';
+import SmoothScroll from "smooth-scroll";
+import Loader from "./loader";
+import Summary from "./summary";
+import TransactionList from "./transactionlist";
+import TotalSpending from "./totalspending";
+import LoadError from "./loaderror";
+import { Account, Transaction, Info } from "../types";
 
 interface Props {
   tabInfo?: Info;
@@ -28,7 +28,6 @@ interface State {
 }
 
 export default class Main extends PureComponent<Props, State> {
-
   private transactionsHeading: React.RefObject<HTMLHeadingElement>;
 
   scroller?: any;
@@ -39,20 +38,26 @@ export default class Main extends PureComponent<Props, State> {
     this.transactionsHeading = React.createRef();
 
     this.state = {
-      transactionsHeadingIsOutOfViewport: false
+      transactionsHeadingIsOutOfViewport: false,
     };
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.checkTransactionsHeadingVisibility);
-    window.addEventListener('resize', this.checkTransactionsHeadingVisibility);
+    window.addEventListener("scroll", this.checkTransactionsHeadingVisibility);
+    window.addEventListener("resize", this.checkTransactionsHeadingVisibility);
     this.checkTransactionsHeadingVisibility();
     this.scroller = new SmoothScroll();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.checkTransactionsHeadingVisibility);
-    window.removeEventListener('resize', this.checkTransactionsHeadingVisibility);
+    window.removeEventListener(
+      "scroll",
+      this.checkTransactionsHeadingVisibility
+    );
+    window.removeEventListener(
+      "resize",
+      this.checkTransactionsHeadingVisibility
+    );
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -70,16 +75,19 @@ export default class Main extends PureComponent<Props, State> {
     // @ts-ignore
     var headingY = this.transactionsHeading.current.offsetTop;
     var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
-    if (transactionsHeadingIsOutOfViewport !== this.state.transactionsHeadingIsOutOfViewport) {
+    if (
+      transactionsHeadingIsOutOfViewport !==
+      this.state.transactionsHeadingIsOutOfViewport
+    ) {
       this.setState({
-        transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport
+        transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport,
       });
     }
-  }
+  };
 
   handleNewEntryClick = () => {
     if (!this.props.tabId) {
-      throw new Error('Tab ID missing.');
+      throw new Error("Tab ID missing.");
     }
     this.props.onNavigateToAddTransaction(this.props.tabId);
   };
@@ -90,17 +98,18 @@ export default class Main extends PureComponent<Props, State> {
 
   renderHeader(showAddButton?: boolean) {
     return (
-      <div className='header'>
-        <button className='left' onClick={this.props.onChangeTabClick}>
-          <svg height='16' width='16'>
-            <path d='m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z' />
+      <div className="header">
+        <button className="left" onClick={this.props.onChangeTabClick}>
+          <svg height="16" width="16">
+            <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
           </svg>
         </button>
-        <h2>{this.props.tabInfo?.name || ''}</h2>
-        {
-          showAddButton &&
-          <button className='create' onClick={this.handleNewEntryClick}>+</button>
-        }
+        <h2>{this.props.tabInfo?.name || ""}</h2>
+        {showAddButton && (
+          <button className="create" onClick={this.handleNewEntryClick}>
+            +
+          </button>
+        )}
       </div>
     );
   }
@@ -108,21 +117,25 @@ export default class Main extends PureComponent<Props, State> {
   renderSummary() {
     return (
       <React.Fragment>
-        <div className='row'>
+        <div className="row">
           <Summary accounts={this.props.accounts} />
         </div>
-        <div className='row'>
-          <h3 ref={this.transactionsHeading} className='transactions-heading'>Transactions</h3>
-          {
-            this.state.transactionsHeadingIsOutOfViewport &&
+        <div className="row">
+          <h3 ref={this.transactionsHeading} className="transactions-heading">
+            Transactions
+          </h3>
+          {this.state.transactionsHeadingIsOutOfViewport && (
             <h3
-              className='transactions-heading transactions-heading-fixed'
+              className="transactions-heading transactions-heading-fixed"
               onClick={this.handleTransitionsTeaserClick}
             >
               ▾ Transactions
             </h3>
-          }
-          <TransactionList transactions={this.props.transactions} onDetailsClick={this.props.onDetailsClick} />
+          )}
+          <TransactionList
+            transactions={this.props.transactions}
+            onDetailsClick={this.props.onDetailsClick}
+          />
           <TotalSpending amount={this.props.total} />
         </div>
         {this.renderShareInfo()}
@@ -133,15 +146,17 @@ export default class Main extends PureComponent<Props, State> {
   renderEmptyState() {
     return (
       <React.Fragment>
-        <div className='empty-info'>
+        <div className="empty-info">
           <p>
-            A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
+            A tab consists of transactions. When you add a transaction you also
+            define the people that are part of it, the participants.
           </p>
-          <p>
-            Start by adding your first transaction:
-          </p>
-          <div className='row'>
-            <button className='full-width create' onClick={this.handleNewEntryClick}>
+          <p>Start by adding your first transaction:</p>
+          <div className="row">
+            <button
+              className="full-width create"
+              onClick={this.handleNewEntryClick}
+            >
               Add transaction
             </button>
           </div>
@@ -153,7 +168,7 @@ export default class Main extends PureComponent<Props, State> {
 
   renderShareInfo() {
     return (
-      <div className='share-info'>
+      <div className="share-info">
         <p>
           Share this tab ID for collaboration with others:
           <br />
@@ -165,11 +180,18 @@ export default class Main extends PureComponent<Props, State> {
 
   renderContent() {
     if (!this.props.tabInfo) {
-      return <LoadError message='Error: Tab data missing. Are you offline? Try refreshing.' />;
+      return (
+        <LoadError message="Error: Tab data missing. Are you offline? Try refreshing." />
+      );
     }
 
     if (this.props.remoteTabError) {
-      return <LoadError message={this.props.remoteTabError} onOkClick={this.props.onChangeTabClick} />;
+      return (
+        <LoadError
+          message={this.props.remoteTabError}
+          onOkClick={this.props.onChangeTabClick}
+        />
+      );
     }
 
     if (this.props.accounts.length === 0) {
@@ -183,13 +205,12 @@ export default class Main extends PureComponent<Props, State> {
     var isLoading = this.props.checkingRemoteTab || this.props.importingTab;
 
     return (
-      <div className={'scene mainScene' + (this.props.visible ? '' : ' hidden')}>
+      <div
+        className={"scene mainScene" + (this.props.visible ? "" : " hidden")}
+      >
         {this.renderHeader(!isLoading && !this.props.remoteTabError)}
-        <Loader show={isLoading}>
-          {this.renderContent()}
-        </Loader>
+        <Loader show={isLoading}>{this.renderContent()}</Loader>
       </div>
     );
   }
-
 }

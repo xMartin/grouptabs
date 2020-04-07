@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import dateUtils from '../util/date';
-import TransactionListItem from './transactionlistitem';
+import React, { memo } from "react";
+import dateUtils from "../util/date";
+import TransactionListItem from "./transactionlistitem";
 import { Transaction } from "../types";
 
 interface Props {
@@ -15,7 +15,7 @@ interface DateGroup {
 
 const groupTransactions = (transactions: Transaction[]) => {
   if (!transactions.length) {
-    return transactions as unknown as DateGroup[];
+    return (transactions as unknown) as DateGroup[];
   }
   // XXX Refactor structuring of date groups with a proper loop
   var date = dateUtils.formatHumanDate(transactions[0].date);
@@ -26,7 +26,7 @@ const groupTransactions = (transactions: Transaction[]) => {
     if (currentDate !== date) {
       dateGroups.push({
         date: date,
-        transactions: dateGroupTransactions
+        transactions: dateGroupTransactions,
       });
       dateGroupTransactions = [];
     }
@@ -35,26 +35,26 @@ const groupTransactions = (transactions: Transaction[]) => {
   });
   dateGroups.push({
     date: date,
-    transactions: dateGroupTransactions
+    transactions: dateGroupTransactions,
   });
   return dateGroups;
 };
 
 const TransactionList: React.FC<Props> = ({ transactions, onDetailsClick }) => {
   return (
-    <div id='transactions'>
+    <div id="transactions">
       <div>
         {groupTransactions(transactions).map((dateGroup) => (
           <div key={dateGroup.date}>
-            <div className='dategroup'>
-              {dateGroup.date}
-            </div>
+            <div className="dategroup">{dateGroup.date}</div>
             {dateGroup.transactions.map((transaction) => {
-              return <TransactionListItem
-                key={transaction.timestamp + '_' + transaction.description}
-                transaction={transaction}
-                onDetailsClick={onDetailsClick}
-              />;
+              return (
+                <TransactionListItem
+                  key={transaction.timestamp + "_" + transaction.description}
+                  transaction={transaction}
+                  onDetailsClick={onDetailsClick}
+                />
+              );
             })}
           </div>
         ))}

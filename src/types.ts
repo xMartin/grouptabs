@@ -4,13 +4,13 @@ export interface ActionMap {
 }
 
 export enum DocumentType {
-  TRANSACTION = 'transaction',
-  INFO = 'info',
+  TRANSACTION = "transaction",
+  INFO = "info",
 }
 
 export enum TransactionType {
-  SHARED = 'SHARED',
-  DIRECT = 'DIRECT',
+  SHARED = "SHARED",
+  DIRECT = "DIRECT",
 }
 
 export interface Account {
@@ -45,11 +45,14 @@ export interface Tab {
 }
 
 export enum TransactionFormParticipantStatus {
-  NONE = 0, JOINED = 1, PAID = 2,
+  NONE = 0,
+  JOINED = 1,
+  PAID = 2,
 }
 
 export enum TransactionFormParticipantInputType {
-  NEW, EXISTING,
+  NEW,
+  EXISTING,
 }
 
 export interface TransactionFormSharedState {

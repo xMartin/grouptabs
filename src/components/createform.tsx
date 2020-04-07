@@ -1,5 +1,5 @@
-import React, { PureComponent, SyntheticEvent } from 'react';
-import { control } from '../util/form';
+import React, { PureComponent, SyntheticEvent } from "react";
+import { control } from "../util/form";
 
 interface Props {
   tabName?: string;
@@ -14,21 +14,22 @@ export default class CreateForm extends PureComponent<Props> {
     if (name) {
       this.props.onSubmit(name);
     }
-  }
+  };
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className='create-form'>
+      <form onSubmit={this.handleSubmit} className="create-form">
         <input
-          type='text'
-          className='full-width'
-          placeholder='Tab name …'
+          type="text"
+          className="full-width"
+          placeholder="Tab name …"
           value={control(this.props.tabName)}
-          onChange={(event: SyntheticEvent<HTMLInputElement>) => this.props.onTabNameChange(event.currentTarget.value)}
+          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+            this.props.onTabNameChange(event.currentTarget.value)
+          }
         />
-        <button className='create'>Create</button>
+        <button className="create">Create</button>
       </form>
     );
   }
-
 }

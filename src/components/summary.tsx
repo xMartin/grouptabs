@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
-import { Account } from '../types';
+import React, { memo } from "react";
+import { Account } from "../types";
 
 interface Props {
   accounts: Account[];
 }
 
-function formatData (accounts: Account[]) {
+function formatData(accounts: Account[]) {
   var round = function (amount: number) {
     return Math.round(amount * 100) / 100;
   };
@@ -23,12 +23,12 @@ function formatData (accounts: Account[]) {
 
   var getCssColor = function (amount: number, maxAmount: number) {
     if (!maxAmount) {
-      return 'transparent';
+      return "transparent";
     }
     var color = amount < 0 ? [226, 91, 29] : [92, 226, 14];
     var opacity = Math.abs(amount) / maxAmount;
     color.push(opacity);
-    return 'rgba(' + color.join(',') + ')';
+    return "rgba(" + color.join(",") + ")";
   };
 
   var maxAmount = getMaxAmount(accounts);
@@ -36,7 +36,7 @@ function formatData (accounts: Account[]) {
     return {
       amount: round(account.amount),
       cssColor: getCssColor(account.amount, maxAmount),
-      participant: account.participant
+      participant: account.participant,
     };
   });
 
@@ -48,7 +48,10 @@ const Summary: React.FC<Props> = ({ accounts }) => (
     <table id="balance">
       <tbody>
         {formatData(accounts).map((account) => (
-          <tr key={account.participant} style={{backgroundColor: account.cssColor}}>
+          <tr
+            key={account.participant}
+            style={{ backgroundColor: account.cssColor }}
+          >
             <th className="account">{account.participant}</th>
             <td className="amount">{account.amount}</td>
           </tr>

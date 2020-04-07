@@ -1,13 +1,13 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
-import Form from './form';
-import { TransactionType, DocumentType } from '../types';
-import { createFormData } from '../util/transactionform';
+import React from "react";
+import renderer from "react-test-renderer";
+import Form from "./form";
+import { TransactionType, DocumentType } from "../types";
+import { createFormData } from "../util/transactionform";
 
 let realDate: any;
 
 beforeAll(() => {
-  const currentDate = new Date('2020-02-20T20:20:20.202Z');
+  const currentDate = new Date("2020-02-20T20:20:20.202Z");
   realDate = Date;
   global.Date = class extends Date {
     constructor(date: any, ...args: any[]) {
@@ -25,11 +25,11 @@ afterAll(() => {
   global.Date = realDate;
 });
 
-it('renders empty form', () => {
+it("renders empty form", () => {
   const tree = renderer
     .create(
       <Form
-        mode='new'
+        mode="new"
         data={createFormData([])}
         onUpdateForm={jest.fn()}
         onUpdateSharedForm={jest.fn()}
@@ -45,40 +45,40 @@ it('renders empty form', () => {
   expect(tree).toMatchSnapshot();
 });
 
-it('renders prefilled form', () => {
+it("renders prefilled form", () => {
   const tree = renderer
     .create(
       <Form
-        mode='edit'
+        mode="edit"
         data={createFormData(
           [
             {
-              participant: 'Martin',
+              participant: "Martin",
               amount: -21,
             },
             {
-              participant: 'Jan',
+              participant: "Jan",
               amount: 21,
-            }
+            },
           ],
           {
-            id: '123',
+            id: "123",
             type: DocumentType.TRANSACTION,
-            tabId: '321',
-            description: 'DESCRIPTION',
+            tabId: "321",
+            description: "DESCRIPTION",
             transactionType: TransactionType.SHARED,
-            date: '2020-03-24',
-            timestamp: '2020-03-24T20:23:21z',
+            date: "2020-03-24",
+            timestamp: "2020-03-24T20:23:21z",
             participants: [
               {
-                participant: 'Martin',
+                participant: "Martin",
                 amount: 5,
               },
               {
-                participant: 'Jan',
+                participant: "Jan",
                 amount: 0,
               },
-            ]
+            ],
           }
         )}
         onUpdateForm={jest.fn()}

@@ -1,74 +1,74 @@
 import selectors from "./selectors";
 
-describe('getTabInfo', () => {
+describe("getTabInfo", () => {
   it("selects tab info", () => {
     const state: any = {
       location: {
         payload: {
-          tabId: 'TAB_ID'
-        }
+          tabId: "TAB_ID",
+        },
       },
       app: {
-        tabs: ['TAB_ID', 'XXX'],
+        tabs: ["TAB_ID", "XXX"],
         docsById: {
-          'info-TAB_ID': {
-            id: 'info-TAB_ID',
-            name: 'TAB_NAME'
+          "info-TAB_ID": {
+            id: "info-TAB_ID",
+            name: "TAB_NAME",
           },
-          'XXX': {
-            id: 'XXX'
-          }
+          XXX: {
+            id: "XXX",
+          },
         },
-        transactionsByTab: {}
-      }
+        transactionsByTab: {},
+      },
     };
 
     const result = selectors.getTabInfo(state);
 
     expect(result).toEqual({
-      id: 'info-TAB_ID',
-      name: 'TAB_NAME'
+      id: "info-TAB_ID",
+      name: "TAB_NAME",
     });
   });
 
-  it('returns undefined if no tab is currently active', () => {
+  it("returns undefined if no tab is currently active", () => {
     const state: any = {
       location: {
-        payload: {}
+        payload: {},
       },
       app: {
-        tabs: ['TAB_ID'],
+        tabs: ["TAB_ID"],
         docsById: {
-          'info-TAB_ID': {
-            id: 'info-TAB_ID',
-            name: 'TAB_NAME'
-          }
+          "info-TAB_ID": {
+            id: "info-TAB_ID",
+            name: "TAB_NAME",
+          },
         },
-        transactionsByTab: {}
-      }
+        transactionsByTab: {},
+      },
     };
 
     const result = selectors.getTabInfo(state);
 
-    expect(result).toBe(undefined);      
+    expect(result).toBe(undefined);
   });
 
-  it('returns undefined if tab info is missing', () => {
+  it("returns undefined if tab info is missing", () => {
     const state: any = {
       location: {
         payload: {
-          tabId: 'TAB_ID'
-        }
+          tabId: "TAB_ID",
+        },
       },
       app: {
-        tabs: ['TAB_ID'],
+        tabs: ["TAB_ID"],
         docsById: {},
-        transactionsByTab: {}
-      }
+        transactionsByTab: {},
+      },
     };
 
     const result = selectors.getTabInfo(state);
 
-    expect(result).toBe(undefined);      
+    expect(result).toBe(undefined);
   });
 });

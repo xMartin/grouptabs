@@ -6,8 +6,6 @@ interface Props {
   onOkClick?: () => void;
 }
 
-const el = React.createElement;
-
 const LoadError: React.FC<Props> = ({ message, onOkClick }) => {
   const handleButtonClick = () => {
     if (onOkClick) {
@@ -18,12 +16,12 @@ const LoadError: React.FC<Props> = ({ message, onOkClick }) => {
   };
 
   return (
-    el('div', {className: 'load-error'},
-      el('img', {src: logo, alt: ''}),
-      el('h2', null, 'Grouptabs'),
-      el('p', null, message),
-      el('button', {className: 'create', onClick: handleButtonClick}, 'OK')
-    )
+    <div className='load-error'>
+      <img src={logo} alt='' />
+      <h2>Grouptabs</h2>
+      <p>{message}</p>
+      <button className='create' onClick={handleButtonClick}>OK</button>
+    </div>
   );
 };
 

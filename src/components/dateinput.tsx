@@ -1,8 +1,6 @@
 import React, { PureComponent, SyntheticEvent } from 'react';
 import dateUtils from '../util/date';
 
-var el = React.createElement;
-
 interface Props {
   date: string;
   onChange: (date: string) => void;
@@ -28,23 +26,27 @@ export default class DateInput extends PureComponent<Props> {
     const { date } = this.props;
 
     return (
-      el('div', {className: 'form-row-input date-input'},
-        el('button', {
-          type: 'button',
-          className: dateUtils.isToday(date) ? 'selected' : '',
-          onClick: this.handleTodayClick
-        }, 'today'),
-        el('button', {
-          type: 'button',
-          className: dateUtils.isYesterday(date) ? 'selected' : '',
-          onClick: this.handleYesterdayClick
-        }, 'yesterday'),
-        el('input', {
-          type: 'date',
-          value: date,
-          onChange: this.handleDateChange
-        })
-      )
+      <div className='form-row-input date-input'>
+        <button
+          type='button'
+          className={dateUtils.isToday(date) ? 'selected' : ''}
+          onClick={this.handleTodayClick}
+        >
+          today
+        </button>
+        <button
+          type='button'
+          className={dateUtils.isYesterday(date) ? 'selected' : ''}
+          onClick={this.handleYesterdayClick}
+        >
+          yesterday
+        </button>
+        <input
+          type='date'
+          value={date}
+          onChange={this.handleDateChange}
+        />
+      </div>
     );
   }
 

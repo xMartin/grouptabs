@@ -40,28 +40,26 @@ const groupTransactions = (transactions: Transaction[]) => {
   return dateGroups;
 };
 
-var el = React.createElement;
-
 const TransactionList: React.FC<Props> = ({ transactions, onDetailsClick }) => {
   return (
-    el('div', {id: 'transactions'},
-      el('div', null,
-        groupTransactions(transactions).map((dateGroup) => (
-          el('div', {key: dateGroup.date},
-            el('div', {className: 'dategroup'},
-              dateGroup.date
-            ),
-            dateGroup.transactions.map((transaction) => {
-              return el(TransactionListItem, {
-                key: transaction.timestamp + '_' + transaction.description,
-                transaction,
-                onDetailsClick
-              });
-            })
-          )
-        )
-      ))
-    )
+    <div id='transactions'>
+      <div>
+        {groupTransactions(transactions).map((dateGroup) => (
+          <div key={dateGroup.date}>
+            <div className='dategroup'>
+              {dateGroup.date}
+            </div>
+            {dateGroup.transactions.map((transaction) => {
+              return <TransactionListItem
+                key={transaction.timestamp + '_' + transaction.description}
+                transaction={transaction}
+                onDetailsClick={onDetailsClick}
+              />;
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

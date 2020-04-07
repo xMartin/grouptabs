@@ -8,8 +8,6 @@ import TotalSpending from './totalspending';
 import LoadError from './loaderror';
 import { Account, Transaction, Info } from '../types';
 
-var el = React.createElement;
-
 interface Props {
   tabInfo?: Info;
   tabId?: string;
@@ -31,7 +29,7 @@ interface State {
 
 export default class Main extends PureComponent<Props, State> {
 
-  private transactionsHeading: React.RefObject<HTMLElement>;
+  private transactionsHeading: React.RefObject<HTMLHeadingElement>;
 
   scroller?: any;
 
@@ -92,88 +90,86 @@ export default class Main extends PureComponent<Props, State> {
 
   renderHeader(showAddButton?: boolean) {
     return (
-      el('div', {className: 'header'},
-        el('button', {className: 'left', onClick: this.props.onChangeTabClick},
-          el('svg', {height: 16, width: 16},
-            el('path', {d: 'm2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z'})
-          )
-        ),
-        el('h2', null, this.props.tabInfo?.name || ''),
-        (
+      <div className='header'>
+        <button className='left' onClick={this.props.onChangeTabClick}>
+          <svg height='16' width='16'>
+            <path d='m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z' />
+          </svg>
+        </button>
+        <h2>{this.props.tabInfo?.name || ''}</h2>
+        {
           showAddButton &&
-          el('button', {className: 'create', onClick: this.handleNewEntryClick},
-            '+'
-          )
-        )
-      )
+          <button className='create' onClick={this.handleNewEntryClick}>+</button>
+        }
+      </div>
     );
   }
 
   renderSummary() {
     return (
-      el(React.Fragment, null,
-        el('div', {className: 'row'},
-          el(Summary, {accounts: this.props.accounts})
-        ),
-        el('div', {className: 'row'},
-          el('h3', {ref: this.transactionsHeading, className: 'transactions-heading'}, 'Transactions'),
-          (
+      <React.Fragment>
+        <div className='row'>
+          <Summary accounts={this.props.accounts} />
+        </div>
+        <div className='row'>
+          <h3 ref={this.transactionsHeading} className='transactions-heading'>Transactions</h3>
+          {
             this.state.transactionsHeadingIsOutOfViewport &&
-            el('h3', {
-              className: 'transactions-heading transactions-heading-fixed',
-              onClick: this.handleTransitionsTeaserClick
-            },
-              '▾ Transactions'
-            )
-          ),
-          el(TransactionList, {transactions: this.props.transactions, onDetailsClick: this.props.onDetailsClick}),
-          el(TotalSpending, {amount: this.props.total})
-        ),
-        this.renderShareInfo()
-      )
+            <h3
+              className='transactions-heading transactions-heading-fixed'
+              onClick={this.handleTransitionsTeaserClick}
+            >
+              ▾ Transactions
+            </h3>
+          }
+          <TransactionList transactions={this.props.transactions} onDetailsClick={this.props.onDetailsClick} />
+          <TotalSpending amount={this.props.total} />
+        </div>
+        {this.renderShareInfo()}
+      </React.Fragment>
     );
   }
 
   renderEmptyState() {
     return (
-      el(React.Fragment, null,
-        el('div', {className: 'empty-info'},
-          el('p', null,
-            'A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.'
-          ),
-          el('p', null,
-            'Start by adding your first transaction:'
-          ),
-          el('div', {className: 'row'},
-            el('button', {className: 'full-width create', onClick: this.handleNewEntryClick},
-              'Add transaction'
-            )
-          )
-        ),
-        this.renderShareInfo()
-      )
+      <React.Fragment>
+        <div className='empty-info'>
+          <p>
+            A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
+          </p>
+          <p>
+            Start by adding your first transaction:
+          </p>
+          <div className='row'>
+            <button className='full-width create' onClick={this.handleNewEntryClick}>
+              Add transaction
+            </button>
+          </div>
+        </div>
+        {this.renderShareInfo()}
+      </React.Fragment>
     );
   }
 
   renderShareInfo() {
     return (
-      el('div', {className: 'share-info'},
-        el('p', null,
-          'Share this tab ID for collaboration with others:',
-          el('br'),
-          el('code', null, this.props.tabId)
-        )
-      )
+      <div className='share-info'>
+        <p>
+          Share this tab ID for collaboration with others:
+          <br />
+          <code>{this.props.tabId}</code>
+        </p>
+      </div>
     );
   }
 
   renderContent() {
     if (!this.props.tabInfo) {
-      return el(LoadError, {message: 'Error: Tab data missing. Are you offline? Try refreshing.'});
+      return <LoadError message='Error: Tab data missing. Are you offline? Try refreshing.' />;
     }
 
     if (this.props.remoteTabError) {
-      return el(LoadError, {message: this.props.remoteTabError, onOkClick: this.props.onChangeTabClick});
+      return <LoadError message={this.props.remoteTabError} onOkClick={this.props.onChangeTabClick} />;
     }
 
     if (this.props.accounts.length === 0) {
@@ -187,12 +183,12 @@ export default class Main extends PureComponent<Props, State> {
     var isLoading = this.props.checkingRemoteTab || this.props.importingTab;
 
     return (
-      el('div', {className: 'scene mainScene' + (this.props.visible ? '' : ' hidden')},
-        this.renderHeader(!isLoading && !this.props.remoteTabError),
-        el(Loader, {show: isLoading},
-          this.renderContent()
-        )
-      )
+      <div className={'scene mainScene' + (this.props.visible ? '' : ' hidden')}>
+        {this.renderHeader(!isLoading && !this.props.remoteTabError)}
+        <Loader show={isLoading}>
+          {this.renderContent()}
+        </Loader>
+      </div>
     );
   }
 

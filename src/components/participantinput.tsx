@@ -3,8 +3,6 @@ import ParticipantStatusInput from './participantstatusinput';
 import { TransactionFormParticipantStatus as Status } from '../types';
 import { PropsFromRedux } from '../app';
 
-var el = React.createElement;
-
 interface Props {
   id: string;
   participant?: string;
@@ -29,18 +27,18 @@ export default class ParticipantInput extends PureComponent<Props> {
     const { status, amount } = this.props;
 
     return (
-      el('div', {className: 'participantInput' + (status > Status.NONE ? ' selected' : '') + (status === Status.PAID ? ' paid' : '')},
-        el('span', {className: 'participant'},
-          this.props.participant
-        ),
-        el(ParticipantStatusInput, {
-          status,
-          amount,
-          onJoinedChange: this.handleJoinedChange,
-          onPaidChange: this.handlePaidChange,
-          onAmountChange: (amount?: number) => this.props.onChange(this.props.id, 'amount', amount)
-        })
-      )
+      <div className={'participantInput' + (status > Status.NONE ? ' selected' : '') + (status === Status.PAID ? ' paid' : '')}>
+        <span className='participant'>
+          {this.props.participant}
+        </span>
+        <ParticipantStatusInput
+          status={status}
+          amount={amount}
+          onJoinedChange={this.handleJoinedChange}
+          onPaidChange={this.handlePaidChange}
+          onAmountChange={(amount?: number) => this.props.onChange(this.props.id, 'amount', amount)}
+        />
+      </div>
     );
   }
 

@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders empty tab view 1`] = `
+<div
+  className="scene scene-with-footer tabsScene hidden"
+>
+  <main>
+    <div
+      className="header"
+    >
+      <img
+        alt=""
+        id="logo"
+        src="logo.png"
+      />
+      <h2>
+        Grouptabs
+      </h2>
+    </div>
+    <div
+      className="empty-info"
+    >
+      <p>
+        Track shared expenses in a group of people. Every group has its own tab like "Summer roadtrip" or "Badminton".
+      </p>
+      <p>
+        Start by creating your first tab:
+      </p>
+    </div>
+    <div
+      className="row"
+    >
+      <form
+        className="create-form"
+        onSubmit={[Function]}
+      >
+        <input
+          className="full-width"
+          onChange={[Function]}
+          placeholder="Tab name …"
+          type="text"
+          value=""
+        />
+        <button
+          className="create"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+    <div
+      className="row"
+    >
+      <p
+        className="fake-link"
+        onClick={[Function]}
+      >
+        Open shared tab
+      </p>
+    </div>
+  </main>
+  <footer>
+    <a
+      className="mini-link"
+      href="https://grouptabs.net/"
+      rel="noopener"
+      target="_blank"
+    >
+      More info about Grouptabs
+    </a>
+  </footer>
+</div>
+`;
+
+exports[`renders tab view 1`] = `
+<div
+  className="scene scene-with-footer tabsScene hidden"
+>
+  <main>
+    <div
+      className="header"
+    >
+      <img
+        alt=""
+        id="logo"
+        src="logo.png"
+      />
+      <h2>
+        Grouptabs
+      </h2>
+    </div>
+    <div
+      className="row tabs"
+    >
+      <button
+        className="full-width"
+        onClick={[Function]}
+      >
+        TAB NAME
+      </button>
+    </div>
+    <div
+      className="row"
+    >
+      <form
+        className="create-form"
+        onSubmit={[Function]}
+      >
+        <input
+          className="full-width"
+          onChange={[Function]}
+          placeholder="Tab name …"
+          type="text"
+          value=""
+        />
+        <button
+          className="create"
+        >
+          Create
+        </button>
+      </form>
+    </div>
+    <div
+      className="row"
+    >
+      <p
+        className="fake-link"
+        onClick={[Function]}
+      >
+        Open shared tab
+      </p>
+    </div>
+  </main>
+  <footer>
+    <a
+      className="mini-link"
+      href="https://grouptabs.net/"
+      rel="noopener"
+      target="_blank"
+    >
+      More info about Grouptabs
+    </a>
+  </footer>
+</div>
+`;

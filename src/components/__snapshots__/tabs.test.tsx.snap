@@ -60,13 +60,16 @@ exports[`renders empty tab view 1`] = `
     </div>
   </main>
   <footer>
+    Version: 
+    VERSION
+     – 
+     
     <a
-      className="mini-link"
       href="https://grouptabs.net/"
       rel="noopener"
       target="_blank"
     >
-      More info about Grouptabs
+      grouptabs.net
     </a>
   </footer>
 </div>
@@ -132,13 +135,16 @@ exports[`renders tab view 1`] = `
     </div>
   </main>
   <footer>
+    Version: 
+    VERSION
+     – 
+     
     <a
-      className="mini-link"
       href="https://grouptabs.net/"
       rel="noopener"
       target="_blank"
     >
-      More info about Grouptabs
+      grouptabs.net
     </a>
   </footer>
 </div>

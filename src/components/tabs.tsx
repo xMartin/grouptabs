@@ -104,15 +104,15 @@ export default class Tabs extends PureComponent<Props, State> {
           </div>
         </main>
         <footer>
+          Version: {process.env.REACT_APP_GT_VERSION || 'VERSION'} – {' '}
           {/* eslint-disable react/jsx-no-target-blank */}
           <a
-            className="mini-link"
             href="https://grouptabs.net/"
             target="_blank"
             rel="noopener"
           >
             {/* eslint-enable react/jsx-no-target-blank */}
-            More info about Grouptabs
+            grouptabs.net
           </a>
         </footer>
       </div>

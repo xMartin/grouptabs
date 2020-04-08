@@ -177,10 +177,6 @@ button.create {
   color: #f44;
 }
 
-.mini-link {
-  font-size: 80%;
-}
-
 input[type="text"],
 input[type="date"],
 input[type="number"] {
@@ -267,6 +263,8 @@ input[type="number"] {
   flex-grow: 0;
   padding: 10px 10px 15px;
   text-align: center;
+  font-size: 80%;
+  color: #707070;
 }
 
 .empty-info,

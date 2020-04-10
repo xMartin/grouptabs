@@ -1,10 +1,10 @@
-import React, { memo } from "react";
+import React, { memo, FunctionComponent } from "react";
 
 interface Props {
   amount: number;
 }
 
-const TotalSpending: React.FC<Props> = ({ amount }) => {
+const TotalSpending: FunctionComponent<Props> = ({ amount }) => {
   const formattedAmount = Math.round(amount * 100) / 100;
 
   return <div className="total-sum">Total Spending: {formattedAmount}</div>;

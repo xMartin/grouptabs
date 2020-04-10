@@ -1,4 +1,4 @@
-import React, { PureComponent, SyntheticEvent } from "react";
+import React, { SyntheticEvent, memo } from "react";
 import dateUtils from "../util/date";
 
 interface Props {
@@ -6,42 +6,40 @@ interface Props {
   onChange: (date: string) => void;
 }
 
-export default class DateInput extends PureComponent<Props> {
-  handleTodayClick = () => {
-    this.props.onChange(dateUtils.formatDate(new Date()));
+const DateInput: React.FC<Props> = ({ date, onChange }) => {
+  const handleTodayClick = () => {
+    onChange(dateUtils.formatDate(new Date()));
   };
 
-  handleYesterdayClick = () => {
+  const handleYesterdayClick = () => {
     var yesterday = dateUtils.addDays(new Date(), -1);
-    this.props.onChange(dateUtils.formatDate(yesterday));
+    onChange(dateUtils.formatDate(yesterday));
   };
 
-  handleDateChange = (event: SyntheticEvent<HTMLInputElement>) => {
+  const handleDateChange = (event: SyntheticEvent<HTMLInputElement>) => {
     var value = event.currentTarget.value;
-    this.props.onChange(value);
+    onChange(value);
   };
 
-  render() {
-    const { date } = this.props;
+  return (
+    <div className="form-row-input date-input">
+      <button
+        type="button"
+        className={dateUtils.isToday(date) ? "selected" : ""}
+        onClick={handleTodayClick}
+      >
+        today
+      </button>
+      <button
+        type="button"
+        className={dateUtils.isYesterday(date) ? "selected" : ""}
+        onClick={handleYesterdayClick}
+      >
+        yesterday
+      </button>
+      <input type="date" value={date} onChange={handleDateChange} />
+    </div>
+  );
+};
 
-    return (
-      <div className="form-row-input date-input">
-        <button
-          type="button"
-          className={dateUtils.isToday(date) ? "selected" : ""}
-          onClick={this.handleTodayClick}
-        >
-          today
-        </button>
-        <button
-          type="button"
-          className={dateUtils.isYesterday(date) ? "selected" : ""}
-          onClick={this.handleYesterdayClick}
-        >
-          yesterday
-        </button>
-        <input type="date" value={date} onChange={this.handleDateChange} />
-      </div>
-    );
-  }
-}
+export default memo(DateInput);

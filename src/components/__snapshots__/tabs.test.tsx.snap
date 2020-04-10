@@ -62,7 +62,7 @@ exports[`renders empty tab view 1`] = `
   <footer>
     Version: 
     VERSION
-     – 
+     –
      
     <a
       href="https://grouptabs.net/"
@@ -137,7 +137,7 @@ exports[`renders tab view 1`] = `
   <footer>
     Version: 
     VERSION
-     – 
+     –
      
     <a
       href="https://grouptabs.net/"

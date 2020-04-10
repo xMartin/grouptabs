@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, FunctionComponent } from "react";
 import { Account } from "../types";
 
 interface Props {
@@ -43,7 +43,7 @@ function formatData(accounts: Account[]) {
   return data;
 }
 
-const Summary: React.FC<Props> = ({ accounts }) => (
+const Summary: FunctionComponent<Props> = ({ accounts }) => (
   <div id="summary">
     <table id="balance">
       <tbody>

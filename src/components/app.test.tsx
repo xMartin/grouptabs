@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./app";
+import { act } from "react-dom/test-utils";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
@@ -34,6 +35,8 @@ it("renders without crashing", () => {
     onAddParticipant: jest.fn(),
     onSetAllJoined: jest.fn(),
   };
-  ReactDOM.render(<App {...props} />, div);
+  act(() => {
+    ReactDOM.render(<App {...props} />, div);
+  });
   ReactDOM.unmountComponentAtNode(div);
 });

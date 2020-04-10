@@ -1,4 +1,4 @@
-import React, { memo, ReactFragment } from "react";
+import React, { memo, ReactFragment, FunctionComponent } from "react";
 import transactionUtils from "../util/transaction";
 import { Transaction, TransactionType } from "../types";
 
@@ -86,7 +86,7 @@ const formatData = (data: Transaction) => {
   return result;
 };
 
-const TransactionListItem: React.FC<Props> = ({
+const TransactionListItem: FunctionComponent<Props> = ({
   transaction,
   onDetailsClick,
 }) => {

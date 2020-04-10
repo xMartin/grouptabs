@@ -1,4 +1,4 @@
-import React, { PureComponent, SyntheticEvent } from "react";
+import React, { SyntheticEvent, FunctionComponent, memo } from "react";
 import ParticipantStatusInput from "./participantstatusinput";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";
@@ -12,54 +12,50 @@ interface Props {
   onChange: PropsFromRedux["onUpdateTransactionParticipant"];
 }
 
-export default class NewParticipantInput extends PureComponent<Props> {
-  handleJoinedChange = () => {
-    const status =
-      this.props.status === Status.NONE ? Status.JOINED : Status.NONE;
-    this.props.onChange(this.props.id, "status", status);
+const NewParticipantInput: FunctionComponent<Props> = ({
+  id,
+  participant,
+  status,
+  amount,
+  onChange,
+}) => {
+  const handleJoinedChange = () => {
+    const newStatus = status === Status.NONE ? Status.JOINED : Status.NONE;
+    onChange(id, "status", newStatus);
   };
 
-  handlePaidChange = () => {
-    const status =
-      this.props.status < Status.PAID ? Status.PAID : Status.JOINED;
-    this.props.onChange(this.props.id, "status", status);
+  const handlePaidChange = () => {
+    const newStatus = status < Status.PAID ? Status.PAID : Status.JOINED;
+    onChange(id, "status", newStatus);
   };
 
-  render() {
-    const { status, participant } = this.props;
-
-    return (
-      <div
-        className={
-          "newParticipantInput" +
-          (status > Status.NONE ? " selected" : "") +
-          (status === 2 ? " paid" : "")
-        }
-      >
-        <span className="participant">
-          <input
-            type="text"
-            placeholder="Name …"
-            value={control(participant)}
-            onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-              this.props.onChange(
-                this.props.id,
-                "participant",
-                event.currentTarget.value
-              )
-            }
-            autoFocus={true}
-          />
-        </span>
-        <ParticipantStatusInput
-          status={status}
-          onJoinedChange={this.handleJoinedChange}
-          onPaidChange={this.handlePaidChange}
-          onAmountChange={(amount?: number) =>
-            this.props.onChange(this.props.id, "amount", amount)
+  return (
+    <div
+      className={
+        "newParticipantInput" +
+        (status > Status.NONE ? " selected" : "") +
+        (status === 2 ? " paid" : "")
+      }
+    >
+      <span className="participant">
+        <input
+          type="text"
+          placeholder="Name …"
+          value={control(participant)}
+          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+            onChange(id, "participant", event.currentTarget.value)
           }
+          autoFocus={true}
         />
-      </div>
-    );
-  }
-}
+      </span>
+      <ParticipantStatusInput
+        status={status}
+        onJoinedChange={handleJoinedChange}
+        onPaidChange={handlePaidChange}
+        onAmountChange={(amount?: number) => onChange(id, "amount", amount)}
+      />
+    </div>
+  );
+};
+
+export default memo(NewParticipantInput);

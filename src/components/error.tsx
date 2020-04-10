@@ -1,11 +1,11 @@
-import React, { memo } from "react";
+import React, { memo, FunctionComponent } from "react";
 import logo from "../images/logo.png";
 
 interface Props {
   error: { error: any; info: any };
 }
 
-const Error: React.FC<Props> = () => {
+const Error: FunctionComponent<Props> = () => {
   return (
     <div className="scene errorScene">
       <div className="header">

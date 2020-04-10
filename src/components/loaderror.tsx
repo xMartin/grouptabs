@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, FunctionComponent } from "react";
 import logo from "../images/logo.png";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   onOkClick?: () => void;
 }
 
-const LoadError: React.FC<Props> = ({ message, onOkClick }) => {
+const LoadError: FunctionComponent<Props> = ({ message, onOkClick }) => {
   const handleButtonClick = () => {
     if (onOkClick) {
       onOkClick();

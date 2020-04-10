@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React, { SyntheticEvent, FunctionComponent, memo } from "react";
 import { control } from "../util/form";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   onSubmit: (tabId: string) => void;
 }
 
-const ImportForm: React.FC<Props> = ({
+const ImportForm: FunctionComponent<Props> = ({
   checkingRemoteTab,
   remoteTabError,
   tabId,
@@ -45,4 +45,4 @@ const ImportForm: React.FC<Props> = ({
   );
 };
 
-export default ImportForm;
+export default memo(ImportForm);

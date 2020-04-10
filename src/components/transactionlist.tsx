@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, FunctionComponent } from "react";
 import dateUtils from "../util/date";
 import TransactionListItem from "./transactionlistitem";
 import { Transaction } from "../types";
@@ -40,7 +40,10 @@ const groupTransactions = (transactions: Transaction[]) => {
   return dateGroups;
 };
 
-const TransactionList: React.FC<Props> = ({ transactions, onDetailsClick }) => {
+const TransactionList: FunctionComponent<Props> = ({
+  transactions,
+  onDetailsClick,
+}) => {
   return (
     <div id="transactions">
       <div>

@@ -1,4 +1,10 @@
-import React, { PureComponent, SyntheticEvent } from "react";
+import React, {
+  SyntheticEvent,
+  FunctionComponent,
+  useRef,
+  useEffect,
+  memo,
+} from "react";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";
 
@@ -10,67 +16,58 @@ interface Props {
   onAmountChange: (amount?: number) => void;
 }
 
-export default class ParticipationStatusInput extends PureComponent<Props> {
-  private amountInput: React.RefObject<HTMLInputElement>;
+const ParticipationStatusInput: FunctionComponent<Props> = ({
+  status,
+  amount,
+  onJoinedChange,
+  onPaidChange,
+  onAmountChange,
+}) => {
+  const amountInput = useRef<HTMLInputElement>(null);
 
-  constructor(props: Props) {
-    super(props);
-    this.amountInput = React.createRef();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.status !== Status.PAID && this.props.status === Status.PAID) {
-      this.amountInput.current?.focus();
+  useEffect(() => {
+    if (status === Status.PAID) {
+      amountInput.current?.focus();
     }
-  }
+  }, [status]);
 
-  render() {
-    const { status, amount } = this.props;
-
-    return (
-      <span className="participationStatus">
-        <span
-          className={
-            "joinedButtonWrapper" + (this.props.status === 2 ? " hidden" : "")
-          }
-        >
-          <button
-            type="button"
-            className={status > Status.NONE ? " selected" : ""}
-            onClick={this.props.onJoinedChange}
-          >
-            joined
-          </button>
-        </span>
+  return (
+    <span className="participationStatus">
+      <span className={"joinedButtonWrapper" + (status === 2 ? " hidden" : "")}>
         <button
           type="button"
-          className={
-            "paid-button" + (status === Status.PAID ? " selected" : "")
-          }
-          onClick={this.props.onPaidChange}
+          className={status > Status.NONE ? " selected" : ""}
+          onClick={onJoinedChange}
         >
-          paid
+          joined
         </button>
-        <span
-          className={"amountInput" + (status < Status.PAID ? " hidden" : "")}
-        >
-          <input
-            ref={this.amountInput}
-            type="number"
-            step="any"
-            disabled={status !== Status.PAID}
-            placeholder="0"
-            value={control(amount)}
-            onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-              this.props.onAmountChange(
-                event.currentTarget.value
-                  ? parseFloat(event.currentTarget.value)
-                  : undefined
-              )
-            }
-          />
-        </span>
       </span>
-    );
-  }
-}
+      <button
+        type="button"
+        className={"paid-button" + (status === Status.PAID ? " selected" : "")}
+        onClick={onPaidChange}
+      >
+        paid
+      </button>
+      <span className={"amountInput" + (status < Status.PAID ? " hidden" : "")}>
+        <input
+          ref={amountInput}
+          type="number"
+          step="any"
+          disabled={status !== Status.PAID}
+          placeholder="0"
+          value={control(amount)}
+          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+            onAmountChange(
+              event.currentTarget.value
+                ? parseFloat(event.currentTarget.value)
+                : undefined
+            )
+          }
+        />
+      </span>
+    </span>
+  );
+};
+
+export default memo(ParticipationStatusInput);

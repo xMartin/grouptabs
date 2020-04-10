@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, FunctionComponent } from "react";
 import { Tab } from "../types";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   onClick: (id: string) => void;
 }
 
-const TabListButton: React.FC<Props> = ({ data, onClick }) => {
+const TabListButton: FunctionComponent<Props> = ({ data, onClick }) => {
   return (
     <button className="full-width" onClick={() => onClick(data.id)}>
       {data.info?.name}

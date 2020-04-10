@@ -1,4 +1,11 @@
-import React, { PureComponent } from "react";
+import React, {
+  FunctionComponent,
+  useRef,
+  useState,
+  useEffect,
+  memo,
+  RefObject,
+} from "react";
 // @ts-ignore
 import SmoothScroll from "smooth-scroll";
 import Loader from "./loader";
@@ -23,194 +30,183 @@ interface Props {
   onDetailsClick: (tabId: string, transactionId: string) => void;
 }
 
-interface State {
+const useTransactionHeadingScroller = (
+  transactionsHeadingRef: RefObject<HTMLElement>,
+  recheckDependencies: any[]
+): {
   transactionsHeadingIsOutOfViewport: boolean;
-}
+  scrollToTransactionHeading: () => void;
+} => {
+  const [
+    transactionsHeadingIsOutOfViewport,
+    setTransactionsHeadingIsOutOfViewport,
+  ] = useState(false);
 
-export default class Main extends PureComponent<Props, State> {
-  private transactionsHeading: React.RefObject<HTMLHeadingElement>;
+  // this ref is needed as the state updates unreliably
+  const transactionsHeadingIsOutOfViewportRef = useRef(false);
 
-  scroller?: any;
-
-  constructor(props: Props) {
-    super(props);
-
-    this.transactionsHeading = React.createRef();
-
-    this.state = {
-      transactionsHeadingIsOutOfViewport: false,
-    };
-  }
-
-  componentDidMount() {
-    window.addEventListener("scroll", this.checkTransactionsHeadingVisibility);
-    window.addEventListener("resize", this.checkTransactionsHeadingVisibility);
-    this.checkTransactionsHeadingVisibility();
-    this.scroller = new SmoothScroll();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener(
-      "scroll",
-      this.checkTransactionsHeadingVisibility
-    );
-    window.removeEventListener(
-      "resize",
-      this.checkTransactionsHeadingVisibility
-    );
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.accounts !== this.props.accounts) {
-      setTimeout(this.checkTransactionsHeadingVisibility);
-    }
-  }
-
-  checkTransactionsHeadingVisibility = () => {
-    if (!this.transactionsHeading.current) {
+  const checkTransactionsHeadingVisibilityRef = useRef(() => {
+    if (!transactionsHeadingRef.current) {
       return;
     }
 
-    var scrollBottomY = window.innerHeight + window.scrollY;
-    // @ts-ignore
-    var headingY = this.transactionsHeading.current.offsetTop;
-    var transactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
+    const scrollBottomY = window.innerHeight + window.scrollY;
+    const headingY = transactionsHeadingRef.current.offsetTop;
+    const newTransactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
     if (
-      transactionsHeadingIsOutOfViewport !==
-      this.state.transactionsHeadingIsOutOfViewport
+      newTransactionsHeadingIsOutOfViewport !==
+      transactionsHeadingIsOutOfViewportRef.current
     ) {
-      this.setState({
-        transactionsHeadingIsOutOfViewport: transactionsHeadingIsOutOfViewport,
-      });
+      transactionsHeadingIsOutOfViewportRef.current = newTransactionsHeadingIsOutOfViewport;
+      setTransactionsHeadingIsOutOfViewport(
+        newTransactionsHeadingIsOutOfViewport
+      );
     }
-  };
+  });
 
-  handleNewEntryClick = () => {
-    if (!this.props.tabId) {
+  const scroller = useRef<any>(new SmoothScroll());
+
+  useEffect(() => {
+    const handler = checkTransactionsHeadingVisibilityRef.current;
+    window.addEventListener("scroll", handler);
+    window.addEventListener("resize", handler);
+    handler();
+
+    return () => {
+      window.removeEventListener("scroll", handler);
+      window.removeEventListener("resize", handler);
+    };
+  }, []);
+
+  useEffect(() => {
+    setTimeout(checkTransactionsHeadingVisibilityRef.current);
+  }, recheckDependencies); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return {
+    transactionsHeadingIsOutOfViewport,
+    scrollToTransactionHeading: () => {
+      scroller.current.animateScroll(transactionsHeadingRef.current);
+    },
+  };
+};
+
+const Main: FunctionComponent<Props> = (props) => {
+  const transactionsHeadingRef = useRef<HTMLHeadingElement>(null);
+
+  const {
+    transactionsHeadingIsOutOfViewport,
+    scrollToTransactionHeading,
+  } = useTransactionHeadingScroller(transactionsHeadingRef, [props.accounts]);
+
+  const handleNewEntryClick = () => {
+    if (!props.tabId) {
       throw new Error("Tab ID missing.");
     }
-    this.props.onNavigateToAddTransaction(this.props.tabId);
+    props.onNavigateToAddTransaction(props.tabId);
   };
 
-  handleTransitionsTeaserClick = () => {
-    this.scroller.animateScroll(this.transactionsHeading.current);
-  };
-
-  renderHeader(showAddButton?: boolean) {
-    return (
-      <div className="header">
-        <button className="left" onClick={this.props.onChangeTabClick}>
-          <svg height="16" width="16">
-            <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
-          </svg>
+  const renderHeader = (showAddButton?: boolean) => (
+    <div className="header">
+      <button className="left" onClick={props.onChangeTabClick}>
+        <svg height="16" width="16">
+          <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
+        </svg>
+      </button>
+      <h2>{props.tabInfo?.name || ""}</h2>
+      {showAddButton && (
+        <button className="create" onClick={handleNewEntryClick}>
+          +
         </button>
-        <h2>{this.props.tabInfo?.name || ""}</h2>
-        {showAddButton && (
-          <button className="create" onClick={this.handleNewEntryClick}>
-            +
-          </button>
-        )}
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 
-  renderSummary() {
-    return (
-      <React.Fragment>
-        <div className="row">
-          <Summary accounts={this.props.accounts} />
-        </div>
-        <div className="row">
-          <h3 ref={this.transactionsHeading} className="transactions-heading">
-            Transactions
+  const renderSummary = () => (
+    <React.Fragment>
+      <div className="row">
+        <Summary accounts={props.accounts} />
+      </div>
+      <div className="row">
+        <h3 ref={transactionsHeadingRef} className="transactions-heading">
+          Transactions
+        </h3>
+        {transactionsHeadingIsOutOfViewport && (
+          <h3
+            className="transactions-heading transactions-heading-fixed"
+            onClick={scrollToTransactionHeading}
+          >
+            ▾ Transactions
           </h3>
-          {this.state.transactionsHeadingIsOutOfViewport && (
-            <h3
-              className="transactions-heading transactions-heading-fixed"
-              onClick={this.handleTransitionsTeaserClick}
-            >
-              ▾ Transactions
-            </h3>
-          )}
-          <TransactionList
-            transactions={this.props.transactions}
-            onDetailsClick={this.props.onDetailsClick}
-          />
-          <TotalSpending amount={this.props.total} />
-        </div>
-        {this.renderShareInfo()}
-      </React.Fragment>
-    );
-  }
-
-  renderEmptyState() {
-    return (
-      <React.Fragment>
-        <div className="empty-info">
-          <p>
-            A tab consists of transactions. When you add a transaction you also
-            define the people that are part of it, the participants.
-          </p>
-          <p>Start by adding your first transaction:</p>
-          <div className="row">
-            <button
-              className="full-width create"
-              onClick={this.handleNewEntryClick}
-            >
-              Add transaction
-            </button>
-          </div>
-        </div>
-        {this.renderShareInfo()}
-      </React.Fragment>
-    );
-  }
-
-  renderShareInfo() {
-    return (
-      <div className="share-info">
-        <p>
-          Share this tab ID for collaboration with others:
-          <br />
-          <code>{this.props.tabId}</code>
-        </p>
+        )}
+        <TransactionList
+          transactions={props.transactions}
+          onDetailsClick={props.onDetailsClick}
+        />
+        <TotalSpending amount={props.total} />
       </div>
-    );
-  }
+      {renderShareInfo()}
+    </React.Fragment>
+  );
 
-  renderContent() {
-    if (!this.props.tabInfo) {
+  const renderEmptyState = () => (
+    <React.Fragment>
+      <div className="empty-info">
+        <p>
+          A tab consists of transactions. When you add a transaction you also
+          define the people that are part of it, the participants.
+        </p>
+        <p>Start by adding your first transaction:</p>
+        <div className="row">
+          <button className="full-width create" onClick={handleNewEntryClick}>
+            Add transaction
+          </button>
+        </div>
+      </div>
+      {renderShareInfo()}
+    </React.Fragment>
+  );
+
+  const renderShareInfo = () => (
+    <div className="share-info">
+      <p>
+        Share this tab ID for collaboration with others:
+        <br />
+        <code>{props.tabId}</code>
+      </p>
+    </div>
+  );
+
+  const renderContent = () => {
+    if (!props.tabInfo) {
       return (
         <LoadError message="Error: Tab data missing. Are you offline? Try refreshing." />
       );
     }
 
-    if (this.props.remoteTabError) {
+    if (props.remoteTabError) {
       return (
         <LoadError
-          message={this.props.remoteTabError}
-          onOkClick={this.props.onChangeTabClick}
+          message={props.remoteTabError}
+          onOkClick={props.onChangeTabClick}
         />
       );
     }
 
-    if (this.props.accounts.length === 0) {
-      return this.renderEmptyState();
+    if (props.accounts.length === 0) {
+      return renderEmptyState();
     }
 
-    return this.renderSummary();
-  }
+    return renderSummary();
+  };
 
-  render() {
-    var isLoading = this.props.checkingRemoteTab || this.props.importingTab;
+  const isLoading = props.checkingRemoteTab || props.importingTab;
 
-    return (
-      <div
-        className={"scene mainScene" + (this.props.visible ? "" : " hidden")}
-      >
-        {this.renderHeader(!isLoading && !this.props.remoteTabError)}
-        <Loader show={isLoading}>{this.renderContent()}</Loader>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={"scene mainScene" + (props.visible ? "" : " hidden")}>
+      {renderHeader(!isLoading && !props.remoteTabError)}
+      <Loader show={isLoading}>{renderContent()}</Loader>
+    </div>
+  );
+};
+
+export default memo(Main);

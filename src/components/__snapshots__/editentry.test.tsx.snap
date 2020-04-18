@@ -344,13 +344,6 @@ exports[`renders empty form 1`] = `
               >
                 + new participant
               </button>
-              <button
-                className="all-joined"
-                onClick={[MockFunction]}
-                type="button"
-              >
-                all joined
-              </button>
             </div>
           </div>
         </div>
@@ -772,13 +765,6 @@ exports[`renders prefilled form 1`] = `
                 type="button"
               >
                 + new participant
-              </button>
-              <button
-                className="all-joined"
-                onClick={[MockFunction]}
-                type="button"
-              >
-                all joined
               </button>
             </div>
           </div>

@@ -1,8 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Form from "./form";
-import { TransactionType, DocumentType } from "../types";
+import {
+  TransactionType,
+  DocumentType,
+  TransactionFormParticipantStatus as Status,
+  TransactionFormParticipantInputType as InputType,
+} from "../types";
 import { createFormData } from "../util/transactionform";
+import { unmountComponentAtNode, render } from "react-dom";
 
 let realDate: any;
 
@@ -93,4 +99,99 @@ it("renders prefilled form", () => {
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
+});
+
+describe('"all joined" button', () => {
+  let container: any = null;
+  beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+  });
+
+  it("shows button for 2 unjoined participants", () => {
+    render(
+      <Form
+        mode="new"
+        data={{
+          transactionType: TransactionType.SHARED,
+          date: "2011-11-11",
+          direct: {
+            options: [],
+          },
+          shared: [
+            {
+              id: "1",
+              inputType: InputType.NEW,
+              status: Status.NONE,
+            },
+            {
+              id: "2",
+              inputType: InputType.NEW,
+              status: Status.NONE,
+            },
+          ],
+        }}
+        onUpdateForm={jest.fn()}
+        onUpdateSharedForm={jest.fn()}
+        onUpdateDirectForm={jest.fn()}
+        onUpdateParticipant={jest.fn()}
+        onAddParticipant={jest.fn()}
+        onSetAllJoined={jest.fn()}
+        onSave={jest.fn()}
+        onDelete={jest.fn()}
+      />,
+      container
+    );
+
+    expect(container.querySelector(".all-joined")).toBeTruthy();
+  });
+
+  it("shows no button for 2 joined and 1 unjoined participant", () => {
+    render(
+      <Form
+        mode="new"
+        data={{
+          transactionType: TransactionType.SHARED,
+          date: "2011-11-11",
+          direct: {
+            options: [],
+          },
+          shared: [
+            {
+              id: "1",
+              inputType: InputType.NEW,
+              status: Status.PAID,
+            },
+            {
+              id: "2",
+              inputType: InputType.NEW,
+              status: Status.JOINED,
+            },
+            {
+              id: "3",
+              inputType: InputType.NEW,
+              status: Status.NONE,
+            },
+          ],
+        }}
+        onUpdateForm={jest.fn()}
+        onUpdateSharedForm={jest.fn()}
+        onUpdateDirectForm={jest.fn()}
+        onUpdateParticipant={jest.fn()}
+        onAddParticipant={jest.fn()}
+        onSetAllJoined={jest.fn()}
+        onSave={jest.fn()}
+        onDelete={jest.fn()}
+      />,
+      container
+    );
+
+    expect(container.querySelector(".all-joined")).toBeNull();
+  });
 });

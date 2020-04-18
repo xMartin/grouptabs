@@ -2,7 +2,11 @@ import React, { SyntheticEvent, FunctionComponent, memo } from "react";
 import DateInput from "./dateinput";
 import DirectTransactionInput from "./directtransactioninput";
 import ParticipantsInputList from "./participantsinputlist";
-import { TransactionType, TransactionFormState } from "../types";
+import {
+  TransactionType,
+  TransactionFormState,
+  TransactionFormParticipantStatus as Status,
+} from "../types";
 import { control } from "../util/form";
 import { PropsFromRedux } from "../app";
 import { validate } from "../util/transactionform";
@@ -54,6 +58,11 @@ const Form: FunctionComponent<Props> = (props) => {
   const handleDateChange = (date: string) => {
     props.onUpdateForm("date", date);
   };
+
+  const numberOfNonJoined = props.data.shared.filter(
+    (participant) => participant.status === Status.NONE
+  ).length;
+  const showAllJoinedButton = numberOfNonJoined > 1;
 
   return (
     <form id="edit-entry-form" onSubmit={handleSubmit}>
@@ -116,13 +125,15 @@ const Form: FunctionComponent<Props> = (props) => {
               <button type="button" onClick={props.onAddParticipant}>
                 + new participant
               </button>
-              <button
-                type="button"
-                className="all-joined"
-                onClick={props.onSetAllJoined}
-              >
-                all joined
-              </button>
+              {showAllJoinedButton && (
+                <button
+                  type="button"
+                  className="all-joined"
+                  onClick={props.onSetAllJoined}
+                >
+                  all joined
+                </button>
+              )}
             </div>
           </div>
         </div>

@@ -1,18 +1,17 @@
-/*
-main text color: #131313
-main background color: #f5f5f5
-subtle text color: #707070
-button background: #ddd
-button disabled background: #707070
-button selected background: #bbb
-button create color: #fff
-button create background: #44f
-button delete background: #f44
-text input background color: #fff
-participant input not joined/paid color: #999
-list item divider: #e5e5e5
-error color: #f31
-*/
+:root {
+  --color-cta: #44f;
+  --color-cta-opposite: #fff;
+  --color-error: #f31;
+  --main-text-color: #131313;
+  --main-background-color: #f5f5f5;
+  --subtle-text-color: #707070;
+  --button-background-color: #ddd;
+  --button-disabled-background-color: #707070;
+  --button-selected-background-color: #bbb;
+  --text-input-background-color: #fff;
+  --participant-status-none-color: #999;
+  --list-item-divider-color: #e5e5e5;
+}
 
 @font-face {
   font-family: SourceSansPro;
@@ -33,9 +32,9 @@ error color: #f31
 
 body {
   margin: 0;
-  color: #131313;
+  color: var(--main-text-color);
   font-size: 18px;
-  background: #f5f5f5;
+  background: var(--main-background-color);
   font-family: SourceSansPro, sans-serif;
 }
 
@@ -43,7 +42,7 @@ a,
 a:link,
 a:visited,
 a:active {
-  color: #44f;
+  color: var(--color-cta);
 }
 
 table {
@@ -64,7 +63,7 @@ td.amount {
 
 button {
   font: inherit;
-  background: #ddd;
+  background: var(--button-background-color);
   color: inherit;
   border: none;
   box-sizing: border-box;
@@ -77,10 +76,10 @@ button {
 }
 button[disabled] {
   cursor: default;
-  color: #707070;
+  color: var(--button-disabled-background-color);
 }
 button.selected {
-  background: #bbb;
+  background: var(--button-selected-background-color);
 }
 
 select {
@@ -88,11 +87,15 @@ select {
   margin: 0;
   padding: 12px;
   padding-right: 24px;
-  color: #131313;
+  color: var(--main-text-color);
   border-radius: 5px;
   border: none;
-  background-color: #ddd;
-  background-image: linear-gradient(45deg, transparent 50%, #707070 50%),
+  background-color: var(--button-background-color);
+  background-image: linear-gradient(
+      45deg,
+      transparent 50%,
+      var(--button-disabled-background-color) 50%
+    ),
     linear-gradient(135deg, gray 50%, transparent 50%);
   background-position: calc(100% - 22px) calc(1em + 5px),
     calc(100% - 17px) calc(1em + 5px);
@@ -109,7 +112,7 @@ select {
 }
 select:-moz-focusring {
   color: transparent;
-  text-shadow: 0 0 0 #000;
+  text-shadow: 0 0 0 var(--main-background-color);
 }
 
 button.full-width,
@@ -120,8 +123,8 @@ select.full-width {
 
 button.create {
   padding: 0 13px;
-  background: #44f;
-  color: #fff;
+  background: var(--color-cta);
+  color: var(--color-cta-opposite);
   z-index: 10;
 }
 
@@ -143,7 +146,7 @@ button.create {
   padding: 16px 10px;
 }
 .header button.left path {
-  fill: #707070;
+  fill: var(--subtle-text-color);
 }
 .header button.left:hover path,
 .header button.left:focus path {
@@ -169,12 +172,12 @@ button.create {
 }
 
 .fake-link {
-  color: #707070;
+  color: var(--subtle-text-color);
   text-decoration: underline;
   cursor: pointer;
 }
 .fake-link.delete {
-  color: #f44;
+  color: var(--color-error);
 }
 
 input[type="text"],
@@ -182,7 +185,7 @@ input[type="date"],
 input[type="number"] {
   box-sizing: border-box;
   width: 100%;
-  background: #fff;
+  background: var(--text-input-background-color);
   box-shadow: none;
   border: none;
   border-radius: 5px;
@@ -264,7 +267,7 @@ input[type="number"] {
   padding: 10px 10px 15px;
   text-align: center;
   font-size: 80%;
-  color: #707070;
+  color: var(--subtle-text-color);
 }
 
 .empty-info,
@@ -277,7 +280,7 @@ input[type="number"] {
 }
 .share-info {
   margin-top: 1em;
-  color: #707070;
+  color: var(--subtle-text-color);
   text-align: center;
 }
 
@@ -321,7 +324,7 @@ input[type="number"] {
   padding: 16px 30px 8px;
 }
 .direct-transaction-amount svg path {
-  fill: #707070;
+  fill: var(--subtle-text-color);
 }
 .direct-transaction-amount input {
   width: 70px;
@@ -379,7 +382,7 @@ input[type="number"] {
 .participantInput,
 .newParticipantInput,
 .newParticipantInput .participant input {
-  color: #999;
+  color: var(--participant-status-none-color);
 }
 .participant input,
 .joinedButtonWrapper button,
@@ -429,11 +432,11 @@ input[type="number"] {
 }
 .participantInput button,
 .newParticipantInput button {
-  color: #707070;
+  color: var(--participant-status-none-color);
 }
 .participantInput button.selected,
 .newParticipantInput button.selected {
-  background: #bbb;
+  background: var(--button-selected-background-color);
   color: inherit;
 }
 .participantInput .amountInput,
@@ -462,7 +465,7 @@ input[type="number"] {
   text-align: center;
 }
 .tabs button {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--list-item-divider-color);
   padding: 16px 12px;
   border-radius: 0;
   background: transparent right 10px center no-repeat;
@@ -470,7 +473,7 @@ input[type="number"] {
   text-align: left;
 }
 .tabs button:last-child {
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--list-item-divider-color);
 }
 
 .create-form input {
@@ -507,8 +510,11 @@ input[type="number"] {
   margin: 0;
   width: 100%;
   padding: 20px 0 12px;
-  background: linear-gradient(rgba(242, 242, 242, 0), #f5f5f5);
-  text-shadow: 0 0 4px #f5f5f5;
+  background: linear-gradient(
+    rgba(242, 242, 242, 0),
+    var(--main-background-color)
+  );
+  text-shadow: 0 0 4px var(--main-background-color);
   cursor: pointer;
 }
 
@@ -517,7 +523,7 @@ input[type="number"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 12px 30px 12px 12px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--list-item-divider-color);
   min-height: 44px;
   cursor: pointer;
   background: right 10px center no-repeat;
@@ -529,7 +535,7 @@ input[type="number"] {
 #transactions .dategroup {
   padding: 26px 12px 6px;
   font-size: 12px;
-  color: #707070;
+  color: var(--subtle-text-color);
 }
 #transactions .transaction .title {
   line-height: 1.1em;
@@ -548,18 +554,18 @@ input[type="number"] {
 }
 
 .total-sum {
-  color: #707070;
+  color: var(--subtle-text-color);
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 12px 30px 12px 12px;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid var(--list-item-divider-color);
   text-align: right;
 }
 
 .error-message {
   font-size: 80%;
-  color: #f31;
+  color: var(--color-error);
 }
 
 .import-form .error-message {
@@ -585,7 +591,7 @@ input[type="number"] {
   top: 0;
   left: 0;
   width: 100%;
-  background: #f5f5f5;
+  background: var(--main-background-color);
   transition: opacity 0.5s;
 }
 .app-loader.hidden {

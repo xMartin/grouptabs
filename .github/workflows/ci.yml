@@ -1,8 +1,6 @@
-name: CI
+name: CI/CD
 
-on:
-  push:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   build:
@@ -18,3 +16,18 @@ jobs:
       run: npm test
     - name: Build
       run: npm run build
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: build
+        path: build
+  deploy:
+    if: ${{ github.event_name == 'pull_request' }}
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: build
+    - run: ls build

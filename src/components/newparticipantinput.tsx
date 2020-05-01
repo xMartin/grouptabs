@@ -50,6 +50,7 @@ const NewParticipantInput: FunctionComponent<Props> = ({
       </span>
       <ParticipantStatusInput
         status={status}
+        amount={amount}
         onJoinedChange={handleJoinedChange}
         onPaidChange={handlePaidChange}
         onAmountChange={(amount?: number) => onChange(id, "amount", amount)}

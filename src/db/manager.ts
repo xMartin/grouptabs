@@ -162,7 +162,7 @@ export default class DbManager {
     const tab = new Tab(
       dbName,
       remoteDbLocation,
-      () => this._changesHandler.bind(this, tabId),
+      this._changesHandler.bind(this, tabId),
       this.isIndexedDbAvailable === false ? "memory" : undefined
     );
     this.dbs[tabId] = tab;

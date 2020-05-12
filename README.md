@@ -43,7 +43,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Config
 
-Environment variable `REACT_APP_BACKEND_URL` (default "https://grouptabs-app.xmartin.de:5984").
+Environment variable `REACT_APP_BACKEND_URL` (default "http://localhost:5984").
 
 ## License
 

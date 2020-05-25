@@ -45,9 +45,10 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">0.7%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "not ie 11"
     ],
     "development": [
       "last 1 chrome version",

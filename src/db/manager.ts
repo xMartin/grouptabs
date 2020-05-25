@@ -101,10 +101,10 @@ export default class DbManager {
     await this.dbs[entity.tabId].deleteDoc(entity.id);
   }
 
-  async createTab(entity: Entity) {
-    const db = this.initDb(entity.tabId);
+  async createTab(doc: Info) {
+    const db = this.initDb(doc.tabId);
 
-    await this.createDoc(entity);
+    await this.createDoc(doc);
     db.startSyncing();
   }
 

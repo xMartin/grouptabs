@@ -1,4 +1,7 @@
 import PouchDB from "pouchdb";
+import debug, { Debugger } from "debug";
+
+const log = debug("db:tab");
 
 interface Content {
   _rev?: string;
@@ -12,31 +15,28 @@ type ChangesHandler = (
 ) => void;
 
 export default class {
-  localDbName: string;
-  remoteDbLocation: string;
+  private readonly db: Database;
+  private readonly remoteDb: Database;
 
-  private _onChangesHandler: ChangesHandler;
+  private lastSequenceNumber?: number | string;
+  private isSyncing?: boolean;
 
-  db: Database;
-
-  remoteDb: Database;
-
-  private _lastSequenceNumber?: number | string;
-
-  private _isSyncing?: boolean;
-
-  syncHandle: any;
+  private readonly logReplication: Debugger;
+  private readonly logSync: Debugger;
+  private readonly logDoc: Debugger;
+  private readonly logChanges: Debugger;
 
   constructor(
-    localDbName: string,
-    remoteDbLocation: string,
-    changesCallback: ChangesHandler,
+    private readonly localDbName: string,
+    private readonly remoteDbLocation: string,
+    private readonly changesHandler: ChangesHandler,
     adapter?: string
   ) {
-    this.localDbName = localDbName;
-    this.remoteDbLocation = remoteDbLocation;
-
-    this._onChangesHandler = changesCallback;
+    const myLog = log.extend(localDbName);
+    this.logReplication = myLog.extend("replication");
+    this.logSync = myLog.extend("sync");
+    this.logDoc = log.extend("doc");
+    this.logChanges = log.extend("changes");
 
     this.db = new PouchDB(localDbName, { adapter });
     this.remoteDb = new PouchDB(remoteDbLocation);
@@ -46,7 +46,7 @@ export default class {
     await this.replicateFromRemote();
     const docs = await this.fetchAll();
     const info = await this.db.info();
-    this._lastSequenceNumber = info.update_seq;
+    this.lastSequenceNumber = info.update_seq;
     this.startSyncing();
     return docs;
   }
@@ -54,19 +54,19 @@ export default class {
   async createDoc(doc: Document) {
     if (doc._id) {
       const response = await this.db.put(doc);
-      console.log("db: put doc (created)", response);
+      this.logDoc("put", "- response:", response);
       return;
     }
 
     const response = await this.db.post(doc);
-    console.log("db: posted doc", response);
+    this.logDoc("post", "- response:", response);
   }
 
   async updateDoc(doc: Document) {
     const fetchedDoc = await this.db.get(doc._id);
     const docWithLatestRev = { ...doc, ...{ _rev: fetchedDoc._rev } };
     const response = await this.db.put(docWithLatestRev);
-    console.log("db: put doc (updated)", response);
+    this.logDoc("put", "- response:", response);
   }
 
   async deleteDoc(id: string) {
@@ -80,11 +80,11 @@ export default class {
     const response = await this.db.put(
       deleteDoc as PouchDB.Core.PutDocument<Document>
     );
-    console.log("db: deleted doc", response);
+    this.logDoc("delete", "- response:", response);
   }
 
-  replicateFromRemote() {
-    console.info(`replication start (${this.localDbName})`);
+  private replicateFromRemote() {
+    this.logReplication("start");
 
     return new Promise((resolve) => {
       this.db.replicate
@@ -92,17 +92,17 @@ export default class {
           batch_size: 100,
         })
         .on("paused", () => {
-          console.info(`replication paused (${this.localDbName})`);
+          this.logReplication("paused");
         })
         .on("active", () => {
-          console.info(`replication active (${this.localDbName})`);
+          this.logReplication("active");
         })
         .on("complete", () => {
-          console.info(`replication complete (${this.localDbName})`);
+          this.logReplication("complete");
           resolve();
         })
         .on("error", (err) => {
-          console.error(`replication error (${this.localDbName}`, err);
+          this.logReplication("error", err);
           // resolve even in error case
           // incomplete replication can be handled by next sync
           resolve();
@@ -110,7 +110,7 @@ export default class {
     });
   }
 
-  async fetchAll() {
+  private async fetchAll() {
     const result = await this.db.allDocs({
       include_docs: true,
       attachments: true,
@@ -120,67 +120,59 @@ export default class {
 
   startSyncing() {
     this.sync();
-    this._startSyncInterval();
+    this.startSyncInterval();
   }
 
   /**
    * This sets up replication between the local database
    * and its remote counterpart
    */
-  sync() {
-    this._isSyncing = true;
-    this.syncHandle = this.db
+  private sync() {
+    this.logSync("start");
+    this.isSyncing = true;
+    this.db
       .sync(this.remoteDb, {
         batch_size: 100,
       })
       .on("error", (err) => {
-        console.error("replication error", err);
-        this._isSyncing = false;
-        this._emitChanges();
+        this.logSync("error", err);
+        this.isSyncing = false;
+        this.emitChanges();
       })
       .on("complete", () => {
-        this._isSyncing = false;
-        this._emitChanges();
+        this.logSync("complete");
+        this.isSyncing = false;
+        this.emitChanges();
       });
   }
 
-  cancelSync() {
-    this.syncHandle.cancel();
-  }
-
-  private _startSyncInterval() {
+  private startSyncInterval() {
+    this.logSync("start interval");
     setInterval(() => {
-      if (!this._isSyncing) {
+      if (!this.isSyncing) {
         this.sync();
       }
     }, 7500);
   }
 
-  private _emitChanges() {
+  private emitChanges() {
     this.db
       .changes<Document>({
-        since: this._lastSequenceNumber,
+        since: this.lastSequenceNumber,
         include_docs: true,
       })
       .on("complete", (info) => {
-        this._lastSequenceNumber = info.last_seq;
+        this.lastSequenceNumber = info.last_seq;
 
         if (!info.results.length) {
           return;
         }
 
-        console.info("db changes", info.results);
-        this._onChangesHandler(info.results);
+        this.logChanges("complete", info.results);
+        this.changesHandler(info.results);
       })
-      .on("error", console.error.bind(console));
-  }
-
-  /**
-   * removes local database without triggering
-   * events on objects.
-   */
-  destroy() {
-    this.cancelSync();
-    this.db.destroy();
+      .on("error", (error) => {
+        throw new Error(error);
+      });
   }
 }

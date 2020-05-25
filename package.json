@@ -12,7 +12,7 @@
   "homepage": "https://grouptabs.net/",
   "dependencies": {
     "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.38",
+    "@types/node": "^12.12.42",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "create-react-class": "^15.6.3",
@@ -30,8 +30,8 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "smooth-scroll": "^16.1.3",
-    "typescript": "^3.8.3",
-    "uuid": "^8.0.0"
+    "typescript": "^3.9.3",
+    "uuid": "^8.1.0"
   },
   "scripts": {
     "start": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts start",
@@ -58,13 +58,13 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "@types/pouchdb": "^6.4.0",
-    "@types/react-redux": "^7.1.8",
+    "@types/react-redux": "^7.1.9",
     "@types/react-test-renderer": "^16.9.2",
     "@types/redux-first-router": "^2.1.5",
-    "@types/uuid": "^7.0.3",
+    "@types/uuid": "^7.0.4",
     "husky": "^4.2.5",
     "jest-localstorage-mock": "^2.4.2",
-    "lint-staged": "^10.2.2",
+    "lint-staged": "^10.2.6",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1"
   },

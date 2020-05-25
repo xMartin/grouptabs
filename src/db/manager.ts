@@ -1,19 +1,12 @@
 import PouchDB from "pouchdb";
 import Tab, { Document } from "./tab";
 import config from "../config";
-import { Info, ActionMap } from "../types";
+import { Info, Entity, ActionMap } from "../types";
 import {
   loadTabIds,
   addTabId,
   migrateFromPouchDbAllDbsToLocalStorage,
 } from "./tabidpersistor";
-
-interface Entity {
-  id: string;
-  type: string;
-  tabId: string;
-  // ...
-}
 
 type changesCallback = (actionMap: ActionMap) => void;
 
@@ -212,11 +205,11 @@ export default class DbManager {
     const docCopy = { ...doc };
     delete docCopy._rev;
     delete docCopy._id;
-    const entity: Entity = {
+    const entity: any = {
       ...docCopy,
       id: doc._id,
       tabId,
     };
-    return entity;
+    return entity as Entity;
   }
 }

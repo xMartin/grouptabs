@@ -29,7 +29,7 @@ export default class {
   constructor(
     private readonly localDbName: string,
     private readonly remoteDbLocation: string,
-    private readonly changesHandler: ChangesHandler,
+    private readonly onChanges: ChangesHandler,
     adapter?: string
   ) {
     const myLog = log.extend(localDbName);
@@ -169,7 +169,7 @@ export default class {
         }
 
         this.logChanges("complete", info.results);
-        this.changesHandler(info.results);
+        this.onChanges(info.results);
       })
       .on("error", (error) => {
         throw new Error(error);

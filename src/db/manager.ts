@@ -13,16 +13,16 @@ type changesCallback = (actionMap: ActionMap) => void;
 export default class DbManager {
   private isIndexedDbAvailable?: boolean;
 
-  dbs: { [dbName: string]: Tab };
+  private readonly dbs: { [dbName: string]: Tab };
 
-  private _changesCallback?: changesCallback;
+  private onChanges?: changesCallback;
 
   constructor() {
     this.dbs = {};
   }
 
   async init(callback: changesCallback): Promise<void> {
-    this._changesCallback = callback;
+    this.onChanges = callback;
 
     await migrateFromPouchDbAllDbsToLocalStorage();
     await this.checkIndexedDb();
@@ -60,17 +60,17 @@ export default class DbManager {
     docsPerDb.forEach((docs) => {
       flat = flat.concat(docs);
     });
-    if (!this._changesCallback) {
+    if (!this.onChanges) {
       throw new Error("Callback not set.");
     }
-    this._changesCallback({
+    this.onChanges({
       createOrUpdate: flat,
       delete: [],
     });
     this.initAllDbsListener();
   }
 
-  initAllDbsListener() {
+  private initAllDbsListener() {
     setInterval(async () => {
       const knownTabIds = Object.keys(this.dbs);
       const tabIds = loadTabIds();
@@ -79,10 +79,10 @@ export default class DbManager {
       );
       newTabIds.forEach(async (tabId) => {
         const actionMap = await this.connectTab(tabId);
-        if (!this._changesCallback) {
+        if (!this.onChanges) {
           throw new Error("Callback not set.");
         }
-        this._changesCallback(actionMap);
+        this.onChanges(actionMap);
       });
     }, 7500);
   }
@@ -129,7 +129,7 @@ export default class DbManager {
     };
   }
 
-  getAllDbs(): { tabId: string; db: Tab }[] {
+  private getAllDbs(): { tabId: string; db: Tab }[] {
     const allDbs = [];
     for (const dbName in this.dbs) {
       allDbs.push({
@@ -140,12 +140,12 @@ export default class DbManager {
     return allDbs;
   }
 
-  initDbs(): void {
+  private initDbs(): void {
     const tabIds = loadTabIds();
     tabIds.forEach((tabId) => this.initDb(tabId));
   }
 
-  initDb(tabId: string): Tab {
+  private initDb(tabId: string): Tab {
     if (this.dbs[tabId]) {
       throw new Error(`DB "${tabId}" already initialized.`);
     }
@@ -155,7 +155,7 @@ export default class DbManager {
     const tab = new Tab(
       dbName,
       remoteDbLocation,
-      this._changesHandler.bind(this, tabId),
+      this.handleChanges.bind(this, tabId),
       this.isIndexedDbAvailable === false ? "memory" : undefined
     );
     this.dbs[tabId] = tab;
@@ -163,7 +163,7 @@ export default class DbManager {
     return tab;
   }
 
-  _changesHandler(
+  private handleChanges(
     tabId: string,
     changes: PouchDB.Core.ChangesResponseChange<Document>[]
   ) {
@@ -177,11 +177,11 @@ export default class DbManager {
       // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
       .map((change) => this.docToEntity(tabId, change.doc));
 
-    if (!this._changesCallback) {
+    if (!this.onChanges) {
       throw new Error("Callback not set.");
     }
 
-    this._changesCallback({
+    this.onChanges({
       createOrUpdate,
       delete: delete_,
     });

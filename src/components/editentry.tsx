@@ -93,13 +93,13 @@ const EditEntry: FunctionComponent<Props> = (props) => {
   const isLoading = props.checkingRemoteTab || props.importingTab;
 
   return (
-    <div className="scene editEntryScene">
+    <>
       {renderHeader(
         !isLoading &&
           !(props.remoteTabError || (props.mode === "edit" && !props.formState))
       )}
       <Loader show={isLoading}>{renderContent()}</Loader>
-    </div>
+    </>
   );
 };
 

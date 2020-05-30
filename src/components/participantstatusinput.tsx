@@ -1,10 +1,4 @@
-import React, {
-  SyntheticEvent,
-  FunctionComponent,
-  useRef,
-  useEffect,
-  memo,
-} from "react";
+import React, { SyntheticEvent, FunctionComponent, useRef, memo } from "react";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";
 
@@ -25,11 +19,11 @@ const ParticipationStatusInput: FunctionComponent<Props> = ({
 }) => {
   const amountInput = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (status === Status.PAID) {
-      amountInput.current?.focus();
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === Status.PAID) {
+  //     amountInput.current?.focus();
+  //   }
+  // }, [status]);
 
   return (
     <span className="participationStatus">

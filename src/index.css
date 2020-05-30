@@ -197,15 +197,33 @@ input[type="number"] {
   margin: 0; /* Safari has 2px */
 }
 
-#scenes {
+.scenes {
   max-width: 500px;
   min-width: 320px;
   margin: 0 auto;
+  overflow: hidden;
+}
+.scenes-container {
+  display: flex;
+  width: 300%;
+  transition: transform 500ms;
+}
+.scenes-container-active-2 {
+  transform: translate3d(-33.33%, 0, 0);
+}
+.scenes-container-active-3 {
+  transform: translate3d(-66.66%, 0, 0);
+}
+.scene {
+  flex: 1;
+  height: 100vh;
+  overflow-y: scroll;
 }
 @media (min-width: 500px) and (min-height: 780px) {
-  #scenes {
-    margin-top: 4vh;
-    margin-bottom: 4vh;
+  .scene {
+    padding-top: 4vh;
+    padding-bottom: 4vh;
+    height: calc(100vh - 8vh);
   }
   .header button.create {
     margin-top: calc(4vh + 5px);
@@ -243,10 +261,6 @@ input[type="number"] {
   transform: translateX(-200%);
   border-radius: 50px;
   padding: 6px;
-}
-
-.scene.hidden {
-  display: none;
 }
 
 .scene-with-footer {
@@ -337,7 +351,7 @@ input[type="number"] {
 
 /* Whitespace to sides */
 .editEntryScene .form,
-.tabsScene {
+.tabsScene main {
   margin-left: 5px;
   margin-right: 5px;
 }

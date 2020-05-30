@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders empty form 1`] = `
-<div
-  className="scene editEntryScene"
->
+Array [
   <div
     className="header"
   >
@@ -37,7 +35,7 @@ exports[`renders empty form 1`] = `
         />
       </svg>
     </button>
-  </div>
+  </div>,
   <div>
     <form
       id="edit-entry-form"
@@ -352,14 +350,12 @@ exports[`renders empty form 1`] = `
         className="row"
       />
     </form>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`renders loader in edit mode with no data 1`] = `
-<div
-  className="scene editEntryScene"
->
+Array [
   <div
     className="header"
   >
@@ -379,7 +375,7 @@ exports[`renders loader in edit mode with no data 1`] = `
     <h2>
       Edit transaction
     </h2>
-  </div>
+  </div>,
   <div>
     <div
       className="load-error"
@@ -401,14 +397,12 @@ exports[`renders loader in edit mode with no data 1`] = `
         OK
       </button>
     </div>
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`renders loader when checking remote tab 1`] = `
-<div
-  className="scene editEntryScene"
->
+Array [
   <div
     className="header"
   >
@@ -428,19 +422,17 @@ exports[`renders loader when checking remote tab 1`] = `
     <h2>
       New transaction
     </h2>
-  </div>
+  </div>,
   <div
     className="loader tab-loader"
   >
     <div />
-  </div>
-</div>
+  </div>,
+]
 `;
 
 exports[`renders prefilled form 1`] = `
-<div
-  className="scene editEntryScene"
->
+Array [
   <div
     className="header"
   >
@@ -474,7 +466,7 @@ exports[`renders prefilled form 1`] = `
         />
       </svg>
     </button>
-  </div>
+  </div>,
   <div>
     <form
       id="edit-entry-form"
@@ -781,6 +773,6 @@ exports[`renders prefilled form 1`] = `
         </span>
       </div>
     </form>
-  </div>
-</div>
+  </div>,
+]
 `;

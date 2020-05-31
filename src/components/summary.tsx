@@ -44,21 +44,19 @@ function formatData(accounts: Account[]) {
 }
 
 const Summary: FunctionComponent<Props> = ({ accounts }) => (
-  <div id="summary">
-    <table id="balance">
-      <tbody>
-        {formatData(accounts).map((account) => (
-          <tr
-            key={account.participant}
-            style={{ backgroundColor: account.cssColor }}
-          >
-            <th className="account">{account.participant}</th>
-            <td className="amount">{account.amount}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <table className="summary">
+    <tbody>
+      {formatData(accounts).map((account) => (
+        <tr
+          key={account.participant}
+          style={{ backgroundColor: account.cssColor }}
+        >
+          <th className="account">{account.participant}</th>
+          <td className="amount">{account.amount}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
 );
 
 export default memo(Summary);

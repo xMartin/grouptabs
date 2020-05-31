@@ -511,9 +511,7 @@ input[type="number"] {
   font-size: 18px;
 }
 
-#summary tr {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+.summary tr {
   box-sizing: border-box;
   height: 56px;
 }

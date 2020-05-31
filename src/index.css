@@ -30,6 +30,12 @@
   font-style: normal;
 }
 
+html,
+body,
+#root {
+  height: 100%; /* vh doesn't take variable browser chrome into account */
+}
+
 body {
   margin: 0;
   color: var(--main-text-color);
@@ -129,7 +135,7 @@ button.create {
 }
 
 .header button.create {
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   margin: 5px;
@@ -198,12 +204,14 @@ input[type="number"] {
 }
 
 .scenes {
+  height: 100%;
   max-width: 500px;
   min-width: 320px;
   margin: 0 auto;
   overflow: hidden;
 }
 .scenes-container {
+  height: 100%;
   display: flex;
   width: 300%;
   transition: transform 500ms;
@@ -215,18 +223,19 @@ input[type="number"] {
   transform: translate3d(-66.66%, 0, 0);
 }
 .scene {
+  height: 100%;
   flex: 1;
-  height: 100vh;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width: 500px) and (min-height: 780px) {
   .scene {
-    padding-top: 4vh;
-    padding-bottom: 4vh;
-    height: calc(100vh - 8vh);
+    padding-top: 4%;
+    padding-bottom: 4%;
+    height: calc(100% - 8%);
   }
   .header button.create {
-    margin-top: calc(4vh + 5px);
+    margin-top: calc(4% + 5px);
   }
 }
 @media (min-width: 500px) {
@@ -236,7 +245,6 @@ input[type="number"] {
 }
 
 .header {
-  width: 100%;
   height: 56px;
   margin-bottom: 0.5em;
   position: relative;
@@ -263,21 +271,20 @@ input[type="number"] {
   padding: 6px;
 }
 
-.scene-with-footer {
+.content {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content-with-footer {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
-@media (min-width: 500px) and (min-height: 780px) {
-  .scene-with-footer {
-    min-height: 92vh;
-  }
+.content-with-footer main {
+  flex: 1;
 }
-.scene-with-footer main {
-  flex-grow: 1;
-}
-.scene-with-footer footer {
-  flex-grow: 0;
+.content-with-footer footer {
   padding: 10px 10px 15px;
   text-align: center;
   font-size: 80%;
@@ -592,7 +599,7 @@ input[type="number"] {
 }
 
 .loader {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -612,7 +619,7 @@ input[type="number"] {
   opacity: 0;
 }
 .tab-loader {
-  height: 70vh;
+  height: 70%;
 }
 .loader div {
   width: 68px;

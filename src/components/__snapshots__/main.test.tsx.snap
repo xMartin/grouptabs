@@ -30,27 +30,25 @@ exports[`renders empty view with no tab selected 1`] = `
       +
     </button>
   </div>
-  <div>
-    <div
-      className="load-error"
+  <div
+    className="load-error"
+  >
+    <img
+      alt=""
+      src="logo.png"
+    />
+    <h2>
+      Grouptabs
+    </h2>
+    <p>
+      Error: Tab data missing. Are you offline? Try refreshing.
+    </p>
+    <button
+      className="create"
+      onClick={[Function]}
     >
-      <img
-        alt=""
-        src="logo.png"
-      />
-      <h2>
-        Grouptabs
-      </h2>
-      <p>
-        Error: Tab data missing. Are you offline? Try refreshing.
-      </p>
-      <button
-        className="create"
-        onClick={[Function]}
-      >
-        OK
-      </button>
-    </div>
+      OK
+    </button>
   </div>
 </div>
 `;
@@ -85,27 +83,25 @@ exports[`renders missing tab info error 1`] = `
       +
     </button>
   </div>
-  <div>
-    <div
-      className="load-error"
+  <div
+    className="load-error"
+  >
+    <img
+      alt=""
+      src="logo.png"
+    />
+    <h2>
+      Grouptabs
+    </h2>
+    <p>
+      Error: Tab data missing. Are you offline? Try refreshing.
+    </p>
+    <button
+      className="create"
+      onClick={[Function]}
     >
-      <img
-        alt=""
-        src="logo.png"
-      />
-      <h2>
-        Grouptabs
-      </h2>
-      <p>
-        Error: Tab data missing. Are you offline? Try refreshing.
-      </p>
-      <button
-        className="create"
-        onClick={[Function]}
-      >
-        OK
-      </button>
-    </div>
+      OK
+    </button>
   </div>
 </div>
 `;

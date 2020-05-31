@@ -122,7 +122,7 @@ const Main: FunctionComponent<Props> = (props) => {
   );
 
   const renderSummary = () => (
-    <React.Fragment>
+    <div className="content">
       <div className="row">
         <Summary accounts={props.accounts} />
       </div>
@@ -145,7 +145,7 @@ const Main: FunctionComponent<Props> = (props) => {
         <TotalSpending amount={props.total} />
       </div>
       {renderShareInfo()}
-    </React.Fragment>
+    </div>
   );
 
   const renderEmptyState = () => (

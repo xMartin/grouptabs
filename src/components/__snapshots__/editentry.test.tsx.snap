@@ -36,46 +36,297 @@ Array [
       </svg>
     </button>
   </div>,
-  <div>
-    <form
-      id="edit-entry-form"
-      onSubmit={[Function]}
+  <form
+    className="content"
+    id="edit-entry-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form"
     >
       <div
-        className="form"
+        className="form-row"
+      >
+        <div
+          className="form-row-input description"
+        >
+          <input
+            onChange={[Function]}
+            placeholder="Description"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="form-row-input transaction-type"
+        >
+          <select
+            onChange={[Function]}
+            value="SHARED"
+          >
+            <option
+              value="SHARED"
+            >
+              Shared
+            </option>
+            <option
+              value="DIRECT"
+            >
+              Direct
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-row-input"
+        >
+          <div
+            className="form-row-input date-input"
+          >
+            <button
+              className="selected"
+              onClick={[Function]}
+              type="button"
+            >
+              today
+            </button>
+            <button
+              className=""
+              onClick={[Function]}
+              type="button"
+            >
+              yesterday
+            </button>
+            <input
+              onChange={[Function]}
+              type="date"
+              value="2020-02-20"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="form-row"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <div
+          className="direct-transaction"
+        >
+          <div
+            className="form-row"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <div
+              className="form-row-input"
+            >
+              <select
+                className="full-width"
+                onChange={[Function]}
+                value="NEW_PARTICIPANT"
+              >
+                <option
+                  value="NEW_PARTICIPANT"
+                >
+                  New participant…
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            className="form-row"
+          >
+            <div
+              className="form-row-input"
+            >
+              <input
+                onChange={[Function]}
+                placeholder="Name …"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="direct-transaction-amount"
+          >
+            <svg
+              height="16"
+              width="16"
+            >
+              <path
+                d="m15.511 8.5129c0-0.8974-1.0909-1.3404-1.7168-0.6973l-4.7832 4.7837v-11.573c0.019125-1.3523-2.0191-1.3523-2 0v11.572l-4.7832-4.7832c-0.94251-0.98163-2.3957 0.47155-1.4141 1.4141l6.49 6.4911c0.3878 0.387 1.0228 0.391 1.414 0l6.4903-6.4906c0.1935-0.1883 0.30268-0.4468 0.3027-0.7168z"
+              />
+            </svg>
+            <input
+              onChange={[Function]}
+              placeholder="0"
+              step="any"
+              type="number"
+              value=""
+            />
+          </div>
+          <div
+            className="form-row"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <div
+              className="form-row-input"
+            >
+              <select
+                className="full-width"
+                onChange={[Function]}
+                value="NEW_PARTICIPANT"
+              >
+                <option
+                  value="NEW_PARTICIPANT"
+                >
+                  New participant…
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            className="form-row"
+          >
+            <div
+              className="form-row-input"
+            >
+              <input
+                onChange={[Function]}
+                placeholder="Name …"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "",
+          }
+        }
       >
         <div
           className="form-row"
         >
           <div
-            className="form-row-input description"
+            className="form-row-input"
           >
-            <input
-              autoFocus={true}
-              onChange={[Function]}
-              placeholder="Description"
-              type="text"
-              value=""
-            />
-          </div>
-          <div
-            className="form-row-input transaction-type"
-          >
-            <select
-              onChange={[Function]}
-              value="SHARED"
+            <div
+              className="newParticipantInput selected"
             >
-              <option
-                value="SHARED"
+              <span
+                className="participant"
               >
-                Shared
-              </option>
-              <option
-                value="DIRECT"
+                <input
+                  autoFocus={true}
+                  onChange={[Function]}
+                  placeholder="Name …"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                className="participationStatus"
               >
-                Direct
-              </option>
-            </select>
+                <span
+                  className="joinedButtonWrapper"
+                >
+                  <button
+                    className=" selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    joined
+                  </button>
+                </span>
+                <button
+                  className="paid-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  paid
+                </button>
+                <span
+                  className="amountInput hidden"
+                >
+                  <input
+                    disabled={true}
+                    onChange={[Function]}
+                    placeholder="0"
+                    step="any"
+                    type="number"
+                    value=""
+                  />
+                </span>
+              </span>
+            </div>
+            <div
+              className="newParticipantInput selected"
+            >
+              <span
+                className="participant"
+              >
+                <input
+                  autoFocus={true}
+                  onChange={[Function]}
+                  placeholder="Name …"
+                  type="text"
+                  value=""
+                />
+              </span>
+              <span
+                className="participationStatus"
+              >
+                <span
+                  className="joinedButtonWrapper"
+                >
+                  <button
+                    className=" selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    joined
+                  </button>
+                </span>
+                <button
+                  className="paid-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  paid
+                </button>
+                <span
+                  className="amountInput hidden"
+                >
+                  <input
+                    disabled={true}
+                    onChange={[Function]}
+                    placeholder="0"
+                    step="any"
+                    type="number"
+                    value=""
+                  />
+                </span>
+              </span>
+            </div>
           </div>
         </div>
         <div
@@ -84,273 +335,20 @@ Array [
           <div
             className="form-row-input"
           >
-            <div
-              className="form-row-input date-input"
+            <button
+              onClick={[MockFunction]}
+              type="button"
             >
-              <button
-                className="selected"
-                onClick={[Function]}
-                type="button"
-              >
-                today
-              </button>
-              <button
-                className=""
-                onClick={[Function]}
-                type="button"
-              >
-                yesterday
-              </button>
-              <input
-                onChange={[Function]}
-                type="date"
-                value="2020-02-20"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className="form-row"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <div
-            className="direct-transaction"
-          >
-            <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-            >
-              <div
-                className="form-row-input"
-              >
-                <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value="NEW_PARTICIPANT"
-                >
-                  <option
-                    value="NEW_PARTICIPANT"
-                  >
-                    New participant…
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div
-              className="form-row"
-            >
-              <div
-                className="form-row-input"
-              >
-                <input
-                  onChange={[Function]}
-                  placeholder="Name …"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-            <div
-              className="direct-transaction-amount"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="m15.511 8.5129c0-0.8974-1.0909-1.3404-1.7168-0.6973l-4.7832 4.7837v-11.573c0.019125-1.3523-2.0191-1.3523-2 0v11.572l-4.7832-4.7832c-0.94251-0.98163-2.3957 0.47155-1.4141 1.4141l6.49 6.4911c0.3878 0.387 1.0228 0.391 1.414 0l6.4903-6.4906c0.1935-0.1883 0.30268-0.4468 0.3027-0.7168z"
-                />
-              </svg>
-              <input
-                onChange={[Function]}
-                placeholder="0"
-                step="any"
-                type="number"
-                value=""
-              />
-            </div>
-            <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-            >
-              <div
-                className="form-row-input"
-              >
-                <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value="NEW_PARTICIPANT"
-                >
-                  <option
-                    value="NEW_PARTICIPANT"
-                  >
-                    New participant…
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div
-              className="form-row"
-            >
-              <div
-                className="form-row-input"
-              >
-                <input
-                  onChange={[Function]}
-                  placeholder="Name …"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "",
-            }
-          }
-        >
-          <div
-            className="form-row"
-          >
-            <div
-              className="form-row-input"
-            >
-              <div
-                className="newParticipantInput selected"
-              >
-                <span
-                  className="participant"
-                >
-                  <input
-                    autoFocus={true}
-                    onChange={[Function]}
-                    placeholder="Name …"
-                    type="text"
-                    value=""
-                  />
-                </span>
-                <span
-                  className="participationStatus"
-                >
-                  <span
-                    className="joinedButtonWrapper"
-                  >
-                    <button
-                      className=" selected"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      joined
-                    </button>
-                  </span>
-                  <button
-                    className="paid-button"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    paid
-                  </button>
-                  <span
-                    className="amountInput hidden"
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      placeholder="0"
-                      step="any"
-                      type="number"
-                      value=""
-                    />
-                  </span>
-                </span>
-              </div>
-              <div
-                className="newParticipantInput selected"
-              >
-                <span
-                  className="participant"
-                >
-                  <input
-                    autoFocus={true}
-                    onChange={[Function]}
-                    placeholder="Name …"
-                    type="text"
-                    value=""
-                  />
-                </span>
-                <span
-                  className="participationStatus"
-                >
-                  <span
-                    className="joinedButtonWrapper"
-                  >
-                    <button
-                      className=" selected"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      joined
-                    </button>
-                  </span>
-                  <button
-                    className="paid-button"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    paid
-                  </button>
-                  <span
-                    className="amountInput hidden"
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      placeholder="0"
-                      step="any"
-                      type="number"
-                      value=""
-                    />
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            className="form-row"
-          >
-            <div
-              className="form-row-input"
-            >
-              <button
-                onClick={[MockFunction]}
-                type="button"
-              >
-                + new participant
-              </button>
-            </div>
+              + new participant
+            </button>
           </div>
         </div>
       </div>
-      <div
-        className="row"
-      />
-    </form>
-  </div>,
+    </div>
+    <div
+      className="row"
+    />
+  </form>,
 ]
 `;
 
@@ -376,27 +374,25 @@ Array [
       Edit transaction
     </h2>
   </div>,
-  <div>
-    <div
-      className="load-error"
+  <div
+    className="load-error"
+  >
+    <img
+      alt=""
+      src="logo.png"
+    />
+    <h2>
+      Grouptabs
+    </h2>
+    <p>
+      Could not find transaction.
+    </p>
+    <button
+      className="create"
+      onClick={[Function]}
     >
-      <img
-        alt=""
-        src="logo.png"
-      />
-      <h2>
-        Grouptabs
-      </h2>
-      <p>
-        Could not find transaction.
-      </p>
-      <button
-        className="create"
-        onClick={[Function]}
-      >
-        OK
-      </button>
-    </div>
+      OK
+    </button>
   </div>,
 ]
 `;
@@ -467,45 +463,283 @@ Array [
       </svg>
     </button>
   </div>,
-  <div>
-    <form
-      id="edit-entry-form"
-      onSubmit={[Function]}
+  <form
+    className="content"
+    id="edit-entry-form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form"
     >
       <div
-        className="form"
+        className="form-row"
+      >
+        <div
+          className="form-row-input description"
+        >
+          <input
+            onChange={[Function]}
+            placeholder="Description"
+            type="text"
+            value="DESCRIPTION"
+          />
+        </div>
+        <div
+          className="form-row-input transaction-type"
+        >
+          <select
+            onChange={[Function]}
+            value="SHARED"
+          >
+            <option
+              value="SHARED"
+            >
+              Shared
+            </option>
+            <option
+              value="DIRECT"
+            >
+              Direct
+            </option>
+          </select>
+        </div>
+      </div>
+      <div
+        className="form-row"
+      >
+        <div
+          className="form-row-input"
+        >
+          <div
+            className="form-row-input date-input"
+          >
+            <button
+              className=""
+              onClick={[Function]}
+              type="button"
+            >
+              today
+            </button>
+            <button
+              className=""
+              onClick={[Function]}
+              type="button"
+            >
+              yesterday
+            </button>
+            <input
+              onChange={[Function]}
+              type="date"
+              value="2020-03-24"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="form-row"
+        style={
+          Object {
+            "display": "none",
+          }
+        }
+      >
+        <div
+          className="direct-transaction"
+        >
+          <div
+            className="form-row"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <div
+              className="form-row-input"
+            >
+              <select
+                className="full-width"
+                onChange={[Function]}
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-row"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <div
+              className="form-row-input"
+            >
+              <input
+                onChange={[Function]}
+                placeholder="Name …"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="direct-transaction-amount"
+          >
+            <svg
+              height="16"
+              width="16"
+            >
+              <path
+                d="m15.511 8.5129c0-0.8974-1.0909-1.3404-1.7168-0.6973l-4.7832 4.7837v-11.573c0.019125-1.3523-2.0191-1.3523-2 0v11.572l-4.7832-4.7832c-0.94251-0.98163-2.3957 0.47155-1.4141 1.4141l6.49 6.4911c0.3878 0.387 1.0228 0.391 1.414 0l6.4903-6.4906c0.1935-0.1883 0.30268-0.4468 0.3027-0.7168z"
+              />
+            </svg>
+            <input
+              onChange={[Function]}
+              placeholder="0"
+              step="any"
+              type="number"
+              value=""
+            />
+          </div>
+          <div
+            className="form-row"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <div
+              className="form-row-input"
+            >
+              <select
+                className="full-width"
+                onChange={[Function]}
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="form-row"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <div
+              className="form-row-input"
+            >
+              <input
+                onChange={[Function]}
+                placeholder="Name …"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "",
+          }
+        }
       >
         <div
           className="form-row"
         >
           <div
-            className="form-row-input description"
+            className="form-row-input"
           >
-            <input
-              onChange={[Function]}
-              placeholder="Description"
-              type="text"
-              value="DESCRIPTION"
-            />
-          </div>
-          <div
-            className="form-row-input transaction-type"
-          >
-            <select
-              onChange={[Function]}
-              value="SHARED"
+            <div
+              className="participantInput selected"
             >
-              <option
-                value="SHARED"
+              <span
+                className="participant"
               >
-                Shared
-              </option>
-              <option
-                value="DIRECT"
+                Martin
+              </span>
+              <span
+                className="participationStatus"
               >
-                Direct
-              </option>
-            </select>
+                <span
+                  className="joinedButtonWrapper"
+                >
+                  <button
+                    className=" selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    joined
+                  </button>
+                </span>
+                <button
+                  className="paid-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  paid
+                </button>
+                <span
+                  className="amountInput hidden"
+                >
+                  <input
+                    disabled={true}
+                    onChange={[Function]}
+                    placeholder="0"
+                    step="any"
+                    type="number"
+                    value={5}
+                  />
+                </span>
+              </span>
+            </div>
+            <div
+              className="participantInput selected"
+            >
+              <span
+                className="participant"
+              >
+                Jan
+              </span>
+              <span
+                className="participationStatus"
+              >
+                <span
+                  className="joinedButtonWrapper"
+                >
+                  <button
+                    className=" selected"
+                    onClick={[Function]}
+                    type="button"
+                  >
+                    joined
+                  </button>
+                </span>
+                <button
+                  className="paid-button"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  paid
+                </button>
+                <span
+                  className="amountInput hidden"
+                >
+                  <input
+                    disabled={true}
+                    onChange={[Function]}
+                    placeholder="0"
+                    step="any"
+                    type="number"
+                    value={0}
+                  />
+                </span>
+              </span>
+            </div>
           </div>
         </div>
         <div
@@ -514,265 +748,26 @@ Array [
           <div
             className="form-row-input"
           >
-            <div
-              className="form-row-input date-input"
+            <button
+              onClick={[MockFunction]}
+              type="button"
             >
-              <button
-                className=""
-                onClick={[Function]}
-                type="button"
-              >
-                today
-              </button>
-              <button
-                className=""
-                onClick={[Function]}
-                type="button"
-              >
-                yesterday
-              </button>
-              <input
-                onChange={[Function]}
-                type="date"
-                value="2020-03-24"
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          className="form-row"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <div
-            className="direct-transaction"
-          >
-            <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-            >
-              <div
-                className="form-row-input"
-              >
-                <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value=""
-                />
-              </div>
-            </div>
-            <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-            >
-              <div
-                className="form-row-input"
-              >
-                <input
-                  onChange={[Function]}
-                  placeholder="Name …"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-            <div
-              className="direct-transaction-amount"
-            >
-              <svg
-                height="16"
-                width="16"
-              >
-                <path
-                  d="m15.511 8.5129c0-0.8974-1.0909-1.3404-1.7168-0.6973l-4.7832 4.7837v-11.573c0.019125-1.3523-2.0191-1.3523-2 0v11.572l-4.7832-4.7832c-0.94251-0.98163-2.3957 0.47155-1.4141 1.4141l6.49 6.4911c0.3878 0.387 1.0228 0.391 1.414 0l6.4903-6.4906c0.1935-0.1883 0.30268-0.4468 0.3027-0.7168z"
-                />
-              </svg>
-              <input
-                onChange={[Function]}
-                placeholder="0"
-                step="any"
-                type="number"
-                value=""
-              />
-            </div>
-            <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-            >
-              <div
-                className="form-row-input"
-              >
-                <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value=""
-                />
-              </div>
-            </div>
-            <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
-            >
-              <div
-                className="form-row-input"
-              >
-                <input
-                  onChange={[Function]}
-                  placeholder="Name …"
-                  type="text"
-                  value=""
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          style={
-            Object {
-              "display": "",
-            }
-          }
-        >
-          <div
-            className="form-row"
-          >
-            <div
-              className="form-row-input"
-            >
-              <div
-                className="participantInput selected"
-              >
-                <span
-                  className="participant"
-                >
-                  Martin
-                </span>
-                <span
-                  className="participationStatus"
-                >
-                  <span
-                    className="joinedButtonWrapper"
-                  >
-                    <button
-                      className=" selected"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      joined
-                    </button>
-                  </span>
-                  <button
-                    className="paid-button"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    paid
-                  </button>
-                  <span
-                    className="amountInput hidden"
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      placeholder="0"
-                      step="any"
-                      type="number"
-                      value={5}
-                    />
-                  </span>
-                </span>
-              </div>
-              <div
-                className="participantInput selected"
-              >
-                <span
-                  className="participant"
-                >
-                  Jan
-                </span>
-                <span
-                  className="participationStatus"
-                >
-                  <span
-                    className="joinedButtonWrapper"
-                  >
-                    <button
-                      className=" selected"
-                      onClick={[Function]}
-                      type="button"
-                    >
-                      joined
-                    </button>
-                  </span>
-                  <button
-                    className="paid-button"
-                    onClick={[Function]}
-                    type="button"
-                  >
-                    paid
-                  </button>
-                  <span
-                    className="amountInput hidden"
-                  >
-                    <input
-                      disabled={true}
-                      onChange={[Function]}
-                      placeholder="0"
-                      step="any"
-                      type="number"
-                      value={0}
-                    />
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            className="form-row"
-          >
-            <div
-              className="form-row-input"
-            >
-              <button
-                onClick={[MockFunction]}
-                type="button"
-              >
-                + new participant
-              </button>
-            </div>
+              + new participant
+            </button>
           </div>
         </div>
       </div>
-      <div
-        className="row button-row"
+    </div>
+    <div
+      className="row button-row"
+    >
+      <span
+        className="fake-link delete"
+        onClick={[Function]}
       >
-        <span
-          className="fake-link delete"
-          onClick={[Function]}
-        >
-          Delete transaction
-        </span>
-      </div>
-    </form>
-  </div>,
+        Delete transaction
+      </span>
+    </div>
+  </form>,
 ]
 `;

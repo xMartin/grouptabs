@@ -65,7 +65,7 @@ const Form: FunctionComponent<Props> = (props) => {
   const showAllJoinedButton = numberOfNonJoined > 1;
 
   return (
-    <form id="edit-entry-form" onSubmit={handleSubmit}>
+    <form id="edit-entry-form" className="content" onSubmit={handleSubmit}>
       <div className="form">
         <div className="form-row">
           <div className="form-row-input description">
@@ -76,7 +76,7 @@ const Form: FunctionComponent<Props> = (props) => {
               onChange={(event: SyntheticEvent<HTMLInputElement>) =>
                 props.onUpdateForm("description", event.currentTarget.value)
               }
-              autoFocus={props.mode === "new" ? true : undefined}
+              autoFocus={/*props.mode === "new" ? true : */ undefined}
             />
           </div>
           <div className="form-row-input transaction-type">

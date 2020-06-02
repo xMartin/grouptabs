@@ -42,8 +42,10 @@ export default class {
     this.remoteDb = new PouchDB(remoteDbLocation);
   }
 
-  async connect() {
-    await this.replicateFromRemote();
+  async connect({
+    initialReplicationTimeout,
+  }: { initialReplicationTimeout?: number } = {}) {
+    await this.replicateFromRemote({ initialReplicationTimeout });
     const docs = await this.fetchAll();
     const info = await this.db.info();
     this.lastSequenceNumber = info.update_seq;
@@ -83,11 +85,13 @@ export default class {
     this.logDoc("delete", "- response:", response);
   }
 
-  private replicateFromRemote() {
+  private replicateFromRemote({
+    initialReplicationTimeout,
+  }: { initialReplicationTimeout?: number } = {}) {
     this.logReplication("start");
 
     return new Promise((resolve) => {
-      this.db.replicate
+      const replication = this.db.replicate
         .from(this.remoteDb, {
           batch_size: 100,
         })
@@ -99,14 +103,24 @@ export default class {
         })
         .on("complete", () => {
           this.logReplication("complete");
+          clearTimeout(timeoutHandle);
           resolve();
         })
         .on("error", (err) => {
           this.logReplication("error", err);
           // resolve even in error case
           // incomplete replication can be handled by next sync
+          clearTimeout(timeoutHandle);
           resolve();
         });
+      let timeoutHandle: any;
+      if (initialReplicationTimeout !== undefined) {
+        timeoutHandle = setTimeout(() => {
+          replication.cancel();
+          this.logReplication("canceled (timeout)");
+          resolve();
+        }, initialReplicationTimeout);
+      }
     });
   }
 

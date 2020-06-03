@@ -9,7 +9,7 @@
   --button-disabled-background-color: var(--subtle-text-color);
   --button-selected-background-color: #bbb;
   --text-input-background-color: #fff;
-  --participant-status-none-color: #999;
+  --participant-status-none-color: #888;
   --list-item-divider-color: #e5e5e5;
 }
 @media (prefers-color-scheme: dark) {
@@ -20,7 +20,7 @@
     --button-background-color: #525252;
     --button-selected-background-color: #686868;
     --text-input-background-color: #343434;
-    --participant-status-none-color: #999;
+    --participant-status-none-color: #a5a5a5;
     --list-item-divider-color: #343434;
   }
 }

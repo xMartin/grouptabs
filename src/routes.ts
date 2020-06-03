@@ -3,6 +3,7 @@ import {
   ensureConnectedDb,
   importTabFromUrl,
   GTThunkAction,
+  initTransactionForm,
 } from "./redux/actioncreators";
 import { AllState } from "./";
 import { RouteThunk, RoutesMap } from "redux-first-router";
@@ -19,7 +20,7 @@ const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {
   await gtDispatch(ensureConnectedDb());
   if (!checkTabLocally(getState())) {
     var tabId = getState().location.payload.tabId;
-    dispatch(importTabFromUrl(tabId));
+    await dispatch(importTabFromUrl(tabId));
   }
 };
 
@@ -38,12 +39,18 @@ const routes: RoutesMap<{}, AllState> = {
 
   ROUTE_NEW_TRANSACTION: {
     path: "/tabs/:tabId/transactions/create",
-    thunk: tabThunk,
+    thunk: async (dispatch, getState) => {
+      await tabThunk(dispatch, getState);
+      dispatch(initTransactionForm());
+    },
   },
 
   ROUTE_TRANSACTION: {
     path: "/tabs/:tabId/transactions/:transactionId",
-    thunk: tabThunk,
+    thunk: async (dispatch, getState) => {
+      await tabThunk(dispatch, getState);
+      dispatch(initTransactionForm());
+    },
   },
 
   ROUTE_CATCH_ALL: {

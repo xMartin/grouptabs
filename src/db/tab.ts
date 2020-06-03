@@ -25,6 +25,7 @@ export default class {
   private readonly logSync: Debugger;
   private readonly logDoc: Debugger;
   private readonly logChanges: Debugger;
+  private readonly logFetch: Debugger;
 
   constructor(
     private readonly localDbName: string,
@@ -35,8 +36,9 @@ export default class {
     const myLog = log.extend(localDbName);
     this.logReplication = myLog.extend("replication");
     this.logSync = myLog.extend("sync");
-    this.logDoc = log.extend("doc");
-    this.logChanges = log.extend("changes");
+    this.logDoc = myLog.extend("doc");
+    this.logChanges = myLog.extend("changes");
+    this.logFetch = myLog.extend("fetch");
 
     this.db = new PouchDB(localDbName, { adapter });
     this.remoteDb = new PouchDB(remoteDbLocation);
@@ -125,10 +127,12 @@ export default class {
   }
 
   private async fetchAll() {
+    this.logFetch("all docs");
     const result = await this.db.allDocs({
       include_docs: true,
       attachments: true,
     });
+    this.logFetch("all docs result", result);
     return result.rows.map((row) => row.doc);
   }
 

@@ -35,7 +35,6 @@ it("renders loader when checking remote tab", () => {
       <EditEntry
         mode="new"
         checkingRemoteTab={true}
-        onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
         onUpdateSharedForm={jest.fn()}
         onUpdateDirectForm={jest.fn()}
@@ -58,7 +57,6 @@ it("renders empty form", () => {
       <EditEntry
         mode="new"
         formState={createFormData([])}
-        onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
         onUpdateSharedForm={jest.fn()}
         onUpdateDirectForm={jest.fn()}
@@ -80,7 +78,6 @@ it("renders loader in edit mode with no data", () => {
     .create(
       <EditEntry
         mode="edit"
-        onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
         onUpdateSharedForm={jest.fn()}
         onUpdateDirectForm={jest.fn()}
@@ -126,7 +123,6 @@ it("renders prefilled form", () => {
             options: [],
           },
         }}
-        onInitForm={jest.fn()}
         onUpdateForm={jest.fn()}
         onUpdateSharedForm={jest.fn()}
         onUpdateDirectForm={jest.fn()}

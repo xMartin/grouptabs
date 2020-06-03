@@ -1,9 +1,11 @@
 :root {
+  --dark-color: #131313;
+  --light-color: #f5f5f5;
   --color-cta: #44f;
   --color-cta-opposite: #fff;
   --color-error: #f31;
-  --main-text-color: #131313;
-  --main-background-color: #f5f5f5;
+  --main-text-color: var(--dark-color);
+  --main-background-color: var(--light-color);
   --subtle-text-color: #707070;
   --button-background-color: #ddd;
   --button-disabled-background-color: var(--subtle-text-color);
@@ -14,14 +16,14 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --main-text-color: #f5f5f5;
-    --main-background-color: #131313;
+    --main-text-color: var(--light-color);
+    --main-background-color: var(--dark-color);
     --subtle-text-color: #818181;
     --button-background-color: #525252;
     --button-selected-background-color: #686868;
     --text-input-background-color: #343434;
     --participant-status-none-color: #a5a5a5;
-    --list-item-divider-color: #343434;
+    --list-item-divider-color: var(--text-input-background-color);
   }
 }
 

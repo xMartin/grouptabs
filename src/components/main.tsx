@@ -31,6 +31,7 @@ interface Props {
 }
 
 const useTransactionHeadingScroller = (
+  scrollContainerRef: RefObject<HTMLElement>,
   transactionsHeadingRef: RefObject<HTMLElement>,
   recheckDependencies: any[]
 ): {
@@ -46,11 +47,13 @@ const useTransactionHeadingScroller = (
   const transactionsHeadingIsOutOfViewportRef = useRef(false);
 
   const checkTransactionsHeadingVisibilityRef = useRef(() => {
-    if (!transactionsHeadingRef.current) {
+    if (!scrollContainerRef.current || !transactionsHeadingRef.current) {
       return;
     }
 
-    const scrollBottomY = window.innerHeight + window.scrollY;
+    const scrollContainer = scrollContainerRef.current;
+    const scrollBottomY =
+      scrollContainer.clientHeight + scrollContainer.scrollTop;
     const headingY = transactionsHeadingRef.current.offsetTop;
     const newTransactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
     if (
@@ -68,15 +71,16 @@ const useTransactionHeadingScroller = (
 
   useEffect(() => {
     const handler = checkTransactionsHeadingVisibilityRef.current;
-    window.addEventListener("scroll", handler);
+    const scrollContainer = scrollContainerRef.current;
+    scrollContainer?.addEventListener("scroll", handler);
     window.addEventListener("resize", handler);
     handler();
 
     return () => {
-      window.removeEventListener("scroll", handler);
+      scrollContainer?.removeEventListener("scroll", handler);
       window.removeEventListener("resize", handler);
     };
-  }, []);
+  }, [scrollContainerRef]);
 
   useEffect(() => {
     setTimeout(checkTransactionsHeadingVisibilityRef.current);
@@ -91,12 +95,17 @@ const useTransactionHeadingScroller = (
 };
 
 const Main: FunctionComponent<Props> = (props) => {
+  const contentContainerRef = useRef<HTMLDivElement>(null);
   const transactionsHeadingRef = useRef<HTMLHeadingElement>(null);
 
   const {
     transactionsHeadingIsOutOfViewport,
     scrollToTransactionHeading,
-  } = useTransactionHeadingScroller(transactionsHeadingRef, [props.accounts]);
+  } = useTransactionHeadingScroller(
+    contentContainerRef,
+    transactionsHeadingRef,
+    [props.accounts]
+  );
 
   const handleNewEntryClick = () => {
     if (!props.tabId) {
@@ -122,7 +131,7 @@ const Main: FunctionComponent<Props> = (props) => {
   );
 
   const renderSummary = () => (
-    <div className="content">
+    <>
       <div className="row">
         <Summary accounts={props.accounts} />
       </div>
@@ -145,11 +154,11 @@ const Main: FunctionComponent<Props> = (props) => {
         <TotalSpending amount={props.total} />
       </div>
       {renderShareInfo()}
-    </div>
+    </>
   );
 
   const renderEmptyState = () => (
-    <React.Fragment>
+    <>
       <div className="empty-info">
         <p>
           A tab consists of transactions. When you add a transaction you also
@@ -163,7 +172,7 @@ const Main: FunctionComponent<Props> = (props) => {
         </div>
       </div>
       {renderShareInfo()}
-    </React.Fragment>
+    </>
   );
 
   const renderShareInfo = () => (
@@ -204,7 +213,13 @@ const Main: FunctionComponent<Props> = (props) => {
   return (
     <div className={"scene mainScene" + (props.visible ? "" : " hidden")}>
       {renderHeader(!isLoading && !props.remoteTabError)}
-      <Loader show={isLoading}>{renderContent()}</Loader>
+      <div
+        className="content"
+        ref={contentContainerRef}
+        style={{ position: "relative" }}
+      >
+        <Loader show={isLoading}>{renderContent()}</Loader>
+      </div>
     </div>
   );
 };

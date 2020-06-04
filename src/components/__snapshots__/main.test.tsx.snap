@@ -31,24 +31,33 @@ exports[`renders empty view with no tab selected 1`] = `
     </button>
   </div>
   <div
-    className="load-error"
+    className="content"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
-    <img
-      alt=""
-      src="logo.png"
-    />
-    <h2>
-      Grouptabs
-    </h2>
-    <p>
-      Error: Tab data missing. Are you offline? Try refreshing.
-    </p>
-    <button
-      className="create"
-      onClick={[Function]}
+    <div
+      className="load-error"
     >
-      OK
-    </button>
+      <img
+        alt=""
+        src="logo.png"
+      />
+      <h2>
+        Grouptabs
+      </h2>
+      <p>
+        Error: Tab data missing. Are you offline? Try refreshing.
+      </p>
+      <button
+        className="create"
+        onClick={[Function]}
+      >
+        OK
+      </button>
+    </div>
   </div>
 </div>
 `;
@@ -84,24 +93,33 @@ exports[`renders missing tab info error 1`] = `
     </button>
   </div>
   <div
-    className="load-error"
+    className="content"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
-    <img
-      alt=""
-      src="logo.png"
-    />
-    <h2>
-      Grouptabs
-    </h2>
-    <p>
-      Error: Tab data missing. Are you offline? Try refreshing.
-    </p>
-    <button
-      className="create"
-      onClick={[Function]}
+    <div
+      className="load-error"
     >
-      OK
-    </button>
+      <img
+        alt=""
+        src="logo.png"
+      />
+      <h2>
+        Grouptabs
+      </h2>
+      <p>
+        Error: Tab data missing. Are you offline? Try refreshing.
+      </p>
+      <button
+        className="create"
+        onClick={[Function]}
+      >
+        OK
+      </button>
+    </div>
   </div>
 </div>
 `;

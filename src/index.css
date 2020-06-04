@@ -1,16 +1,30 @@
 :root {
+  --dark-color: #131313;
+  --light-color: #f5f5f5;
   --color-cta: #44f;
   --color-cta-opposite: #fff;
   --color-error: #f31;
-  --main-text-color: #131313;
-  --main-background-color: #f5f5f5;
+  --main-text-color: var(--dark-color);
+  --main-background-color: var(--light-color);
   --subtle-text-color: #707070;
   --button-background-color: #ddd;
-  --button-disabled-background-color: #707070;
+  --button-disabled-background-color: var(--subtle-text-color);
   --button-selected-background-color: #bbb;
   --text-input-background-color: #fff;
-  --participant-status-none-color: #999;
+  --participant-status-none-color: #888;
   --list-item-divider-color: #e5e5e5;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-text-color: var(--light-color);
+    --main-background-color: var(--dark-color);
+    --subtle-text-color: #818181;
+    --button-background-color: #525252;
+    --button-selected-background-color: #686868;
+    --text-input-background-color: #343434;
+    --participant-status-none-color: #a5a5a5;
+    --list-item-divider-color: var(--text-input-background-color);
+  }
 }
 
 @font-face {
@@ -150,7 +164,7 @@ button.create {
 }
 .header button.left:hover path,
 .header button.left:focus path {
-  fill: inherit;
+  fill: var(--main-text-color);
 }
 
 .editEntryScene .button-row {
@@ -465,12 +479,24 @@ input[type="number"] {
   text-align: center;
 }
 .tabs button {
+  position: relative;
   border-top: 1px solid var(--list-item-divider-color);
   padding: 16px 12px;
   border-radius: 0;
-  background: transparent right 10px center no-repeat;
-  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
+  background: transparent;
   text-align: left;
+}
+.tabs button::after {
+  content: "";
+  width: 9px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background: var(--subtle-text-color);
+  mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
 }
 .tabs button:last-child {
   border-bottom: 1px solid var(--list-item-divider-color);

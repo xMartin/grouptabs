@@ -398,7 +398,7 @@ const checkTab = async (
       dispatch(resetImportTabInputValue());
     }
 
-    dbManager
+    await dbManager
       .connectTab(id)
       .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
   } catch (error) {
@@ -413,26 +413,19 @@ const checkTab = async (
   }
 };
 
-export const connectDb = (): GTThunkAction => async (
+export const ensureConnectedDb = (): GTThunkAction => async (
   dispatch,
   getState,
   { dbManager }
-) => {
-  await dbManager.init((actionMap) => {
-    dispatch(createUpdateFromDbAction(actionMap));
-  });
-  dbManager.connect();
-};
-
-export const ensureConnectedDb = (): GTThunkAction => async (
-  dispatch,
-  getState
 ) => {
   if (getState().app.initialLoadingDone) {
     return;
   }
 
-  return dispatch(connectDb());
+  await dbManager.init((actionMap) => {
+    dispatch(createUpdateFromDbAction(actionMap));
+  });
+  await dbManager.connect();
 };
 
 export const createTab = (name: string): GTThunkAction => async (

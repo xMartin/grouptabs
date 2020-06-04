@@ -51,7 +51,7 @@ export default class DbManager {
   async connect() {
     const docsPerDb = await Promise.all(
       this.getAllDbs().map(async (db) => {
-        const docs = await db.db.connect();
+        const docs = await db.db.connect({ initialReplicationTimeout: 3200 });
         // @ts-ignore (apparently items in docs could be undefined)
         return this.docsToEntities(db.tabId, docs);
       })

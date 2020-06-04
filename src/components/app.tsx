@@ -122,7 +122,6 @@ export default class App extends Component<Props> {
                     onCloseClick={this.props.onCloseTransaction}
                     onSave={this.props.onAddOrUpdateTransaction}
                     onDelete={this.props.onRemoveTransaction}
-                    onInitForm={this.props.onInitTransactionForm}
                     onUpdateForm={this.props.onUpdateTransactionForm}
                     onUpdateSharedForm={
                       this.props.onUpdateTransactionSharedForm

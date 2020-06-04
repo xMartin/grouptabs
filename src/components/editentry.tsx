@@ -1,9 +1,4 @@
-import React, {
-  ReactFragment,
-  FunctionComponent,
-  memo,
-  useEffect,
-} from "react";
+import React, { ReactFragment, FunctionComponent, memo } from "react";
 import Loader from "./loader";
 import Form from "./form";
 import LoadError from "./loaderror";
@@ -16,7 +11,6 @@ interface Props {
   remoteTabError?: string;
   importingTab?: boolean;
   formState?: TransactionFormState;
-  onInitForm: () => void;
   onUpdateForm: PropsFromRedux["onUpdateTransactionForm"];
   onUpdateSharedForm: PropsFromRedux["onUpdateTransactionSharedForm"];
   onUpdateDirectForm: PropsFromRedux["onUpdateTransactionDirectForm"];
@@ -30,10 +24,6 @@ interface Props {
 }
 
 const EditEntry: FunctionComponent<Props> = (props) => {
-  useEffect(() => {
-    props.onInitForm();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   const renderHeader = (showSaveButton: boolean): ReactFragment => (
     <div className="header">
       <button className="left" onClick={props.onCloseClick}>

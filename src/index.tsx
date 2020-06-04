@@ -12,6 +12,7 @@ import {
 } from "redux";
 import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
+import debug from "debug";
 import DbManager from "./db/manager";
 import { restoreLocation, startPersistingLocation } from "./util/standalone";
 import appReducer from "./redux/reducer";
@@ -19,6 +20,10 @@ import App from "./app";
 import routes from "./routes";
 import * as serviceWorker from "./serviceWorker";
 import "./index.css";
+
+const debugSetting =
+  new URL(window.location.toString()).searchParams.get("debug") || "";
+debug.enable(debugSetting);
 
 restoreLocation();
 
@@ -43,7 +48,16 @@ const dbManager = new DbManager();
 const thunkMiddleware = ReduxThunk.withExtraArgument({
   dbManager,
 });
-const middlewares = applyMiddleware(thunkMiddleware, router.middleware);
+const log = debug("redux:dispatch");
+const logger: any = (store: Store<AllState>) => (next: Function) => (
+  action: any
+) => {
+  if (action.type) {
+    log(action.type, action);
+  }
+  return next(action);
+};
+const middlewares = applyMiddleware(logger, thunkMiddleware, router.middleware);
 
 // @ts-ignore
 const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;

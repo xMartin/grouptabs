@@ -139,14 +139,6 @@ const Main: FunctionComponent<Props> = (props) => {
         <h3 ref={transactionsHeadingRef} className="transactions-heading">
           Transactions
         </h3>
-        {transactionsHeadingIsOutOfViewport && (
-          <h3
-            className="transactions-heading transactions-heading-fixed"
-            onClick={scrollToTransactionHeading}
-          >
-            ▾ Transactions
-          </h3>
-        )}
         <TransactionList
           transactions={props.transactions}
           onDetailsClick={props.onDetailsClick}
@@ -213,6 +205,14 @@ const Main: FunctionComponent<Props> = (props) => {
   return (
     <div className={"scene mainScene" + (props.visible ? "" : " hidden")}>
       {renderHeader(!isLoading && !props.remoteTabError)}
+      {transactionsHeadingIsOutOfViewport && (
+        <h3
+          className="transactions-heading transactions-heading-fixed"
+          onClick={scrollToTransactionHeading}
+        >
+          ▾ Transactions
+        </h3>
+      )}
       <div
         className="content"
         ref={contentContainerRef}

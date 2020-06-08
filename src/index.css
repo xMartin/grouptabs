@@ -248,14 +248,6 @@ input[type="number"] {
     padding-bottom: 4%;
     height: calc(100% - 8%);
   }
-  .header button.create {
-    margin-top: calc(4% + 5px);
-  }
-}
-@media (min-width: 500px) {
-  .header button.create {
-    right: calc(50% - 250px);
-  }
 }
 
 .header {

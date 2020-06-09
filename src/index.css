@@ -244,9 +244,11 @@ input[type="number"] {
 }
 @media (min-width: 500px) and (min-height: 780px) {
   .scene {
-    padding-top: 4%;
-    padding-bottom: 4%;
-    height: calc(100% - 8%);
+    padding-top: 4vh;
+    height: calc(100% - 4vh);
+  }
+  .content {
+    padding-bottom: 4vh;
   }
 }
 

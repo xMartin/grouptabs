@@ -201,7 +201,6 @@ exports[`renders empty form 1`] = `
               className="participant"
             >
               <input
-                autoFocus={true}
                 onChange={[Function]}
                 placeholder="Name …"
                 type="text"
@@ -250,7 +249,6 @@ exports[`renders empty form 1`] = `
               className="participant"
             >
               <input
-                autoFocus={true}
                 onChange={[Function]}
                 placeholder="Name …"
                 type="text"

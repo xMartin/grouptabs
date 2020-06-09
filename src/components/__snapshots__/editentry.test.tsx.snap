@@ -236,7 +236,6 @@ Array [
                 className="participant"
               >
                 <input
-                  autoFocus={true}
                   onChange={[Function]}
                   placeholder="Name …"
                   type="text"
@@ -285,7 +284,6 @@ Array [
                 className="participant"
               >
                 <input
-                  autoFocus={true}
                   onChange={[Function]}
                   placeholder="Name …"
                   type="text"

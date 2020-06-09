@@ -45,7 +45,7 @@ const NewParticipantInput: FunctionComponent<Props> = ({
           onChange={(event: SyntheticEvent<HTMLInputElement>) =>
             onChange(id, "participant", event.currentTarget.value)
           }
-          autoFocus={true}
+          autoFocus={/*true*/ undefined}
         />
       </span>
       <ParticipantStatusInput

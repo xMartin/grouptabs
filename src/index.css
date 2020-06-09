@@ -542,6 +542,9 @@ input[type="number"] {
   padding-bottom: 0;
   margin-bottom: 0;
 }
+.mainScene {
+  position: relative;
+}
 .transactions-heading-fixed {
   position: absolute;
   z-index: 1;

@@ -60,6 +60,24 @@ export default class App extends Component<Props> {
     }
   }
 
+  private getShowEditEntry() {
+    const location = this.props.location;
+    const locationIsOrWasTransaction =
+      location.type === "ROUTE_NEW_TRANSACTION" ||
+      location.type === "ROUTE_TRANSACTION" ||
+      location.prev?.type === "ROUTE_NEW_TRANSACTION" ||
+      location.prev?.type === "ROUTE_TRANSACTION";
+    return !!this.props.initialLoadingDone && locationIsOrWasTransaction;
+  }
+
+  private getEditEntryMode() {
+    const location = this.props.location;
+    return location.type === "ROUTE_NEW_TRANSACTION" ||
+      location.prev?.type === "ROUTE_NEW_TRANSACTION"
+      ? "new"
+      : "edit";
+  }
+
   render() {
     if (this.props.error) {
       return (
@@ -105,37 +123,27 @@ export default class App extends Component<Props> {
               onDetailsClick={this.props.onNavigateToUpdateTransaction}
             />
             <div className="scene editEntryScene">
-              {!!this.props.initialLoadingDone &&
-                (this.props.location.type === "ROUTE_NEW_TRANSACTION" ||
-                  this.props.location.type === "ROUTE_TRANSACTION") && (
-                  <EditEntry
-                    mode={
-                      this.props.location.type === "ROUTE_NEW_TRANSACTION"
-                        ? "new"
-                        : "edit"
-                    }
-                    formState={this.props.transactionFormState}
-                    checkingRemoteTab={this.props.checkingRemoteTab}
-                    remoteTabError={this.props.remoteTabError}
-                    importingTab={this.props.importingTab}
-                    onChangeTabClick={this.props.onNavigateToTabs}
-                    onCloseClick={this.props.onCloseTransaction}
-                    onSave={this.props.onAddOrUpdateTransaction}
-                    onDelete={this.props.onRemoveTransaction}
-                    onUpdateForm={this.props.onUpdateTransactionForm}
-                    onUpdateSharedForm={
-                      this.props.onUpdateTransactionSharedForm
-                    }
-                    onUpdateDirectForm={
-                      this.props.onUpdateTransactionDirectForm
-                    }
-                    onUpdateParticipant={
-                      this.props.onUpdateTransactionParticipant
-                    }
-                    onAddParticipant={this.props.onAddParticipant}
-                    onSetAllJoined={this.props.onSetAllJoined}
-                  />
-                )}
+              {this.getShowEditEntry() && (
+                <EditEntry
+                  mode={this.getEditEntryMode()}
+                  formState={this.props.transactionFormState}
+                  checkingRemoteTab={this.props.checkingRemoteTab}
+                  remoteTabError={this.props.remoteTabError}
+                  importingTab={this.props.importingTab}
+                  onChangeTabClick={this.props.onNavigateToTabs}
+                  onCloseClick={this.props.onCloseTransaction}
+                  onSave={this.props.onAddOrUpdateTransaction}
+                  onDelete={this.props.onRemoveTransaction}
+                  onUpdateForm={this.props.onUpdateTransactionForm}
+                  onUpdateSharedForm={this.props.onUpdateTransactionSharedForm}
+                  onUpdateDirectForm={this.props.onUpdateTransactionDirectForm}
+                  onUpdateParticipant={
+                    this.props.onUpdateTransactionParticipant
+                  }
+                  onAddParticipant={this.props.onAddParticipant}
+                  onSetAllJoined={this.props.onSetAllJoined}
+                />
+              )}
             </div>
           </div>
         </div>

@@ -100,7 +100,7 @@ function getDocsById(state: AllState) {
 }
 
 function getCurrentTabId(state: AllState) {
-  return state.location.payload.tabId;
+  return state.location.payload.tabId || state.location.prev?.payload.tabId;
 }
 
 function getTransactionsByTab(state: AllState) {
@@ -192,7 +192,6 @@ var getTotal = reselect.createSelector([getSortedTransactions], function (
 });
 
 export default {
-  getCurrentTabId,
   getTabs,
   getTabInfo,
   getTransactions: getSortedTransactions,

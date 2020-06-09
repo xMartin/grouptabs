@@ -14,6 +14,7 @@ import {
   mapFormDataToTransaction,
 } from "../util/transactionform";
 import selectors from "./selectors";
+import { Dispatch } from "redux";
 
 export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
 export const CHECK_REMOTE_TAB_FAILURE = "CHECK_REMOTE_TAB_FAILURE";
@@ -476,6 +477,11 @@ export const importTabFromUrl = (id: string): GTThunkAction => (
   return checkTab(dispatch, id, dbManager);
 };
 
+const resetTransactionFormDelayed = (dispatch: Dispatch) => {
+  // reset form after scene transition
+  setTimeout(() => dispatch(resetTransactionForm()), 500);
+};
+
 export const addOrUpdateTransaction = (): GTThunkAction => async (
   dispatch,
   getState,
@@ -496,7 +502,7 @@ export const addOrUpdateTransaction = (): GTThunkAction => async (
 
   dispatch(selectTab(tabId));
 
-  dispatch(resetTransactionForm());
+  resetTransactionFormDelayed(dispatch);
 
   if (transactionId) {
     await dbManager.updateDoc(transaction);
@@ -526,7 +532,7 @@ export const removeTransaction = (): GTThunkAction => async (
   const tabId = state.location.payload.tabId;
   dispatch(selectTab(tabId));
 
-  dispatch(resetTransactionForm());
+  resetTransactionFormDelayed(dispatch);
 
   await dbManager.deleteDoc(doc);
 };
@@ -538,7 +544,7 @@ export const closeTransaction = (): GTThunkAction => async (
   const tabId = getState().location.payload.tabId;
   dispatch(selectTab(tabId));
 
-  dispatch(resetTransactionForm());
+  resetTransactionFormDelayed(dispatch);
 };
 
 export const initTransactionForm = (): GTThunkAction => async (

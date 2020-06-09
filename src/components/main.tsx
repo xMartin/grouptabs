@@ -172,7 +172,7 @@ const Main: FunctionComponent<Props> = (props) => {
       <p>
         Share this tab ID for collaboration with others:
         <br />
-        <code>{props.tabId}</code>
+        <code>{props.tabInfo?.tabId || props.tabId}</code>
       </p>
     </div>
   );

@@ -479,7 +479,7 @@ export const importTabFromUrl = (id: string): GTThunkAction => (
 
 const resetTransactionFormDelayed = (dispatch: Dispatch) => {
   // reset form after scene transition
-  setTimeout(() => dispatch(resetTransactionForm()), 500);
+  setTimeout(() => dispatch(resetTransactionForm()), 400);
 };
 
 export const addOrUpdateTransaction = (): GTThunkAction => async (

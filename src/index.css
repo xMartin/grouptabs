@@ -228,7 +228,7 @@ input[type="number"] {
   height: 100%;
   display: flex;
   width: 300%;
-  transition: transform 500ms;
+  transition: transform 400ms;
 }
 .scenes-container-active-2 {
   transform: translate3d(-33.33%, 0, 0);

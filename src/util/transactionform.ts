@@ -54,7 +54,7 @@ function createParticipantInputData(
         }
       } else {
         // For exactly two people in the tab, always set JOINED
-        status = account.participant.length === 2 ? Status.JOINED : Status.NONE;
+        status = accounts.length === 2 ? Status.JOINED : Status.NONE;
       }
 
       return {

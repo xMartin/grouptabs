@@ -529,10 +529,7 @@ input[type="number"] {
   margin: 0;
   width: 100%;
   padding: 20px 0 12px;
-  background: linear-gradient(
-    rgba(242, 242, 242, 0),
-    var(--main-background-color)
-  );
+  background: linear-gradient(transparent, var(--main-background-color));
   text-shadow: 0 0 4px var(--main-background-color);
   cursor: pointer;
 }

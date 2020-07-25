@@ -3,6 +3,21 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.3.0
+    date: 2020-07-26
+    added:
+      - Show version in app (git describe)
+      - Dark mode (#177)
+    improved:
+      - Show »All joined« button only if at least one participant is not set to joined (#122)
+      - Shorter startup time by adding timeout to initial replication, falling back to possibly stale data and syncing later
+    fixed:
+      - Updating amount in new participant inputs
+      - Updating UI after remote data change
+      - Missing transaction data - happened when loading app with no prefilled local browser data withURL pointing to transaction
+      - Preselecting joined for two participants (regression)
+    changed:
+      - Optimize JS dist code, decreasing browser support (most notably remove IE11 support)
   - version: 1.2.1
     date: 2020-04-07
     description: Bugfixes and improvements

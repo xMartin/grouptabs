@@ -1,5 +1,5 @@
 import React, { memo, ReactFragment, FunctionComponent } from "react";
-import transactionUtils from "../util/transaction";
+import { getTransactionType } from "../util/transaction";
 import { Transaction, TransactionType } from "../types";
 
 interface Props {
@@ -23,7 +23,7 @@ const formatData = (data: Transaction) => {
     title: data.description,
   };
 
-  var transactionType = transactionUtils.getTransactionType(data);
+  var transactionType = getTransactionType(data);
 
   var paymentsList = data.participants
     .filter(function (participant) {

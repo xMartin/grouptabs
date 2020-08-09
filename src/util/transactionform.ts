@@ -11,7 +11,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 // @ts-ignore
 import orderBy from "lodash.orderby";
-import dateUtils from "./date";
+import { formatDate, parseDate } from "./date";
 
 export const NEW_PARTICIPANT_OPTION = "NEW_PARTICIPANT";
 
@@ -146,14 +146,14 @@ export function createFormData(
   );
   const form: TransactionFormState = {
     transactionType: TransactionType.SHARED,
-    date: dateUtils.formatDate(new Date()),
+    date: formatDate(new Date()),
     shared,
     direct,
   };
 
   if (transaction) {
     form.transactionType = transaction.transactionType;
-    form.date = dateUtils.formatDate(dateUtils.parseDate(transaction.date));
+    form.date = formatDate(parseDate(transaction.date));
     form.description = transaction.description;
   }
 

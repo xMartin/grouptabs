@@ -1,5 +1,5 @@
 import React, { SyntheticEvent, memo } from "react";
-import dateUtils from "../util/date";
+import { formatDate, addDays, isToday, isYesterday } from "../util/date";
 
 interface Props {
   date: string;
@@ -8,12 +8,12 @@ interface Props {
 
 const DateInput: React.FC<Props> = ({ date, onChange }) => {
   const handleTodayClick = () => {
-    onChange(dateUtils.formatDate(new Date()));
+    onChange(formatDate(new Date()));
   };
 
   const handleYesterdayClick = () => {
-    var yesterday = dateUtils.addDays(new Date(), -1);
-    onChange(dateUtils.formatDate(yesterday));
+    var yesterday = addDays(new Date(), -1);
+    onChange(formatDate(yesterday));
   };
 
   const handleDateChange = (event: SyntheticEvent<HTMLInputElement>) => {
@@ -25,14 +25,14 @@ const DateInput: React.FC<Props> = ({ date, onChange }) => {
     <div className="form-row-input date-input">
       <button
         type="button"
-        className={dateUtils.isToday(date) ? "selected" : ""}
+        className={isToday(date) ? "selected" : ""}
         onClick={handleTodayClick}
       >
         today
       </button>
       <button
         type="button"
-        className={dateUtils.isYesterday(date) ? "selected" : ""}
+        className={isYesterday(date) ? "selected" : ""}
         onClick={handleYesterdayClick}
       >
         yesterday

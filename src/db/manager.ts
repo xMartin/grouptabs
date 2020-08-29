@@ -202,14 +202,16 @@ export default class DbManager {
   }
 
   docToEntity(tabId: string, doc: Document): Entity {
-    const docCopy = { ...doc };
+    const docCopy = { ...doc } as { [key: string]: unknown };
     delete docCopy._rev;
     delete docCopy._id;
-    const entity: any = {
-      ...docCopy,
+    const newEntity: Partial<Entity> = {
       id: doc._id,
-      tabId,
+      tabId
     };
-    return entity as Entity;
+    return {
+      ...docCopy,
+      ...newEntity
+    } as Entity;
   }
 }

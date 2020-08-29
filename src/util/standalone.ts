@@ -1,4 +1,4 @@
-import { History } from 'history';
+import { History } from "history";
 
 // Safari on iOS has a "standalone" feature, aka "add to homescreen".
 // Every time the user opens this app, it restarts from the URL

@@ -8,7 +8,8 @@ import {
   applyMiddleware,
   compose as reduxCompose,
   createStore,
-  Store, Middleware,
+  Store,
+  Middleware,
 } from "redux";
 import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";

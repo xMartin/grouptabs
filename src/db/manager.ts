@@ -207,11 +207,11 @@ export default class DbManager {
     delete docCopy._id;
     const newEntity: Partial<Entity> = {
       id: doc._id,
-      tabId
+      tabId,
     };
     return {
       ...docCopy,
-      ...newEntity
+      ...newEntity,
     } as Entity;
   }
 }

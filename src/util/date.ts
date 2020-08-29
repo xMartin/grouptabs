@@ -1,9 +1,8 @@
-
 /**
  * Parses a date string in the format `yyyy-MM-dd` as being used by `<input type="date">`
  * consistently across different hosts (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse).
  */
-export function parseDate (input: string) {
+export function parseDate(input: string) {
   // backwards compatibility: strip time info from format being used earlier
   input = input.substring(0, 10);
 
@@ -16,7 +15,7 @@ export function parseDate (input: string) {
 /**
  * Formats a date to the format `yyyy-MM-dd` as being used by `<input type="date">`
  */
-export function formatDate (date: Date) {
+export function formatDate(date: Date) {
   var month: number | string = date.getMonth() + 1;
   month = month < 10 ? "0" + month : month;
   var day: string | number = date.getDate();
@@ -24,7 +23,7 @@ export function formatDate (date: Date) {
   return "" + date.getFullYear() + "-" + month + "-" + day;
 }
 
-export function formatHumanDate (date: Date | string) {
+export function formatHumanDate(date: Date | string) {
   if (typeof date === "string") {
     date = parseDate(date);
   }
@@ -40,17 +39,17 @@ export function formatHumanDate (date: Date | string) {
   return date.toLocaleDateString();
 }
 
-export function addDays (date: Date, days: number) {
+export function addDays(date: Date, days: number) {
   var ms = date.getTime();
   var daysInMs = days * 1000 * 60 * 60 * 24;
   return new Date(ms + daysInMs);
 }
 
-export function isSameDay (date1: Date, date2: Date) {
+export function isSameDay(date1: Date, date2: Date) {
   return formatDate(date1) === formatDate(date2);
 }
 
-export function isToday (date: Date | string) {
+export function isToday(date: Date | string) {
   if (typeof date === "string") {
     date = parseDate(date);
   }
@@ -59,7 +58,7 @@ export function isToday (date: Date | string) {
   return isSameDay(today, date);
 }
 
-export function isYesterday (date: Date | string) {
+export function isYesterday(date: Date | string) {
   if (typeof date === "string") {
     date = parseDate(date);
   }

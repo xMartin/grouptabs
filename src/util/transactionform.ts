@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 // @ts-ignore
 import orderBy from "lodash.orderby";
 import { formatDate, parseDate } from "./date";
+import { mapTransaction } from "./transaction";
 
 export const NEW_PARTICIPANT_OPTION = "NEW_PARTICIPANT";
 
@@ -132,6 +133,8 @@ export function createFormData(
   accounts: Account[],
   transaction?: Transaction
 ): TransactionFormState {
+  transaction = transaction && mapTransaction(transaction);
+
   const shared = createParticipantInputData(
     accounts,
     transaction?.transactionType === TransactionType.SHARED

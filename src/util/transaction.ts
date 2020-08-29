@@ -6,7 +6,7 @@ import { Transaction, TransactionType } from "../types";
  * Old transaction data might not have `transactionType` specified as "DIRECT"
  * but semantically still be a direct transaction.
  */
-export function getTransactionType (transaction: Transaction): TransactionType {
+function getTransactionType(transaction: Transaction): TransactionType {
   if (transaction.transactionType === TransactionType.DIRECT) {
     return transaction.transactionType;
   }
@@ -23,4 +23,17 @@ export function getTransactionType (transaction: Transaction): TransactionType {
   }
 
   return TransactionType.SHARED;
+}
+
+export function mapTransaction(transaction: Transaction): Transaction {
+  const actualTransactionType = getTransactionType(transaction);
+
+  if (transaction.transactionType !== actualTransactionType) {
+    return {
+      ...transaction,
+      transactionType: actualTransactionType,
+    };
+  }
+
+  return transaction;
 }

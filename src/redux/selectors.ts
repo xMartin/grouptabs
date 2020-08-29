@@ -1,6 +1,7 @@
 import * as reselect from "reselect";
-import { Transaction, Info, Account, TransactionType, Tab } from "../types";
+import { Account, Info, Tab, Transaction, TransactionType } from "../types";
 import { AllState } from "..";
+import { mapTransaction } from "../util/transaction";
 
 function createTransactionsByRecencyComparator(prefix?: string) {
   type PrefixedArg = { [id: string]: any };
@@ -159,8 +160,9 @@ var getSortedTransactions = reselect.createSelector(
   [getDocsById, getCurrentTabId, getTransactionsByTab],
   function (docsById, currentTab, transactionsByTab) {
     var transactionIds = transactionsByTab[currentTab] || [];
-    var transactions = transactionIds.map(function (transactionId) {
-      return docsById[transactionId] as Transaction;
+    var transactions = transactionIds.map((transactionId) => {
+      const transaction = docsById[transactionId] as Transaction;
+      return mapTransaction(transaction);
     });
     return sortTransactions(transactions);
   }

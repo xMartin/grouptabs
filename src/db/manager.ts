@@ -56,7 +56,7 @@ export default class DbManager {
         return this.docsToEntities(db.tabId, docs);
       })
     );
-    let flat: any[] = [];
+    let flat: Entity[] = [];
     docsPerDb.forEach((docs) => {
       flat = flat.concat(docs);
     });

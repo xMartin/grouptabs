@@ -1,3 +1,5 @@
+import { History } from 'history';
+
 // Safari on iOS has a "standalone" feature, aka "add to homescreen".
 // Every time the user opens this app, it restarts from the URL
 // that was originally set as the bookmark.
@@ -22,7 +24,7 @@ export function restoreLocation() {
   }
 }
 
-export function startPersistingLocation(history: any) {
+export function startPersistingLocation(history: History) {
   if (!isStandalone) {
     return;
   }

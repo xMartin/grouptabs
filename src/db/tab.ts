@@ -115,7 +115,7 @@ export default class {
           clearTimeout(timeoutHandle);
           resolve();
         });
-      let timeoutHandle: any;
+      let timeoutHandle: ReturnType<typeof setTimeout>;
       if (initialReplicationTimeout !== undefined) {
         timeoutHandle = setTimeout(() => {
           replication.cancel();

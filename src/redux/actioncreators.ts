@@ -347,7 +347,6 @@ export type GTAction =
   | ResetTransactionFormAction
   | UpdateTransactionFormAction<keyof TransactionFormState>
   | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
-  | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
   | UpdateTransactionDirectFormAction<keyof TransactionFormState["direct"]>
   | UpdateTransactionParticipantAction<"participant" | "status" | "amount">
   | AddParticipantToTransactionSharedFormAction

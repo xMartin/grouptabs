@@ -397,9 +397,8 @@ const checkTab = async (
       dispatch(resetImportTabInputValue());
     }
 
-    await dbManager
-      .connectTab(id)
-      .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
+    const localDocs = await dbManager.connectTab(id);
+    dispatch(createUpdateFromDbAction(localDocs));
   } catch (error) {
     let message;
     if (error.name === "not_found") {

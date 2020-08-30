@@ -13,7 +13,7 @@ import {
   createFormData,
   mapFormDataToTransaction,
 } from "../util/transactionform";
-import selectors from "./selectors";
+import { getAccounts } from "./selectors";
 
 export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
 export const CHECK_REMOTE_TAB_FAILURE = "CHECK_REMOTE_TAB_FAILURE";
@@ -553,6 +553,6 @@ export const initTransactionForm = (): GTThunkAction => async (
     );
   }
 
-  const formState = createFormData(selectors.getAccounts(state), transaction);
+  const formState = createFormData(getAccounts(state), transaction);
   dispatch(createSetTransactionFormAction(formState));
 };

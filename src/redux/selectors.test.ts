@@ -1,5 +1,5 @@
-import selectors from "./selectors";
 import { DocumentType, Transaction, TransactionType } from "../types";
+import { getTabInfo, getTransactions } from "./selectors";
 
 describe("getTabInfo", () => {
   it("selects tab info", () => {
@@ -24,7 +24,7 @@ describe("getTabInfo", () => {
       },
     };
 
-    const result = selectors.getTabInfo(state);
+    const result = getTabInfo(state);
 
     expect(result).toEqual({
       id: "info-TAB_ID",
@@ -49,7 +49,7 @@ describe("getTabInfo", () => {
       },
     };
 
-    const result = selectors.getTabInfo(state);
+    const result = getTabInfo(state);
 
     expect(result).toBe(undefined);
   });
@@ -68,7 +68,7 @@ describe("getTabInfo", () => {
       },
     };
 
-    const result = selectors.getTabInfo(state);
+    const result = getTabInfo(state);
 
     expect(result).toBe(undefined);
   });
@@ -143,7 +143,7 @@ describe("getTransactions", () => {
       },
     };
 
-    const result = selectors.getTransactions(state);
+    const result = getTransactions(state);
 
     expect(result[0].id).toBe("2");
     expect(result[0].transactionType).toBe(TransactionType.DIRECT);

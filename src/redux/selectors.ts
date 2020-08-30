@@ -100,7 +100,7 @@ function getDocsById(state: AllState) {
   return state.app.docsById;
 }
 
-function getCurrentTabId(state: AllState) {
+export function getCurrentTabId(state: AllState) {
   return state.location.payload.tabId;
 }
 
@@ -108,7 +108,7 @@ function getTransactionsByTab(state: AllState) {
   return state.app.transactionsByTab;
 }
 
-var getTabs = reselect.createSelector(
+export const getTabs = reselect.createSelector(
   [getTabIds, getDocsById, getTransactionsByTab],
   function (tabIds, docsById, transactionsByTab) {
     var tabs: Tab[] = tabIds.map(function (tabId) {
@@ -143,20 +143,20 @@ var getTabs = reselect.createSelector(
   }
 );
 
-var getTabInfo = reselect.createSelector([getTabs, getCurrentTabId], function (
-  tabs,
-  currentTab
-) {
-  var tab: Tab | undefined;
-  tabs.forEach(function (_tab) {
-    if (_tab.id === currentTab) {
-      tab = _tab;
-    }
-  });
-  return tab?.info;
-});
+export const getTabInfo = reselect.createSelector(
+  [getTabs, getCurrentTabId],
+  function (tabs, currentTab) {
+    var tab: Tab | undefined;
+    tabs.forEach(function (_tab) {
+      if (_tab.id === currentTab) {
+        tab = _tab;
+      }
+    });
+    return tab?.info;
+  }
+);
 
-var getSortedTransactions = reselect.createSelector(
+export const getTransactions = reselect.createSelector(
   [getDocsById, getCurrentTabId, getTransactionsByTab],
   function (docsById, currentTab, transactionsByTab) {
     var transactionIds = transactionsByTab[currentTab] || [];
@@ -168,13 +168,13 @@ var getSortedTransactions = reselect.createSelector(
   }
 );
 
-var getAccounts = reselect.createSelector([getSortedTransactions], function (
+export const getAccounts = reselect.createSelector([getTransactions], function (
   transactions
 ) {
   return transactions2Accounts(transactions);
 });
 
-var getTotal = reselect.createSelector([getSortedTransactions], function (
+export const getTotal = reselect.createSelector([getTransactions], function (
   transactions
 ) {
   return transactions
@@ -192,12 +192,3 @@ var getTotal = reselect.createSelector([getSortedTransactions], function (
       return total + transactionSum;
     }, 0);
 });
-
-export default {
-  getCurrentTabId,
-  getTabs,
-  getTabInfo,
-  getTransactions: getSortedTransactions,
-  getAccounts,
-  getTotal,
-};

@@ -1,5 +1,11 @@
 import { connect, ConnectedProps } from "react-redux";
-import selectors from "./redux/selectors";
+import {
+  getTabInfo,
+  getTotal,
+  getTabs,
+  getTransactions,
+  getAccounts,
+} from "./redux/selectors";
 import {
   navigateToTabs,
   selectTab,
@@ -29,19 +35,19 @@ function mapStateToProps(state: AllState) {
   return {
     location: state.location,
     initialLoadingDone: state.app.initialLoadingDone,
-    tabInfo: selectors.getTabInfo(state),
+    tabInfo: getTabInfo(state),
     transaction: state.app.docsById[
       state.location.payload.transactionId
     ] as Transaction,
-    total: selectors.getTotal(state),
+    total: getTotal(state),
     checkingRemoteTab: state.app.checkingRemoteTab,
     remoteTabError: state.app.remoteTabError,
     importingTab: state.app.importingTab,
     createTabInputValue: state.app.createTabInput,
     importTabInputValue: state.app.importTabInput,
-    tabs: selectors.getTabs(state),
-    transactions: selectors.getTransactions(state),
-    accounts: selectors.getAccounts(state),
+    tabs: getTabs(state),
+    transactions: getTransactions(state),
+    accounts: getAccounts(state),
     transactionFormState: state.app.transactionForm,
     error: state.app.error,
   };

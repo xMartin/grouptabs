@@ -6,7 +6,6 @@ import {
   Transaction,
   DocumentType,
   TransactionFormState,
-  TransactionFormSharedState,
 } from "../types";
 import {
   createFormData,
@@ -14,7 +13,7 @@ import {
   mapFormDataToTransaction,
   validate,
 } from "./transactionform";
-import dateUtils from "./date";
+import { formatDate } from "./date";
 
 describe("createFormData", () => {
   function expectSharedToBeLikeEmpty(
@@ -48,7 +47,11 @@ describe("createFormData", () => {
     expect(new Set(inputTypes)).toEqual(new Set([InputType.EXISTING]));
 
     const statuss = participants.map((participant) => participant.status);
-    expect(new Set(statuss)).toEqual(new Set([Status.NONE]));
+    if (participants.length === 2) {
+      expect(new Set(statuss)).toEqual(new Set([Status.JOINED]));
+    } else {
+      expect(new Set(statuss)).toEqual(new Set([Status.NONE]));
+    }
 
     const amounts = participants.map((participant) => participant.amount);
     expect(new Set(amounts)).toEqual(new Set([undefined]));
@@ -82,7 +85,7 @@ describe("createFormData", () => {
 
     expect(result.transactionType).toBe(TransactionType.SHARED);
     expect(result.description).toBeFalsy();
-    expect(result.date).toBe(dateUtils.formatDate(new Date()));
+    expect(result.date).toBe(formatDate(new Date()));
 
     expectSharedToBeLikeEmpty(result.shared);
     expectDirectToBeLikeEmpty(result.direct);
@@ -108,10 +111,33 @@ describe("createFormData", () => {
 
     expect(result.transactionType).toBe(TransactionType.SHARED);
     expect(result.description).toBeFalsy();
-    expect(result.date).toBe(dateUtils.formatDate(new Date()));
+    expect(result.date).toBe(formatDate(new Date()));
 
-    // Expect participants ordered by name as they all have status NONE.
+    // Expect participants ordered by name as they all have the same status.
     expectSharedToBeLikeNew(result.shared, ["Jan", "Koos", "Martin"]);
+    expectDirectToBeLikeNew(result.direct, accounts);
+  });
+
+  it('creates empty form data for filled tab with two participants which are preselected as "joined"', () => {
+    const accounts: Account[] = [
+      {
+        participant: "Regina",
+        amount: 25,
+      },
+      {
+        participant: "Jan",
+        amount: -25,
+      },
+    ];
+
+    const result = createFormData(accounts);
+
+    expect(result.transactionType).toBe(TransactionType.SHARED);
+    expect(result.description).toBeFalsy();
+    expect(result.date).toBe(formatDate(new Date()));
+
+    // Expect participants ordered by name as they all have the same status.
+    expectSharedToBeLikeNew(result.shared, ["Jan", "Regina"]);
     expectDirectToBeLikeNew(result.direct, accounts);
   });
 
@@ -155,7 +181,7 @@ describe("createFormData", () => {
 
     expect(result.transactionType).toBe(TransactionType.SHARED);
 
-    // Expect participants ordered by name as they all have status NONE.
+    // Expect participants ordered by name as they all have the same status.
     const participants = result.shared.map(
       (participant) => participant.participant
     );
@@ -214,7 +240,7 @@ describe("createFormData", () => {
 
     expect(result.transactionType).toBe(TransactionType.DIRECT);
 
-    // Expect participants ordered by name as they all have status NONE.
+    // Expect participants ordered by name as they all have the same status.
     expectSharedToBeLikeNew(result.shared, ["Jan", "Koos", "Martin"]);
 
     expect(result.direct.from).toBe("Koos");
@@ -227,6 +253,32 @@ describe("createFormData", () => {
       "Koos",
       NEW_PARTICIPANT_OPTION,
     ]);
+  });
+
+  it("creates direct transaction form data from legacy direct transaction", () => {
+    const transaction: Transaction = {
+      id: "1",
+      type: DocumentType.TRANSACTION,
+      timestamp: "2020-02-20T20:20:20.202Z",
+      tabId: "123",
+      description: "foo",
+      date: "2020-02-20",
+      transactionType: TransactionType.SHARED,
+      participants: [
+        {
+          participant: "Koos",
+          amount: 3.5,
+        },
+        {
+          participant: "Martin",
+          amount: -3.5,
+        },
+      ],
+    };
+
+    const result = createFormData([], transaction);
+
+    expect(result.transactionType).toBe(TransactionType.DIRECT);
   });
 });
 

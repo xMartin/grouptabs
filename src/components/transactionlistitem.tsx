@@ -1,5 +1,4 @@
-import React, { memo, ReactFragment, FunctionComponent } from "react";
-import transactionUtils from "../util/transaction";
+import React, { FunctionComponent, memo, ReactFragment } from "react";
 import { Transaction, TransactionType } from "../types";
 
 interface Props {
@@ -23,11 +22,9 @@ const formatData = (data: Transaction) => {
     title: data.description,
   };
 
-  var transactionType = transactionUtils.getTransactionType(data);
-
   var paymentsList = data.participants
     .filter(function (participant) {
-      return transactionType === TransactionType.DIRECT
+      return data.transactionType === TransactionType.DIRECT
         ? participant.amount > 0
         : !!participant.amount;
     })
@@ -51,7 +48,7 @@ const formatData = (data: Transaction) => {
       idx < paymentsList.length - 1 ||
       data.participants.length > paymentsList.length
     ) {
-      if (transactionType === TransactionType.DIRECT) {
+      if (data.transactionType === TransactionType.DIRECT) {
         payments += " → ";
       } else {
         payments += ", ";

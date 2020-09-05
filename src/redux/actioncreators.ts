@@ -13,7 +13,7 @@ import {
   createFormData,
   mapFormDataToTransaction,
 } from "../util/transactionform";
-import selectors from "./selectors";
+import { getAccounts } from "./selectors";
 import { Dispatch } from "redux";
 
 export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
@@ -348,7 +348,6 @@ export type GTAction =
   | ResetTransactionFormAction
   | UpdateTransactionFormAction<keyof TransactionFormState>
   | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
-  | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
   | UpdateTransactionDirectFormAction<keyof TransactionFormState["direct"]>
   | UpdateTransactionParticipantAction<"participant" | "status" | "amount">
   | AddParticipantToTransactionSharedFormAction
@@ -399,9 +398,8 @@ const checkTab = async (
       dispatch(resetImportTabInputValue());
     }
 
-    await dbManager
-      .connectTab(id)
-      .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
+    const localDocs = await dbManager.connectTab(id);
+    dispatch(createUpdateFromDbAction(localDocs));
   } catch (error) {
     let message;
     if (error.name === "not_found") {
@@ -561,6 +559,6 @@ export const initTransactionForm = (): GTThunkAction => async (
     );
   }
 
-  const formState = createFormData(selectors.getAccounts(state), transaction);
+  const formState = createFormData(getAccounts(state), transaction);
   dispatch(createSetTransactionFormAction(formState));
 };

@@ -9,6 +9,7 @@ import {
   compose as reduxCompose,
   createStore,
   Store,
+  Middleware,
 } from "redux";
 import ReduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
@@ -49,9 +50,7 @@ const thunkMiddleware = ReduxThunk.withExtraArgument({
   dbManager,
 });
 const log = debug("redux:dispatch");
-const logger: any = (store: Store<AllState>) => (next: Function) => (
-  action: any
-) => {
+const logger: Middleware = () => (next) => (action) => {
   if (action.type) {
     log(action.type, action);
   }

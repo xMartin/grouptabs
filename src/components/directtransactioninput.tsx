@@ -4,7 +4,7 @@ import { NEW_PARTICIPANT_OPTION } from "../util/transactionform";
 import { control } from "../util/form";
 import { PropsFromRedux } from "../app";
 
-var newParticipantOptionLabel = "New participant…";
+const newParticipantOptionLabel = "New participant…";
 
 interface Props {
   data: TransactionFormState["direct"];

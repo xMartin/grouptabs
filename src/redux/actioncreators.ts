@@ -365,9 +365,9 @@ export type GTThunkAction = ThunkAction<
 >;
 
 const generateTabId = () => {
-  var chars = "0123456789abcdefghijklmnopqrstuvwxyz";
-  var result = "";
-  for (var i = 0; i < 7; ++i) {
+  const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+  let result = "";
+  for (let i = 0; i < 7; ++i) {
     result += chars.substr(Math.floor(Math.random() * chars.length), 1);
   }
   return result;

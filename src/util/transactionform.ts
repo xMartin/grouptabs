@@ -83,10 +83,10 @@ interface Inputs {
 }
 
 function transactionParticipants2Inputs(participants: Account[]): Inputs {
-  var result: Inputs = {};
+  const result: Inputs = {};
 
-  for (var i = 0; i < participants.length; ++i) {
-    var participant = participants[i];
+  for (let i = 0; i < participants.length; ++i) {
+    const participant = participants[i];
 
     if (!result.amount) {
       result.amount = Math.abs(participant.amount);
@@ -108,18 +108,16 @@ function createDirectInputData(
   accounts: Account[],
   transaction?: Transaction
 ): TransactionFormState["direct"] {
-  var inputProps = transactionParticipants2Inputs(
+  const inputProps = transactionParticipants2Inputs(
     transaction?.participants || []
   );
 
-  var mostNegativeParticipant = accounts[0]?.participant;
-  var mostPositiveParticipant =
+  const mostNegativeParticipant = accounts[0]?.participant;
+  const mostPositiveParticipant =
     accounts[accounts.length - 1] && accounts[accounts.length - 1].participant;
 
-  var tabParticipants = accounts.map(function (account) {
-    return account.participant;
-  });
-  var options = tabParticipants.concat(NEW_PARTICIPANT_OPTION);
+  const tabParticipants = accounts.map((account) => account.participant);
+  const options = tabParticipants.concat(NEW_PARTICIPANT_OPTION);
 
   return {
     options,
@@ -231,24 +229,24 @@ export function mapFormDataToTransaction(
 }
 
 function validateShared(participants: TransactionFormState["shared"]): boolean {
-  var joinedParticipants = participants.filter(function (participant) {
-    return participant.status > 0;
-  });
+  const joinedParticipants = participants.filter(
+    (participant) => participant.status > 0
+  );
 
   if (joinedParticipants.length < 2) {
     return false;
   }
 
   // every joined participant needs a name
-  for (var i = 0; i < joinedParticipants.length; i++) {
+  for (let i = 0; i < joinedParticipants.length; i++) {
     if (!joinedParticipants[i].participant) {
       return false;
     }
   }
 
-  var payingParticipants = joinedParticipants.filter(function (participant) {
-    return participant.status === Status.PAID && participant.amount;
-  });
+  const payingParticipants = joinedParticipants.filter(
+    (participant) => participant.status === Status.PAID && participant.amount
+  );
   if (!payingParticipants.length) {
     return false;
   }

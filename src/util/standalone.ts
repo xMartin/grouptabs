@@ -29,7 +29,7 @@ export function startPersistingLocation(history: History) {
     return;
   }
 
-  history.listen(function () {
-    window.localStorage.setItem(storageKey, window.location.href);
-  });
+  history.listen(() =>
+    window.localStorage.setItem(storageKey, window.location.href)
+  );
 }

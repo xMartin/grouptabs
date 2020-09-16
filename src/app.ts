@@ -53,7 +53,7 @@ function mapStateToProps(state: AllState) {
   };
 }
 
-var mapDispatchToProps = {
+const mapDispatchToProps = {
   onNavigateToTabs: navigateToTabs,
   onCreateTabInputChange: setCreateTabInputValue,
   onCreateTab: createTab,

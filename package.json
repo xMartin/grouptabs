@@ -46,7 +46,7 @@
     "start": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts start",
     "build": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts build",
     "pretest": "tsc",
-    "test": "react-scripts test",
+    "test": "LC_ALL=en_US react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

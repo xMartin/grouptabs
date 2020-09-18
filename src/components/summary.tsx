@@ -6,11 +6,9 @@ interface Props {
 }
 
 function formatData(accounts: Account[]) {
-  const round = function (amount: number) {
-    return Math.round(amount * 100) / 100;
-  };
+  const round = (amount: number) => Math.round(amount * 100) / 100;
 
-  const getMaxAmount = function (accounts: Account[]) {
+  const getMaxAmount = (accounts: Account[]) => {
     let result = 0;
     accounts.forEach((account) => {
       const amount = Math.abs(account.amount);
@@ -21,7 +19,7 @@ function formatData(accounts: Account[]) {
     return round(result);
   };
 
-  const getRowStyle = function (amount: number, maxAmount: number) {
+  const getRowStyle = (amount: number, maxAmount: number) => {
     if (!maxAmount) {
       return { backgroundColor: "transparent" };
     }

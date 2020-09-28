@@ -14,21 +14,19 @@ interface ViewData {
 }
 
 const formatData = (data: Transaction) => {
-  var round = function (amount: number) {
-    return Math.round(amount * 100) / 100;
-  };
+  const round = (amount: number) => Math.round(amount * 100) / 100;
 
-  var result: ViewData = {
+  const result: ViewData = {
     title: data.description,
   };
 
-  var paymentsList = data.participants
-    .filter(function (participant) {
+  const paymentsList = data.participants
+    .filter((participant) => {
       return data.transactionType === TransactionType.DIRECT
         ? participant.amount > 0
         : !!participant.amount;
     })
-    .sort(function (a, b) {
+    .sort((a, b) => {
       if (
         a.amount > b.amount ||
         (a.amount === b.amount &&
@@ -39,9 +37,9 @@ const formatData = (data: Transaction) => {
       return 1;
     });
 
-  var payments = "";
-  var total = 0;
-  paymentsList.forEach(function (payment, idx) {
+  let payments = "";
+  let total = 0;
+  paymentsList.forEach((payment, idx) => {
     payments += payment.participant + ": " + round(payment.amount);
 
     if (
@@ -60,17 +58,13 @@ const formatData = (data: Transaction) => {
   result.payments = <strong>{payments}</strong>;
   result.total = round(total);
 
-  var participantsList = data.participants
-    .map(function (participant) {
-      return participant.participant;
-    })
-    .sort(function (a, b) {
-      return a.toLowerCase() < b.toLowerCase() ? -1 : 1;
-    });
+  const participantsList = data.participants
+    .map((participant) => participant.participant)
+    .sort((a, b) => (a.toLowerCase() < b.toLowerCase() ? -1 : 1));
 
-  var participants = "";
-  participantsList.forEach(function (participant) {
-    for (var i = 0, l = paymentsList.length; i < l; ++i) {
+  let participants = "";
+  participantsList.forEach((participant) => {
+    for (let i = 0, l = paymentsList.length; i < l; ++i) {
       if (paymentsList[i].participant === participant) {
         return;
       }
@@ -87,7 +81,7 @@ const TransactionListItem: FunctionComponent<Props> = ({
   transaction,
   onDetailsClick,
 }) => {
-  var data = formatData(transaction);
+  const data = formatData(transaction);
 
   return (
     <div

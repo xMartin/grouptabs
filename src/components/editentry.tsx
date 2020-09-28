@@ -56,7 +56,7 @@ const EditEntry: FunctionComponent<Props> = (props) => {
     }
 
     if (props.mode === "edit" && !props.formState) {
-      var message = "Could not find transaction.";
+      const message = "Could not find transaction.";
       return <LoadError message={message} onOkClick={props.onCloseClick} />;
     }
 

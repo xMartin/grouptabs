@@ -12,12 +12,12 @@ const DateInput: React.FC<Props> = ({ date, onChange }) => {
   };
 
   const handleYesterdayClick = () => {
-    var yesterday = addDays(new Date(), -1);
+    const yesterday = addDays(new Date(), -1);
     onChange(formatDate(yesterday));
   };
 
   const handleDateChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    var value = event.currentTarget.value;
+    const value = event.currentTarget.value;
     onChange(value);
   };
 

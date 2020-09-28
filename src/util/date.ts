@@ -6,9 +6,7 @@ export function parseDate(input: string) {
   // backwards compatibility: strip time info from format being used earlier
   input = input.substring(0, 10);
 
-  var params = input.split("-").map(function (x) {
-    return parseInt(x, 10);
-  });
+  const params = input.split("-").map((x) => parseInt(x, 10));
   return new Date(params[0], params[1] - 1, params[2]);
 }
 
@@ -16,11 +14,11 @@ export function parseDate(input: string) {
  * Formats a date to the format `yyyy-MM-dd` as being used by `<input type="date">`
  */
 export function formatDate(date: Date) {
-  var month: number | string = date.getMonth() + 1;
-  month = month < 10 ? "0" + month : month;
-  var day: string | number = date.getDate();
-  day = day < 10 ? "0" + day : day;
-  return "" + date.getFullYear() + "-" + month + "-" + day;
+  const month = date.getMonth() + 1;
+  const formattedMonth = month < 10 ? "0" + month : month;
+  const day = date.getDate();
+  const formattedDay = day < 10 ? "0" + day : day;
+  return `${date.getFullYear()}-${formattedMonth}-${formattedDay}`;
 }
 
 export function formatHumanDate(date: Date | string) {
@@ -40,8 +38,8 @@ export function formatHumanDate(date: Date | string) {
 }
 
 export function addDays(date: Date, days: number) {
-  var ms = date.getTime();
-  var daysInMs = days * 1000 * 60 * 60 * 24;
+  const ms = date.getTime();
+  const daysInMs = days * 1000 * 60 * 60 * 24;
   return new Date(ms + daysInMs);
 }
 
@@ -54,7 +52,7 @@ export function isToday(date: Date | string) {
     date = parseDate(date);
   }
 
-  var today = new Date();
+  const today = new Date();
   return isSameDay(today, date);
 }
 
@@ -63,6 +61,6 @@ export function isYesterday(date: Date | string) {
     date = parseDate(date);
   }
 
-  var yesterday = addDays(new Date(), -1);
+  const yesterday = addDays(new Date(), -1);
   return isSameDay(yesterday, date);
 }

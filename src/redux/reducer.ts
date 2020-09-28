@@ -59,12 +59,12 @@ const initialState: AppState = {
 };
 
 function docsReducer(state: AppState, actionMap: ActionMap): AppState {
-  var docsById = state.docsById;
-  var tabs = state.tabs;
-  var transactionsByTab = state.transactionsByTab;
+  let docsById = state.docsById;
+  let tabs = state.tabs;
+  let transactionsByTab = state.transactionsByTab;
 
-  actionMap.delete.forEach(function (dbDoc) {
-    var doc = docsById[dbDoc.id];
+  actionMap.delete.forEach((dbDoc) => {
+    const doc = docsById[dbDoc.id];
 
     if (!doc) {
       return;
@@ -73,9 +73,9 @@ function docsReducer(state: AppState, actionMap: ActionMap): AppState {
     docsById = { ...docsById };
     delete docsById[doc.id];
 
-    var tabId = dbDoc.tabId;
+    const tabId = dbDoc.tabId;
     if (doc.type === DocumentType.TRANSACTION) {
-      var transactions = transactionsByTab[tabId];
+      const transactions = transactionsByTab[tabId];
       transactionsByTab = {
         ...transactionsByTab,
         [tabId]: iarray.removeItem(transactions, doc.id),
@@ -83,8 +83,8 @@ function docsReducer(state: AppState, actionMap: ActionMap): AppState {
     }
   });
 
-  actionMap.createOrUpdate.forEach(function (doc) {
-    var tabId = doc.tabId;
+  actionMap.createOrUpdate.forEach((doc) => {
+    const tabId = doc.tabId;
 
     if (doc.type === DocumentType.INFO) {
       doc = {

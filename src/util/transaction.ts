@@ -14,7 +14,7 @@ function getTransactionType(transaction: Transaction): TransactionType {
   // find out if it's a transaction with two participants where one paid amount X
   // and the other paid amount -X
   if (transaction.participants.length === 2) {
-    var amounts = transaction.participants.map(function (participant) {
+    const amounts = transaction.participants.map((participant) => {
       return participant.amount;
     });
     if (amounts[0] && amounts[0] === -amounts[1]) {

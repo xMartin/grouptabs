@@ -14,7 +14,7 @@ type ChangesHandler = (
   results: PouchDB.Core.ChangesResponseChange<Document>[]
 ) => void;
 
-export default class {
+export default class Tab {
   private readonly db: Database;
   private readonly remoteDb: Database;
 

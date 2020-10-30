@@ -2,18 +2,15 @@
 
 exports[`renders form 1`] = `
 <form
-  className="import-form"
-  onSubmit={[Function]}
+  class="import-form"
 >
   <div
-    className="row-label"
+    class="row-label"
   >
     Open shared tab:
   </div>
   <input
-    autoFocus={true}
-    className="full-width"
-    onChange={[Function]}
+    class="full-width"
     placeholder="Tab ID …"
     type="text"
     value="xy123hq"
@@ -22,7 +19,7 @@ exports[`renders form 1`] = `
     Open
   </button>
   <div
-    className="error-message"
+    class="error-message"
   />
 </form>
 `;

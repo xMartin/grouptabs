@@ -2,14 +2,13 @@
 
 exports[`renders empty form 1`] = `
 <div
-  className="scene editEntryScene"
+  class="scene editEntryScene"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -24,7 +23,7 @@ exports[`renders empty form 1`] = `
       New transaction
     </h2>
     <button
-      className="right create"
+      class="right create"
       form="edit-entry-form"
     >
       <svg
@@ -41,32 +40,26 @@ exports[`renders empty form 1`] = `
   <div>
     <form
       id="edit-entry-form"
-      onSubmit={[Function]}
     >
       <div
-        className="form"
+        class="form"
       >
         <div
-          className="form-row"
+          class="form-row"
         >
           <div
-            className="form-row-input description"
+            class="form-row-input description"
           >
             <input
-              autoFocus={true}
-              onChange={[Function]}
               placeholder="Description"
               type="text"
               value=""
             />
           </div>
           <div
-            className="form-row-input transaction-type"
+            class="form-row-input transaction-type"
           >
-            <select
-              onChange={[Function]}
-              value="SHARED"
-            >
+            <select>
               <option
                 value="SHARED"
               >
@@ -81,30 +74,27 @@ exports[`renders empty form 1`] = `
           </div>
         </div>
         <div
-          className="form-row"
+          class="form-row"
         >
           <div
-            className="form-row-input"
+            class="form-row-input"
           >
             <div
-              className="form-row-input date-input"
+              class="form-row-input date-input"
             >
               <button
-                className="selected"
-                onClick={[Function]}
+                class="selected"
                 type="button"
               >
                 today
               </button>
               <button
-                className=""
-                onClick={[Function]}
+                class=""
                 type="button"
               >
                 yesterday
               </button>
               <input
-                onChange={[Function]}
                 type="date"
                 value="2020-02-20"
               />
@@ -112,31 +102,21 @@ exports[`renders empty form 1`] = `
           </div>
         </div>
         <div
-          className="form-row"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
+          class="form-row"
+          style="display: none;"
         >
           <div
-            className="direct-transaction"
+            class="direct-transaction"
           >
             <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
+              class="form-row"
+              style="display: none;"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value="NEW_PARTICIPANT"
+                  class="full-width"
                 >
                   <option
                     value="NEW_PARTICIPANT"
@@ -147,13 +127,12 @@ exports[`renders empty form 1`] = `
               </div>
             </div>
             <div
-              className="form-row"
+              class="form-row"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <input
-                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
                   value=""
@@ -161,7 +140,7 @@ exports[`renders empty form 1`] = `
               </div>
             </div>
             <div
-              className="direct-transaction-amount"
+              class="direct-transaction-amount"
             >
               <svg
                 height="16"
@@ -172,7 +151,6 @@ exports[`renders empty form 1`] = `
                 />
               </svg>
               <input
-                onChange={[Function]}
                 placeholder="0"
                 step="any"
                 type="number"
@@ -180,20 +158,14 @@ exports[`renders empty form 1`] = `
               />
             </div>
             <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
+              class="form-row"
+              style="display: none;"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value="NEW_PARTICIPANT"
+                  class="full-width"
                 >
                   <option
                     value="NEW_PARTICIPANT"
@@ -204,13 +176,12 @@ exports[`renders empty form 1`] = `
               </div>
             </div>
             <div
-              className="form-row"
+              class="form-row"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <input
-                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
                   value=""
@@ -219,60 +190,49 @@ exports[`renders empty form 1`] = `
             </div>
           </div>
         </div>
-        <div
-          style={
-            Object {
-              "display": "",
-            }
-          }
-        >
+        <div>
           <div
-            className="form-row"
+            class="form-row"
           >
             <div
-              className="form-row-input"
+              class="form-row-input"
             >
               <div
-                className="newParticipantInput selected"
+                class="newParticipantInput selected"
               >
                 <span
-                  className="participant"
+                  class="participant"
                 >
                   <input
-                    autoFocus={true}
-                    onChange={[Function]}
                     placeholder="Name …"
                     type="text"
                     value=""
                   />
                 </span>
                 <span
-                  className="participationStatus"
+                  class="participationStatus"
                 >
                   <span
-                    className="joinedButtonWrapper"
+                    class="joinedButtonWrapper"
                   >
                     <button
-                      className=" selected"
-                      onClick={[Function]}
+                      class=" selected"
                       type="button"
                     >
                       joined
                     </button>
                   </span>
                   <button
-                    className="paid-button"
-                    onClick={[Function]}
+                    class="paid-button"
                     type="button"
                   >
                     paid
                   </button>
                   <span
-                    className="amountInput hidden"
+                    class="amountInput hidden"
                   >
                     <input
-                      disabled={true}
-                      onChange={[Function]}
+                      disabled=""
                       placeholder="0"
                       step="any"
                       type="number"
@@ -282,46 +242,41 @@ exports[`renders empty form 1`] = `
                 </span>
               </div>
               <div
-                className="newParticipantInput selected"
+                class="newParticipantInput selected"
               >
                 <span
-                  className="participant"
+                  class="participant"
                 >
                   <input
-                    autoFocus={true}
-                    onChange={[Function]}
                     placeholder="Name …"
                     type="text"
                     value=""
                   />
                 </span>
                 <span
-                  className="participationStatus"
+                  class="participationStatus"
                 >
                   <span
-                    className="joinedButtonWrapper"
+                    class="joinedButtonWrapper"
                   >
                     <button
-                      className=" selected"
-                      onClick={[Function]}
+                      class=" selected"
                       type="button"
                     >
                       joined
                     </button>
                   </span>
                   <button
-                    className="paid-button"
-                    onClick={[Function]}
+                    class="paid-button"
                     type="button"
                   >
                     paid
                   </button>
                   <span
-                    className="amountInput hidden"
+                    class="amountInput hidden"
                   >
                     <input
-                      disabled={true}
-                      onChange={[Function]}
+                      disabled=""
                       placeholder="0"
                       step="any"
                       type="number"
@@ -333,13 +288,12 @@ exports[`renders empty form 1`] = `
             </div>
           </div>
           <div
-            className="form-row"
+            class="form-row"
           >
             <div
-              className="form-row-input"
+              class="form-row-input"
             >
               <button
-                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
@@ -349,7 +303,7 @@ exports[`renders empty form 1`] = `
         </div>
       </div>
       <div
-        className="row"
+        class="row"
       />
     </form>
   </div>
@@ -358,14 +312,13 @@ exports[`renders empty form 1`] = `
 
 exports[`renders loader in edit mode with no data 1`] = `
 <div
-  className="scene editEntryScene"
+  class="scene editEntryScene"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -382,7 +335,7 @@ exports[`renders loader in edit mode with no data 1`] = `
   </div>
   <div>
     <div
-      className="load-error"
+      class="load-error"
     >
       <img
         alt=""
@@ -395,8 +348,7 @@ exports[`renders loader in edit mode with no data 1`] = `
         Could not find transaction.
       </p>
       <button
-        className="create"
-        onClick={[Function]}
+        class="create"
       >
         OK
       </button>
@@ -407,14 +359,13 @@ exports[`renders loader in edit mode with no data 1`] = `
 
 exports[`renders loader when checking remote tab 1`] = `
 <div
-  className="scene editEntryScene"
+  class="scene editEntryScene"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -430,7 +381,7 @@ exports[`renders loader when checking remote tab 1`] = `
     </h2>
   </div>
   <div
-    className="loader tab-loader"
+    class="loader tab-loader"
   >
     <div />
   </div>
@@ -439,14 +390,13 @@ exports[`renders loader when checking remote tab 1`] = `
 
 exports[`renders prefilled form 1`] = `
 <div
-  className="scene editEntryScene"
+  class="scene editEntryScene"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -461,7 +411,7 @@ exports[`renders prefilled form 1`] = `
       Edit transaction
     </h2>
     <button
-      className="right create"
+      class="right create"
       form="edit-entry-form"
     >
       <svg
@@ -478,31 +428,26 @@ exports[`renders prefilled form 1`] = `
   <div>
     <form
       id="edit-entry-form"
-      onSubmit={[Function]}
     >
       <div
-        className="form"
+        class="form"
       >
         <div
-          className="form-row"
+          class="form-row"
         >
           <div
-            className="form-row-input description"
+            class="form-row-input description"
           >
             <input
-              onChange={[Function]}
               placeholder="Description"
               type="text"
               value="DESCRIPTION"
             />
           </div>
           <div
-            className="form-row-input transaction-type"
+            class="form-row-input transaction-type"
           >
-            <select
-              onChange={[Function]}
-              value="SHARED"
-            >
+            <select>
               <option
                 value="SHARED"
               >
@@ -517,30 +462,27 @@ exports[`renders prefilled form 1`] = `
           </div>
         </div>
         <div
-          className="form-row"
+          class="form-row"
         >
           <div
-            className="form-row-input"
+            class="form-row-input"
           >
             <div
-              className="form-row-input date-input"
+              class="form-row-input date-input"
             >
               <button
-                className=""
-                onClick={[Function]}
+                class=""
                 type="button"
               >
                 today
               </button>
               <button
-                className=""
-                onClick={[Function]}
+                class=""
                 type="button"
               >
                 yesterday
               </button>
               <input
-                onChange={[Function]}
                 type="date"
                 value="2020-03-24"
               />
@@ -548,47 +490,32 @@ exports[`renders prefilled form 1`] = `
           </div>
         </div>
         <div
-          className="form-row"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
+          class="form-row"
+          style="display: none;"
         >
           <div
-            className="direct-transaction"
+            class="direct-transaction"
           >
             <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
+              class="form-row"
+              style="display: none;"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value=""
+                  class="full-width"
                 />
               </div>
             </div>
             <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
+              class="form-row"
+              style="display: none;"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <input
-                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
                   value=""
@@ -596,7 +523,7 @@ exports[`renders prefilled form 1`] = `
               </div>
             </div>
             <div
-              className="direct-transaction-amount"
+              class="direct-transaction-amount"
             >
               <svg
                 height="16"
@@ -607,7 +534,6 @@ exports[`renders prefilled form 1`] = `
                 />
               </svg>
               <input
-                onChange={[Function]}
                 placeholder="0"
                 step="any"
                 type="number"
@@ -615,36 +541,25 @@ exports[`renders prefilled form 1`] = `
               />
             </div>
             <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
+              class="form-row"
+              style="display: none;"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <select
-                  className="full-width"
-                  onChange={[Function]}
-                  value=""
+                  class="full-width"
                 />
               </div>
             </div>
             <div
-              className="form-row"
-              style={
-                Object {
-                  "display": "none",
-                }
-              }
+              class="form-row"
+              style="display: none;"
             >
               <div
-                className="form-row-input"
+                class="form-row-input"
               >
                 <input
-                  onChange={[Function]}
                   placeholder="Name …"
                   type="text"
                   value=""
@@ -653,101 +568,89 @@ exports[`renders prefilled form 1`] = `
             </div>
           </div>
         </div>
-        <div
-          style={
-            Object {
-              "display": "",
-            }
-          }
-        >
+        <div>
           <div
-            className="form-row"
+            class="form-row"
           >
             <div
-              className="form-row-input"
+              class="form-row-input"
             >
               <div
-                className="participantInput selected"
+                class="participantInput selected"
               >
                 <span
-                  className="participant"
+                  class="participant"
                 >
                   Martin
                 </span>
                 <span
-                  className="participationStatus"
+                  class="participationStatus"
                 >
                   <span
-                    className="joinedButtonWrapper"
+                    class="joinedButtonWrapper"
                   >
                     <button
-                      className=" selected"
-                      onClick={[Function]}
+                      class=" selected"
                       type="button"
                     >
                       joined
                     </button>
                   </span>
                   <button
-                    className="paid-button"
-                    onClick={[Function]}
+                    class="paid-button"
                     type="button"
                   >
                     paid
                   </button>
                   <span
-                    className="amountInput hidden"
+                    class="amountInput hidden"
                   >
                     <input
-                      disabled={true}
-                      onChange={[Function]}
+                      disabled=""
                       placeholder="0"
                       step="any"
                       type="number"
-                      value={5}
+                      value="5"
                     />
                   </span>
                 </span>
               </div>
               <div
-                className="participantInput selected"
+                class="participantInput selected"
               >
                 <span
-                  className="participant"
+                  class="participant"
                 >
                   Jan
                 </span>
                 <span
-                  className="participationStatus"
+                  class="participationStatus"
                 >
                   <span
-                    className="joinedButtonWrapper"
+                    class="joinedButtonWrapper"
                   >
                     <button
-                      className=" selected"
-                      onClick={[Function]}
+                      class=" selected"
                       type="button"
                     >
                       joined
                     </button>
                   </span>
                   <button
-                    className="paid-button"
-                    onClick={[Function]}
+                    class="paid-button"
                     type="button"
                   >
                     paid
                   </button>
                   <span
-                    className="amountInput hidden"
+                    class="amountInput hidden"
                   >
                     <input
-                      disabled={true}
-                      onChange={[Function]}
+                      disabled=""
                       placeholder="0"
                       step="any"
                       type="number"
-                      value={0}
+                      value="0"
                     />
                   </span>
                 </span>
@@ -755,13 +658,12 @@ exports[`renders prefilled form 1`] = `
             </div>
           </div>
           <div
-            className="form-row"
+            class="form-row"
           >
             <div
-              className="form-row-input"
+              class="form-row-input"
             >
               <button
-                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
@@ -771,11 +673,10 @@ exports[`renders prefilled form 1`] = `
         </div>
       </div>
       <div
-        className="row button-row"
+        class="row button-row"
       >
         <span
-          className="fake-link delete"
-          onClick={[Function]}
+          class="fake-link delete"
         >
           Delete transaction
         </span>

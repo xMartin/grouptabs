@@ -2,18 +2,16 @@
 
 exports[`renders empty 1`] = `
 <div
-  className="direct-transaction"
+  class="direct-transaction"
 >
   <div
-    className="form-row"
+    class="form-row"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <select
-        className="full-width"
-        onChange={[Function]}
-        value=""
+        class="full-width"
       >
         <option>
           Jan
@@ -30,18 +28,13 @@ exports[`renders empty 1`] = `
     </div>
   </div>
   <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
+    class="form-row"
+    style="display: none;"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <input
-        onChange={[Function]}
         placeholder="Name …"
         type="text"
         value=""
@@ -49,7 +42,7 @@ exports[`renders empty 1`] = `
     </div>
   </div>
   <div
-    className="direct-transaction-amount"
+    class="direct-transaction-amount"
   >
     <svg
       height="16"
@@ -60,7 +53,6 @@ exports[`renders empty 1`] = `
       />
     </svg>
     <input
-      onChange={[Function]}
       placeholder="0"
       step="any"
       type="number"
@@ -68,15 +60,13 @@ exports[`renders empty 1`] = `
     />
   </div>
   <div
-    className="form-row"
+    class="form-row"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <select
-        className="full-width"
-        onChange={[Function]}
-        value=""
+        class="full-width"
       >
         <option>
           Jan
@@ -93,18 +83,13 @@ exports[`renders empty 1`] = `
     </div>
   </div>
   <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
+    class="form-row"
+    style="display: none;"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <input
-        onChange={[Function]}
         placeholder="Name …"
         type="text"
         value=""
@@ -116,18 +101,16 @@ exports[`renders empty 1`] = `
 
 exports[`renders prefilled 1`] = `
 <div
-  className="direct-transaction"
+  class="direct-transaction"
 >
   <div
-    className="form-row"
+    class="form-row"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <select
-        className="full-width"
-        onChange={[Function]}
-        value="Martin"
+        class="full-width"
       >
         <option>
           Jan
@@ -144,18 +127,13 @@ exports[`renders prefilled 1`] = `
     </div>
   </div>
   <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
+    class="form-row"
+    style="display: none;"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <input
-        onChange={[Function]}
         placeholder="Name …"
         type="text"
         value=""
@@ -163,7 +141,7 @@ exports[`renders prefilled 1`] = `
     </div>
   </div>
   <div
-    className="direct-transaction-amount"
+    class="direct-transaction-amount"
   >
     <svg
       height="16"
@@ -174,23 +152,20 @@ exports[`renders prefilled 1`] = `
       />
     </svg>
     <input
-      onChange={[Function]}
       placeholder="0"
       step="any"
       type="number"
-      value={11}
+      value="11"
     />
   </div>
   <div
-    className="form-row"
+    class="form-row"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <select
-        className="full-width"
-        onChange={[Function]}
-        value="Jan"
+        class="full-width"
       >
         <option>
           Jan
@@ -207,18 +182,13 @@ exports[`renders prefilled 1`] = `
     </div>
   </div>
   <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
+    class="form-row"
+    style="display: none;"
   >
     <div
-      className="form-row-input"
+      class="form-row-input"
     >
       <input
-        onChange={[Function]}
         placeholder="Name …"
         type="text"
         value=""

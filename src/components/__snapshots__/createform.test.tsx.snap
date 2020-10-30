@@ -2,18 +2,16 @@
 
 exports[`renders form 1`] = `
 <form
-  className="create-form"
-  onSubmit={[Function]}
+  class="create-form"
 >
   <input
-    className="full-width"
-    onChange={[Function]}
+    class="full-width"
     placeholder="Tab name …"
     type="text"
     value="Badminton"
   />
   <button
-    className="create"
+    class="create"
   >
     Create
   </button>

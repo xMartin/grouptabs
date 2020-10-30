@@ -1,5 +1,5 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 import EditEntry from "./editentry";
 import {
   TransactionType,
@@ -30,111 +30,103 @@ afterAll(() => {
 });
 
 it("renders loader when checking remote tab", () => {
-  const tree = renderer
-    .create(
-      <EditEntry
-        mode="new"
-        checkingRemoteTab={true}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  const { container } = render(
+    <EditEntry
+      mode="new"
+      checkingRemoteTab={true}
+      onUpdateForm={jest.fn()}
+      onUpdateSharedForm={jest.fn()}
+      onUpdateDirectForm={jest.fn()}
+      onUpdateParticipant={jest.fn()}
+      onAddParticipant={jest.fn()}
+      onSetAllJoined={jest.fn()}
+      onChangeTabClick={jest.fn()}
+      onCloseClick={jest.fn()}
+      onSave={jest.fn()}
+      onDelete={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 it("renders empty form", () => {
-  const tree = renderer
-    .create(
-      <EditEntry
-        mode="new"
-        formState={createFormData([])}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  const { container } = render(
+    <EditEntry
+      mode="new"
+      formState={createFormData([])}
+      onUpdateForm={jest.fn()}
+      onUpdateSharedForm={jest.fn()}
+      onUpdateDirectForm={jest.fn()}
+      onUpdateParticipant={jest.fn()}
+      onAddParticipant={jest.fn()}
+      onSetAllJoined={jest.fn()}
+      onChangeTabClick={jest.fn()}
+      onCloseClick={jest.fn()}
+      onSave={jest.fn()}
+      onDelete={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 it("renders loader in edit mode with no data", () => {
-  const tree = renderer
-    .create(
-      <EditEntry
-        mode="edit"
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  const { container } = render(
+    <EditEntry
+      mode="edit"
+      onUpdateForm={jest.fn()}
+      onUpdateSharedForm={jest.fn()}
+      onUpdateDirectForm={jest.fn()}
+      onUpdateParticipant={jest.fn()}
+      onAddParticipant={jest.fn()}
+      onSetAllJoined={jest.fn()}
+      onChangeTabClick={jest.fn()}
+      onCloseClick={jest.fn()}
+      onSave={jest.fn()}
+      onDelete={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 it("renders prefilled form", () => {
-  const tree = renderer
-    .create(
-      <EditEntry
-        mode="edit"
-        formState={{
-          description: "DESCRIPTION",
-          transactionType: TransactionType.SHARED,
-          date: "2020-03-24",
-          shared: [
-            {
-              id: "1",
-              inputType: TransactionFormParticipantInputType.EXISTING,
-              participant: "Martin",
-              status: TransactionFormParticipantStatus.JOINED,
-              amount: 5,
-            },
-            {
-              id: "2",
-              inputType: TransactionFormParticipantInputType.EXISTING,
-              participant: "Jan",
-              status: TransactionFormParticipantStatus.JOINED,
-              amount: 0,
-            },
-          ],
-          direct: {
-            options: [],
+  const { container } = render(
+    <EditEntry
+      mode="edit"
+      formState={{
+        description: "DESCRIPTION",
+        transactionType: TransactionType.SHARED,
+        date: "2020-03-24",
+        shared: [
+          {
+            id: "1",
+            inputType: TransactionFormParticipantInputType.EXISTING,
+            participant: "Martin",
+            status: TransactionFormParticipantStatus.JOINED,
+            amount: 5,
           },
-        }}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+          {
+            id: "2",
+            inputType: TransactionFormParticipantInputType.EXISTING,
+            participant: "Jan",
+            status: TransactionFormParticipantStatus.JOINED,
+            amount: 0,
+          },
+        ],
+        direct: {
+          options: [],
+        },
+      }}
+      onUpdateForm={jest.fn()}
+      onUpdateSharedForm={jest.fn()}
+      onUpdateDirectForm={jest.fn()}
+      onUpdateParticipant={jest.fn()}
+      onAddParticipant={jest.fn()}
+      onSetAllJoined={jest.fn()}
+      onChangeTabClick={jest.fn()}
+      onCloseClick={jest.fn()}
+      onSave={jest.fn()}
+      onDelete={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });

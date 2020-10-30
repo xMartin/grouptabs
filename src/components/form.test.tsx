@@ -1,5 +1,5 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 import Form from "./form";
 import {
   TransactionType,
@@ -8,7 +8,6 @@ import {
   TransactionFormParticipantInputType as InputType,
 } from "../types";
 import { createFormData } from "../util/transactionform";
-import { unmountComponentAtNode, render } from "react-dom";
 
 let realDate: any;
 
@@ -32,90 +31,74 @@ afterAll(() => {
 });
 
 it("renders empty form", () => {
-  const tree = renderer
-    .create(
-      <Form
-        mode="new"
-        data={createFormData([])}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  const { container } = render(
+    <Form
+      mode="new"
+      data={createFormData([])}
+      onUpdateForm={jest.fn()}
+      onUpdateSharedForm={jest.fn()}
+      onUpdateDirectForm={jest.fn()}
+      onUpdateParticipant={jest.fn()}
+      onAddParticipant={jest.fn()}
+      onSetAllJoined={jest.fn()}
+      onSave={jest.fn()}
+      onDelete={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 it("renders prefilled form", () => {
-  const tree = renderer
-    .create(
-      <Form
-        mode="edit"
-        data={createFormData(
-          [
+  const { container } = render(
+    <Form
+      mode="edit"
+      data={createFormData(
+        [
+          {
+            participant: "Martin",
+            amount: -21,
+          },
+          {
+            participant: "Jan",
+            amount: 21,
+          },
+        ],
+        {
+          id: "123",
+          type: DocumentType.TRANSACTION,
+          tabId: "321",
+          description: "DESCRIPTION",
+          transactionType: TransactionType.SHARED,
+          date: "2020-03-24",
+          timestamp: "2020-03-24T20:23:21z",
+          participants: [
             {
               participant: "Martin",
-              amount: -21,
+              amount: 5,
             },
             {
               participant: "Jan",
-              amount: 21,
+              amount: 0,
             },
           ],
-          {
-            id: "123",
-            type: DocumentType.TRANSACTION,
-            tabId: "321",
-            description: "DESCRIPTION",
-            transactionType: TransactionType.SHARED,
-            date: "2020-03-24",
-            timestamp: "2020-03-24T20:23:21z",
-            participants: [
-              {
-                participant: "Martin",
-                amount: 5,
-              },
-              {
-                participant: "Jan",
-                amount: 0,
-              },
-            ],
-          }
-        )}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+        }
+      )}
+      onUpdateForm={jest.fn()}
+      onUpdateSharedForm={jest.fn()}
+      onUpdateDirectForm={jest.fn()}
+      onUpdateParticipant={jest.fn()}
+      onAddParticipant={jest.fn()}
+      onSetAllJoined={jest.fn()}
+      onSave={jest.fn()}
+      onDelete={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 describe('"all joined" button', () => {
-  let container: any = null;
-  beforeEach(() => {
-    container = document.createElement("div");
-    document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  });
-
   it("shows button for 2 unjoined participants", () => {
-    render(
+    const { container } = render(
       <Form
         mode="new"
         data={{
@@ -145,15 +128,14 @@ describe('"all joined" button', () => {
         onSetAllJoined={jest.fn()}
         onSave={jest.fn()}
         onDelete={jest.fn()}
-      />,
-      container
+      />
     );
 
     expect(container.querySelector(".all-joined")).toBeTruthy();
   });
 
   it("shows no button for 2 joined and 1 unjoined participant", () => {
-    render(
+    const { container } = render(
       <Form
         mode="new"
         data={{
@@ -188,8 +170,7 @@ describe('"all joined" button', () => {
         onSetAllJoined={jest.fn()}
         onSave={jest.fn()}
         onDelete={jest.fn()}
-      />,
-      container
+      />
     );
 
     expect(container.querySelector(".all-joined")).toBeNull();

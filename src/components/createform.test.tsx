@@ -1,16 +1,14 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import { render } from "@testing-library/react";
 import CreateForm from "./createform";
 
 it("renders form", () => {
-  const tree = renderer
-    .create(
-      <CreateForm
-        tabName="Badminton"
-        onTabNameChange={jest.fn()}
-        onSubmit={jest.fn()}
-      />
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  const { container } = render(
+    <CreateForm
+      tabName="Badminton"
+      onTabNameChange={jest.fn()}
+      onSubmit={jest.fn()}
+    />
+  );
+  expect(container.firstChild).toMatchSnapshot();
 });

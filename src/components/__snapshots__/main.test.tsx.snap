@@ -2,14 +2,13 @@
 
 exports[`renders empty view with no tab selected 1`] = `
 <div
-  className="scene mainScene hidden"
+  class="scene mainScene hidden"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -20,19 +19,16 @@ exports[`renders empty view with no tab selected 1`] = `
         />
       </svg>
     </button>
-    <h2>
-      
-    </h2>
+    <h2 />
     <button
-      className="create"
-      onClick={[Function]}
+      class="create"
     >
       +
     </button>
   </div>
   <div>
     <div
-      className="load-error"
+      class="load-error"
     >
       <img
         alt=""
@@ -45,8 +41,7 @@ exports[`renders empty view with no tab selected 1`] = `
         Error: Tab data missing. Are you offline? Try refreshing.
       </p>
       <button
-        className="create"
-        onClick={[Function]}
+        class="create"
       >
         OK
       </button>
@@ -57,14 +52,13 @@ exports[`renders empty view with no tab selected 1`] = `
 
 exports[`renders missing tab info error 1`] = `
 <div
-  className="scene mainScene hidden"
+  class="scene mainScene hidden"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -75,19 +69,16 @@ exports[`renders missing tab info error 1`] = `
         />
       </svg>
     </button>
-    <h2>
-      
-    </h2>
+    <h2 />
     <button
-      className="create"
-      onClick={[Function]}
+      class="create"
     >
       +
     </button>
   </div>
   <div>
     <div
-      className="load-error"
+      class="load-error"
     >
       <img
         alt=""
@@ -100,8 +91,7 @@ exports[`renders missing tab info error 1`] = `
         Error: Tab data missing. Are you offline? Try refreshing.
       </p>
       <button
-        className="create"
-        onClick={[Function]}
+        class="create"
       >
         OK
       </button>
@@ -112,14 +102,13 @@ exports[`renders missing tab info error 1`] = `
 
 exports[`renders summary and transaction list 1`] = `
 <div
-  className="scene mainScene hidden"
+  class="scene mainScene hidden"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -134,15 +123,14 @@ exports[`renders summary and transaction list 1`] = `
       My Tab
     </h2>
     <button
-      className="create"
-      onClick={[Function]}
+      class="create"
     >
       +
     </button>
   </div>
   <div>
     <div
-      className="row"
+      class="row"
     >
       <div
         id="summary"
@@ -152,39 +140,29 @@ exports[`renders summary and transaction list 1`] = `
         >
           <tbody>
             <tr
-              style={
-                Object {
-                  "backgroundColor": "rgba(226,91,29,1)",
-                  "color": "var(--dark-color)",
-                }
-              }
+              style="background-color: rgb(226, 91, 29);"
             >
               <th
-                className="account"
+                class="account"
               >
                 Jan
               </th>
               <td
-                className="amount"
+                class="amount"
               >
                 -11.7
               </td>
             </tr>
             <tr
-              style={
-                Object {
-                  "backgroundColor": "rgba(92,226,14,1)",
-                  "color": "var(--dark-color)",
-                }
-              }
+              style="background-color: rgb(92, 226, 14);"
             >
               <th
-                className="account"
+                class="account"
               >
                 Martin
               </th>
               <td
-                className="amount"
+                class="amount"
               >
                 11.7
               </td>
@@ -194,10 +172,10 @@ exports[`renders summary and transaction list 1`] = `
       </div>
     </div>
     <div
-      className="row"
+      class="row"
     >
       <h3
-        className="transactions-heading"
+        class="transactions-heading"
       >
         Transactions
       </h3>
@@ -207,23 +185,22 @@ exports[`renders summary and transaction list 1`] = `
         <div>
           <div>
             <div
-              className="dategroup"
+              class="dategroup"
             >
               9/20/2020
             </div>
             <div
-              className="transaction"
-              onClick={[Function]}
+              class="transaction"
             >
               <table>
                 <tbody>
                   <tr>
                     <td
-                      className="title"
+                      class="title"
                     >
                       Gummibärchen
                       <div
-                        className="payments"
+                        class="payments"
                       >
                         <strong>
                           Martin: 22.8, 
@@ -232,7 +209,7 @@ exports[`renders summary and transaction list 1`] = `
                       </div>
                     </td>
                     <td
-                      className="total"
+                      class="total"
                     >
                       22.8
                     </td>
@@ -244,14 +221,14 @@ exports[`renders summary and transaction list 1`] = `
         </div>
       </div>
       <div
-        className="total-sum"
+        class="total-sum"
       >
         Total Spending: 
         22.8
       </div>
     </div>
     <div
-      className="share-info"
+      class="share-info"
     >
       <p>
         Share this tab ID for collaboration with others:
@@ -267,14 +244,13 @@ exports[`renders summary and transaction list 1`] = `
 
 exports[`renders tab with no transactions 1`] = `
 <div
-  className="scene mainScene hidden"
+  class="scene mainScene hidden"
 >
   <div
-    className="header"
+    class="header"
   >
     <button
-      className="left"
-      onClick={[MockFunction]}
+      class="left"
     >
       <svg
         height="16"
@@ -289,15 +265,14 @@ exports[`renders tab with no transactions 1`] = `
       My Tab
     </h2>
     <button
-      className="create"
-      onClick={[Function]}
+      class="create"
     >
       +
     </button>
   </div>
   <div>
     <div
-      className="empty-info"
+      class="empty-info"
     >
       <p>
         A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
@@ -306,18 +281,17 @@ exports[`renders tab with no transactions 1`] = `
         Start by adding your first transaction:
       </p>
       <div
-        className="row"
+        class="row"
       >
         <button
-          className="full-width create"
-          onClick={[Function]}
+          class="full-width create"
         >
           Add transaction
         </button>
       </div>
     </div>
     <div
-      className="share-info"
+      class="share-info"
     >
       <p>
         Share this tab ID for collaboration with others:

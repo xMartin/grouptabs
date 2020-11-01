@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { connectRoutes, LocationState } from "redux-first-router";
-// @ts-ignore
-import { createHashHistory } from "rudy-history";
 import {
   combineReducers,
   applyMiddleware,
@@ -26,11 +24,14 @@ const debugSetting =
   new URL(window.location.toString()).searchParams.get("debug") || "";
 debug.enable(debugSetting);
 
+// replace legacy hash URLs with clean URLs
+if (window.location.hash.startsWith("#/tabs/")) {
+  window.history.replaceState(null, "", window.location.hash.substring(2));
+}
+
 restoreLocation();
 
-const router: any = connectRoutes(routes, {
-  createHistory: createHashHistory,
-});
+const router: any = connectRoutes(routes);
 
 startPersistingLocation(router.history);
 

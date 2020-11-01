@@ -18,9 +18,11 @@ export function restoreLocation() {
     return;
   }
 
-  const lastVisitedUrl = window.localStorage.getItem(storageKey);
+  let lastVisitedUrl = window.localStorage.getItem(storageKey);
   if (lastVisitedUrl) {
-    window.location.replace(lastVisitedUrl);
+    // convert potnetially legacy hash URL to clean URL
+    lastVisitedUrl = lastVisitedUrl.replace("#/tabs/", "tabs");
+    window.history.replaceState(null, "", lastVisitedUrl);
   }
 }
 

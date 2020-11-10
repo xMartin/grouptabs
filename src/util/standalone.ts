@@ -20,8 +20,8 @@ export function restoreLocation() {
 
   let lastVisitedUrl = window.localStorage.getItem(storageKey);
   if (lastVisitedUrl) {
-    // convert potnetially legacy hash URL to clean URL
-    lastVisitedUrl = lastVisitedUrl.replace("#/tabs/", "tabs");
+    // convert potentially legacy hash URL to clean URL
+    lastVisitedUrl = lastVisitedUrl.replace("/#/tabs/", "/tabs/");
     window.history.replaceState(null, "", lastVisitedUrl);
   }
 }

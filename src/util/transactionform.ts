@@ -230,7 +230,7 @@ export function mapFormDataToTransaction(
 
 function validateShared(participants: TransactionFormState["shared"]): boolean {
   const joinedParticipants = participants.filter(
-    (participant) => participant.status > 0
+    (participant) => participant.status > Status.NONE
   );
 
   if (joinedParticipants.length < 2) {

@@ -33,7 +33,11 @@ const ParticipationStatusInput: FunctionComponent<Props> = ({
 
   return (
     <span className="participationStatus">
-      <span className={"joinedButtonWrapper" + (status === 2 ? " hidden" : "")}>
+      <span
+        className={
+          "joinedButtonWrapper" + (status === Status.PAID ? " hidden" : "")
+        }
+      >
         <button
           type="button"
           className={status > Status.NONE ? " selected" : ""}

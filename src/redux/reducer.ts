@@ -281,7 +281,7 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
         transactionForm: {
           ...state.transactionForm,
           shared: state.transactionForm.shared.map((participant) => {
-            if (participant.status > 0) {
+            if (participant.status > TransactionFormParticipantStatus.NONE) {
               return participant;
             }
             return {

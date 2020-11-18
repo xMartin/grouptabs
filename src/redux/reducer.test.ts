@@ -40,7 +40,7 @@ function createState(): Partial<AllState["app"]> {
   };
 }
 
-describe(UPDATE_TRANSACTION_PARTICIPANT, () => {
+describe(`${UPDATE_TRANSACTION_PARTICIPANT}`, () => {
   it("updates participant status", () => {
     const state = createState();
     const action = updateTransactionParticipant("p1", "status", Status.PAID);
@@ -55,7 +55,7 @@ describe(UPDATE_TRANSACTION_PARTICIPANT, () => {
   });
 });
 
-describe(ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, () => {
+describe(`${ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM}`, () => {
   it("adds participant input to new transaction form", () => {
     const state = createState();
     const action = addParticipantToTransactionSharedForm();
@@ -74,7 +74,7 @@ describe(ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM, () => {
   });
 });
 
-describe(SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM, () => {
+describe(`${SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM}`, () => {
   it("sets all participant inputs of status NONE to JOINED", () => {
     const state: Partial<AllState["app"]> = {
       transactionForm: {

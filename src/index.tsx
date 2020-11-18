@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { connectRoutes, LocationState } from "redux-first-router";
-// @ts-ignore
-import { createHashHistory } from "rudy-history";
 import {
   combineReducers,
   applyMiddleware,
@@ -19,18 +17,21 @@ import { restoreLocation, startPersistingLocation } from "./util/standalone";
 import appReducer from "./redux/reducer";
 import App from "./app";
 import routes from "./routes";
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./index.css";
 
 const debugSetting =
   new URL(window.location.toString()).searchParams.get("debug") || "";
 debug.enable(debugSetting);
 
+// replace legacy hash URLs with clean URLs
+if (window.location.hash.startsWith("#/tabs/")) {
+  window.history.replaceState(null, "", window.location.hash.substring(2));
+}
+
 restoreLocation();
 
-const router: any = connectRoutes(routes, {
-  createHistory: createHashHistory,
-});
+const router: any = connectRoutes(routes);
 
 startPersistingLocation(router.history);
 
@@ -93,5 +94,5 @@ function hideAppLoader() {
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();

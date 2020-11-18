@@ -34,7 +34,7 @@ const NewParticipantInput: FunctionComponent<Props> = ({
       className={
         "newParticipantInput" +
         (status > Status.NONE ? " selected" : "") +
-        (status === 2 ? " paid" : "")
+        (status === Status.PAID ? " paid" : "")
       }
     >
       <span className="participant">

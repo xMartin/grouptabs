@@ -215,7 +215,7 @@ exports[`renders empty form 1`] = `
                 className="joinedButtonWrapper"
               >
                 <button
-                  className=" selected"
+                  className="selected"
                   onClick={[Function]}
                   type="button"
                 >
@@ -229,18 +229,6 @@ exports[`renders empty form 1`] = `
               >
                 paid
               </button>
-              <span
-                className="amountInput hidden"
-              >
-                <input
-                  disabled={true}
-                  onChange={[Function]}
-                  placeholder="0"
-                  step="any"
-                  type="number"
-                  value=""
-                />
-              </span>
             </span>
           </div>
           <div
@@ -264,7 +252,7 @@ exports[`renders empty form 1`] = `
                 className="joinedButtonWrapper"
               >
                 <button
-                  className=" selected"
+                  className="selected"
                   onClick={[Function]}
                   type="button"
                 >
@@ -278,18 +266,6 @@ exports[`renders empty form 1`] = `
               >
                 paid
               </button>
-              <span
-                className="amountInput hidden"
-              >
-                <input
-                  disabled={true}
-                  onChange={[Function]}
-                  placeholder="0"
-                  step="any"
-                  type="number"
-                  value=""
-                />
-              </span>
             </span>
           </div>
         </div>
@@ -532,17 +508,6 @@ exports[`renders prefilled form 1`] = `
             <span
               className="participationStatus"
             >
-              <span
-                className="joinedButtonWrapper hidden"
-              >
-                <button
-                  className=" selected"
-                  onClick={[Function]}
-                  type="button"
-                >
-                  joined
-                </button>
-              </span>
               <button
                 className="paid-button selected"
                 onClick={[Function]}
@@ -554,7 +519,7 @@ exports[`renders prefilled form 1`] = `
                 className="amountInput"
               >
                 <input
-                  disabled={false}
+                  autoFocus={true}
                   onChange={[Function]}
                   placeholder="0"
                   step="any"
@@ -579,7 +544,7 @@ exports[`renders prefilled form 1`] = `
                 className="joinedButtonWrapper"
               >
                 <button
-                  className=" selected"
+                  className="selected"
                   onClick={[Function]}
                   type="button"
                 >
@@ -593,18 +558,6 @@ exports[`renders prefilled form 1`] = `
               >
                 paid
               </button>
-              <span
-                className="amountInput hidden"
-              >
-                <input
-                  disabled={true}
-                  onChange={[Function]}
-                  placeholder="0"
-                  step="any"
-                  type="number"
-                  value=""
-                />
-              </span>
             </span>
           </div>
         </div>

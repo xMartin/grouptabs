@@ -115,6 +115,7 @@ exports[`renders empty form 1`] = `
             className="form-row-input"
           >
             <input
+              autoFocus={true}
               onChange={[Function]}
               placeholder="Name …"
               type="text"
@@ -172,6 +173,7 @@ exports[`renders empty form 1`] = `
             className="form-row-input"
           >
             <input
+              autoFocus={true}
               onChange={[Function]}
               placeholder="Name …"
               type="text"
@@ -401,25 +403,6 @@ exports[`renders prefilled form 1`] = `
           </div>
         </div>
         <div
-          className="form-row"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <div
-            className="form-row-input"
-          >
-            <input
-              onChange={[Function]}
-              placeholder="Name …"
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
           className="direct-transaction-amount"
         >
           <svg
@@ -461,25 +444,6 @@ exports[`renders prefilled form 1`] = `
                 New participant…
               </option>
             </select>
-          </div>
-        </div>
-        <div
-          className="form-row"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <div
-            className="form-row-input"
-          >
-            <input
-              onChange={[Function]}
-              placeholder="Name …"
-              type="text"
-              value=""
-            />
           </div>
         </div>
       </div>

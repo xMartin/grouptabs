@@ -6,6 +6,7 @@ import { TransactionFormState } from "../types";
 import { PropsFromRedux } from "../app";
 
 interface Props {
+  visible?: boolean;
   mode: "new" | "edit";
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
@@ -66,6 +67,7 @@ const EditEntry: FunctionComponent<Props> = (props) => {
 
     return (
       <Form
+        visible={props.visible}
         mode={props.mode}
         data={props.formState}
         onUpdateForm={props.onUpdateForm}

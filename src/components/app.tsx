@@ -4,6 +4,12 @@ import Main from "./main";
 import EditEntry from "./editentry";
 import ErrorView from "./error";
 import { PropsFromRedux } from "../app";
+import {
+  ROUTE_NEW_TRANSACTION,
+  ROUTE_TAB,
+  ROUTE_TABS,
+  ROUTE_TRANSACTION,
+} from "../redux/actioncreators";
 
 const titleBase = "Grouptabs";
 
@@ -18,10 +24,10 @@ function setTitle(input?: string) {
 
 function getSceneIndex(routeName: string) {
   switch (routeName) {
-    case "ROUTE_TAB":
+    case ROUTE_TAB:
       return 2;
-    case "ROUTE_TRANSACTION":
-    case "ROUTE_NEW_TRANSACTION":
+    case ROUTE_TRANSACTION:
+    case ROUTE_NEW_TRANSACTION:
       return 3;
     default:
       return 1;
@@ -43,13 +49,13 @@ export default class App extends Component<Props> {
     const tabName = this.props.tabInfo?.name || "";
 
     switch (this.props.location.type) {
-      case "ROUTE_TAB":
+      case ROUTE_TAB:
         setTitle(tabName);
         break;
-      case "ROUTE_NEW_TRANSACTION":
+      case ROUTE_NEW_TRANSACTION:
         setTitle(tabName ? "New transaction (" + tabName + ")" : "");
         break;
-      case "ROUTE_TRANSACTION":
+      case ROUTE_TRANSACTION:
         const transaction = this.props.transaction;
         setTitle(
           transaction ? transaction.description + " (" + tabName + ")" : ""
@@ -63,17 +69,17 @@ export default class App extends Component<Props> {
   private getShowEditEntry() {
     const location = this.props.location;
     const locationIsOrWasTransaction =
-      location.type === "ROUTE_NEW_TRANSACTION" ||
-      location.type === "ROUTE_TRANSACTION" ||
-      location.prev?.type === "ROUTE_NEW_TRANSACTION" ||
-      location.prev?.type === "ROUTE_TRANSACTION";
+      location.type === ROUTE_NEW_TRANSACTION ||
+      location.type === ROUTE_TRANSACTION ||
+      location.prev?.type === ROUTE_NEW_TRANSACTION ||
+      location.prev?.type === ROUTE_TRANSACTION;
     return !!this.props.initialLoadingDone && locationIsOrWasTransaction;
   }
 
   private getEditEntryMode() {
     const location = this.props.location;
-    return location.type === "ROUTE_NEW_TRANSACTION" ||
-      location.prev?.type === "ROUTE_NEW_TRANSACTION"
+    return location.type === ROUTE_NEW_TRANSACTION ||
+      location.prev?.type === ROUTE_NEW_TRANSACTION
       ? "new"
       : "edit";
   }
@@ -97,7 +103,7 @@ export default class App extends Component<Props> {
           >
             <Tabs
               data={this.props.tabs}
-              visible={this.props.location.type === "ROUTE_TABS"}
+              visible={this.props.currentLocation === ROUTE_TABS}
               checkingRemoteTab={this.props.checkingRemoteTab}
               remoteTabError={this.props.remoteTabError}
               createTabInputValue={this.props.createTabInputValue}
@@ -114,7 +120,7 @@ export default class App extends Component<Props> {
               accounts={this.props.accounts}
               transactions={this.props.transactions}
               total={this.props.total}
-              visible={this.props.location.type === "ROUTE_TAB"}
+              visible={this.props.currentLocation === ROUTE_TAB}
               checkingRemoteTab={this.props.checkingRemoteTab}
               remoteTabError={this.props.remoteTabError}
               importingTab={this.props.importingTab}
@@ -125,6 +131,10 @@ export default class App extends Component<Props> {
             <div className="scene editEntryScene">
               {this.getShowEditEntry() && (
                 <EditEntry
+                  visible={
+                    this.props.currentLocation === ROUTE_TRANSACTION ||
+                    this.props.currentLocation === ROUTE_NEW_TRANSACTION
+                  }
                   mode={this.getEditEntryMode()}
                   formState={this.props.transactionFormState}
                   checkingRemoteTab={this.props.checkingRemoteTab}

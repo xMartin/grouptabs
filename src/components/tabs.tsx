@@ -33,7 +33,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
   };
 
   return (
-    <div className={"scene tabsScene" + (props.visible ? "" : " hidden")}>
+    <div className="scene tabsScene">
       <div className="header">
         <img id="logo" src={logo} alt="" />
         <h2>Grouptabs</h2>

@@ -2,7 +2,7 @@
 
 exports[`renders empty view with no tab selected 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -64,7 +64,7 @@ exports[`renders empty view with no tab selected 1`] = `
 
 exports[`renders missing tab info error 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -126,7 +126,7 @@ exports[`renders missing tab info error 1`] = `
 
 exports[`renders summary and transaction list 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -284,7 +284,7 @@ exports[`renders summary and transaction list 1`] = `
 
 exports[`renders tab with no transactions 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"

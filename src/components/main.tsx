@@ -203,7 +203,7 @@ const Main: FunctionComponent<Props> = (props) => {
   const isLoading = props.checkingRemoteTab || props.importingTab;
 
   return (
-    <div className={"scene mainScene" + (props.visible ? "" : " hidden")}>
+    <div className="scene mainScene">
       {renderHeader(!isLoading && !props.remoteTabError)}
       {transactionsHeadingIsOutOfViewport && (
         <h3

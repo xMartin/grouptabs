@@ -2,7 +2,7 @@
 
 exports[`renders empty tab view 1`] = `
 <div
-  className="scene tabsScene hidden"
+  className="scene tabsScene"
 >
   <div
     className="header"
@@ -81,7 +81,7 @@ exports[`renders empty tab view 1`] = `
 
 exports[`renders tab view 1`] = `
 <div
-  className="scene tabsScene hidden"
+  className="scene tabsScene"
 >
   <div
     className="header"

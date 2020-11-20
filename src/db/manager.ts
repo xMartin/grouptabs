@@ -89,16 +89,16 @@ export default class DbManager {
 
   async createDoc(entity: Entity) {
     const doc = this.entityToDoc(entity);
-    await this.dbs[entity.tabId].createDoc(doc);
+    await this.dbs[entity.tabId]!.createDoc(doc);
   }
 
   async updateDoc(entity: Entity) {
     const doc = this.entityToDoc(entity);
-    await this.dbs[entity.tabId].updateDoc(doc);
+    await this.dbs[entity.tabId]!.updateDoc(doc);
   }
 
   async deleteDoc(entity: Entity) {
-    await this.dbs[entity.tabId].deleteDoc(entity.id);
+    await this.dbs[entity.tabId]!.deleteDoc(entity.id);
   }
 
   async createTab(doc: Info) {
@@ -134,7 +134,7 @@ export default class DbManager {
     for (const dbName in this.dbs) {
       allDbs.push({
         tabId: dbName,
-        db: this.dbs[dbName],
+        db: this.dbs[dbName]!,
       });
     }
     return allDbs;

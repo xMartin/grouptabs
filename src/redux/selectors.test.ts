@@ -145,13 +145,13 @@ describe("getTransactions", () => {
 
     const result = getTransactions(state);
 
-    expect(result[0].id).toBe("2");
-    expect(result[0].transactionType).toBe(TransactionType.DIRECT);
+    expect(result[0]!.id).toBe("2");
+    expect(result[0]!.transactionType).toBe(TransactionType.DIRECT);
 
-    expect(result[1].id).toBe("1");
-    expect(result[1].transactionType).toBe(TransactionType.SHARED);
+    expect(result[1]!.id).toBe("1");
+    expect(result[1]!.transactionType).toBe(TransactionType.SHARED);
 
-    expect(result[2].id).toBe("3");
-    expect(result[2].transactionType).toBe(TransactionType.DIRECT);
+    expect(result[2]!.id).toBe("3");
+    expect(result[2]!.transactionType).toBe(TransactionType.DIRECT);
   });
 });

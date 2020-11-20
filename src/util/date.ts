@@ -14,7 +14,7 @@ export function parseDate(input: string) {
     );
   }
 
-  return new Date(params[0], params[1] - 1, params[2]);
+  return new Date(params[0]!, params[1]! - 1, params[2]);
 }
 
 /**

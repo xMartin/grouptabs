@@ -82,7 +82,7 @@ function transactions2Accounts(transactions: Transaction[]): Account[] {
   for (const participant in participants) {
     const resultObj = {
       participant,
-      amount: participants[participant],
+      amount: participants[participant]!,
     };
     result.push(resultObj);
   }

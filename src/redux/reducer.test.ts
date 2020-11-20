@@ -50,7 +50,7 @@ describe(`${UPDATE_TRANSACTION_PARTICIPANT}`, () => {
     if (!participants) {
       throw new Error();
     }
-    expect(participants[1].status).toBe(Status.PAID);
+    expect(participants[1]!.status).toBe(Status.PAID);
     expect(participants).not.toBe(state.transactionForm?.shared);
   });
 });
@@ -66,10 +66,10 @@ describe(`${ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM}`, () => {
       throw new Error();
     }
     expect(participants.length).toBe(3);
-    expect(participants[2].inputType).toBe(InputType.NEW);
-    expect(participants[2].participant).toBeUndefined();
-    expect(participants[2].status).toBe(Status.JOINED);
-    expect(participants[2].amount).toBeUndefined();
+    expect(participants[2]!.inputType).toBe(InputType.NEW);
+    expect(participants[2]!.participant).toBeUndefined();
+    expect(participants[2]!.status).toBe(Status.JOINED);
+    expect(participants[2]!.amount).toBeUndefined();
     expect(participants).not.toBe(state.transactionForm?.shared);
   });
 });

@@ -17,7 +17,7 @@ function getTransactionType(transaction: Transaction): TransactionType {
     const amounts = transaction.participants.map((participant) => {
       return participant.amount;
     });
-    if (amounts[0] && amounts[0] === -amounts[1]) {
+    if (amounts[0] && amounts[0] === -amounts[1]!) {
       return TransactionType.DIRECT;
     }
   }

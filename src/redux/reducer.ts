@@ -75,7 +75,7 @@ function docsReducer(state: AppState, actionMap: ActionMap): AppState {
 
     const tabId = dbDoc.tabId;
     if (doc.type === DocumentType.TRANSACTION) {
-      const transactions = transactionsByTab[tabId];
+      const transactions = transactionsByTab[tabId]!;
       transactionsByTab = {
         ...transactionsByTab,
         [tabId]: iarray.removeItem(transactions, doc.id),
@@ -247,7 +247,7 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
         throw new Error();
       }
       participants[idx] = {
-        ...participants[idx],
+        ...participants[idx]!,
         [action.key]: action.value,
       };
 

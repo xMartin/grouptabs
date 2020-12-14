@@ -2,7 +2,7 @@
 
 export default class ImmutableArrayHelper {
   static addUniq<T>(array: T[], item: T): T[] {
-    var index = array.indexOf(item);
+    const index = array.indexOf(item);
     if (index !== -1) {
       return array;
     }
@@ -17,7 +17,7 @@ export default class ImmutableArrayHelper {
   }
 
   static removeItem<T>(array: T[], item: T): T[] {
-    var index = array.indexOf(item);
+    const index = array.indexOf(item);
 
     if (index !== -1) {
       return ImmutableArrayHelper.remove(array, index);

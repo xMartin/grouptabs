@@ -1,5 +1,5 @@
 import React, { memo, FunctionComponent } from "react";
-import dateUtils from "../util/date";
+import { formatHumanDate } from "../util/date";
 import TransactionListItem from "./transactionlistitem";
 import { Transaction } from "../types";
 
@@ -18,11 +18,11 @@ const groupTransactions = (transactions: Transaction[]) => {
     return (transactions as unknown) as DateGroup[];
   }
   // XXX Refactor structuring of date groups with a proper loop
-  var date = dateUtils.formatHumanDate(transactions[0].date);
-  var dateGroups: DateGroup[] = [];
-  var dateGroupTransactions: Transaction[] = [];
-  transactions.forEach(function (transaction) {
-    var currentDate = dateUtils.formatHumanDate(transaction.date);
+  let date = formatHumanDate(transactions[0].date);
+  const dateGroups: DateGroup[] = [];
+  let dateGroupTransactions: Transaction[] = [];
+  transactions.forEach((transaction) => {
+    const currentDate = formatHumanDate(transaction.date);
     if (currentDate !== date) {
       dateGroups.push({
         date: date,
@@ -31,7 +31,7 @@ const groupTransactions = (transactions: Transaction[]) => {
       dateGroupTransactions = [];
     }
     dateGroupTransactions.push(transaction);
-    date = dateUtils.formatHumanDate(transaction.date);
+    date = formatHumanDate(transaction.date);
   });
   dateGroups.push({
     date: date,

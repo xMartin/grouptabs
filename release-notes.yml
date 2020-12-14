@@ -3,9 +3,19 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.4.0
+    date: 2020-12-14
+    description: Clean URLs and smaller bugfixes and improvements
+    improved:
+      - Clean URLs without "#" based on HTML 5 history
+      - Improve auto-focusing of amount inputs and new participant inputs for direct transactions
+    fixed:
+      - Fix not displaying direct transaction form for legacy direct transaction
+    changed:
+      - Update libraries, in particular Create React App to version 4 which comes with a new service worker implementation for offline support
   - version: 1.3.1
     date: 2020-07-26
-    description: No changes - testing release process  
+    description: No changes - testing release process
   - version: 1.3.0
     date: 2020-07-26
     added:
@@ -25,7 +35,7 @@ releases:
     date: 2020-04-07
     description: Bugfixes and improvements
     fixed:
-      - Persist last opened tab on Android PWA (#171) 
+      - Persist last opened tab on Android PWA (#171)
       - Handle case of importing an already imported tab (#172)
     changed:
       - Manage state of the transaction form globally together with the rest of the app's state using Redux

@@ -4,12 +4,12 @@ import allDbs from "pouchdb-all-dbs";
 
 allDbs(PouchDB, { noCache: true });
 
-const KEY = "tabs";
+const TABS_KEY = "tabs";
 
 // Migrate from PouchDB.allDbs to localStoage.
 // Remove after a while.
 export const migrateFromPouchDbAllDbsToLocalStorage = async () => {
-  if (localStorage.getItem(KEY) !== null) {
+  if (localStorage.getItem(TABS_KEY) !== null) {
     return;
   }
 
@@ -52,7 +52,7 @@ export const migrateFromPouchDbAllDbsToLocalStorage = async () => {
 };
 
 export const loadTabIds = (): string[] => {
-  const raw = localStorage.getItem(KEY);
+  const raw = localStorage.getItem(TABS_KEY);
   if (!raw) {
     return [];
   }
@@ -79,7 +79,7 @@ export const addTabId = (tabId: string): void => {
   const tabIds = loadTabIds();
   if (!tabIds.includes(tabId)) {
     tabIds.push(tabId);
-    localStorage.setItem(KEY, JSON.stringify(tabIds));
+    localStorage.setItem(TABS_KEY, JSON.stringify(tabIds));
   }
 };
 

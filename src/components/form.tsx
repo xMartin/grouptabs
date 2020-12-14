@@ -48,7 +48,7 @@ const Form: FunctionComponent<Props> = (props) => {
   const handleSelectTransactionType = (
     event: SyntheticEvent<HTMLSelectElement>
   ) => {
-    var transactionType = event.currentTarget.value;
+    const transactionType = event.currentTarget.value;
     props.onUpdateForm(
       "transactionType",
       TransactionType[transactionType as keyof typeof TransactionType]

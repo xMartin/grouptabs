@@ -13,7 +13,7 @@ import {
   createFormData,
   mapFormDataToTransaction,
 } from "../util/transactionform";
-import selectors from "./selectors";
+import { getAccounts } from "./selectors";
 
 export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
 export const CHECK_REMOTE_TAB_FAILURE = "CHECK_REMOTE_TAB_FAILURE";
@@ -347,7 +347,6 @@ export type GTAction =
   | ResetTransactionFormAction
   | UpdateTransactionFormAction<keyof TransactionFormState>
   | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
-  | UpdateTransactionSharedFormAction<keyof TransactionFormState["shared"]>
   | UpdateTransactionDirectFormAction<keyof TransactionFormState["direct"]>
   | UpdateTransactionParticipantAction<"participant" | "status" | "amount">
   | AddParticipantToTransactionSharedFormAction
@@ -366,9 +365,9 @@ export type GTThunkAction = ThunkAction<
 >;
 
 const generateTabId = () => {
-  var chars = "0123456789abcdefghijklmnopqrstuvwxyz";
-  var result = "";
-  for (var i = 0; i < 7; ++i) {
+  const chars = "0123456789abcdefghijklmnopqrstuvwxyz";
+  let result = "";
+  for (let i = 0; i < 7; ++i) {
     result += chars.substr(Math.floor(Math.random() * chars.length), 1);
   }
   return result;
@@ -398,9 +397,8 @@ const checkTab = async (
       dispatch(resetImportTabInputValue());
     }
 
-    await dbManager
-      .connectTab(id)
-      .then((actionMap) => dispatch(createUpdateFromDbAction(actionMap)));
+    const localDocs = await dbManager.connectTab(id);
+    dispatch(createUpdateFromDbAction(localDocs));
   } catch (error) {
     let message;
     if (error.name === "not_found") {
@@ -555,6 +553,6 @@ export const initTransactionForm = (): GTThunkAction => async (
     );
   }
 
-  const formState = createFormData(selectors.getAccounts(state), transaction);
+  const formState = createFormData(getAccounts(state), transaction);
   dispatch(createSetTransactionFormAction(formState));
 };

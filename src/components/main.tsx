@@ -32,7 +32,7 @@ interface Props {
 
 const useTransactionHeadingScroller = (
   transactionsHeadingRef: RefObject<HTMLElement>,
-  recheckDependencies: any[]
+  recheckDependencies: unknown[]
 ): {
   transactionsHeadingIsOutOfViewport: boolean;
   scrollToTransactionHeading: () => void;

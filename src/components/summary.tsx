@@ -6,14 +6,12 @@ interface Props {
 }
 
 function formatData(accounts: Account[]) {
-  var round = function (amount: number) {
-    return Math.round(amount * 100) / 100;
-  };
+  const round = (amount: number) => Math.round(amount * 100) / 100;
 
-  var getMaxAmount = function (accounts: Account[]) {
-    var result = 0;
-    accounts.forEach(function (account) {
-      var amount = Math.abs(account.amount);
+  const getMaxAmount = (accounts: Account[]) => {
+    let result = 0;
+    accounts.forEach((account) => {
+      const amount = Math.abs(account.amount);
       if (amount > result) {
         result = amount;
       }
@@ -21,25 +19,23 @@ function formatData(accounts: Account[]) {
     return round(result);
   };
 
-  var getRowStyle = function (amount: number, maxAmount: number) {
+  const getRowStyle = (amount: number, maxAmount: number) => {
     if (!maxAmount) {
       return { backgroundColor: "transparent" };
     }
-    var color = amount < 0 ? [226, 91, 29] : [92, 226, 14];
-    var opacity = Math.abs(amount) / maxAmount;
+    const color = amount < 0 ? [226, 91, 29] : [92, 226, 14];
+    const opacity = Math.abs(amount) / maxAmount;
     color.push(opacity);
     const textColor = opacity > 0.6 ? "var(--dark-color)" : "";
     return { backgroundColor: `rgba(${color.join(",")})`, color: textColor };
   };
 
-  var maxAmount = getMaxAmount(accounts);
-  var data = accounts.map(function (account) {
-    return {
-      amount: round(account.amount),
-      style: getRowStyle(account.amount, maxAmount),
-      participant: account.participant,
-    };
-  });
+  const maxAmount = getMaxAmount(accounts);
+  const data = accounts.map((account) => ({
+    amount: round(account.amount),
+    style: getRowStyle(account.amount, maxAmount),
+    participant: account.participant,
+  }));
 
   return data;
 }

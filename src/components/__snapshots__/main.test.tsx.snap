@@ -109,3 +109,224 @@ exports[`renders missing tab info error 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders summary and transaction list 1`] = `
+<div
+  className="scene mainScene hidden"
+>
+  <div
+    className="header"
+  >
+    <button
+      className="left"
+      onClick={[MockFunction]}
+    >
+      <svg
+        height="16"
+        width="16"
+      >
+        <path
+          d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z"
+        />
+      </svg>
+    </button>
+    <h2>
+      My Tab
+    </h2>
+    <button
+      className="create"
+      onClick={[Function]}
+    >
+      +
+    </button>
+  </div>
+  <div>
+    <div
+      className="row"
+    >
+      <div
+        id="summary"
+      >
+        <table
+          id="balance"
+        >
+          <tbody>
+            <tr
+              style={
+                Object {
+                  "backgroundColor": "rgba(226,91,29,1)",
+                  "color": "var(--dark-color)",
+                }
+              }
+            >
+              <th
+                className="account"
+              >
+                Jan
+              </th>
+              <td
+                className="amount"
+              >
+                -11.7
+              </td>
+            </tr>
+            <tr
+              style={
+                Object {
+                  "backgroundColor": "rgba(92,226,14,1)",
+                  "color": "var(--dark-color)",
+                }
+              }
+            >
+              <th
+                className="account"
+              >
+                Martin
+              </th>
+              <td
+                className="amount"
+              >
+                11.7
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <h3
+        className="transactions-heading"
+      >
+        Transactions
+      </h3>
+      <div
+        id="transactions"
+      >
+        <div>
+          <div>
+            <div
+              className="dategroup"
+            >
+              9/20/2020
+            </div>
+            <div
+              className="transaction"
+              onClick={[Function]}
+            >
+              <table>
+                <tbody>
+                  <tr>
+                    <td
+                      className="title"
+                    >
+                      Gummibärchen
+                      <div
+                        className="payments"
+                      >
+                        <strong>
+                          Martin: 22.8, 
+                        </strong>
+                        Jan
+                      </div>
+                    </td>
+                    <td
+                      className="total"
+                    >
+                      22.8
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="total-sum"
+      >
+        Total Spending: 
+        22.8
+      </div>
+    </div>
+    <div
+      className="share-info"
+    >
+      <p>
+        Share this tab ID for collaboration with others:
+        <br />
+        <code>
+          2
+        </code>
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders tab with no transactions 1`] = `
+<div
+  className="scene mainScene hidden"
+>
+  <div
+    className="header"
+  >
+    <button
+      className="left"
+      onClick={[MockFunction]}
+    >
+      <svg
+        height="16"
+        width="16"
+      >
+        <path
+          d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z"
+        />
+      </svg>
+    </button>
+    <h2>
+      My Tab
+    </h2>
+    <button
+      className="create"
+      onClick={[Function]}
+    >
+      +
+    </button>
+  </div>
+  <div>
+    <div
+      className="empty-info"
+    >
+      <p>
+        A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
+      </p>
+      <p>
+        Start by adding your first transaction:
+      </p>
+      <div
+        className="row"
+      >
+        <button
+          className="full-width create"
+          onClick={[Function]}
+        >
+          Add transaction
+        </button>
+      </div>
+    </div>
+    <div
+      className="share-info"
+    >
+      <p>
+        Share this tab ID for collaboration with others:
+        <br />
+        <code>
+          6
+        </code>
+      </p>
+    </div>
+  </div>
+</div>
+`;

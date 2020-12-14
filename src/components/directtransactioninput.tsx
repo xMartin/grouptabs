@@ -4,7 +4,7 @@ import { NEW_PARTICIPANT_OPTION } from "../util/transactionform";
 import { control } from "../util/form";
 import { PropsFromRedux } from "../app";
 
-var newParticipantOptionLabel = "New participant…";
+const newParticipantOptionLabel = "New participant…";
 
 interface Props {
   data: TransactionFormState["direct"];
@@ -59,23 +59,21 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
           </select>
         </div>
       </div>
-      <div
-        className="form-row"
-        style={
-          from === NEW_PARTICIPANT_OPTION ? undefined : { display: "none" }
-        }
-      >
-        <div className="form-row-input">
-          <input
-            type="text"
-            placeholder="Name …"
-            value={control(fromNew)}
-            onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-              onChange("fromNew", event.currentTarget.value)
-            }
-          />
+      {from === NEW_PARTICIPANT_OPTION && (
+        <div className="form-row">
+          <div className="form-row-input">
+            <input
+              type="text"
+              placeholder="Name …"
+              value={control(fromNew)}
+              onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+                onChange("fromNew", event.currentTarget.value)
+              }
+              autoFocus={true}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="direct-transaction-amount">
         <svg height="16" width="16">
           <path d="m15.511 8.5129c0-0.8974-1.0909-1.3404-1.7168-0.6973l-4.7832 4.7837v-11.573c0.019125-1.3523-2.0191-1.3523-2 0v11.572l-4.7832-4.7832c-0.94251-0.98163-2.3957 0.47155-1.4141 1.4141l6.49 6.4911c0.3878 0.387 1.0228 0.391 1.414 0l6.4903-6.4906c0.1935-0.1883 0.30268-0.4468 0.3027-0.7168z" />
@@ -109,21 +107,21 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
           </select>
         </div>
       </div>
-      <div
-        className="form-row"
-        style={to === NEW_PARTICIPANT_OPTION ? undefined : { display: "none" }}
-      >
-        <div className="form-row-input">
-          <input
-            type="text"
-            placeholder="Name …"
-            value={control(toNew)}
-            onChange={(event: SyntheticEvent<HTMLInputElement>) =>
-              onChange("toNew", event.currentTarget.value)
-            }
-          />
+      {to === NEW_PARTICIPANT_OPTION && (
+        <div className="form-row">
+          <div className="form-row-input">
+            <input
+              type="text"
+              placeholder="Name …"
+              value={control(toNew)}
+              onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+                onChange("toNew", event.currentTarget.value)
+              }
+              autoFocus={true}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

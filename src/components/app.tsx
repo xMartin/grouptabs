@@ -5,11 +5,11 @@ import EditEntry from "./editentry";
 import ErrorView from "./error";
 import { PropsFromRedux } from "../app";
 
-var titleBase = "Grouptabs";
+const titleBase = "Grouptabs";
 
 function setTitle(input?: string) {
-  var documentTitle = document.title;
-  var result = input ? input + " – " + titleBase : titleBase;
+  const documentTitle = document.title;
+  const result = input ? input + " – " + titleBase : titleBase;
 
   if (result !== documentTitle) {
     document.title = result;
@@ -32,7 +32,7 @@ export default class App extends Component<Props> {
   }
 
   setPageTitle() {
-    var tabName = this.props.tabInfo?.name || "";
+    const tabName = this.props.tabInfo?.name || "";
 
     switch (this.props.location.type) {
       case "ROUTE_TAB":
@@ -42,7 +42,7 @@ export default class App extends Component<Props> {
         setTitle(tabName ? "New transaction (" + tabName + ")" : "");
         break;
       case "ROUTE_TRANSACTION":
-        var transaction = this.props.transaction;
+        const transaction = this.props.transaction;
         setTitle(
           transaction ? transaction.description + " (" + tabName + ")" : ""
         );

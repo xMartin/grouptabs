@@ -30,25 +30,6 @@ exports[`renders empty 1`] = `
     </div>
   </div>
   <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-  >
-    <div
-      className="form-row-input"
-    >
-      <input
-        onChange={[Function]}
-        placeholder="Name …"
-        type="text"
-        value=""
-      />
-    </div>
-  </div>
-  <div
     className="direct-transaction-amount"
   >
     <svg
@@ -92,25 +73,6 @@ exports[`renders empty 1`] = `
       </select>
     </div>
   </div>
-  <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-  >
-    <div
-      className="form-row-input"
-    >
-      <input
-        onChange={[Function]}
-        placeholder="Name …"
-        type="text"
-        value=""
-      />
-    </div>
-  </div>
 </div>
 `;
 
@@ -141,25 +103,6 @@ exports[`renders prefilled 1`] = `
           New participant…
         </option>
       </select>
-    </div>
-  </div>
-  <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-  >
-    <div
-      className="form-row-input"
-    >
-      <input
-        onChange={[Function]}
-        placeholder="Name …"
-        type="text"
-        value=""
-      />
     </div>
   </div>
   <div
@@ -204,25 +147,6 @@ exports[`renders prefilled 1`] = `
           New participant…
         </option>
       </select>
-    </div>
-  </div>
-  <div
-    className="form-row"
-    style={
-      Object {
-        "display": "none",
-      }
-    }
-  >
-    <div
-      className="form-row-input"
-    >
-      <input
-        onChange={[Function]}
-        placeholder="Name …"
-        type="text"
-        value=""
-      />
     </div>
   </div>
 </div>

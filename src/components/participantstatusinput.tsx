@@ -1,4 +1,10 @@
-import React, { SyntheticEvent, FunctionComponent, memo } from "react";
+import React, {
+  SyntheticEvent,
+  FunctionComponent,
+  memo,
+  useRef,
+  useEffect,
+} from "react";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";
 
@@ -17,6 +23,12 @@ const ParticipationStatusInput: FunctionComponent<Props> = ({
   onPaidChange,
   onAmountChange,
 }) => {
+  const readyForAutoFocus = useRef<boolean>(false);
+  // set ready for auto focus on mount so inputs will only focus when they appear later
+  useEffect(() => {
+    readyForAutoFocus.current = true;
+  }, []);
+
   return (
     <span className="participationStatus">
       {status !== Status.PAID && (
@@ -51,7 +63,7 @@ const ParticipationStatusInput: FunctionComponent<Props> = ({
                   : undefined
               )
             }
-            autoFocus={true}
+            autoFocus={readyForAutoFocus.current}
           />
         </span>
       )}

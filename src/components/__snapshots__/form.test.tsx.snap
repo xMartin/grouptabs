@@ -484,7 +484,7 @@ exports[`renders prefilled form 1`] = `
                 className="amountInput"
               >
                 <input
-                  autoFocus={true}
+                  autoFocus={false}
                   onChange={[Function]}
                   placeholder="0"
                   step="any"

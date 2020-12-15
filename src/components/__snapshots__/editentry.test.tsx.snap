@@ -150,6 +150,7 @@ Array [
               className="form-row-input"
             >
               <input
+                autoFocus={true}
                 onChange={[Function]}
                 placeholder="Name …"
                 type="text"
@@ -207,6 +208,7 @@ Array [
               className="form-row-input"
             >
               <input
+                autoFocus={true}
                 onChange={[Function]}
                 placeholder="Name …"
                 type="text"
@@ -249,7 +251,7 @@ Array [
                   className="joinedButtonWrapper"
                 >
                   <button
-                    className=" selected"
+                    className="selected"
                     onClick={[Function]}
                     type="button"
                   >
@@ -263,18 +265,6 @@ Array [
                 >
                   paid
                 </button>
-                <span
-                  className="amountInput hidden"
-                >
-                  <input
-                    disabled={true}
-                    onChange={[Function]}
-                    placeholder="0"
-                    step="any"
-                    type="number"
-                    value=""
-                  />
-                </span>
               </span>
             </div>
             <div
@@ -297,7 +287,7 @@ Array [
                   className="joinedButtonWrapper"
                 >
                   <button
-                    className=" selected"
+                    className="selected"
                     onClick={[Function]}
                     type="button"
                   >
@@ -311,18 +301,6 @@ Array [
                 >
                   paid
                 </button>
-                <span
-                  className="amountInput hidden"
-                >
-                  <input
-                    disabled={true}
-                    onChange={[Function]}
-                    placeholder="0"
-                    step="any"
-                    type="number"
-                    value=""
-                  />
-                </span>
               </span>
             </div>
           </div>
@@ -563,25 +541,6 @@ Array [
             </div>
           </div>
           <div
-            className="form-row"
-            style={
-              Object {
-                "display": "none",
-              }
-            }
-          >
-            <div
-              className="form-row-input"
-            >
-              <input
-                onChange={[Function]}
-                placeholder="Name …"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-          <div
             className="direct-transaction-amount"
           >
             <svg
@@ -618,25 +577,6 @@ Array [
               />
             </div>
           </div>
-          <div
-            className="form-row"
-            style={
-              Object {
-                "display": "none",
-              }
-            }
-          >
-            <div
-              className="form-row-input"
-            >
-              <input
-                onChange={[Function]}
-                placeholder="Name …"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
         </div>
       </div>
       <div
@@ -667,7 +607,7 @@ Array [
                   className="joinedButtonWrapper"
                 >
                   <button
-                    className=" selected"
+                    className="selected"
                     onClick={[Function]}
                     type="button"
                   >
@@ -681,18 +621,6 @@ Array [
                 >
                   paid
                 </button>
-                <span
-                  className="amountInput hidden"
-                >
-                  <input
-                    disabled={true}
-                    onChange={[Function]}
-                    placeholder="0"
-                    step="any"
-                    type="number"
-                    value={5}
-                  />
-                </span>
               </span>
             </div>
             <div
@@ -710,7 +638,7 @@ Array [
                   className="joinedButtonWrapper"
                 >
                   <button
-                    className=" selected"
+                    className="selected"
                     onClick={[Function]}
                     type="button"
                   >
@@ -724,18 +652,6 @@ Array [
                 >
                   paid
                 </button>
-                <span
-                  className="amountInput hidden"
-                >
-                  <input
-                    disabled={true}
-                    onChange={[Function]}
-                    placeholder="0"
-                    step="any"
-                    type="number"
-                    value={0}
-                  />
-                </span>
               </span>
             </div>
           </div>

@@ -113,7 +113,7 @@ export default class DbManager {
     const remoteDbLocation =
       config.backendUrl + "/" + encodeURIComponent(dbName);
 
-    const db = new PouchDB(remoteDbLocation);
+    const db = new PouchDB(remoteDbLocation, { skip_setup: true });
 
     return db.get("info");
   }

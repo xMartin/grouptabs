@@ -448,10 +448,6 @@ input[type="number"] {
   display: flex;
   text-align: right;
 }
-.participantInput .joinedButtonWrapper.hidden,
-.newParticipantInput .joinedButtonWrapper.hidden {
-  width: 0;
-}
 .participantInput button,
 .newParticipantInput button {
   color: var(--participant-status-none-color);
@@ -464,10 +460,6 @@ input[type="number"] {
 .participantInput .amountInput,
 .newParticipantInput .amountInput {
   width: 70px;
-}
-.participantInput .amountInput.hidden,
-.newParticipantInput .amountInput.hidden {
-  width: 0;
 }
 .participantInput .amountInput input[type="number"],
 .newParticipantInput .amountInput input[type="number"] {

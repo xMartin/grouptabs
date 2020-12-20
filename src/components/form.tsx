@@ -82,7 +82,7 @@ const Form: FunctionComponent<Props> = (props) => {
   const showAllJoinedButton = numberOfNonJoined > 1;
 
   return (
-    <form id="edit-entry-form" className="content" onSubmit={handleSubmit}>
+    <form id="edit-entry-form" onSubmit={handleSubmit}>
       <div className="form">
         <div className="form-row">
           <div className="form-row-input description">

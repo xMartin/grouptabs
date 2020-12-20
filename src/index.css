@@ -247,8 +247,35 @@ input[type="number"] {
 
 .header {
   height: 56px;
-  margin-bottom: 0.5em;
   position: relative;
+}
+.header::after {
+  opacity: 0;
+  transition: opacity 400ms;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1) 10%,
+    transparent
+  );
+  z-index: 1;
+}
+@media (prefers-color-scheme: dark) {
+  .header::after {
+    background: linear-gradient(
+      rgba(0, 0, 0),
+      rgba(0, 0, 0, 0.8) 10%,
+      transparent
+    );
+  }
+}
+.header.elevated::after {
+  opacity: 1;
 }
 .header h2 {
   position: absolute;
@@ -273,6 +300,7 @@ input[type="number"] {
 }
 
 .content {
+  padding-top: 0.5em;
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

@@ -16,6 +16,7 @@ import {
 import { control } from "../util/form";
 import { PropsFromRedux } from "../app";
 import { validate } from "../util/transactionform";
+import { isIOs } from "../util/ua";
 
 interface Props {
   visible?: boolean;
@@ -36,7 +37,7 @@ const Form: FunctionComponent<Props> = (props) => {
 
   // focus desciption when view is visible
   useEffect(() => {
-    if (props.mode === "new" && props.visible) {
+    if (!isIOs && props.mode === "new" && props.visible) {
       descriptionInput.current?.focus();
     }
   }, [props.mode, props.visible]);

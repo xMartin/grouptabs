@@ -410,6 +410,7 @@ input[type="number"] {
 }
 .editEntryScene .date-input {
   display: flex;
+  flex-wrap: wrap;
 }
 .editEntryScene .date-input > * {
   width: auto;

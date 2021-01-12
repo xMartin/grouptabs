@@ -21,7 +21,7 @@ exports[`renders empty view with no tab selected 1`] = `
       </svg>
     </button>
     <h2>
-      
+
     </h2>
     <button
       className="create"
@@ -83,7 +83,7 @@ exports[`renders missing tab info error 1`] = `
       </svg>
     </button>
     <h2>
-      
+
     </h2>
     <button
       className="create"
@@ -243,7 +243,7 @@ exports[`renders summary and transaction list 1`] = `
                         className="payments"
                       >
                         <strong>
-                          Martin: 22.8, 
+                          Martin: 22.8,
                         </strong>
                         Jan
                       </div>
@@ -263,7 +263,7 @@ exports[`renders summary and transaction list 1`] = `
       <div
         className="total-sum"
       >
-        Total Spending: 
+        Total Spending:
         22.8
       </div>
     </div>
@@ -324,7 +324,7 @@ exports[`renders tab with no transactions 1`] = `
       className="empty-info"
     >
       <p>
-        A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
+        A tab consists of transactions. When you add a transaction you also define the participants.
       </p>
       <p>
         Start by adding your first transaction:

@@ -1,5 +1,5 @@
 import React, { memo, FunctionComponent } from "react";
-import logo from "../images/logo.png";
+import logo from "../images/grouptabs-logo.svg";
 
 interface Props {
   error: { error: any; info: any };
@@ -10,7 +10,7 @@ const Error: FunctionComponent<Props> = () => {
     <div className="scene errorScene">
       <div className="header">
         <img id="logo" src={logo} alt="" />
-        <h2>Error</h2>
+        <h2>Grouptabs</h2>
       </div>
       <p>Oops, unfortunately an error occured.</p>
       <p>

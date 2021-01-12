@@ -1,9 +1,9 @@
-import React, { FunctionComponent, useState, useEffect, memo } from "react";
+import React, { FunctionComponent, memo } from "react";
 import TabListButton from "./tablistbutton";
 import CreateForm from "./createform";
 import ImportForm from "./importform";
 import { Tab } from "../types";
-import logo from "../images/logo.png";
+import logo from "../images/grouptabs-logo.svg";
 import useScrollIndicator from "../hooks/scrollindicator";
 
 interface Props {
@@ -21,19 +21,7 @@ interface Props {
 }
 
 const Tabs: FunctionComponent<Props> = (props) => {
-  const [hideImportForm, setHideImportForm] = useState(true);
-
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
-
-  useEffect(() => {
-    if (props.visible) {
-      setHideImportForm(true);
-    }
-  }, [props.visible]);
-
-  const handleShowImportFormClick = () => {
-    setHideImportForm(false);
-  };
 
   return (
     <div className="scene tabsScene">
@@ -58,13 +46,15 @@ const Tabs: FunctionComponent<Props> = (props) => {
           ) : (
             <div className="empty-info">
               <p>
-                Track shared expenses in a group of people. Every group has its
-                own tab like "Summer roadtrip" or "Badminton".
+                <strong>Track expenses in a group of people!</strong>
               </p>
-              <p>Start by creating your first tab:</p>
+              <p>
+                Every group has a tab like "Summer roadtrip" or "Badminton team"
+                – start by creating one!
+              </p>
             </div>
           )}
-          <div className="row">
+          <div className={`row${!props.data.length ? " emptycontent" : ""}`}>
             <CreateForm
               tabName={props.createTabInputValue}
               onTabNameChange={props.onCreateTabInputChange}
@@ -72,25 +62,19 @@ const Tabs: FunctionComponent<Props> = (props) => {
             />
           </div>
           <div className="row">
-            {hideImportForm ? (
-              <p className="fake-link" onClick={handleShowImportFormClick}>
-                Open shared tab
-              </p>
-            ) : (
-              <ImportForm
-                checkingRemoteTab={props.checkingRemoteTab}
-                remoteTabError={props.remoteTabError}
-                tabId={props.importTabInputValue}
-                onTabIdChange={props.onImportTabInputChange}
-                onSubmit={props.onImportTab}
-              />
-            )}
+            <ImportForm
+              checkingRemoteTab={props.checkingRemoteTab}
+              remoteTabError={props.remoteTabError}
+              tabId={props.importTabInputValue}
+              onTabIdChange={props.onImportTabInputChange}
+              onSubmit={props.onImportTab}
+            />
           </div>
         </main>
         <footer>
-          Version: {process.env.REACT_APP_GT_VERSION || "VERSION"} –{" "}
+          Version: {process.env.REACT_APP_GT_VERSION || "VERSION"} ·{" "}
           {/* eslint-disable react/jsx-no-target-blank */}
-          <a href="https://grouptabs.net/" target="_blank" rel="noopener">
+          <a href="https://grouptabs.net" target="_blank" rel="noopener">
             {/* eslint-enable react/jsx-no-target-blank */}
             grouptabs.net
           </a>

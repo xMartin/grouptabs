@@ -139,8 +139,12 @@ const Form: FunctionComponent<Props> = (props) => {
           />
           <div className="form-row">
             <div className="form-row-input">
-              <button type="button" onClick={props.onAddParticipant}>
-                + new participant
+              <button
+                type="button"
+                className="add-participant"
+                onClick={props.onAddParticipant}
+              >
+                + Add participant
               </button>
               {showAllJoinedButton && (
                 <button
@@ -157,9 +161,9 @@ const Form: FunctionComponent<Props> = (props) => {
       </div>
       <div className={"row" + (props.mode === "edit" ? " button-row" : "")}>
         {props.mode === "edit" ? (
-          <span className="fake-link delete" onClick={handleDelete}>
+          <button className="delete" onClick={handleDelete}>
             Delete transaction
-          </span>
+          </button>
         ) : null}
       </div>
     </form>

@@ -7,7 +7,7 @@ interface Props {
 const TotalSpending: FunctionComponent<Props> = ({ amount }) => {
   const formattedAmount = Math.round(amount * 100) / 100;
 
-  return <div className="total-sum">Total Spending: {formattedAmount}</div>;
+  return <div className="total-sum">Total spending: {formattedAmount}</div>;
 };
 
 export default memo(TotalSpending);

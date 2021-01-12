@@ -25,20 +25,20 @@ const ImportForm: FunctionComponent<Props> = ({
 
   return (
     <form onSubmit={handleSubmit} className="import-form">
-      <div className="row-label">Open shared tab:</div>
       <input
         type="text"
         className="full-width"
-        placeholder="Tab ID …"
+        placeholder="Open shared tab"
         disabled={checkingRemoteTab}
-        autoFocus={true}
         value={control(tabId)}
         onChange={(event: SyntheticEvent<HTMLInputElement>) =>
           onTabIdChange(event.currentTarget.value)
         }
+        onFocus={(e) => (e.target.placeholder = "Tab ID …")}
+        onBlur={(e) => (e.target.placeholder = "Open shared tab")}
       />
       <button disabled={checkingRemoteTab}>
-        {checkingRemoteTab ? "Checking…" : "Open"}
+        {checkingRemoteTab ? "Checking …" : "Open shared tab"}
       </button>
       <div className="error-message">{remoteTabError}</div>
     </form>

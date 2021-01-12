@@ -40,7 +40,7 @@ const formatData = (data: Transaction) => {
   let payments = "";
   let total = 0;
   paymentsList.forEach((payment, idx) => {
-    payments += payment.participant + ": " + round(payment.amount);
+    payments += payment.participant + " " + round(payment.amount);
 
     if (
       idx < paymentsList.length - 1 ||
@@ -49,13 +49,13 @@ const formatData = (data: Transaction) => {
       if (data.transactionType === TransactionType.DIRECT) {
         payments += " → ";
       } else {
-        payments += ", ";
+        payments += " · ";
       }
     }
 
     total += payment.amount;
   });
-  result.payments = <strong>{payments}</strong>;
+  result.payments = <em>{payments}</em>;
   result.total = round(total);
 
   const participantsList = data.participants
@@ -70,7 +70,7 @@ const formatData = (data: Transaction) => {
       }
     }
 
-    participants += participant + ", ";
+    participants += participant + " · ";
   });
   result.participants = participants.substring(0, participants.length - 2);
 
@@ -84,25 +84,19 @@ const TransactionListItem: FunctionComponent<Props> = ({
   const data = formatData(transaction);
 
   return (
-    <div
+    <button
       className="transaction"
       onClick={() => onDetailsClick(transaction.tabId, transaction.id)}
     >
-      <table>
-        <tbody>
-          <tr>
-            <td className="title">
-              {data.title}
-              <div className="payments">
-                {data.payments}
-                {data.participants}
-              </div>
-            </td>
-            <td className="total">{data.total}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div className="transaction-text">
+        <div className="title">{data.title}</div>
+        <div className="payments">
+          {data.payments}
+          {data.participants}
+        </div>
+      </div>
+      <div className="total">{data.total}</div>
+    </button>
   );
 };
 

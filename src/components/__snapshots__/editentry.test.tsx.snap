@@ -356,24 +356,28 @@ Array [
     </h2>
   </div>,
   <div
-    className="load-error"
+    className="content"
   >
-    <img
-      alt=""
-      src="logo.png"
-    />
-    <h2>
-      Grouptabs
-    </h2>
-    <p>
-      Could not find transaction.
-    </p>
-    <button
-      className="create"
-      onClick={[Function]}
+    <div
+      className="load-error"
     >
-      OK
-    </button>
+      <img
+        alt=""
+        src="logo.png"
+      />
+      <h2>
+        Grouptabs
+      </h2>
+      <p>
+        Could not find transaction.
+      </p>
+      <button
+        className="create"
+        onClick={[Function]}
+      >
+        OK
+      </button>
+    </div>
   </div>,
 ]
 `;

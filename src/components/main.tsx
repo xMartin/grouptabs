@@ -125,6 +125,7 @@ const Main: FunctionComponent<Props> = (props) => {
     <div className="scene mainScene">
       {renderHeader(!isLoading && !props.remoteTabError)}
       <div
+        id="main-content"
         className="content"
         ref={composeRefs<HTMLDivElement>(
           contentContainerRef,

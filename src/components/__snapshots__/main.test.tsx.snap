@@ -32,6 +32,7 @@ exports[`renders empty view with no tab selected 1`] = `
   </div>
   <div
     className="content"
+    id="main-content"
     style={
       Object {
         "position": "relative",
@@ -94,6 +95,7 @@ exports[`renders missing tab info error 1`] = `
   </div>
   <div
     className="content"
+    id="main-content"
     style={
       Object {
         "position": "relative",
@@ -156,6 +158,7 @@ exports[`renders summary and transaction list 1`] = `
   </div>
   <div
     className="content"
+    id="main-content"
     style={
       Object {
         "position": "relative",
@@ -314,6 +317,7 @@ exports[`renders tab with no transactions 1`] = `
   </div>
   <div
     className="content"
+    id="main-content"
     style={
       Object {
         "position": "relative",

@@ -5,6 +5,7 @@ import ImportForm from "./importform";
 import { Tab } from "../types";
 import logo from "../images/grouptabs-logo.svg";
 import useScrollIndicator from "../hooks/scrollindicator";
+import { resetMainContentScrollPosition } from "../redux/actioncreators";
 
 interface Props {
   data: Tab[];
@@ -23,6 +24,11 @@ interface Props {
 const Tabs: FunctionComponent<Props> = (props) => {
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
 
+  const handleTabClick = (tabId: string) => {
+    resetMainContentScrollPosition();
+    props.onTabClick(tabId);
+  };
+
   return (
     <div className="scene tabsScene">
       <div className={`header${isScrolled ? " elevated" : ""}`}>
@@ -38,7 +44,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
                   <TabListButton
                     key={tab.id}
                     data={tab}
-                    onClick={props.onTabClick}
+                    onClick={handleTabClick}
                   />
                 );
               })}

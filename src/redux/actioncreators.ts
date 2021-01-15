@@ -374,6 +374,13 @@ const generateTabId = () => {
   return result;
 };
 
+export const resetMainContentScrollPosition = () => {
+  const mainContent = document.getElementById("main-content");
+  if (mainContent) {
+    mainContent.scrollTop = 0;
+  }
+};
+
 const checkTab = async (
   dispatch: (action: GTThunkAction | GTAction) => void,
   id: string,
@@ -498,6 +505,10 @@ export const addOrUpdateTransaction = (): GTThunkAction => async (
 
   dispatch(createCreateOrUpdateTransactionAction(transaction));
 
+  // if create, scroll main to top, assuming a transaction was added to the top
+  if (!transactionId) {
+    resetMainContentScrollPosition();
+  }
   dispatch(selectTab(tabId));
 
   resetTransactionFormDelayed(dispatch);
@@ -527,6 +538,7 @@ export const removeTransaction = (): GTThunkAction => async (
 
   dispatch(createRemoveTransactionAction(doc));
 
+  resetMainContentScrollPosition();
   const tabId = state.location.payload.tabId;
   dispatch(selectTab(tabId));
 

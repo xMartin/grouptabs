@@ -69,21 +69,19 @@ const EditEntry: FunctionComponent<Props> = (props) => {
     }
 
     return (
-      <div className="content" ref={scrollContainerRef}>
-        <Form
-          visible={props.visible}
-          mode={props.mode}
-          data={props.formState}
-          onUpdateForm={props.onUpdateForm}
-          onUpdateSharedForm={props.onUpdateSharedForm}
-          onUpdateDirectForm={props.onUpdateDirectForm}
-          onUpdateParticipant={props.onUpdateParticipant}
-          onAddParticipant={props.onAddParticipant}
-          onSetAllJoined={props.onSetAllJoined}
-          onSave={props.onSave}
-          onDelete={props.onDelete}
-        />
-      </div>
+      <Form
+        visible={props.visible}
+        mode={props.mode}
+        data={props.formState}
+        onUpdateForm={props.onUpdateForm}
+        onUpdateSharedForm={props.onUpdateSharedForm}
+        onUpdateDirectForm={props.onUpdateDirectForm}
+        onUpdateParticipant={props.onUpdateParticipant}
+        onAddParticipant={props.onAddParticipant}
+        onSetAllJoined={props.onSetAllJoined}
+        onSave={props.onSave}
+        onDelete={props.onDelete}
+      />
     );
   };
 
@@ -95,7 +93,11 @@ const EditEntry: FunctionComponent<Props> = (props) => {
         !isLoading &&
           !(props.remoteTabError || (props.mode === "edit" && !props.formState))
       )}
-      <Loader show={isLoading}>{renderContent()}</Loader>
+      <Loader show={isLoading}>
+        <div className="content" ref={scrollContainerRef}>
+          {renderContent()}
+        </div>
+      </Loader>
     </>
   );
 };

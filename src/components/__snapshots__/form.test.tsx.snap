@@ -15,7 +15,6 @@ exports[`renders empty form 1`] = `
         className="form-row-input description"
       >
         <input
-          autoFocus={true}
           onChange={[Function]}
           placeholder="Description"
           type="text"
@@ -203,7 +202,7 @@ exports[`renders empty form 1`] = `
               className="participant"
             >
               <input
-                autoFocus={true}
+                autoFocus={false}
                 onChange={[Function]}
                 placeholder="Name …"
                 type="text"
@@ -240,7 +239,7 @@ exports[`renders empty form 1`] = `
               className="participant"
             >
               <input
-                autoFocus={true}
+                autoFocus={false}
                 onChange={[Function]}
                 placeholder="Name …"
                 type="text"
@@ -483,7 +482,7 @@ exports[`renders prefilled form 1`] = `
                 className="amountInput"
               >
                 <input
-                  autoFocus={true}
+                  autoFocus={false}
                   onChange={[Function]}
                   placeholder="0"
                   step="any"

@@ -14,6 +14,7 @@ import {
   mapFormDataToTransaction,
 } from "../util/transactionform";
 import { getAccounts } from "./selectors";
+import { Dispatch } from "redux";
 
 export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
 export const CHECK_REMOTE_TAB_FAILURE = "CHECK_REMOTE_TAB_FAILURE";
@@ -373,6 +374,13 @@ const generateTabId = () => {
   return result;
 };
 
+export const resetMainContentScrollPosition = () => {
+  const mainContent = document.getElementById("main-content");
+  if (mainContent) {
+    mainContent.scrollTop = 0;
+  }
+};
+
 const checkTab = async (
   dispatch: (action: GTThunkAction | GTAction) => void,
   id: string,
@@ -474,6 +482,11 @@ export const importTabFromUrl = (id: string): GTThunkAction => (
   return checkTab(dispatch, id, dbManager);
 };
 
+const resetTransactionFormDelayed = (dispatch: Dispatch) => {
+  // reset form after scene transition
+  setTimeout(() => dispatch(resetTransactionForm()), 400);
+};
+
 export const addOrUpdateTransaction = (): GTThunkAction => async (
   dispatch,
   getState,
@@ -492,9 +505,13 @@ export const addOrUpdateTransaction = (): GTThunkAction => async (
 
   dispatch(createCreateOrUpdateTransactionAction(transaction));
 
+  // if create, scroll main to top, assuming a transaction was added to the top
+  if (!transactionId) {
+    resetMainContentScrollPosition();
+  }
   dispatch(selectTab(tabId));
 
-  dispatch(resetTransactionForm());
+  resetTransactionFormDelayed(dispatch);
 
   if (transactionId) {
     await dbManager.updateDoc(transaction);
@@ -521,10 +538,11 @@ export const removeTransaction = (): GTThunkAction => async (
 
   dispatch(createRemoveTransactionAction(doc));
 
+  resetMainContentScrollPosition();
   const tabId = state.location.payload.tabId;
   dispatch(selectTab(tabId));
 
-  dispatch(resetTransactionForm());
+  resetTransactionFormDelayed(dispatch);
 
   await dbManager.deleteDoc(doc);
 };
@@ -536,7 +554,7 @@ export const closeTransaction = (): GTThunkAction => async (
   const tabId = getState().location.payload.tabId;
   dispatch(selectTab(tabId));
 
-  dispatch(resetTransactionForm());
+  resetTransactionFormDelayed(dispatch);
 };
 
 export const initTransactionForm = (): GTThunkAction => async (

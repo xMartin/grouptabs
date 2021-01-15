@@ -33,6 +33,12 @@
   }
 }
 
+html,
+body,
+#root {
+  height: 100%; /* vh doesn't take variable browser chrome into account */
+}
+
 body {
   margin: 0;
   color: var(--main-text-color);
@@ -136,7 +142,7 @@ button.create {
 }
 
 .header button.create {
-  position: fixed;
+  position: absolute;
   right: 0;
   top: 0;
   margin: 5px;
@@ -204,31 +210,72 @@ input[type="number"] {
   margin: 0; /* Safari has 2px */
 }
 
-#scenes {
+.scenes {
+  height: 100%;
   max-width: 500px;
   min-width: 320px;
   margin: 0 auto;
+  overflow: hidden;
+}
+.scenes-container {
+  height: 100%;
+  display: flex;
+  width: 300%;
+  transition: transform 400ms;
+}
+.scenes-container-active-2 {
+  transform: translate3d(-33.33%, 0, 0);
+}
+.scenes-container-active-3 {
+  transform: translate3d(-66.66%, 0, 0);
+}
+.scene {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width: 500px) and (min-height: 780px) {
-  #scenes {
-    margin-top: 4vh;
-    margin-bottom: 4vh;
+  .scene {
+    padding-top: 4vh;
+    height: calc(100% - 4vh);
   }
-  .header button.create {
-    margin-top: calc(4vh + 5px);
-  }
-}
-@media (min-width: 500px) {
-  .header button.create {
-    right: calc(50% - 250px);
+  .content {
+    padding-bottom: 4vh;
   }
 }
 
 .header {
-  width: 100%;
   height: 56px;
-  margin-bottom: 0.5em;
   position: relative;
+}
+.header::after {
+  opacity: 0;
+  transition: opacity 400ms;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1) 10%,
+    transparent
+  );
+  z-index: 1;
+}
+@media (prefers-color-scheme: dark) {
+  .header::after {
+    background: linear-gradient(
+      rgba(0, 0, 0),
+      rgba(0, 0, 0, 0.8) 10%,
+      transparent
+    );
+  }
+}
+.header.elevated::after {
+  opacity: 1;
 }
 .header h2 {
   position: absolute;
@@ -252,25 +299,21 @@ input[type="number"] {
   padding: 6px;
 }
 
-.scene.hidden {
-  display: none;
+.content {
+  padding-top: 0.5em;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.scene-with-footer {
+.content-with-footer {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
-@media (min-width: 500px) and (min-height: 780px) {
-  .scene-with-footer {
-    min-height: 92vh;
-  }
+.content-with-footer main {
+  flex: 1;
 }
-.scene-with-footer main {
-  flex-grow: 1;
-}
-.scene-with-footer footer {
-  flex-grow: 0;
+.content-with-footer footer {
   padding: 10px 10px 15px;
   text-align: center;
   font-size: 80%;
@@ -344,7 +387,7 @@ input[type="number"] {
 
 /* Whitespace to sides */
 .editEntryScene .form,
-.tabsScene {
+.tabsScene main {
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -367,6 +410,7 @@ input[type="number"] {
 }
 .editEntryScene .date-input {
   display: flex;
+  flex-wrap: wrap;
 }
 .editEntryScene .date-input > * {
   width: auto;
@@ -501,9 +545,7 @@ input[type="number"] {
   font-size: 18px;
 }
 
-#summary tr {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+.summary tr {
   box-sizing: border-box;
   height: 56px;
 }
@@ -514,8 +556,12 @@ input[type="number"] {
   padding-bottom: 0;
   margin-bottom: 0;
 }
+.mainScene {
+  position: relative;
+}
 .transactions-heading-fixed {
-  position: fixed;
+  position: absolute;
+  z-index: 1;
   left: 0;
   bottom: 0;
   margin: 0;
@@ -586,7 +632,7 @@ input[type="number"] {
 }
 
 .loader {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -606,7 +652,7 @@ input[type="number"] {
   opacity: 0;
 }
 .tab-loader {
-  height: 70vh;
+  height: 70%;
 }
 .loader div {
   width: 68px;

@@ -2,7 +2,7 @@
 
 exports[`renders empty view with no tab selected 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -30,7 +30,15 @@ exports[`renders empty view with no tab selected 1`] = `
       +
     </button>
   </div>
-  <div>
+  <div
+    className="content"
+    id="main-content"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
     <div
       className="load-error"
     >
@@ -57,7 +65,7 @@ exports[`renders empty view with no tab selected 1`] = `
 
 exports[`renders missing tab info error 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -85,7 +93,15 @@ exports[`renders missing tab info error 1`] = `
       +
     </button>
   </div>
-  <div>
+  <div
+    className="content"
+    id="main-content"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
     <div
       className="load-error"
     >
@@ -112,7 +128,7 @@ exports[`renders missing tab info error 1`] = `
 
 exports[`renders summary and transaction list 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -140,58 +156,62 @@ exports[`renders summary and transaction list 1`] = `
       +
     </button>
   </div>
-  <div>
+  <div
+    className="content"
+    id="main-content"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
     <div
       className="row"
     >
-      <div
-        id="summary"
+      <table
+        className="summary"
       >
-        <table
-          id="balance"
-        >
-          <tbody>
-            <tr
-              style={
-                Object {
-                  "backgroundColor": "rgba(226,91,29,1)",
-                  "color": "var(--dark-color)",
-                }
+        <tbody>
+          <tr
+            style={
+              Object {
+                "backgroundColor": "rgba(226,91,29,1)",
+                "color": "var(--dark-color)",
               }
+            }
+          >
+            <th
+              className="account"
             >
-              <th
-                className="account"
-              >
-                Jan
-              </th>
-              <td
-                className="amount"
-              >
-                -11.7
-              </td>
-            </tr>
-            <tr
-              style={
-                Object {
-                  "backgroundColor": "rgba(92,226,14,1)",
-                  "color": "var(--dark-color)",
-                }
+              Jan
+            </th>
+            <td
+              className="amount"
+            >
+              -11.7
+            </td>
+          </tr>
+          <tr
+            style={
+              Object {
+                "backgroundColor": "rgba(92,226,14,1)",
+                "color": "var(--dark-color)",
               }
+            }
+          >
+            <th
+              className="account"
             >
-              <th
-                className="account"
-              >
-                Martin
-              </th>
-              <td
-                className="amount"
-              >
-                11.7
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              Martin
+            </th>
+            <td
+              className="amount"
+            >
+              11.7
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div
       className="row"
@@ -267,7 +287,7 @@ exports[`renders summary and transaction list 1`] = `
 
 exports[`renders tab with no transactions 1`] = `
 <div
-  className="scene mainScene hidden"
+  className="scene mainScene"
 >
   <div
     className="header"
@@ -295,7 +315,15 @@ exports[`renders tab with no transactions 1`] = `
       +
     </button>
   </div>
-  <div>
+  <div
+    className="content"
+    id="main-content"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
     <div
       className="empty-info"
     >

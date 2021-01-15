@@ -4,8 +4,10 @@ import Form from "./form";
 import LoadError from "./loaderror";
 import { TransactionFormState } from "../types";
 import { PropsFromRedux } from "../app";
+import useScrollIndicator from "../hooks/scrollindicator";
 
 interface Props {
+  visible?: boolean;
   mode: "new" | "edit";
   checkingRemoteTab?: boolean;
   remoteTabError?: string;
@@ -24,8 +26,10 @@ interface Props {
 }
 
 const EditEntry: FunctionComponent<Props> = (props) => {
+  const [isScrolled, scrollContainerRef] = useScrollIndicator();
+
   const renderHeader = (showSaveButton: boolean): ReactFragment => (
-    <div className="header">
+    <div className={`header${isScrolled ? " elevated" : ""}`}>
       <button className="left" onClick={props.onCloseClick}>
         <svg height="16" width="16">
           <path d="m7.4983 0.5c0.8974 0 1.3404 1.0909 0.6973 1.7168l-4.7837 4.7832h11.573c1.3523-0.019125 1.3523 2.0191 0 2h-11.572l4.7832 4.7832c0.98163 0.94251-0.47155 2.3957-1.4141 1.4141l-6.4911-6.49c-0.387-0.3878-0.391-1.0228 0-1.414l6.4905-6.49c0.1883-0.1935 0.4468-0.30268 0.7168-0.3027z" />
@@ -66,6 +70,7 @@ const EditEntry: FunctionComponent<Props> = (props) => {
 
     return (
       <Form
+        visible={props.visible}
         mode={props.mode}
         data={props.formState}
         onUpdateForm={props.onUpdateForm}
@@ -83,13 +88,17 @@ const EditEntry: FunctionComponent<Props> = (props) => {
   const isLoading = props.checkingRemoteTab || props.importingTab;
 
   return (
-    <div className="scene editEntryScene">
+    <>
       {renderHeader(
         !isLoading &&
           !(props.remoteTabError || (props.mode === "edit" && !props.formState))
       )}
-      <Loader show={isLoading}>{renderContent()}</Loader>
-    </div>
+      <Loader show={isLoading}>
+        <div className="content" ref={scrollContainerRef}>
+          {renderContent()}
+        </div>
+      </Loader>
+    </>
   );
 };
 

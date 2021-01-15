@@ -1,4 +1,10 @@
-import React, { SyntheticEvent, FunctionComponent, memo } from "react";
+import React, {
+  SyntheticEvent,
+  FunctionComponent,
+  memo,
+  useRef,
+  useEffect,
+} from "react";
 import DateInput from "./dateinput";
 import DirectTransactionInput from "./directtransactioninput";
 import ParticipantsInputList from "./participantsinputlist";
@@ -10,8 +16,10 @@ import {
 import { control } from "../util/form";
 import { PropsFromRedux } from "../app";
 import { validate } from "../util/transactionform";
+import { isIOs } from "../util/ua";
 
 interface Props {
+  visible?: boolean;
   mode: "new" | "edit";
   data: TransactionFormState;
   onUpdateForm: PropsFromRedux["onUpdateTransactionForm"];
@@ -25,6 +33,15 @@ interface Props {
 }
 
 const Form: FunctionComponent<Props> = (props) => {
+  const descriptionInput = useRef<HTMLInputElement>(null);
+
+  // focus desciption when view is visible
+  useEffect(() => {
+    if (!isIOs && props.mode === "new" && props.visible) {
+      descriptionInput.current?.focus();
+    }
+  }, [props.mode, props.visible]);
+
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -70,13 +87,13 @@ const Form: FunctionComponent<Props> = (props) => {
         <div className="form-row">
           <div className="form-row-input description">
             <input
+              ref={descriptionInput}
               type="text"
               placeholder="Description"
               value={control(props.data.description)}
               onChange={(event: SyntheticEvent<HTMLInputElement>) =>
                 props.onUpdateForm("description", event.currentTarget.value)
               }
-              autoFocus={props.mode === "new" ? true : undefined}
             />
           </div>
           <div className="form-row-input transaction-type">

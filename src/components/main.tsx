@@ -218,6 +218,7 @@ const Main: FunctionComponent<Props> = (props) => {
         </h3>
       )}
       <div
+        id="main-content"
         className="content"
         ref={composeRefs<HTMLDivElement>(
           contentContainerRef,

@@ -5,6 +5,7 @@ import ImportForm from "./importform";
 import { Tab } from "../types";
 import logo from "../images/logo.png";
 import useScrollIndicator from "../hooks/scrollindicator";
+import { resetMainContentScrollPosition } from "../redux/actioncreators";
 
 interface Props {
   data: Tab[];
@@ -31,6 +32,11 @@ const Tabs: FunctionComponent<Props> = (props) => {
     }
   }, [props.visible]);
 
+  const handleTabClick = (tabId: string) => {
+    resetMainContentScrollPosition();
+    props.onTabClick(tabId);
+  };
+
   const handleShowImportFormClick = () => {
     setHideImportForm(false);
   };
@@ -50,7 +56,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
                   <TabListButton
                     key={tab.id}
                     data={tab}
-                    onClick={props.onTabClick}
+                    onClick={handleTabClick}
                   />
                 );
               })}

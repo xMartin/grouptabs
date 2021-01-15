@@ -10,7 +10,7 @@ exports[`renders empty tab view 1`] = `
     <img
       alt=""
       id="logo"
-      src="logo.png"
+      src="grouptabs-logo.svg"
     />
     <h2>
       Grouptabs
@@ -24,14 +24,16 @@ exports[`renders empty tab view 1`] = `
         className="empty-info"
       >
         <p>
-          Track shared expenses in a group of people. Every group has its own tab like "Summer roadtrip" or "Badminton".
+          <strong>
+            Track expenses in a group of people!
+          </strong>
         </p>
         <p>
-          Start by creating your first tab:
+          Every group has a tab like "Summer roadtrip" or "Badminton team" – start by creating one!
         </p>
       </div>
       <div
-        className="row"
+        className="row emptycontent"
       >
         <form
           className="create-form"
@@ -39,13 +41,15 @@ exports[`renders empty tab view 1`] = `
         >
           <input
             className="full-width"
+            onBlur={[Function]}
             onChange={[Function]}
-            placeholder="Tab name …"
+            onFocus={[Function]}
+            placeholder="Create new tab"
             type="text"
             value=""
           />
           <button
-            className="create"
+            className="create-tab"
           >
             Create
           </button>
@@ -54,21 +58,35 @@ exports[`renders empty tab view 1`] = `
       <div
         className="row"
       >
-        <p
-          className="fake-link"
-          onClick={[Function]}
+        <form
+          className="import-form"
+          onSubmit={[Function]}
         >
-          Open shared tab
-        </p>
+          <input
+            className="full-width"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Open shared tab"
+            type="text"
+            value=""
+          />
+          <button>
+            Open shared tab
+          </button>
+          <div
+            className="error-message"
+          />
+        </form>
       </div>
     </main>
     <footer>
       Version: 
       VERSION
-       –
+       ·
        
       <a
-        href="https://grouptabs.net/"
+        href="https://grouptabs.net"
         rel="noopener"
         target="_blank"
       >
@@ -89,7 +107,7 @@ exports[`renders tab view 1`] = `
     <img
       alt=""
       id="logo"
-      src="logo.png"
+      src="grouptabs-logo.svg"
     />
     <h2>
       Grouptabs
@@ -106,7 +124,12 @@ exports[`renders tab view 1`] = `
           className="full-width"
           onClick={[Function]}
         >
-          TAB NAME
+          <strong>
+            TAB NAME
+          </strong>
+          <span>
+            No transactions yet
+          </span>
         </button>
       </div>
       <div
@@ -118,13 +141,15 @@ exports[`renders tab view 1`] = `
         >
           <input
             className="full-width"
+            onBlur={[Function]}
             onChange={[Function]}
-            placeholder="Tab name …"
+            onFocus={[Function]}
+            placeholder="Create new tab"
             type="text"
             value=""
           />
           <button
-            className="create"
+            className="create-tab"
           >
             Create
           </button>
@@ -133,21 +158,35 @@ exports[`renders tab view 1`] = `
       <div
         className="row"
       >
-        <p
-          className="fake-link"
-          onClick={[Function]}
+        <form
+          className="import-form"
+          onSubmit={[Function]}
         >
-          Open shared tab
-        </p>
+          <input
+            className="full-width"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Open shared tab"
+            type="text"
+            value=""
+          />
+          <button>
+            Open shared tab
+          </button>
+          <div
+            className="error-message"
+          />
+        </form>
       </div>
     </main>
     <footer>
       Version: 
       VERSION
-       –
+       ·
        
       <a
-        href="https://grouptabs.net/"
+        href="https://grouptabs.net"
         rel="noopener"
         target="_blank"
       >

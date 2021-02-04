@@ -92,7 +92,7 @@ export default class Tab {
   }: { initialReplicationTimeout?: number } = {}) {
     this.logReplication("start");
 
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       const replication = this.db.replicate
         .from(this.remoteDb, {
           batch_size: 100,

@@ -13,7 +13,7 @@ interface DateGroup {
   transactions: Transaction[];
 }
 
-const groupTransactions = (transactions: Transaction[]) => {
+const groupTransactions = (transactions: Transaction[]): DateGroup[] => {
   if (!transactions.length) {
     return (transactions as unknown) as DateGroup[];
   }

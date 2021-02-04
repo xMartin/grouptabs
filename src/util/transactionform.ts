@@ -85,9 +85,7 @@ interface Inputs {
 function transactionParticipants2Inputs(participants: Account[]): Inputs {
   const result: Inputs = {};
 
-  for (let i = 0; i < participants.length; ++i) {
-    const participant = participants[i];
-
+  for (const participant of participants) {
     if (!result.amount) {
       result.amount = Math.abs(participant.amount);
     }
@@ -113,8 +111,7 @@ function createDirectInputData(
   );
 
   const mostNegativeParticipant = accounts[0]?.participant;
-  const mostPositiveParticipant =
-    accounts[accounts.length - 1] && accounts[accounts.length - 1].participant;
+  const mostPositiveParticipant = accounts[accounts.length - 1]?.participant;
 
   const tabParticipants = accounts.map((account) => account.participant);
   const options = tabParticipants.concat(NEW_PARTICIPANT_OPTION);
@@ -238,8 +235,8 @@ function validateShared(participants: TransactionFormState["shared"]): boolean {
   }
 
   // every joined participant needs a name
-  for (let i = 0; i < joinedParticipants.length; i++) {
-    if (!joinedParticipants[i].participant) {
+  for (const joinedParticipant of joinedParticipants) {
+    if (!joinedParticipant.participant) {
       return false;
     }
   }

@@ -4,9 +4,16 @@
  */
 export function parseDate(input: string) {
   // backwards compatibility: strip time info from format being used earlier
-  input = input.substring(0, 10);
+  const date = input.substring(0, 10);
 
-  const params = input.split("-").map((x) => parseInt(x, 10));
+  const params = date.split("-").map((x) => parseInt(x, 10));
+
+  if (params.length < 3) {
+    throw new Error(
+      `Invalid date format (should start with "yyyy-MM-dd"): ${input}`
+    );
+  }
+
   return new Date(params[0], params[1] - 1, params[2]);
 }
 

@@ -28,7 +28,6 @@
     "lodash.throttle": "^4.1.1",
     "pouchdb": "^7.2.2",
     "pouchdb-adapter-memory": "^7.2.2",
-    "pouchdb-all-dbs": "github:xMartin/pouchdb-all-dbs#grouptabs",
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

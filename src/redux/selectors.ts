@@ -99,12 +99,34 @@ function getDocsById(state: AllState) {
 }
 
 export function getCurrentTabId(state: AllState) {
-  return state.location.payload.tabId;
+  return state.location.payload.tabId || state.location.prev?.payload.tabId;
 }
 
 function getTransactionsByTab(state: AllState) {
   return state.app.transactionsByTab;
 }
+
+function getRouteTransition(state: AllState) {
+  return state.routeTransition.transition;
+}
+
+function getLocation(state: AllState) {
+  return state.location.type;
+}
+
+function getPreviousLocation(state: AllState) {
+  return state.location?.prev.type;
+}
+
+export const getCurrentLocation = createSelector(
+  [getRouteTransition, getLocation, getPreviousLocation],
+  (transition, location, previousLocation) => {
+    if (transition) {
+      return previousLocation;
+    }
+    return location;
+  }
+);
 
 export const getTabs = createSelector(
   [getTabIds, getDocsById, getTransactionsByTab],

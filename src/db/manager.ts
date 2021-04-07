@@ -2,11 +2,7 @@ import PouchDB from "pouchdb";
 import Tab, { Document } from "./tab";
 import config from "../config";
 import { Info, Entity, ActionMap } from "../types";
-import {
-  loadTabIds,
-  addTabId,
-  migrateFromPouchDbAllDbsToLocalStorage,
-} from "./tabidpersistor";
+import { loadTabIds, addTabId } from "./tabidpersistor";
 
 type changesCallback = (actionMap: ActionMap) => void;
 
@@ -24,7 +20,6 @@ export default class DbManager {
   async init(callback: changesCallback): Promise<void> {
     this.onChanges = callback;
 
-    await migrateFromPouchDbAllDbsToLocalStorage();
     await this.checkIndexedDb();
     this.initDbs();
   }
@@ -113,7 +108,7 @@ export default class DbManager {
     const remoteDbLocation =
       config.backendUrl + "/" + encodeURIComponent(dbName);
 
-    const db = new PouchDB(remoteDbLocation);
+    const db = new PouchDB(remoteDbLocation, { skip_setup: true });
 
     return db.get("info");
   }

@@ -14,7 +14,7 @@ const Loader: FunctionComponent<Props> = ({ show, children }) => {
     );
   }
 
-  return <div>{children}</div>;
+  return <>{children}</>;
 };
 
 export default memo(Loader);

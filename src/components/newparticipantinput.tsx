@@ -9,6 +9,7 @@ interface Props {
   participant?: string;
   status: Status;
   amount?: number;
+  autoFocusNameInput?: boolean;
   onChange: PropsFromRedux["onUpdateTransactionParticipant"];
 }
 
@@ -17,6 +18,7 @@ const NewParticipantInput: FunctionComponent<Props> = ({
   participant,
   status,
   amount,
+  autoFocusNameInput,
   onChange,
 }) => {
   const handleJoinedChange = () => {
@@ -45,7 +47,7 @@ const NewParticipantInput: FunctionComponent<Props> = ({
           onChange={(event: SyntheticEvent<HTMLInputElement>) =>
             onChange(id, "participant", event.currentTarget.value)
           }
-          autoFocus={true}
+          autoFocus={autoFocusNameInput}
         />
       </span>
       <ParticipantStatusInput

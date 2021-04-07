@@ -3,6 +3,13 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.5.0
+    date: 2021-04-07
+    description: Animated screen transitions and smaller bugfixes and improvements
+    added:
+      - Animated screen transitions
+    changed:
+      - Removed migration from PouchDB's all-dbs data - it has been around for more than a year now
   - version: 1.4.0
     date: 2020-12-14
     description: Clean URLs and smaller bugfixes and improvements

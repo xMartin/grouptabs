@@ -5,6 +5,7 @@ import {
   getTabs,
   getTransactions,
   getAccounts,
+  getCurrentLocation,
 } from "./redux/selectors";
 import {
   navigateToTabs,
@@ -34,6 +35,7 @@ import { Transaction } from "./types";
 function mapStateToProps(state: AllState) {
   return {
     location: state.location,
+    currentLocation: getCurrentLocation(state),
     initialLoadingDone: state.app.initialLoadingDone,
     tabInfo: getTabInfo(state),
     transaction: state.app.docsById[

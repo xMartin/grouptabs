@@ -64,8 +64,8 @@ const formatData = (data: Transaction) => {
 
   let participants = "";
   participantsList.forEach((participant) => {
-    for (let i = 0, l = paymentsList.length; i < l; ++i) {
-      if (paymentsList[i].participant === participant) {
+    for (const payment of paymentsList) {
+      if (payment.participant === participant) {
         return;
       }
     }

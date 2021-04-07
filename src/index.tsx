@@ -15,6 +15,8 @@ import debug from "debug";
 import DbManager from "./db/manager";
 import { restoreLocation, startPersistingLocation } from "./util/standalone";
 import appReducer from "./redux/reducer";
+import { reducer as routeTransitionReducer } from "./redux/routetransition";
+import { middleware as routeTransitionMiddleware } from "./redux/routetransition";
 import App from "./app";
 import routes from "./routes";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
@@ -37,6 +39,7 @@ startPersistingLocation(router.history);
 
 const rootReducer = combineReducers({
   location: router.reducer,
+  routeTransition: routeTransitionReducer,
   app: appReducer,
 });
 export type AllState = ReturnType<typeof rootReducer> & {
@@ -57,7 +60,12 @@ const logger: Middleware = () => (next) => (action) => {
   }
   return next(action);
 };
-const middlewares = applyMiddleware(logger, thunkMiddleware, router.middleware);
+const middlewares = applyMiddleware(
+  logger,
+  thunkMiddleware,
+  router.middleware,
+  routeTransitionMiddleware
+);
 
 // @ts-ignore
 const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;

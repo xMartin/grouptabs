@@ -1,5 +1,5 @@
 import React, { memo, FunctionComponent } from "react";
-import logo from "../images/logo.png";
+import logo from "../images/grouptabs-logo.svg";
 
 interface Props {
   message: string;
@@ -21,7 +21,7 @@ const LoadError: FunctionComponent<Props> = ({ message, onOkClick }) => {
       <h2>Grouptabs</h2>
       <p>{message}</p>
       <button className="create" onClick={handleButtonClick}>
-        OK
+        Refresh
       </button>
     </div>
   );

@@ -5,30 +5,36 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
-  --dark-color: #131313;
-  --light-color: #f5f5f5;
-  --color-cta: #44f;
-  --color-cta-opposite: #fff;
-  --color-error: #f31;
+  --dark-color: #131314;
+  --light-color: #fff;
+  --color-primary: #44f;
+  --color-primary-opposite: #fff;
+  --color-highlight: rgba(68, 68, 255, 0.1);
+  --color-error: #f44;
+  --color-error-light: rgba(255, 68, 68, 0.1);
   --main-text-color: var(--dark-color);
   --main-background-color: var(--light-color);
-  --subtle-text-color: #707070;
-  --button-background-color: #ddd;
+  --subtle-text-color: #707071;
+  --text-input-background-color: #f5f5f6;
+  --button-background-color: var(--text-input-background-color);
   --button-disabled-background-color: var(--subtle-text-color);
-  --button-selected-background-color: #bbb;
-  --text-input-background-color: #fff;
-  --participant-status-none-color: #888;
-  --list-item-divider-color: #e5e5e5;
+  --button-selected-background-color: #fff;
+  --button-selected-text-color: var(--color-primary);
+  --list-item-divider-color: #e5e5e6;
+  --border-radius: 5px;
+  --border-radius-pill: 100px;
+  --font-size: 18px;
+  --font-size-large: 22px;
+  --font-size-small: 14px;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --main-text-color: var(--light-color);
     --main-background-color: var(--dark-color);
-    --subtle-text-color: #818181;
-    --button-background-color: #525252;
-    --button-selected-background-color: #686868;
-    --text-input-background-color: #343434;
-    --participant-status-none-color: #a5a5a5;
+    --subtle-text-color: #818182;
+    --button-background-color: #525253;
+    --button-selected-background-color: #686869;
+    --text-input-background-color: #343435;
     --list-item-divider-color: var(--text-input-background-color);
   }
 }
@@ -42,16 +48,30 @@ body,
 body {
   margin: 0;
   color: var(--main-text-color);
-  font-size: 18px;
+  font-size: var(--font-size);
   background: var(--main-background-color);
   font-family: var(--font-family-sans-serif);
+}
+
+h1,
+h2,
+h3 {
+  font-size: var(--font-size-large);
+  font-weight: bold;
 }
 
 a,
 a:link,
 a:visited,
 a:active {
-  color: var(--color-cta);
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px dotted;
+}
+
+::selection {
+  background-color: var(--color-highlight);
+  color: var(--color-primary);
 }
 
 code {
@@ -82,9 +102,10 @@ button {
   box-sizing: border-box;
   min-height: 44px;
   min-width: 44px;
-  padding: 10px 12px;
+  padding-left: 12px;
+  padding-right: 12px;
   margin: 0;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
 }
 button[disabled] {
@@ -93,15 +114,16 @@ button[disabled] {
 }
 button.selected {
   background: var(--button-selected-background-color);
+  color: var(--button-selected-text-color);
 }
 
 select {
   cursor: pointer;
   margin: 0;
   padding: 12px;
-  padding-right: 24px;
+  padding-right: 32px;
   color: var(--main-text-color);
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   border: none;
   background-color: var(--button-background-color);
   background-image: linear-gradient(
@@ -120,12 +142,8 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
   /* Chrome needs this for some reason … */
-  font-size: 18px !important;
+  font-size: var(--font-size) !important;
   font-family: var(--font-family-sans-serif) !important;
-}
-select:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 var(--main-background-color);
 }
 
 button.full-width,
@@ -134,41 +152,72 @@ select.full-width {
   width: 100%;
 }
 
+.header button {
+  height: 44px;
+  width: 44px;
+  margin: 4px;
+}
 button.create {
-  padding: 0 13px;
-  background: var(--color-cta);
-  color: var(--color-cta-opposite);
+  background-color: var(--color-primary);
+  color: var(--color-primary-opposite);
+  border: 2px solid var(--color-primary);
   z-index: 10;
 }
-
 .header button.create {
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin: 5px;
-  box-shadow: 0 0 10px rgba(100, 100, 100, 0.5);
-  border-radius: 100px; /* Pill-style rounded button */
+  border-radius: var(--border-radius-pill);
+}
+button.create:hover,
+button.create:focus {
+  background-color: var(--main-background-color);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+.header button.create:hover path,
+.header button.create:focus path {
+  fill: var(--color-primary);
 }
 /* larger '+' Plus in button */
 .mainScene .header button.create {
   font-size: 30px;
 }
+/* Position adjustment for checkmark icon in button vs "+" which is text */
+.header button.create svg {
+  padding-top: 5px;
+  padding-left: 1px;
+}
 
 .header button.left {
-  background: transparent;
-  padding: 16px 10px;
+  background-color: transparent;
+  padding: 4px 10px 0;
+  border-radius: var(--border-radius-pill);
 }
 .header button.left path {
   fill: var(--subtle-text-color);
 }
+.header button.left:hover,
+.header button.left:focus {
+  background-color: var(--color-highlight);
+}
 .header button.left:hover path,
 .header button.left:focus path {
-  fill: var(--main-text-color);
+  fill: var(--color-primary);
 }
 
 .editEntryScene .button-row {
   margin-top: 2em;
   text-align: center;
+}
+.editEntryScene button.add-participant,
+.editEntryScene button.all-joined {
+  background-color: transparent;
+  color: var(--subtle-text-color);
+  font-size: var(--font-size-small);
+}
+.editEntryScene button.add-participant:hover,
+.editEntryScene button.add-participant:focus,
+.editEntryScene button.all-joined:hover,
+.editEntryScene button.all-joined:focus {
+  color: var(--main-text-color);
 }
 .editEntryScene button.all-joined {
   float: right;
@@ -184,13 +233,14 @@ button.create {
   font-weight: bold;
 }
 
-.fake-link {
-  color: var(--subtle-text-color);
-  text-decoration: underline;
-  cursor: pointer;
-}
-.fake-link.delete {
+button.delete {
   color: var(--color-error);
+  background: transparent;
+  font-size: var(--font-size-small);
+}
+button.delete:hover,
+button.delete:focus {
+  background: var(--color-error-light);
 }
 
 input[type="text"],
@@ -201,7 +251,7 @@ input[type="number"] {
   background: var(--text-input-background-color);
   box-shadow: none;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   color: inherit;
   min-height: 44px;
   min-width: 44px;
@@ -213,7 +263,7 @@ input[type="number"] {
 .scenes {
   height: 100%;
   max-width: 500px;
-  min-width: 320px;
+  min-width: 280px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -248,6 +298,14 @@ input[type="number"] {
 .header {
   height: 56px;
   position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+.tabsScene .header,
+.errorScene .header {
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
 }
 .header::after {
   opacity: 0;
@@ -278,25 +336,18 @@ input[type="number"] {
   opacity: 1;
 }
 .header h2 {
-  position: absolute;
-  font-size: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 14px 0;
-  top: 0;
-  margin: 0;
-  max-width: 66%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 150%;
+  margin: 0;
+  align-self: center;
 }
 .header #logo {
   width: 44px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-200%);
-  border-radius: 50px;
-  padding: 6px;
+  height: 44px;
+  border-radius: var(--border-radius-pill);
+  padding: 8px;
 }
 
 .content {
@@ -316,7 +367,7 @@ input[type="number"] {
 .content-with-footer footer {
   padding: 10px 10px 15px;
   text-align: center;
-  font-size: 80%;
+  font-size: var(--font-size-small);
   color: var(--subtle-text-color);
 }
 
@@ -327,15 +378,16 @@ input[type="number"] {
 .empty-info p,
 .share-info p {
   margin: 0 0 1em;
+  line-height: 135%;
 }
 .share-info {
   margin-top: 1em;
   color: var(--subtle-text-color);
+  font-size: var(--font-size-small);
   text-align: center;
 }
 
 .form-row {
-  padding: 3px 0;
   position: relative;
 }
 .form-row-input {
@@ -345,6 +397,7 @@ input[type="number"] {
 .form-row-input.description input {
   padding-right: 90px;
   text-overflow: ellipsis;
+  font-weight: bold;
 }
 
 .form-row-input.transaction-type {
@@ -354,15 +407,19 @@ input[type="number"] {
   width: auto !important;
 }
 .form-row-input.transaction-type select {
-  margin-top: 3px;
-  font-size: 80% !important;
+  margin-top: 1px;
+  font-size: var(--font-size-small) !important;
   opacity: 0.5;
   background-color: transparent;
   border: none;
 }
+.form-row-input.transaction-type select:hover,
+.form-row-input.transaction-type select:focus {
+  opacity: 1;
+}
 
 .direct-transaction {
-  padding: 24px 0;
+  padding-bottom: 24px;
 }
 .direct-transaction-amount {
   display: flex;
@@ -411,20 +468,35 @@ input[type="number"] {
 .editEntryScene .date-input {
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: 24px;
 }
 .editEntryScene .date-input > * {
   width: auto;
   flex-grow: 1;
-  border-radius: 0;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-small);
+  text-align: center;
+  background-color: transparent;
 }
-.editEntryScene .date-input > :first-child {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+.editEntryScene .date-input > *:not(.selected) {
+  color: var(--subtle-text-color);
 }
-.editEntryScene .date-input > :last-child {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+.editEntryScene .date-input > *:not(.selected):hover,
+.editEntryScene .date-input > *:not(.selected):focus {
+  color: var(--main-text-color);
 }
+.editEntryScene .date-input input[type="date"] {
+  color: var(--color-primary);
+  cursor: pointer;
+}
+.editEntryScene .date-input button.selected ~ input[type="date"] {
+  color: var(--subtle-text-color);
+}
+.editEntryScene .date-input button.selected ~ input[type="date"]:hover,
+.editEntryScene .date-input button.selected ~ input[type="date"]:focus {
+  color: var(--main-text-color);
+}
+
 .participantInput,
 .newParticipantInput {
   display: flex;
@@ -433,20 +505,7 @@ input[type="number"] {
 .participantInput,
 .newParticipantInput,
 .newParticipantInput .participant input {
-  color: var(--participant-status-none-color);
-}
-.participant input,
-.joinedButtonWrapper button,
-.paid-button.selected {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-.newParticipantInput .joinedButtonWrapper button,
-.newParticipantInput .paid-button,
-.participantInput .paid-button:not(.selected),
-.amountInput input {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+  color: var(--subtle-text-color);
 }
 .participantInput > *,
 .newParticipantInput > * {
@@ -479,12 +538,18 @@ input[type="number"] {
 }
 .participantInput button,
 .newParticipantInput button {
-  color: var(--participant-status-none-color);
+  color: var(--subtle-text-color);
+  background-color: transparent;
+}
+.participantInput button:hover,
+.participantInput button:focus,
+.newParticipantInput button:hover,
+.newParticipantInput button:focus {
+  color: var(--main-text-color);
 }
 .participantInput button.selected,
 .newParticipantInput button.selected {
-  background: var(--button-selected-background-color);
-  color: inherit;
+  color: var(--color-primary);
 }
 .participantInput .amountInput,
 .newParticipantInput .amountInput {
@@ -493,6 +558,7 @@ input[type="number"] {
 .participantInput .amountInput input[type="number"],
 .newParticipantInput .amountInput input[type="number"] {
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 .button-row {
   margin: 0 2%;
@@ -502,18 +568,34 @@ input[type="number"] {
 }
 
 .tabsScene .row.tabs {
-  margin: 1em 0;
+  margin: 1.5em 0;
 }
 .tabsScene .row p {
   text-align: center;
 }
 .tabs button {
   position: relative;
-  border-top: 1px solid var(--list-item-divider-color);
-  padding: 16px 12px;
-  border-radius: 0;
-  background: transparent;
+  padding: 12px;
+  font-weight: bold;
   text-align: left;
+  line-height: 130%;
+  border-radius: var(--border-radius);
+  background: transparent;
+}
+.tabs button span {
+  display: block;
+  font-size: var(--font-size-small);
+  font-weight: normal;
+  color: var(--subtle-text-color);
+}
+.tabs button:hover,
+.tabs button:focus {
+  background-color: var(--color-highlight);
+  color: var(--color-primary);
+}
+.tabs button:hover span,
+.tabs button:focus span {
+  opacity: 0.7;
 }
 .tabs button::after {
   content: "";
@@ -527,27 +609,80 @@ input[type="number"] {
   mask-repeat: no-repeat;
   mask-position: center;
 }
-.tabs button:last-child {
-  border-bottom: 1px solid var(--list-item-divider-color);
+
+.create-form,
+.import-form {
+  position: relative;
+}
+.create-form input {
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
+  padding-right: 78px;
 }
 
-.create-form input {
-  padding-right: 78px;
-  text-overflow: ellipsis;
+/* Subdue flow of creation and opening shared tabs in favor of highlighting existing tabs */
+.create-form input,
+.import-form input {
+  background-color: transparent;
+}
+.create-form input:hover,
+.create-form input:focus,
+.create-form input:not(:placeholder-shown),
+.emptycontent .create-form input,
+.import-form input:hover,
+.import-form input:focus,
+.import-form input:not(:placeholder-shown) {
+  background-color: var(--text-input-background-color);
+  color: var(--main-text-color);
+}
+/* Only show button on focus */
+.create-form button,
+.import-form button {
+  display: none;
+}
+.create-form input:focus ~ button,
+.create-form input:not(:placeholder-shown) ~ button,
+.emptycontent .create-form input ~ button,
+.import-form input:focus ~ button,
+.import-form input:not(:placeholder-shown) ~ button {
+  display: inline-block;
 }
 
 .create-form button,
 .import-form button {
-  position: relative;
-  float: right;
-  top: -44px;
-  margin-bottom: -44px;
-  font-size: 18px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: var(--font-size);
+  background: var(--color-primary);
+  color: var(--color-primary-opposite);
 }
 
-.summary tr {
-  box-sizing: border-box;
-  height: 56px;
+.summary {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.summary li {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius-pill);
+}
+.summary li .amount {
+  font-size: var(--font-size-large);
+  font-weight: bold;
+}
+.summary li .account {
+  font-size: var(--font-size-small);
+  background-color: transparent !important;
+  opacity: 0.7;
 }
 
 .transactions-heading {
@@ -576,35 +711,57 @@ input[type="number"] {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   padding: 12px 30px 12px 12px;
-  border-top: 1px solid var(--list-item-divider-color);
   min-height: 44px;
   cursor: pointer;
   background: right 10px center no-repeat;
   background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
 }
-#transactions .transaction:first-child {
-  border-top: none;
+#transactions .transaction:hover,
+#transactions .transaction:focus {
+  background-color: var(--color-highlight);
+  color: var(--color-primary);
 }
+#transactions .transaction:hover .payments,
+#transactions .transaction:focus .payments {
+  opacity: 0.7;
+}
+
 #transactions .dategroup {
-  padding: 26px 12px 6px;
-  font-size: 12px;
+  padding: 28px 12px 8px;
+  font-size: var(--font-size-small);
   color: var(--subtle-text-color);
 }
+#transactions .transaction .transaction-text {
+  text-align: left;
+}
 #transactions .transaction .title {
-  line-height: 1.1em;
+  line-height: 130%;
   width: 100%;
   padding: 0;
+  font-weight: bold;
 }
 #transactions .transaction .total {
-  line-height: 1.1em;
+  align-self: center;
   white-space: nowrap;
   padding: 0;
   vertical-align: middle;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 #transactions .transaction .payments {
-  margin-top: 2px;
-  font-size: 12px;
+  margin: 4px 0;
+  font-size: var(--font-size-small);
+  font-weight: normal;
+  color: var(--subtle-text-color);
+  font-variant-numeric: tabular-nums;
+}
+#transactions .transaction .payments em {
+  font-style: normal;
+  color: var(--main-text-color);
 }
 
 .total-sum {
@@ -612,13 +769,13 @@ input[type="number"] {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 12px 30px 12px 12px;
-  border-top: 1px solid var(--list-item-divider-color);
+  padding: 32px 30px 16px 16px;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .error-message {
-  font-size: 80%;
+  font-size: var(--font-size-small);
   color: var(--color-error);
 }
 
@@ -637,7 +794,7 @@ input[type="number"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
+  font-size: var(--font-size-large);
 }
 .app-loader {
   position: absolute;
@@ -659,6 +816,9 @@ input[type="number"] {
   height: 68px;
   background: url(./images/loader.svg);
 }
+.loader h1 {
+  display: block !important;
+}
 .app-loader div {
   margin-top: -68px; /* height of loader icon */
   margin-bottom: 6px;
@@ -670,11 +830,11 @@ input[type="number"] {
 }
 .load-error img {
   width: 44px;
-  border-radius: 50px;
+  border-radius: var(--border-radius-pill);
   padding: 6px;
 }
 .load-error h2 {
-  font-size: 22px;
+  font-size: var(--font-size-large);
   margin: 0 0 2em;
 }
 .load-error button {

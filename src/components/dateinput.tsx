@@ -37,7 +37,12 @@ const DateInput: React.FC<Props> = ({ date, onChange }) => {
       >
         yesterday
       </button>
-      <input type="date" value={date} onChange={handleDateChange} />
+      <input
+        type="date"
+        value={date}
+        onChange={handleDateChange}
+        required={true}
+      />
     </div>
   );
 };

@@ -25,13 +25,15 @@ const CreateForm: FunctionComponent<Props> = ({
       <input
         type="text"
         className="full-width"
-        placeholder="Tab name …"
+        placeholder="Create new tab"
         value={control(tabName)}
         onChange={(event: SyntheticEvent<HTMLInputElement>) =>
           onTabNameChange(event.currentTarget.value)
         }
+        onFocus={(e) => (e.target.placeholder = "Tab name …")}
+        onBlur={(e) => (e.target.placeholder = "Create new tab")}
       />
-      <button className="create">Create</button>
+      <button className="create-tab">Create</button>
     </form>
   );
 };

@@ -6,7 +6,7 @@ interface Props {
 }
 
 function formatData(accounts: Account[]) {
-  const round = (amount: number) => Math.round(amount * 100) / 100;
+  const round = (amount: number) => Math.round(amount);
 
   const getMaxAmount = (accounts: Account[]) => {
     let result = 0;
@@ -23,10 +23,11 @@ function formatData(accounts: Account[]) {
     if (!maxAmount) {
       return { backgroundColor: "transparent" };
     }
-    const color = amount < 0 ? [226, 91, 29] : [92, 226, 14];
-    const opacity = Math.abs(amount) / maxAmount;
+    const color = amount < 0 ? [255, 68, 68] : [255, 255, 255];
+    const opacity = amount < 0 ? Math.abs(amount) / maxAmount : 0;
     color.push(opacity);
-    const textColor = opacity > 0.6 ? "var(--dark-color)" : "";
+    const textColor =
+      opacity > 0.6 && amount < 0 ? "var(--color-primary-opposite)" : "";
     return { backgroundColor: `rgba(${color.join(",")})`, color: textColor };
   };
 
@@ -41,16 +42,16 @@ function formatData(accounts: Account[]) {
 }
 
 const Summary: FunctionComponent<Props> = ({ accounts }) => (
-  <table className="summary">
-    <tbody>
-      {formatData(accounts).map((account) => (
-        <tr key={account.participant} style={account.style}>
-          <th className="account">{account.participant}</th>
-          <td className="amount">{account.amount}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+  <ol className="summary">
+    {formatData(accounts).map((account) => (
+      <li key={account.participant} style={account.style}>
+        <div className="amount">{account.amount}</div>
+        <div className="account" style={account.style}>
+          {account.participant}
+        </div>
+      </li>
+    ))}
+  </ol>
 );
 
 export default memo(Summary);

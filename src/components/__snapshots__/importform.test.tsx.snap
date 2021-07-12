@@ -5,21 +5,17 @@ exports[`renders form 1`] = `
   className="import-form"
   onSubmit={[Function]}
 >
-  <div
-    className="row-label"
-  >
-    Open shared tab:
-  </div>
   <input
-    autoFocus={true}
     className="full-width"
+    onBlur={[Function]}
     onChange={[Function]}
-    placeholder="Tab ID …"
+    onFocus={[Function]}
+    placeholder="Open shared tab"
     type="text"
     value="xy123hq"
   />
   <button>
-    Open
+    Open shared tab
   </button>
   <div
     className="error-message"

@@ -18,6 +18,10 @@ The app is based on [Create React App](https://github.com/facebook/create-react-
 
 In the project directory, you can run:
 
+### `npm install`
+
+Set up the development mode requirements.
+
 ### `npm start`
 
 Runs the app in the development mode.<br />

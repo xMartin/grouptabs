@@ -66,6 +66,7 @@ exports[`renders empty form 1`] = `
           </button>
           <input
             onChange={[Function]}
+            required={true}
             type="date"
             value="2020-02-20"
           />
@@ -102,7 +103,7 @@ exports[`renders empty form 1`] = `
               <option
                 value="NEW_PARTICIPANT"
               >
-                New participant…
+                New participant …
               </option>
             </select>
           </div>
@@ -160,7 +161,7 @@ exports[`renders empty form 1`] = `
               <option
                 value="NEW_PARTICIPANT"
               >
-                New participant…
+                New participant …
               </option>
             </select>
           </div>
@@ -278,10 +279,11 @@ exports[`renders empty form 1`] = `
           className="form-row-input"
         >
           <button
+            className="add-participant"
             onClick={[MockFunction]}
             type="button"
           >
-            + new participant
+            + Add participant
           </button>
         </div>
       </div>
@@ -359,6 +361,7 @@ exports[`renders prefilled form 1`] = `
           </button>
           <input
             onChange={[Function]}
+            required={true}
             type="date"
             value="2020-03-24"
           />
@@ -396,7 +399,7 @@ exports[`renders prefilled form 1`] = `
               <option
                 value="NEW_PARTICIPANT"
               >
-                New participant…
+                New participant …
               </option>
             </select>
           </div>
@@ -440,7 +443,7 @@ exports[`renders prefilled form 1`] = `
               <option
                 value="NEW_PARTICIPANT"
               >
-                New participant…
+                New participant …
               </option>
             </select>
           </div>
@@ -532,10 +535,11 @@ exports[`renders prefilled form 1`] = `
           className="form-row-input"
         >
           <button
+            className="add-participant"
             onClick={[MockFunction]}
             type="button"
           >
-            + new participant
+            + Add participant
           </button>
         </div>
       </div>
@@ -544,12 +548,12 @@ exports[`renders prefilled form 1`] = `
   <div
     className="row button-row"
   >
-    <span
-      className="fake-link delete"
+    <button
+      className="delete"
       onClick={[Function]}
     >
       Delete transaction
-    </span>
+    </button>
   </div>
 </form>
 `;

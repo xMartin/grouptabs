@@ -24,7 +24,7 @@ exports[`renders empty 1`] = `
         <option
           value="NEW_PARTICIPANT"
         >
-          New participant…
+          New participant …
         </option>
       </select>
     </div>
@@ -68,7 +68,7 @@ exports[`renders empty 1`] = `
         <option
           value="NEW_PARTICIPANT"
         >
-          New participant…
+          New participant …
         </option>
       </select>
     </div>
@@ -100,7 +100,7 @@ exports[`renders prefilled 1`] = `
         <option
           value="NEW_PARTICIPANT"
         >
-          New participant…
+          New participant …
         </option>
       </select>
     </div>
@@ -144,7 +144,7 @@ exports[`renders prefilled 1`] = `
         <option
           value="NEW_PARTICIPANT"
         >
-          New participant…
+          New participant …
         </option>
       </select>
     </div>

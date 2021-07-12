@@ -104,6 +104,7 @@ Array [
               </button>
               <input
                 onChange={[Function]}
+                required={true}
                 type="date"
                 value="2020-02-20"
               />
@@ -140,7 +141,7 @@ Array [
                   <option
                     value="NEW_PARTICIPANT"
                   >
-                    New participant…
+                    New participant …
                   </option>
                 </select>
               </div>
@@ -198,7 +199,7 @@ Array [
                   <option
                     value="NEW_PARTICIPANT"
                   >
-                    New participant…
+                    New participant …
                   </option>
                 </select>
               </div>
@@ -316,10 +317,11 @@ Array [
               className="form-row-input"
             >
               <button
+                className="add-participant"
                 onClick={[MockFunction]}
                 type="button"
               >
-                + new participant
+                + Add participant
               </button>
             </div>
           </div>
@@ -363,7 +365,7 @@ Array [
     >
       <img
         alt=""
-        src="logo.png"
+        src="grouptabs-logo.svg"
       />
       <h2>
         Grouptabs
@@ -375,7 +377,7 @@ Array [
         className="create"
         onClick={[Function]}
       >
-        OK
+        Refresh
       </button>
     </div>
   </div>,
@@ -516,6 +518,7 @@ Array [
               </button>
               <input
                 onChange={[Function]}
+                required={true}
                 type="date"
                 value="2020-03-24"
               />
@@ -674,10 +677,11 @@ Array [
               className="form-row-input"
             >
               <button
+                className="add-participant"
                 onClick={[MockFunction]}
                 type="button"
               >
-                + new participant
+                + Add participant
               </button>
             </div>
           </div>
@@ -686,12 +690,12 @@ Array [
       <div
         className="row button-row"
       >
-        <span
-          className="fake-link delete"
+        <button
+          className="delete"
           onClick={[Function]}
         >
           Delete transaction
-        </span>
+        </button>
       </div>
     </form>
   </div>,

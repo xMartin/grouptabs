@@ -7,13 +7,15 @@ exports[`renders form 1`] = `
 >
   <input
     className="full-width"
+    onBlur={[Function]}
     onChange={[Function]}
-    placeholder="Tab name …"
+    onFocus={[Function]}
+    placeholder="Create new tab"
     type="text"
     value="Badminton"
   />
   <button
-    className="create"
+    className="create-tab"
   >
     Create
   </button>

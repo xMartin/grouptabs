@@ -44,7 +44,7 @@ exports[`renders empty view with no tab selected 1`] = `
     >
       <img
         alt=""
-        src="logo.png"
+        src="grouptabs-logo.svg"
       />
       <h2>
         Grouptabs
@@ -56,7 +56,7 @@ exports[`renders empty view with no tab selected 1`] = `
         className="create"
         onClick={[Function]}
       >
-        OK
+        Refresh
       </button>
     </div>
   </div>
@@ -107,7 +107,7 @@ exports[`renders missing tab info error 1`] = `
     >
       <img
         alt=""
-        src="logo.png"
+        src="grouptabs-logo.svg"
       />
       <h2>
         Grouptabs
@@ -119,7 +119,7 @@ exports[`renders missing tab info error 1`] = `
         className="create"
         onClick={[Function]}
       >
-        OK
+        Refresh
       </button>
     </div>
   </div>
@@ -168,59 +168,64 @@ exports[`renders summary and transaction list 1`] = `
     <div
       className="row"
     >
-      <table
+      <ol
         className="summary"
       >
-        <tbody>
-          <tr
+        <li
+          style={
+            Object {
+              "backgroundColor": "rgba(255,68,68,0.975)",
+              "color": "var(--color-primary-opposite)",
+            }
+          }
+        >
+          <div
+            className="amount"
+          >
+            -12
+          </div>
+          <div
+            className="account"
             style={
               Object {
-                "backgroundColor": "rgba(226,91,29,1)",
-                "color": "var(--dark-color)",
+                "backgroundColor": "rgba(255,68,68,0.975)",
+                "color": "var(--color-primary-opposite)",
               }
             }
           >
-            <th
-              className="account"
-            >
-              Jan
-            </th>
-            <td
-              className="amount"
-            >
-              -11.7
-            </td>
-          </tr>
-          <tr
+            Jan
+          </div>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "rgba(255,255,255,0)",
+              "color": "",
+            }
+          }
+        >
+          <div
+            className="amount"
+          >
+            12
+          </div>
+          <div
+            className="account"
             style={
               Object {
-                "backgroundColor": "rgba(92,226,14,1)",
-                "color": "var(--dark-color)",
+                "backgroundColor": "rgba(255,255,255,0)",
+                "color": "",
               }
             }
           >
-            <th
-              className="account"
-            >
-              Martin
-            </th>
-            <td
-              className="amount"
-            >
-              11.7
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            Martin
+          </div>
+        </li>
+      </ol>
     </div>
     <div
       className="row"
     >
-      <h3
-        className="transactions-heading"
-      >
-        Transactions
-      </h3>
       <div
         id="transactions"
       >
@@ -231,42 +236,40 @@ exports[`renders summary and transaction list 1`] = `
             >
               9/20/2020
             </div>
-            <div
+            <button
               className="transaction"
               onClick={[Function]}
             >
-              <table>
-                <tbody>
-                  <tr>
-                    <td
-                      className="title"
-                    >
-                      Gummibärchen
-                      <div
-                        className="payments"
-                      >
-                        <strong>
-                          Martin: 22.8, 
-                        </strong>
-                        Jan
-                      </div>
-                    </td>
-                    <td
-                      className="total"
-                    >
-                      22.8
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+              <div
+                className="transaction-text"
+              >
+                <div
+                  className="title"
+                >
+                  Gummibärchen
+                </div>
+                <div
+                  className="payments"
+                >
+                  <em>
+                    Martin 22.8 · 
+                  </em>
+                  Jan 
+                </div>
+              </div>
+              <div
+                className="total"
+              >
+                22.8
+              </div>
+            </button>
           </div>
         </div>
       </div>
       <div
         className="total-sum"
       >
-        Total Spending: 
+        Total spending: 
         22.8
       </div>
     </div>
@@ -328,7 +331,7 @@ exports[`renders tab with no transactions 1`] = `
       className="empty-info"
     >
       <p>
-        A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
+        A tab consists of transactions. When you add a transaction you also define the participants.
       </p>
       <p>
         Start by adding your first transaction:

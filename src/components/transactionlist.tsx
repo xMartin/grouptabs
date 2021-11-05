@@ -15,7 +15,7 @@ interface DateGroup {
 
 const groupTransactions = (transactions: Transaction[]): DateGroup[] => {
   if (!transactions.length) {
-    return (transactions as unknown) as DateGroup[];
+    return transactions as unknown as DateGroup[];
   }
   // XXX Refactor structuring of date groups with a proper loop
   let date = formatHumanDate(transactions[0].date);

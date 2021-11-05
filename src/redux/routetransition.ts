@@ -16,17 +16,20 @@ const createSetRouteTransitionAction = (
 
 type RouteTransitionAction = SetRouteTransitionAction;
 
-export const middleware: Middleware = ({ dispatch }) => (next) => (action) => {
-  if (
-    action.type.startsWith("ROUTE_") &&
-    action.meta.location.kind === "push"
-  ) {
-    dispatch(createSetRouteTransitionAction(true));
+export const middleware: Middleware =
+  ({ dispatch }) =>
+  (next) =>
+  (action) => {
+    if (
+      action.type.startsWith("ROUTE_") &&
+      action.meta.location.kind === "push"
+    ) {
+      dispatch(createSetRouteTransitionAction(true));
 
-    setTimeout(() => dispatch(createSetRouteTransitionAction(false)), 400);
-  }
-  return next(action);
-};
+      setTimeout(() => dispatch(createSetRouteTransitionAction(false)), 400);
+    }
+    return next(action);
+  };
 
 interface RouteTransitionState {
   transition: boolean;

@@ -39,16 +39,16 @@ const routes: RoutesMap<{}, AllState> = {
 
   ROUTE_NEW_TRANSACTION: {
     path: "/tabs/:tabId/transactions/create",
-    thunk: async (dispatch, getState) => {
-      await tabThunk(dispatch, getState);
+    thunk: async (dispatch, getState, bag) => {
+      await tabThunk(dispatch, getState, bag);
       dispatch(initTransactionForm());
     },
   },
 
   ROUTE_TRANSACTION: {
     path: "/tabs/:tabId/transactions/:transactionId",
-    thunk: async (dispatch, getState) => {
-      await tabThunk(dispatch, getState);
+    thunk: async (dispatch, getState, bag) => {
+      await tabThunk(dispatch, getState, bag);
       dispatch(initTransactionForm());
     },
   },

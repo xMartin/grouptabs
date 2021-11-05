@@ -29,7 +29,7 @@ export default class DbManager {
       const db = new PouchDB("test");
       this.isIndexedDbAvailable = true;
       await db.destroy();
-    } catch (error) {
+    } catch (error: any) {
       if (error.name === "indexed_db_went_bad") {
         this.isIndexedDbAvailable = false;
         console.info("Accessing IndexedDB failed. Falling back to in-memory.");

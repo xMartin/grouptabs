@@ -1,4 +1,4 @@
-import PouchDB from "pouchdb";
+import PouchDB from "pouchdb-browser";
 import Tab, { Document } from "./tab";
 import config from "../config";
 import { Info, Entity, ActionMap } from "../types";

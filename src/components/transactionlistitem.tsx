@@ -85,7 +85,7 @@ const TransactionListItem: FunctionComponent<Props> = ({
 
   return (
     <div
-      className="transaction"
+      className="transaction list-item-with-arrow"
       onClick={() => onDetailsClick(transaction.tabId, transaction.id)}
     >
       <table>

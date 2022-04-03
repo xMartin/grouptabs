@@ -3,6 +3,14 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.5.1
+    date: 2022-04-04
+    description: Small improvements and updates
+    improved:
+      - Optimize display of status bar on mobile devices (color fits app background)
+    changed:
+      - Switch from npm to yarn for better developer experience
+      - Use specific browser distribution of PouchDB for faster developer dependencies installation
   - version: 1.5.0
     date: 2021-04-07
     description: Animated screen transitions and smaller bugfixes and improvements

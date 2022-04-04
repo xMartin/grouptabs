@@ -62,7 +62,8 @@ const useTransactionHeadingScroller = (
       newTransactionsHeadingIsOutOfViewport !==
       transactionsHeadingIsOutOfViewportRef.current
     ) {
-      transactionsHeadingIsOutOfViewportRef.current = newTransactionsHeadingIsOutOfViewport;
+      transactionsHeadingIsOutOfViewportRef.current =
+        newTransactionsHeadingIsOutOfViewport;
       setTransactionsHeadingIsOutOfViewport(
         newTransactionsHeadingIsOutOfViewport
       );
@@ -102,14 +103,10 @@ const Main: FunctionComponent<Props> = (props) => {
 
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
 
-  const {
-    transactionsHeadingIsOutOfViewport,
-    scrollToTransactionHeading,
-  } = useTransactionHeadingScroller(
-    contentContainerRef,
-    transactionsHeadingRef,
-    [props.accounts]
-  );
+  const { transactionsHeadingIsOutOfViewport, scrollToTransactionHeading } =
+    useTransactionHeadingScroller(contentContainerRef, transactionsHeadingRef, [
+      props.accounts,
+    ]);
 
   const handleNewEntryClick = () => {
     if (!props.tabId) {

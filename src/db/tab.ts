@@ -1,4 +1,4 @@
-import PouchDB from "pouchdb";
+import PouchDB from "pouchdb-browser";
 import debug, { Debugger } from "debug";
 
 const log = debug("db:tab");

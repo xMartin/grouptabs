@@ -258,17 +258,19 @@ interface AddParticipantToTransactionSharedFormAction {
   type: typeof ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM;
 }
 
-export const addParticipantToTransactionSharedForm = (): AddParticipantToTransactionSharedFormAction => ({
-  type: ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM,
-});
+export const addParticipantToTransactionSharedForm =
+  (): AddParticipantToTransactionSharedFormAction => ({
+    type: ADD_PARTICIPANT_TO_TRANSACTION_SHARED_FORM,
+  });
 
 interface SetAllJoinedOnTransactionSharedFormAction {
   type: typeof SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM;
 }
 
-export const setAllJoinedOnTransactionSharedForm = (): SetAllJoinedOnTransactionSharedFormAction => ({
-  type: SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM,
-});
+export const setAllJoinedOnTransactionSharedForm =
+  (): SetAllJoinedOnTransactionSharedFormAction => ({
+    type: SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM,
+  });
 
 interface SetErrorAction {
   type: typeof SET_ERROR;
@@ -407,7 +409,7 @@ const checkTab = async (
 
     const localDocs = await dbManager.connectTab(id);
     dispatch(createUpdateFromDbAction(localDocs));
-  } catch (error) {
+  } catch (error: any) {
     let message;
     if (error.name === "not_found") {
       message = 'Could not find a tab with the ID "' + id + '".';
@@ -419,158 +421,146 @@ const checkTab = async (
   }
 };
 
-export const ensureConnectedDb = (): GTThunkAction => async (
-  dispatch,
-  getState,
-  { dbManager }
-) => {
-  if (getState().app.initialLoadingDone) {
-    return;
-  }
+export const ensureConnectedDb =
+  (): GTThunkAction =>
+  async (dispatch, getState, { dbManager }) => {
+    if (getState().app.initialLoadingDone) {
+      return;
+    }
 
-  await dbManager.init((actionMap) => {
-    dispatch(createUpdateFromDbAction(actionMap));
-  });
-  await dbManager.connect();
-};
-
-export const createTab = (name: string): GTThunkAction => async (
-  dispatch,
-  getState,
-  { dbManager }
-) => {
-  const id = generateTabId();
-
-  const doc: Info = {
-    id: "info",
-    type: DocumentType.INFO,
-    name: name,
-    tabId: id,
+    await dbManager.init((actionMap) => {
+      dispatch(createUpdateFromDbAction(actionMap));
+    });
+    await dbManager.connect();
   };
 
-  dispatch(createCreateTabAction(doc));
-  dispatch(selectTab(id));
-  dispatch(resetCreateTabInputValue());
+export const createTab =
+  (name: string): GTThunkAction =>
+  async (dispatch, getState, { dbManager }) => {
+    const id = generateTabId();
 
-  await dbManager.createTab(doc);
-};
+    const doc: Info = {
+      id: "info",
+      type: DocumentType.INFO,
+      name: name,
+      tabId: id,
+    };
 
-export const importTab = (id: string): GTThunkAction => async (
-  dispatch,
-  getState,
-  { dbManager }
-) => {
-  id = id.toLowerCase();
-  // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2"
-  id = id.replace(/.*?([a-z0-9]+$)/, "$1");
-
-  // if tab is already imported, just show it
-  if (getState().app.tabs.includes(id)) {
+    dispatch(createCreateTabAction(doc));
     dispatch(selectTab(id));
-    dispatch(resetImportTabInputValue());
-    return;
-  }
+    dispatch(resetCreateTabInputValue());
 
-  return checkTab(dispatch, id, dbManager, true);
-};
+    await dbManager.createTab(doc);
+  };
 
-export const importTabFromUrl = (id: string): GTThunkAction => (
-  dispatch,
-  getState,
-  { dbManager }
-) => {
-  return checkTab(dispatch, id, dbManager);
-};
+export const importTab =
+  (id: string): GTThunkAction =>
+  async (dispatch, getState, { dbManager }) => {
+    id = id.toLowerCase();
+    // accept the full URL as input, too, e.g. "https://app.grouptabs.net/#/tabs/qm2vnl2" -> "qm2vnl2"
+    id = id.replace(/.*?([a-z0-9]+$)/, "$1");
+
+    // if tab is already imported, just show it
+    if (getState().app.tabs.includes(id)) {
+      dispatch(selectTab(id));
+      dispatch(resetImportTabInputValue());
+      return;
+    }
+
+    return checkTab(dispatch, id, dbManager, true);
+  };
+
+export const importTabFromUrl =
+  (id: string): GTThunkAction =>
+  (dispatch, getState, { dbManager }) => {
+    return checkTab(dispatch, id, dbManager);
+  };
 
 const resetTransactionFormDelayed = (dispatch: Dispatch) => {
   // reset form after scene transition
   setTimeout(() => dispatch(resetTransactionForm()), 400);
 };
 
-export const addOrUpdateTransaction = (): GTThunkAction => async (
-  dispatch,
-  getState,
-  { dbManager }
-) => {
-  const state = getState();
-  const tabId = state.location.payload.tabId;
-  const transactionId = state.location.payload.transactionId;
-  const formState = state.app.transactionForm;
+export const addOrUpdateTransaction =
+  (): GTThunkAction =>
+  async (dispatch, getState, { dbManager }) => {
+    const state = getState();
+    const tabId = state.location.payload.tabId;
+    const transactionId = state.location.payload.transactionId;
+    const formState = state.app.transactionForm;
 
-  if (!tabId || !formState) {
-    throw new Error();
-  }
+    if (!tabId || !formState) {
+      throw new Error();
+    }
 
-  const transaction = mapFormDataToTransaction(formState, tabId, transactionId);
-
-  dispatch(createCreateOrUpdateTransactionAction(transaction));
-
-  // if create, scroll main to top, assuming a transaction was added to the top
-  if (!transactionId) {
-    resetMainContentScrollPosition();
-  }
-  dispatch(selectTab(tabId));
-
-  resetTransactionFormDelayed(dispatch);
-
-  if (transactionId) {
-    await dbManager.updateDoc(transaction);
-  } else {
-    await dbManager.createDoc(transaction);
-  }
-};
-
-export const removeTransaction = (): GTThunkAction => async (
-  dispatch,
-  getState,
-  { dbManager }
-) => {
-  const state = getState();
-  const id = state.location.payload.transactionId;
-  let doc;
-  if (id) {
-    doc = state.app.docsById[id] as Transaction;
-  }
-
-  if (!id || !doc) {
-    throw new Error();
-  }
-
-  dispatch(createRemoveTransactionAction(doc));
-
-  resetMainContentScrollPosition();
-  const tabId = state.location.payload.tabId;
-  dispatch(selectTab(tabId));
-
-  resetTransactionFormDelayed(dispatch);
-
-  await dbManager.deleteDoc(doc);
-};
-
-export const closeTransaction = (): GTThunkAction => async (
-  dispatch,
-  getState
-) => {
-  const tabId = getState().location.payload.tabId;
-  dispatch(selectTab(tabId));
-
-  resetTransactionFormDelayed(dispatch);
-};
-
-export const initTransactionForm = (): GTThunkAction => async (
-  dispatch,
-  getState
-) => {
-  const state = getState();
-  const transactionId = state.location.payload.transactionId;
-  const transaction = state.app.docsById[transactionId] as Transaction;
-
-  if (transactionId && !transaction) {
-    throw new Error(
-      `No transaction in the store with the ID "${transactionId}"`
+    const transaction = mapFormDataToTransaction(
+      formState,
+      tabId,
+      transactionId
     );
-  }
 
-  const formState = createFormData(getAccounts(state), transaction);
-  dispatch(createSetTransactionFormAction(formState));
-};
+    dispatch(createCreateOrUpdateTransactionAction(transaction));
+
+    // if create, scroll main to top, assuming a transaction was added to the top
+    if (!transactionId) {
+      resetMainContentScrollPosition();
+    }
+    dispatch(selectTab(tabId));
+
+    resetTransactionFormDelayed(dispatch);
+
+    if (transactionId) {
+      await dbManager.updateDoc(transaction);
+    } else {
+      await dbManager.createDoc(transaction);
+    }
+  };
+
+export const removeTransaction =
+  (): GTThunkAction =>
+  async (dispatch, getState, { dbManager }) => {
+    const state = getState();
+    const id = state.location.payload.transactionId;
+    let doc;
+    if (id) {
+      doc = state.app.docsById[id] as Transaction;
+    }
+
+    if (!id || !doc) {
+      throw new Error();
+    }
+
+    dispatch(createRemoveTransactionAction(doc));
+
+    resetMainContentScrollPosition();
+    const tabId = state.location.payload.tabId;
+    dispatch(selectTab(tabId));
+
+    resetTransactionFormDelayed(dispatch);
+
+    await dbManager.deleteDoc(doc);
+  };
+
+export const closeTransaction =
+  (): GTThunkAction => async (dispatch, getState) => {
+    const tabId = getState().location.payload.tabId;
+    dispatch(selectTab(tabId));
+
+    resetTransactionFormDelayed(dispatch);
+  };
+
+export const initTransactionForm =
+  (): GTThunkAction => async (dispatch, getState) => {
+    const state = getState();
+    const transactionId = state.location.payload.transactionId;
+    const transaction = state.app.docsById[transactionId] as Transaction;
+
+    if (transactionId && !transaction) {
+      throw new Error(
+        `No transaction in the store with the ID "${transactionId}"`
+      );
+    }
+
+    const formState = createFormData(getAccounts(state), transaction);
+    dispatch(createSetTransactionFormAction(formState));
+  };

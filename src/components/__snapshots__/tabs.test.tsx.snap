@@ -103,7 +103,7 @@ exports[`renders tab view 1`] = `
         className="row tabs"
       >
         <button
-          className="full-width"
+          className="full-width list-item-with-arrow"
           onClick={[Function]}
         >
           TAB NAME

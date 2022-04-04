@@ -232,7 +232,7 @@ exports[`renders summary and transaction list 1`] = `
               9/20/2020
             </div>
             <div
-              className="transaction"
+              className="transaction list-item-with-arrow"
               onClick={[Function]}
             >
               <table>

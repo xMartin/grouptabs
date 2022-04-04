@@ -320,6 +320,22 @@ input[type="number"] {
   color: var(--subtle-text-color);
 }
 
+.list-item-with-arrow {
+  position: relative;
+}
+.list-item-with-arrow::after {
+  content: "";
+  width: 9px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background: var(--subtle-text-color);
+  mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
 .empty-info,
 .share-info {
   padding: 10px;
@@ -515,18 +531,6 @@ input[type="number"] {
   background: transparent;
   text-align: left;
 }
-.tabs button::after {
-  content: "";
-  width: 9px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 10px;
-  background: var(--subtle-text-color);
-  mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
-  mask-repeat: no-repeat;
-  mask-position: center;
-}
 .tabs button:last-child {
   border-bottom: 1px solid var(--list-item-divider-color);
 }
@@ -580,8 +584,6 @@ input[type="number"] {
   border-top: 1px solid var(--list-item-divider-color);
   min-height: 44px;
   cursor: pointer;
-  background: right 10px center no-repeat;
-  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
 }
 #transactions .transaction:first-child {
   border-top: none;

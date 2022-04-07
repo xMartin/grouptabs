@@ -22,8 +22,8 @@
     "@types/redux-first-router": "^2.1.7",
     "@types/uuid": "^8.3.1",
     "debug": "^4.3.2",
-    "husky": "^4.3.8",
-    "lint-staged": "^10.5.4",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "lodash.orderby": "^4.6.0",
     "lodash.throttle": "^4.1.1",
     "pouchdb-adapter-memory": "^7.2.2",
@@ -55,6 +55,7 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
+    "postinstall": "husky install",
     "start": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts start",
     "build": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts build",
     "pretest": "tsc",
@@ -81,11 +82,6 @@
     ]
   },
   "license": "GPL-3.0",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && CI=1 npm test"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"

@@ -20,7 +20,9 @@ exports[`renders empty view with no tab selected 1`] = `
         />
       </svg>
     </button>
-    <h2 />
+    <h2>
+      
+    </h2>
     <button
       className="create"
       onClick={[Function]}
@@ -81,7 +83,9 @@ exports[`renders missing tab info error 1`] = `
         />
       </svg>
     </button>
-    <h2 />
+    <h2>
+      
+    </h2>
     <button
       className="create"
       onClick={[Function]}

@@ -1,5 +1,5 @@
-import React, { StrictMode } from "react";
-import { createRoot } from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom";
 import { connectRoutes, LocationState } from "redux-first-router";
 import {
   combineReducers,
@@ -80,7 +80,7 @@ const components = (
   </Provider>
 );
 
-createRoot(document.getElementById("root")!).render(<StrictMode>{components}</StrictMode>);
+ReactDOM.render(components, document.getElementById("root"));
 
 const unsubscribe = store.subscribe(() => {
   if (store.getState().app.initialLoadingDone) {

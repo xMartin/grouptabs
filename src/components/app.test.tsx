@@ -1,10 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render, screen } from "@testing-library/react";
 import App from "./app";
-import { act } from "react-dom/test-utils";
 
-it("renders without crashing", () => {
-  const div = document.createElement("div");
+it("renders Grouptabs heading", () => {
   const props: any = {
     location: {
       type: "",
@@ -35,8 +33,6 @@ it("renders without crashing", () => {
     onAddParticipant: jest.fn(),
     onSetAllJoined: jest.fn(),
   };
-  act(() => {
-    ReactDOM.render(<App {...props} />, div);
-  });
-  ReactDOM.unmountComponentAtNode(div);
+  render(<App {...props} />);
+  expect(screen.getAllByText("Grouptabs")[0]).toBeInTheDocument();
 });

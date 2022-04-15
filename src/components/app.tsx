@@ -94,70 +94,66 @@ export default class App extends Component<Props> {
     }
 
     return (
-      <React.StrictMode>
-        <div className="scenes">
-          <div
-            className={`scenes-container scenes-container-active-${getSceneIndex(
-              this.props.location.type
-            )}`}
-          >
-            <Tabs
-              data={this.props.tabs}
-              visible={this.props.currentLocation === ROUTE_TABS}
-              checkingRemoteTab={this.props.checkingRemoteTab}
-              remoteTabError={this.props.remoteTabError}
-              createTabInputValue={this.props.createTabInputValue}
-              importTabInputValue={this.props.importTabInputValue}
-              onTabClick={this.props.onSelectTab}
-              onCreateTabInputChange={this.props.onCreateTabInputChange}
-              onCreateNewTab={this.props.onCreateTab}
-              onImportTabInputChange={this.props.onImportTabInputChange}
-              onImportTab={this.props.onImportTab}
-            />
-            <Main
-              tabInfo={this.props.tabInfo}
-              tabId={this.props.location.payload.tabId}
-              accounts={this.props.accounts}
-              transactions={this.props.transactions}
-              total={this.props.total}
-              visible={this.props.currentLocation === ROUTE_TAB}
-              checkingRemoteTab={this.props.checkingRemoteTab}
-              remoteTabError={this.props.remoteTabError}
-              importingTab={this.props.importingTab}
-              onChangeTabClick={this.props.onNavigateToTabs}
-              onNavigateToAddTransaction={this.props.onNavigateToAddTransaction}
-              onDetailsClick={this.props.onNavigateToUpdateTransaction}
-            />
-            <div className="scene editEntryScene">
-              {this.getShowEditEntry() && (
-                <EditEntry
-                  visible={
-                    this.props.currentLocation === ROUTE_TRANSACTION ||
-                    this.props.currentLocation === ROUTE_NEW_TRANSACTION
-                  }
-                  mode={this.getEditEntryMode()}
-                  formState={this.props.transactionFormState}
-                  checkingRemoteTab={this.props.checkingRemoteTab}
-                  remoteTabError={this.props.remoteTabError}
-                  importingTab={this.props.importingTab}
-                  onChangeTabClick={this.props.onNavigateToTabs}
-                  onCloseClick={this.props.onCloseTransaction}
-                  onSave={this.props.onAddOrUpdateTransaction}
-                  onDelete={this.props.onRemoveTransaction}
-                  onUpdateForm={this.props.onUpdateTransactionForm}
-                  onUpdateSharedForm={this.props.onUpdateTransactionSharedForm}
-                  onUpdateDirectForm={this.props.onUpdateTransactionDirectForm}
-                  onUpdateParticipant={
-                    this.props.onUpdateTransactionParticipant
-                  }
-                  onAddParticipant={this.props.onAddParticipant}
-                  onSetAllJoined={this.props.onSetAllJoined}
-                />
-              )}
-            </div>
+      <div className="scenes">
+        <div
+          className={`scenes-container scenes-container-active-${getSceneIndex(
+            this.props.location.type
+          )}`}
+        >
+          <Tabs
+            data={this.props.tabs}
+            visible={this.props.currentLocation === ROUTE_TABS}
+            checkingRemoteTab={this.props.checkingRemoteTab}
+            remoteTabError={this.props.remoteTabError}
+            createTabInputValue={this.props.createTabInputValue}
+            importTabInputValue={this.props.importTabInputValue}
+            onTabClick={this.props.onSelectTab}
+            onCreateTabInputChange={this.props.onCreateTabInputChange}
+            onCreateNewTab={this.props.onCreateTab}
+            onImportTabInputChange={this.props.onImportTabInputChange}
+            onImportTab={this.props.onImportTab}
+          />
+          <Main
+            tabInfo={this.props.tabInfo}
+            tabId={this.props.location.payload.tabId}
+            accounts={this.props.accounts}
+            transactions={this.props.transactions}
+            total={this.props.total}
+            visible={this.props.currentLocation === ROUTE_TAB}
+            checkingRemoteTab={this.props.checkingRemoteTab}
+            remoteTabError={this.props.remoteTabError}
+            importingTab={this.props.importingTab}
+            onChangeTabClick={this.props.onNavigateToTabs}
+            onNavigateToAddTransaction={this.props.onNavigateToAddTransaction}
+            onDetailsClick={this.props.onNavigateToUpdateTransaction}
+          />
+          <div className="scene editEntryScene">
+            {this.getShowEditEntry() && (
+              <EditEntry
+                visible={
+                  this.props.currentLocation === ROUTE_TRANSACTION ||
+                  this.props.currentLocation === ROUTE_NEW_TRANSACTION
+                }
+                mode={this.getEditEntryMode()}
+                formState={this.props.transactionFormState}
+                checkingRemoteTab={this.props.checkingRemoteTab}
+                remoteTabError={this.props.remoteTabError}
+                importingTab={this.props.importingTab}
+                onChangeTabClick={this.props.onNavigateToTabs}
+                onCloseClick={this.props.onCloseTransaction}
+                onSave={this.props.onAddOrUpdateTransaction}
+                onDelete={this.props.onRemoveTransaction}
+                onUpdateForm={this.props.onUpdateTransactionForm}
+                onUpdateSharedForm={this.props.onUpdateTransactionSharedForm}
+                onUpdateDirectForm={this.props.onUpdateTransactionDirectForm}
+                onUpdateParticipant={this.props.onUpdateTransactionParticipant}
+                onAddParticipant={this.props.onAddParticipant}
+                onSetAllJoined={this.props.onSetAllJoined}
+              />
+            )}
           </div>
         </div>
-      </React.StrictMode>
+      </div>
     );
   }
 }

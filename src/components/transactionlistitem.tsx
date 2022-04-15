@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo, ReactFragment } from "react";
+import React, { FunctionComponent, memo, ReactElement } from "react";
 import { Transaction, TransactionType } from "../types";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 interface ViewData {
   title: string;
-  payments?: ReactFragment;
+  payments?: string | ReactElement;
   participants?: string;
   total?: number;
 }

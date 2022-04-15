@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+import { render, screen } from "@testing-library/react";
 import Form from "./form";
 import {
   TransactionType,
@@ -8,7 +9,6 @@ import {
   TransactionFormParticipantInputType as InputType,
 } from "../types";
 import { createFormData } from "../util/transactionform";
-import { unmountComponentAtNode, render } from "react-dom";
 
 let realDate: any;
 
@@ -102,18 +102,6 @@ it("renders prefilled form", () => {
 });
 
 describe('"all joined" button', () => {
-  let container: any = null;
-  beforeEach(() => {
-    container = document.createElement("div");
-    document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    unmountComponentAtNode(container);
-    container.remove();
-    container = null;
-  });
-
   it("shows button for 2 unjoined participants", () => {
     render(
       <Form
@@ -145,11 +133,10 @@ describe('"all joined" button', () => {
         onSetAllJoined={jest.fn()}
         onSave={jest.fn()}
         onDelete={jest.fn()}
-      />,
-      container
+      />
     );
 
-    expect(container.querySelector(".all-joined")).toBeTruthy();
+    expect(screen.getByText("all joined")).toBeInTheDocument();
   });
 
   it("shows no button for 2 joined and 1 unjoined participant", () => {
@@ -188,10 +175,9 @@ describe('"all joined" button', () => {
         onSetAllJoined={jest.fn()}
         onSave={jest.fn()}
         onDelete={jest.fn()}
-      />,
-      container
+      />
     );
 
-    expect(container.querySelector(".all-joined")).toBeNull();
+    expect(screen.queryByText("all joined")).not.toBeInTheDocument();
   });
 });

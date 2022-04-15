@@ -65,8 +65,8 @@
   },
   "scripts": {
     "postinstall": "husky install",
-    "start": "REACT_APP_GT_VERSION=`git describe HEAD` react-app-rewired start",
-    "build": "REACT_APP_GT_VERSION=`git describe HEAD` react-app-rewired build",
+    "start": "REACT_APP_GT_VERSION=${REACT_APP_GT_VERSION:-`git describe HEAD`} react-app-rewired start",
+    "build": "REACT_APP_GT_VERSION=${REACT_APP_GT_VERSION:-`git describe HEAD`} react-app-rewired build",
     "pretest": "tsc",
     "test": "LC_ALL=en_US react-app-rewired test",
     "eject": "react-scripts eject"

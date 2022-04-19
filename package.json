@@ -14,7 +14,7 @@
     "@seznam/compose-react-refs": "^1.0.6",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
+    "@testing-library/user-event": "^14.1.1",
     "@types/jest": "^27.4.1",
     "@types/node": "^14.17.32",
     "@types/pouchdb": "^6.4.0",

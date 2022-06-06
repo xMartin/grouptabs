@@ -94,7 +94,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
           </div>
         </main>
         <footer>
-          Version: {process.env.REACT_APP_GT_VERSION || "VERSION"} –{" "}
+          Version: {process.env.REACT_APP_GT_VERSION || "N/A"} –{" "}
           {/* eslint-disable react/jsx-no-target-blank */}
           <a href="https://grouptabs.net/" target="_blank" rel="noopener">
             {/* eslint-enable react/jsx-no-target-blank */}

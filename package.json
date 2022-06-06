@@ -12,34 +12,42 @@
   "homepage": "https://grouptabs.net/",
   "dependencies": {
     "@seznam/compose-react-refs": "^1.0.6",
-    "@types/jest": "^26.0.24",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^14.1.1",
+    "@types/jest": "^27.4.1",
     "@types/node": "^14.17.32",
     "@types/pouchdb": "^6.4.0",
-    "@types/react": "^17.0.34",
-    "@types/react-dom": "^17.0.11",
-    "@types/react-redux": "^7.1.20",
-    "@types/react-test-renderer": "^17.0.1",
+    "@types/react": "^18.0.5",
+    "@types/react-dom": "^18.0.1",
+    "@types/react-test-renderer": "^18.0.0",
     "@types/redux-first-router": "^2.1.7",
     "@types/uuid": "^8.3.1",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
     "debug": "^4.3.2",
-    "husky": "^4.3.8",
-    "lint-staged": "^10.5.4",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "lodash.orderby": "^4.6.0",
     "lodash.throttle": "^4.1.1",
     "pouchdb-adapter-memory": "^7.2.2",
     "pouchdb-browser": "^7.2.2",
     "prettier": "^2.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-redux": "^7.2.6",
-    "react-scripts": "4.0.3",
-    "react-test-renderer": "^17.0.2",
-    "redux": "^4.1.2",
+    "process": "^0.11.10",
+    "react": "^18.0.0",
+    "react-app-rewired": "^2.2.1",
+    "react-dom": "^18.0.0",
+    "react-redux": "^8.0.0",
+    "react-scripts": "5.0.1",
+    "react-test-renderer": "^18.0.0",
+    "redux": "^4.2.0",
     "redux-first-router": "^2.1.5",
     "redux-thunk": "^2.4.0",
     "reselect": "^4.1.2",
     "smooth-scroll": "^16.1.3",
+    "stream-browserify": "^3.0.0",
     "typescript": "^4.4.4",
+    "util": "^0.12.4",
     "uuid": "^8.3.2",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
@@ -55,10 +63,11 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts start",
-    "build": "REACT_APP_GT_VERSION=`git describe HEAD` react-scripts build",
+    "postinstall": "husky install",
+    "start": "REACT_APP_GT_VERSION=${REACT_APP_GT_VERSION:-`git describe HEAD`} react-app-rewired start",
+    "build": "REACT_APP_GT_VERSION=${REACT_APP_GT_VERSION:-`git describe HEAD`} react-app-rewired build",
     "pretest": "tsc",
-    "test": "LC_ALL=en_US react-scripts test",
+    "test": "LC_ALL=en_US react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -81,11 +90,6 @@
     ]
   },
   "license": "GPL-3.0",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && CI=1 npm test"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"

@@ -1,4 +1,4 @@
-import React, { ReactFragment, FunctionComponent, memo } from "react";
+import React, { ReactElement, FunctionComponent, memo } from "react";
 import Loader from "./loader";
 import Form from "./form";
 import LoadError from "./loaderror";
@@ -28,7 +28,7 @@ interface Props {
 const EditEntry: FunctionComponent<Props> = (props) => {
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
 
-  const renderHeader = (showSaveButton: boolean): ReactFragment => (
+  const renderHeader = (showSaveButton: boolean): ReactElement => (
     <div className={`header${isScrolled ? " elevated" : ""}`}>
       <button className="left" onClick={props.onCloseClick}>
         <svg height="16" width="16">

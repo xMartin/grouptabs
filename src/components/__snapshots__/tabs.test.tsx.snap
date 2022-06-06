@@ -64,7 +64,7 @@ exports[`renders empty tab view 1`] = `
     </main>
     <footer>
       Version: 
-      VERSION
+      N/A
        –
        
       <a
@@ -143,7 +143,7 @@ exports[`renders tab view 1`] = `
     </main>
     <footer>
       Version: 
-      VERSION
+      N/A
        –
        
       <a

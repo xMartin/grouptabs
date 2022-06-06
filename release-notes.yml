@@ -3,6 +3,13 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.5.2
+    date: 2022-06-06
+    description: Bug fixes and updates
+    fixed:
+      - Fixed memory leak by updating PouchDB
+    changed:
+      - Update libraries, in particular Create React App to version 5 and React to version 18
   - version: 1.5.1
     date: 2022-04-04
     description: Small improvements and updates

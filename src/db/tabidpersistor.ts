@@ -33,5 +33,5 @@ export const addTabId = (tabId: string): void => {
 };
 
 export const clearTabIds = (): void => {
-  localStorage.clear();
+  localStorage.removeItem(TABS_KEY);
 };

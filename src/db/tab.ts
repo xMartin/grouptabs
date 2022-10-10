@@ -103,7 +103,11 @@ export default class Tab {
         .on("active", () => {
           this.logReplication("active");
         })
-        .on("complete", () => {
+        .on("complete", (info) => {
+          // ignore complete event if cancelled
+          if (info.status === "cancelled") {
+            return;
+          }
           this.logReplication("complete");
           clearTimeout(timeoutHandle);
           resolve();

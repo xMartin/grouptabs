@@ -20,6 +20,7 @@ export const CHECK_REMOTE_TAB = "CHECK_REMOTE_TAB";
 export const CHECK_REMOTE_TAB_FAILURE = "CHECK_REMOTE_TAB_FAILURE";
 export const CREATE_TAB = "CREATE_TAB";
 export const IMPORT_TAB = "IMPORT_TAB";
+export const IMPORT_TAB_SUCCESS = "IMPORT_TAB_SUCCESS";
 export const UPDATE_FROM_DB = "UPDATE_FROM_DB";
 export const CREATE_OR_UPDATE_TRANSACTION = "CREATE_OR_UPDATE_TRANSACTION";
 export const REMOVE_TRANSACTION = "REMOVE_TRANSACTION";
@@ -81,6 +82,18 @@ interface ImportTabAction {
 const createImportTabAction = (doc: Info): ImportTabAction => ({
   type: IMPORT_TAB,
   doc,
+});
+
+interface ImportTabSuccessAction {
+  type: typeof IMPORT_TAB_SUCCESS;
+  actionMap: ActionMap;
+}
+
+const createImportTabSuccessAction = (
+  actionMap: ActionMap
+): ImportTabSuccessAction => ({
+  type: IMPORT_TAB_SUCCESS,
+  actionMap,
 });
 
 interface UpdateFromDbAction {
@@ -339,6 +352,7 @@ export type GTAction =
   | CheckRemoteTabFailureAction
   | CreateTabAction
   | ImportTabAction
+  | ImportTabSuccessAction
   | UpdateFromDbAction
   | CreateOrUpdateTransactionAction
   | RemoveTransactionAction
@@ -383,7 +397,7 @@ export const resetMainContentScrollPosition = () => {
   }
 };
 
-const checkTab = async (
+const importTab = async (
   dispatch: (action: GTThunkAction | GTAction) => void,
   id: string,
   dbManager: DbManager,
@@ -408,7 +422,7 @@ const checkTab = async (
     }
 
     const localDocs = await dbManager.connectTab(id);
-    dispatch(createUpdateFromDbAction(localDocs));
+    dispatch(createImportTabSuccessAction(localDocs));
   } catch (error: any) {
     let message;
     if (error.name === "not_found") {
@@ -453,7 +467,7 @@ export const createTab =
     await dbManager.createTab(doc);
   };
 
-export const importTab =
+export const importTabFromForm =
   (id: string): GTThunkAction =>
   async (dispatch, getState, { dbManager }) => {
     id = id.toLowerCase();
@@ -467,13 +481,13 @@ export const importTab =
       return;
     }
 
-    return checkTab(dispatch, id, dbManager, true);
+    return importTab(dispatch, id, dbManager, true);
   };
 
 export const importTabFromUrl =
   (id: string): GTThunkAction =>
   (dispatch, getState, { dbManager }) => {
-    return checkTab(dispatch, id, dbManager);
+    return importTab(dispatch, id, dbManager);
   };
 
 const resetTransactionFormDelayed = (dispatch: Dispatch) => {

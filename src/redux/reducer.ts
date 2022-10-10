@@ -30,6 +30,7 @@ import {
   RESET_CREATE_TAB_INPUT_VALUE,
   SET_IMPORT_TAB_INPUT_VALUE,
   RESET_IMPORT_TAB_INPUT_VALUE,
+  IMPORT_TAB_SUCCESS,
 } from "./actioncreators";
 import { createNewParticipant } from "../util/transactionform";
 
@@ -122,7 +123,6 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
       return {
         ...docsReducer(state, action.actionMap),
         initialLoadingDone: true,
-        importingTab: false,
       };
 
     case CREATE_TAB:
@@ -156,6 +156,13 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
         checkingRemoteTab: false,
         remoteTabError: initialState.remoteTabError,
         importingTab: true,
+      };
+
+    case IMPORT_TAB_SUCCESS:
+      return {
+        ...docsReducer(state, action.actionMap),
+        initialLoadingDone: true,
+        importingTab: false,
       };
 
     case CREATE_OR_UPDATE_TRANSACTION:

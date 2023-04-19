@@ -3,6 +3,11 @@ description: >
   Track expenses in a group of people!
 
 releases:
+  - version: 1.5.3
+    date: 2023-04-19
+    description: Bug fixes and updates
+    fixed:
+      - Flashing of empty tab screen when importing takes longer than syncing other tabs
   - version: 1.5.2
     date: 2022-06-06
     description: Bug fixes and updates

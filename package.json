@@ -22,7 +22,7 @@
     "@types/react-dom": "^18.0.1",
     "@types/react-test-renderer": "^18.0.0",
     "@types/redux-first-router": "^2.1.7",
-    "@types/uuid": "^8.3.1",
+    "@types/uuid": "^9.0.1",
     "assert": "^2.0.0",
     "buffer": "^6.0.3",
     "debug": "^4.3.2",

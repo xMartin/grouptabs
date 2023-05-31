@@ -1,5 +1,6 @@
 import React, { memo, FunctionComponent } from "react";
 import { Account } from "../types";
+import Amount from "./amount";
 
 interface Props {
   accounts: Account[];
@@ -46,7 +47,9 @@ const Summary: FunctionComponent<Props> = ({ accounts }) => (
       {formatData(accounts).map((account) => (
         <tr key={account.participant} style={account.style}>
           <th className="account">{account.participant}</th>
-          <td className="amount">{account.amount}</td>
+          <td className="amount">
+            <Amount>{account.amount}</Amount>
+          </td>
         </tr>
       ))}
     </tbody>

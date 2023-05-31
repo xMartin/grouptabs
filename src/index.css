@@ -95,6 +95,12 @@ button.selected {
   background: var(--button-selected-background-color);
 }
 
+.amount-fraction {
+  font-size: 60%;
+  vertical-align: top;
+  margin-left: 0.2em;
+}
+
 select {
   cursor: pointer;
   margin: 0;
@@ -597,12 +603,6 @@ input[type="number"] {
   line-height: 1.1em;
   width: 100%;
   padding: 0;
-}
-#transactions .transaction .total {
-  line-height: 1.1em;
-  white-space: nowrap;
-  padding: 0;
-  vertical-align: middle;
 }
 #transactions .transaction .payments {
   margin-top: 2px;

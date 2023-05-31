@@ -1,24 +1,14 @@
-import React, { FunctionComponent, memo, ReactElement } from "react";
+import React, { FunctionComponent, memo } from "react";
 import { Transaction, TransactionType } from "../types";
+import Amount from "./amount";
 
 interface Props {
   transaction: Transaction;
   onDetailsClick: (tabId: string, transactionId: string) => void;
 }
 
-interface ViewData {
-  title: string;
-  payments?: string | ReactElement;
-  participants?: string;
-  total?: number;
-}
-
 const formatData = (data: Transaction) => {
   const round = (amount: number) => Math.round(amount * 100) / 100;
-
-  const result: ViewData = {
-    title: data.description,
-  };
 
   const paymentsList = data.participants
     .filter((participant) => {
@@ -55,8 +45,7 @@ const formatData = (data: Transaction) => {
 
     total += payment.amount;
   });
-  result.payments = <strong>{payments}</strong>;
-  result.total = round(total);
+  total = round(total);
 
   const participantsList = data.participants
     .map((participant) => participant.participant)
@@ -72,9 +61,14 @@ const formatData = (data: Transaction) => {
 
     participants += participant + ", ";
   });
-  result.participants = participants.substring(0, participants.length - 2);
+  participants = participants.substring(0, participants.length - 2);
 
-  return result;
+  return {
+    title: data.description,
+    payments,
+    participants,
+    total,
+  };
 };
 
 const TransactionListItem: FunctionComponent<Props> = ({
@@ -94,11 +88,13 @@ const TransactionListItem: FunctionComponent<Props> = ({
             <td className="title">
               {data.title}
               <div className="payments">
-                {data.payments}
+                <strong>{data.payments}</strong>
                 {data.participants}
               </div>
             </td>
-            <td className="total">{data.total}</td>
+            <td className="total">
+              <Amount hideZeroFraction>{data.total}</Amount>
+            </td>
           </tr>
         </tbody>
       </table>

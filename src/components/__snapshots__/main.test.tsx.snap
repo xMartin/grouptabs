@@ -184,7 +184,16 @@ exports[`renders summary and transaction list 1`] = `
             <td
               className="amount"
             >
-              -11.7
+              <span
+                className="amount-integer"
+              >
+                -11
+              </span>
+              <small
+                className="amount-fraction"
+              >
+                70
+              </small>
             </td>
           </tr>
           <tr
@@ -203,7 +212,16 @@ exports[`renders summary and transaction list 1`] = `
             <td
               className="amount"
             >
-              11.7
+              <span
+                className="amount-integer"
+              >
+                11
+              </span>
+              <small
+                className="amount-fraction"
+              >
+                70
+              </small>
             </td>
           </tr>
         </tbody>
@@ -250,7 +268,16 @@ exports[`renders summary and transaction list 1`] = `
                     <td
                       className="total"
                     >
-                      22.8
+                      <span
+                        className="amount-integer"
+                      >
+                        22
+                      </span>
+                      <small
+                        className="amount-fraction"
+                      >
+                        80
+                      </small>
                     </td>
                   </tr>
                 </tbody>

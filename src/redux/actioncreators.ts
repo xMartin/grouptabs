@@ -515,10 +515,6 @@ export const addOrUpdateTransaction =
 
     dispatch(createCreateOrUpdateTransactionAction(transaction));
 
-    // if create, scroll main to top, assuming a transaction was added to the top
-    if (!transactionId) {
-      resetMainContentScrollPosition();
-    }
     dispatch(selectTab(tabId));
 
     resetTransactionFormDelayed(dispatch);
@@ -546,7 +542,6 @@ export const removeTransaction =
 
     dispatch(createRemoveTransactionAction(doc));
 
-    resetMainContentScrollPosition();
     const tabId = state.location.payload.tabId;
     dispatch(selectTab(tabId));
 

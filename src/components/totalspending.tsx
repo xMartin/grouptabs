@@ -1,13 +1,14 @@
 import React, { memo, FunctionComponent } from "react";
+import Amount from "./amount";
 
 interface Props {
   amount: number;
 }
 
-const TotalSpending: FunctionComponent<Props> = ({ amount }) => {
-  const formattedAmount = Math.round(amount * 100) / 100;
-
-  return <div className="total-sum">Total Spending: {formattedAmount}</div>;
-};
+const TotalSpending: FunctionComponent<Props> = ({ amount }) => (
+  <div className="total-sum">
+    Total Spending: <Amount hideZeroFraction>{amount}</Amount>
+  </div>
+);
 
 export default memo(TotalSpending);

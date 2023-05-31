@@ -290,7 +290,16 @@ exports[`renders summary and transaction list 1`] = `
         className="total-sum"
       >
         Total Spending: 
-        22.8
+        <span
+          className="amount-integer"
+        >
+          22
+        </span>
+        <small
+          className="amount-fraction"
+        >
+          80
+        </small>
       </div>
     </div>
     <div

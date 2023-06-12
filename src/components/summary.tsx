@@ -17,36 +17,37 @@ function formatData(accounts: Account[]) {
         result = amount;
       }
     });
-    return round(result);
-  };
-
-  const getRowStyle = (amount: number, maxAmount: number) => {
-    if (!maxAmount) {
-      return { backgroundColor: "transparent" };
-    }
-    const color = amount < 0 ? [226, 91, 29] : [92, 226, 14];
-    const opacity = Math.abs(amount) / maxAmount;
-    color.push(opacity);
-    const textColor = opacity > 0.6 ? "var(--dark-color)" : "";
-    return { backgroundColor: `rgba(${color.join(",")})`, color: textColor };
+    return result;
   };
 
   const maxAmount = getMaxAmount(accounts);
   const data = accounts.map((account) => ({
     amount: round(account.amount),
-    style: getRowStyle(account.amount, maxAmount),
+    percentage: maxAmount ? (Math.abs(account.amount) / maxAmount) * 100 : 0,
     participant: account.participant,
   }));
 
   return data;
 }
 
+const cellPadding = 12;
+
 const Summary: FunctionComponent<Props> = ({ accounts }) => (
   <table className="summary">
     <tbody>
       {formatData(accounts).map((account) => (
-        <tr key={account.participant} style={account.style}>
-          <th className="account">{account.participant}</th>
+        <tr key={account.participant}>
+          <th className="account">
+            {account.participant}
+            <div
+              className={`summary-bar ${
+                account.amount < 0 ? "negative" : "positive"
+              }`}
+              style={{
+                width: `calc(${account.percentage}% - ${cellPadding * 2}px)`,
+              }}
+            />
+          </th>
           <td className="amount">
             <Amount>{account.amount}</Amount>
           </td>

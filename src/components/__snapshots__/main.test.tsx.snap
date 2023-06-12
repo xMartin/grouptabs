@@ -168,18 +168,19 @@ exports[`renders summary and transaction list 1`] = `
         className="summary"
       >
         <tbody>
-          <tr
-            style={
-              Object {
-                "backgroundColor": "rgba(226,91,29,1)",
-                "color": "var(--dark-color)",
-              }
-            }
-          >
+          <tr>
             <th
               className="account"
             >
               Jan
+              <div
+                className="summary-bar negative"
+                style={
+                  Object {
+                    "width": "calc(100% - 24px)",
+                  }
+                }
+              />
             </th>
             <td
               className="amount"
@@ -196,18 +197,19 @@ exports[`renders summary and transaction list 1`] = `
               </small>
             </td>
           </tr>
-          <tr
-            style={
-              Object {
-                "backgroundColor": "rgba(92,226,14,1)",
-                "color": "var(--dark-color)",
-              }
-            }
-          >
+          <tr>
             <th
               className="account"
             >
               Martin
+              <div
+                className="summary-bar positive"
+                style={
+                  Object {
+                    "width": "calc(100% - 24px)",
+                  }
+                }
+              />
             </th>
             <td
               className="amount"

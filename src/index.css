@@ -557,6 +557,18 @@ input[type="number"] {
 .summary tr {
   box-sizing: border-box;
   height: 56px;
+  position: relative;
+}
+
+.summary-bar {
+  position: absolute;
+  bottom: 6px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: var(--main-text-color);
+}
+.summary-bar.negative {
+  background-color: red;
 }
 
 #transactions .dategroup:not(:last-child) {

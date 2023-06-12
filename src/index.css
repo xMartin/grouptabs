@@ -64,7 +64,7 @@ table {
 }
 td,
 th {
-  padding: 10px 12px;
+  padding: 16px 12px;
 }
 th {
   text-align: left;
@@ -555,14 +555,16 @@ input[type="number"] {
   margin-bottom: 38px;
 }
 .summary tr {
-  box-sizing: border-box;
-  height: 56px;
+  /* position: relative is not defined for table row elements and
+  doesn't work as expected in Safari so we display it as flex */
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .summary-bar {
   position: absolute;
-  bottom: 6px;
+  bottom: 5px;
   height: 5px;
   border-radius: 5px;
   background-color: var(--main-text-color);

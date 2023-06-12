@@ -1,13 +1,4 @@
-import React, {
-  FunctionComponent,
-  useRef,
-  useState,
-  useEffect,
-  memo,
-  RefObject,
-} from "react";
-// @ts-ignore
-import SmoothScroll from "smooth-scroll";
+import React, { FunctionComponent, memo } from "react";
 import Loader from "./loader";
 import Summary from "./summary";
 import TransactionList from "./transactionlist";
@@ -15,7 +6,6 @@ import TotalSpending from "./totalspending";
 import LoadError from "./loaderror";
 import { Account, Transaction, Info } from "../types";
 import useScrollIndicator from "../hooks/scrollindicator";
-import composeRefs from "@seznam/compose-react-refs";
 
 interface Props {
   tabInfo?: Info;
@@ -32,81 +22,8 @@ interface Props {
   onDetailsClick: (tabId: string, transactionId: string) => void;
 }
 
-const useTransactionHeadingScroller = (
-  scrollContainerRef: RefObject<HTMLElement>,
-  transactionsHeadingRef: RefObject<HTMLElement>,
-  recheckDependencies: unknown[]
-): {
-  transactionsHeadingIsOutOfViewport: boolean;
-  scrollToTransactionHeading: () => void;
-} => {
-  const [
-    transactionsHeadingIsOutOfViewport,
-    setTransactionsHeadingIsOutOfViewport,
-  ] = useState<boolean>(false);
-
-  // this ref is needed as the state updates unreliably
-  const transactionsHeadingIsOutOfViewportRef = useRef(false);
-
-  const checkTransactionsHeadingVisibilityRef = useRef(() => {
-    if (!scrollContainerRef.current || !transactionsHeadingRef.current) {
-      return;
-    }
-
-    const scrollContainer = scrollContainerRef.current;
-    const scrollBottomY =
-      scrollContainer.clientHeight + scrollContainer.scrollTop;
-    const headingY = transactionsHeadingRef.current.offsetTop;
-    const newTransactionsHeadingIsOutOfViewport = scrollBottomY < headingY + 60;
-    if (
-      newTransactionsHeadingIsOutOfViewport !==
-      transactionsHeadingIsOutOfViewportRef.current
-    ) {
-      transactionsHeadingIsOutOfViewportRef.current =
-        newTransactionsHeadingIsOutOfViewport;
-      setTransactionsHeadingIsOutOfViewport(
-        newTransactionsHeadingIsOutOfViewport
-      );
-    }
-  });
-
-  const scroller = useRef<any>(new SmoothScroll());
-
-  useEffect(() => {
-    const handler = checkTransactionsHeadingVisibilityRef.current;
-    const scrollContainer = scrollContainerRef.current;
-    scrollContainer?.addEventListener("scroll", handler);
-    window.addEventListener("resize", handler);
-    handler();
-
-    return () => {
-      scrollContainer?.removeEventListener("scroll", handler);
-      window.removeEventListener("resize", handler);
-    };
-  }, [scrollContainerRef]);
-
-  useEffect(() => {
-    setTimeout(checkTransactionsHeadingVisibilityRef.current);
-  }, recheckDependencies); // eslint-disable-line react-hooks/exhaustive-deps
-
-  return {
-    transactionsHeadingIsOutOfViewport,
-    scrollToTransactionHeading: () => {
-      scroller.current.animateScroll(transactionsHeadingRef.current);
-    },
-  };
-};
-
 const Main: FunctionComponent<Props> = (props) => {
-  const contentContainerRef = useRef<HTMLDivElement>(null);
-  const transactionsHeadingRef = useRef<HTMLHeadingElement>(null);
-
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
-
-  const { transactionsHeadingIsOutOfViewport, scrollToTransactionHeading } =
-    useTransactionHeadingScroller(contentContainerRef, transactionsHeadingRef, [
-      props.accounts,
-    ]);
 
   const handleNewEntryClick = () => {
     if (!props.tabId) {
@@ -137,9 +54,6 @@ const Main: FunctionComponent<Props> = (props) => {
         <Summary accounts={props.accounts} />
       </div>
       <div className="row">
-        <h3 ref={transactionsHeadingRef} className="transactions-heading">
-          Transactions
-        </h3>
         <TransactionList
           transactions={props.transactions}
           onDetailsClick={props.onDetailsClick}
@@ -206,21 +120,10 @@ const Main: FunctionComponent<Props> = (props) => {
   return (
     <div className="scene mainScene">
       {renderHeader(!isLoading && !props.remoteTabError)}
-      {transactionsHeadingIsOutOfViewport && (
-        <h3
-          className="transactions-heading transactions-heading-fixed"
-          onClick={scrollToTransactionHeading}
-        >
-          ▾ Transactions
-        </h3>
-      )}
       <div
         id="main-content"
         className="content"
-        ref={composeRefs<HTMLDivElement>(
-          contentContainerRef,
-          scrollContainerRef
-        )}
+        ref={scrollContainerRef}
         style={{ position: "relative" }}
       >
         <Loader show={isLoading}>{renderContent()}</Loader>

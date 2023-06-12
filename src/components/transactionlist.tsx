@@ -46,22 +46,20 @@ const TransactionList: FunctionComponent<Props> = ({
 }) => {
   return (
     <div id="transactions">
-      <div>
-        {groupTransactions(transactions).map((dateGroup) => (
-          <div key={dateGroup.date}>
-            <div className="dategroup">{dateGroup.date}</div>
-            {dateGroup.transactions.map((transaction) => {
-              return (
-                <TransactionListItem
-                  key={transaction.timestamp + "_" + transaction.description}
-                  transaction={transaction}
-                  onDetailsClick={onDetailsClick}
-                />
-              );
-            })}
-          </div>
-        ))}
-      </div>
+      {groupTransactions(transactions).map((dateGroup) => (
+        <div key={dateGroup.date} className="dategroup">
+          <div className="date">{dateGroup.date}</div>
+          {dateGroup.transactions.map((transaction) => {
+            return (
+              <TransactionListItem
+                key={transaction.timestamp + "_" + transaction.description}
+                transaction={transaction}
+                onDetailsClick={onDetailsClick}
+              />
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 };

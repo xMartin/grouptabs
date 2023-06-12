@@ -230,59 +230,54 @@ exports[`renders summary and transaction list 1`] = `
     <div
       className="row"
     >
-      <h3
-        className="transactions-heading"
-      >
-        Transactions
-      </h3>
       <div
         id="transactions"
       >
-        <div>
-          <div>
-            <div
-              className="dategroup"
-            >
-              9/20/2020
-            </div>
-            <div
-              className="transaction list-item-with-arrow"
-              onClick={[Function]}
-            >
-              <table>
-                <tbody>
-                  <tr>
-                    <td
-                      className="title"
+        <div
+          className="dategroup"
+        >
+          <div
+            className="date"
+          >
+            9/20/2020
+          </div>
+          <div
+            className="transaction list-item-with-arrow"
+            onClick={[Function]}
+          >
+            <table>
+              <tbody>
+                <tr>
+                  <td
+                    className="title"
+                  >
+                    Gummibärchen
+                    <div
+                      className="payments"
                     >
-                      Gummibärchen
-                      <div
-                        className="payments"
-                      >
-                        <strong>
-                          Martin: 22.8, 
-                        </strong>
-                        Jan
-                      </div>
-                    </td>
-                    <td
-                      className="total"
+                      <strong>
+                        Martin: 22.8, 
+                      </strong>
+                      Jan
+                    </div>
+                  </td>
+                  <td
+                    className="total"
+                  >
+                    <span
+                      className="amount-integer"
                     >
-                      <span
-                        className="amount-integer"
-                      >
-                        22
-                      </span>
-                      <small
-                        className="amount-fraction"
-                      >
-                        80
-                      </small>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+                      22
+                    </span>
+                    <small
+                      className="amount-fraction"
+                    >
+                      80
+                    </small>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

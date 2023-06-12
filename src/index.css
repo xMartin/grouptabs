@@ -555,33 +555,17 @@ input[type="number"] {
   font-size: 18px;
 }
 
+.summary {
+  margin-bottom: 38px;
+}
 .summary tr {
   box-sizing: border-box;
   height: 56px;
 }
 
-.transactions-heading {
-  text-align: center;
-  padding-top: 18px;
-  padding-bottom: 0;
-  margin-bottom: 0;
+#transactions .dategroup:not(:last-child) {
+  margin-bottom: 26px;
 }
-.mainScene {
-  position: relative;
-}
-.transactions-heading-fixed {
-  position: absolute;
-  z-index: 1;
-  left: 0;
-  bottom: 0;
-  margin: 0;
-  width: 100%;
-  padding: 20px 0 12px;
-  background: linear-gradient(transparent, var(--main-background-color));
-  text-shadow: 0 0 4px var(--main-background-color);
-  cursor: pointer;
-}
-
 #transactions .transaction {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -594,8 +578,8 @@ input[type="number"] {
 #transactions .transaction:first-child {
   border-top: none;
 }
-#transactions .dategroup {
-  padding: 26px 12px 6px;
+#transactions .date {
+  padding: 0 12px 6px;
   font-size: 12px;
   color: var(--subtle-text-color);
 }

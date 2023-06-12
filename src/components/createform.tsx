@@ -25,7 +25,7 @@ const CreateForm: FunctionComponent<Props> = ({
       <input
         type="text"
         className="full-width"
-        placeholder="Tab name …"
+        placeholder="Group title …"
         value={control(tabName)}
         onChange={(event: SyntheticEvent<HTMLInputElement>) =>
           onTabNameChange(event.currentTarget.value)

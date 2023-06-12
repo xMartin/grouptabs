@@ -8,18 +8,18 @@ exports[`renders form 1`] = `
   <div
     className="row-label"
   >
-    Open shared tab:
+    Import group:
   </div>
   <input
     autoFocus={true}
     className="full-width"
     onChange={[Function]}
-    placeholder="Tab ID …"
+    placeholder="Group ID …"
     type="text"
     value="xy123hq"
   />
   <button>
-    Open
+    Import
   </button>
   <div
     className="error-message"

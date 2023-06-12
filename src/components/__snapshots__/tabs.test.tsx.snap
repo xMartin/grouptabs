@@ -24,10 +24,10 @@ exports[`renders empty tab view 1`] = `
         className="empty-info"
       >
         <p>
-          Track shared expenses in a group of people. Every group has its own tab like "Summer roadtrip" or "Badminton".
+          Track shared expenses in a group of people. You can create groups for projects or topics like "Summer roadtrip" or "Badminton".
         </p>
         <p>
-          Start by creating your first tab:
+          Start by creating your first group:
         </p>
       </div>
       <div
@@ -40,7 +40,7 @@ exports[`renders empty tab view 1`] = `
           <input
             className="full-width"
             onChange={[Function]}
-            placeholder="Tab name …"
+            placeholder="Group title …"
             type="text"
             value=""
           />
@@ -58,7 +58,7 @@ exports[`renders empty tab view 1`] = `
           className="fake-link"
           onClick={[Function]}
         >
-          Open shared tab
+          Import group
         </p>
       </div>
     </main>
@@ -119,7 +119,7 @@ exports[`renders tab view 1`] = `
           <input
             className="full-width"
             onChange={[Function]}
-            placeholder="Tab name …"
+            placeholder="Group title …"
             type="text"
             value=""
           />
@@ -137,7 +137,7 @@ exports[`renders tab view 1`] = `
           className="fake-link"
           onClick={[Function]}
         >
-          Open shared tab
+          Import group
         </p>
       </div>
     </main>

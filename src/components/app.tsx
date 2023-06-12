@@ -53,7 +53,7 @@ export default class App extends Component<Props> {
         setTitle(tabName);
         break;
       case ROUTE_NEW_TRANSACTION:
-        setTitle(tabName ? "New transaction (" + tabName + ")" : "");
+        setTitle(tabName ? "New payment (" + tabName + ")" : "");
         break;
       case ROUTE_TRANSACTION:
         const transaction = this.props.transaction;

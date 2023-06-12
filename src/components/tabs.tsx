@@ -64,10 +64,11 @@ const Tabs: FunctionComponent<Props> = (props) => {
           ) : (
             <div className="empty-info">
               <p>
-                Track shared expenses in a group of people. Every group has its
-                own tab like "Summer roadtrip" or "Badminton".
+                Track shared expenses in a group of people. You can create
+                groups for projects or topics like "Summer roadtrip" or
+                "Badminton".
               </p>
-              <p>Start by creating your first tab:</p>
+              <p>Start by creating your first group:</p>
             </div>
           )}
           <div className="form-row">
@@ -80,7 +81,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
           <div className="form-row">
             {hideImportForm ? (
               <p className="fake-link" onClick={handleShowImportFormClick}>
-                Open shared tab
+                Import group
               </p>
             ) : (
               <ImportForm

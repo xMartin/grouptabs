@@ -25,11 +25,11 @@ const ImportForm: FunctionComponent<Props> = ({
 
   return (
     <form onSubmit={handleSubmit} className="import-form">
-      <div className="row-label">Open shared tab:</div>
+      <div className="row-label">Import group:</div>
       <input
         type="text"
         className="full-width"
-        placeholder="Tab ID …"
+        placeholder="Group ID …"
         disabled={checkingRemoteTab}
         autoFocus={true}
         value={control(tabId)}
@@ -38,7 +38,7 @@ const ImportForm: FunctionComponent<Props> = ({
         }
       />
       <button disabled={checkingRemoteTab}>
-        {checkingRemoteTab ? "Checking…" : "Open"}
+        {checkingRemoteTab ? "Checking…" : "Import"}
       </button>
       <div className="error-message">{remoteTabError}</div>
     </form>

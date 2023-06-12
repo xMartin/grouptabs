@@ -48,7 +48,7 @@ exports[`renders empty view with no tab selected 1`] = `
         Grouptabs
       </h2>
       <p>
-        Error: Tab data missing. Are you offline? Try refreshing.
+        Error: Group data missing. Are you offline? Try refreshing.
       </p>
       <button
         className="create"
@@ -109,7 +109,7 @@ exports[`renders missing tab info error 1`] = `
         Grouptabs
       </h2>
       <p>
-        Error: Tab data missing. Are you offline? Try refreshing.
+        Error: Group data missing. Are you offline? Try refreshing.
       </p>
       <button
         className="create"
@@ -303,7 +303,7 @@ exports[`renders summary and transaction list 1`] = `
       className="share-info"
     >
       <p>
-        Share this tab ID for collaboration with others:
+        Share this group ID for collaboration with others:
         <br />
         <code>
           2
@@ -357,10 +357,10 @@ exports[`renders tab with no transactions 1`] = `
       className="empty-info"
     >
       <p>
-        A tab consists of transactions. When you add a transaction you also define the people that are part of it, the participants.
+        A group consists of payments. When you add a payment you also define the people that are part of it, the participants.
       </p>
       <p>
-        Start by adding your first transaction:
+        Start by adding your first payment:
       </p>
       <div
         className="row"
@@ -369,7 +369,7 @@ exports[`renders tab with no transactions 1`] = `
           className="full-width create"
           onClick={[Function]}
         >
-          Add transaction
+          Add payment
         </button>
       </div>
     </div>
@@ -377,7 +377,7 @@ exports[`renders tab with no transactions 1`] = `
       className="share-info"
     >
       <p>
-        Share this tab ID for collaboration with others:
+        Share this group ID for collaboration with others:
         <br />
         <code>
           6

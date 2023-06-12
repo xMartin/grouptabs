@@ -41,7 +41,11 @@ const Summary: FunctionComponent<Props> = ({ accounts }) => (
             {account.participant}
             <div
               className={`summary-bar ${
-                account.amount < 0 ? "negative" : "positive"
+                account.amount === 0
+                  ? "zero"
+                  : account.amount < 0
+                  ? "negative"
+                  : "positive"
               }`}
               style={{
                 width: `calc(${account.percentage}% - ${cellPadding * 2}px)`,

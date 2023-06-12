@@ -569,6 +569,9 @@ input[type="number"] {
   border-radius: 5px;
   background-color: var(--main-text-color);
 }
+.summary-bar:not(.zero) {
+  min-width: 5px;
+}
 .summary-bar.negative {
   background-color: red;
 }

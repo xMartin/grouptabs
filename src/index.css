@@ -604,6 +604,9 @@ input[type="number"] {
   width: 100%;
   padding: 0;
 }
+#transactions .transaction .total {
+  padding: 0;
+}
 #transactions .transaction .payments {
   margin-top: 2px;
   font-size: 12px;

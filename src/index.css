@@ -412,7 +412,7 @@ input[type="number"] {
   fill: var(--subtle-text-color);
 }
 .direct-transaction-amount input {
-  width: 70px;
+  width: 120px;
   text-align: center;
 }
 
@@ -516,7 +516,7 @@ input[type="number"] {
 }
 .participantInput .amountInput,
 .newParticipantInput .amountInput {
-  width: 70px;
+  width: 82px;
 }
 .participantInput .amountInput input[type="number"],
 .newParticipantInput .amountInput input[type="number"] {

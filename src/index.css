@@ -7,8 +7,6 @@
     "Liberation Mono", "Courier New", monospace;
   --dark-color: #131313;
   --light-color: #f5f5f5;
-  --color-cta: #44f;
-  --color-cta-opposite: #fff;
   --color-error: #f31;
   --main-text-color: var(--dark-color);
   --main-background-color: var(--light-color);
@@ -31,6 +29,10 @@
     --participant-status-none-color: #a5a5a5;
     --list-item-divider-color: var(--text-input-background-color);
   }
+}
+:root {
+  --color-cta: var(--main-text-color);
+  --color-cta-opposite: var(--main-background-color);
 }
 
 html,
@@ -145,6 +147,9 @@ button.create {
   background: var(--color-cta);
   color: var(--color-cta-opposite);
   z-index: 10;
+}
+button.create svg path {
+  fill: var(--color-cta-opposite);
 }
 
 .header button.create {

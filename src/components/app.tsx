@@ -11,7 +11,7 @@ import {
   ROUTE_TRANSACTION,
 } from "../redux/actioncreators";
 
-const titleBase = "Grouptabs";
+const titleBase = "uneven";
 
 function setTitle(input?: string) {
   const documentTitle = document.title;

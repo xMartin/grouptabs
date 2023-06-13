@@ -45,7 +45,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
     <div className="scene tabsScene">
       <div className={`header${isScrolled ? " elevated" : ""}`}>
         <img id="logo" src={logo} alt="" />
-        <h2>Grouptabs</h2>
+        <h2>uneven</h2>
       </div>
       <div className="content content-with-footer" ref={scrollContainerRef}>
         <main>

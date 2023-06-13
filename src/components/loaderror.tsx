@@ -18,7 +18,7 @@ const LoadError: FunctionComponent<Props> = ({ message, onOkClick }) => {
   return (
     <div className="load-error">
       <img src={logo} alt="" />
-      <h2>Grouptabs</h2>
+      <h2>uneven</h2>
       <p>{message}</p>
       <button className="create" onClick={handleButtonClick}>
         OK

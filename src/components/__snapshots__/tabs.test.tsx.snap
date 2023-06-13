@@ -13,7 +13,7 @@ exports[`renders empty tab view 1`] = `
       src="logo.png"
     />
     <h2>
-      Grouptabs
+      uneven
     </h2>
   </div>
   <div
@@ -92,7 +92,7 @@ exports[`renders tab view 1`] = `
       src="logo.png"
     />
     <h2>
-      Grouptabs
+      uneven
     </h2>
   </div>
   <div

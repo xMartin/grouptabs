@@ -45,7 +45,7 @@ exports[`renders empty view with no tab selected 1`] = `
         src="logo.png"
       />
       <h2>
-        Grouptabs
+        uneven
       </h2>
       <p>
         Error: Group data missing. Are you offline? Try refreshing.
@@ -106,7 +106,7 @@ exports[`renders missing tab info error 1`] = `
         src="logo.png"
       />
       <h2>
-        Grouptabs
+        uneven
       </h2>
       <p>
         Error: Group data missing. Are you offline? Try refreshing.

@@ -118,7 +118,6 @@ const Form: FunctionComponent<Props> = (props) => {
                 ? "none"
                 : "",
           }}
-          className="form-row"
         >
           <DirectTransactionInput
             data={props.data.direct}

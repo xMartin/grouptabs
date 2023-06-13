@@ -73,7 +73,6 @@ exports[`renders empty form 1`] = `
       </div>
     </div>
     <div
-      className="form-row"
       style={
         Object {
           "display": "none",
@@ -366,7 +365,6 @@ exports[`renders prefilled form 1`] = `
       </div>
     </div>
     <div
-      className="form-row"
       style={
         Object {
           "display": "none",

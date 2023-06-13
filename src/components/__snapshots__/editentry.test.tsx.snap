@@ -111,7 +111,6 @@ Array [
           </div>
         </div>
         <div
-          className="form-row"
           style={
             Object {
               "display": "none",
@@ -523,7 +522,6 @@ Array [
           </div>
         </div>
         <div
-          className="form-row"
           style={
             Object {
               "display": "none",

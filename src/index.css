@@ -328,6 +328,19 @@ input[type="number"] {
 
 .list-item-with-arrow {
   position: relative;
+  box-sizing: border-box;
+  padding: 16px 30px 16px 12px;
+  border: 0 solid var(--list-item-divider-color);
+  border-top-width: 1px;
+  min-height: 44px;
+  cursor: pointer;
+  /* in case of button element */
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+}
+.list-item-with-arrow:last-child {
+  border-bottom-width: 1px;
 }
 .list-item-with-arrow::after {
   content: "";
@@ -357,7 +370,7 @@ input[type="number"] {
 }
 
 .form-row {
-  padding: 3px 0;
+  padding: 3px 6px;
   position: relative;
 }
 .form-row-input {
@@ -405,13 +418,6 @@ input[type="number"] {
 
 .row-label {
   margin: 1em 2% 0.3em;
-}
-
-/* Whitespace to sides */
-.editEntryScene .form,
-.tabsScene main {
-  margin-left: 5px;
-  margin-right: 5px;
 }
 
 .editEntryScene .form,
@@ -524,21 +530,11 @@ input[type="number"] {
 }
 
 .tabsScene .row.tabs {
-  margin: 1em 0;
+  margin: 20px 0;
 }
-.tabsScene .row p {
+.tabsScene .row p,
+.tabsScene .form-row p {
   text-align: center;
-}
-.tabs button {
-  position: relative;
-  border-top: 1px solid var(--list-item-divider-color);
-  padding: 16px 12px;
-  border-radius: 0;
-  background: transparent;
-  text-align: left;
-}
-.tabs button:last-child {
-  border-bottom: 1px solid var(--list-item-divider-color);
 }
 
 .create-form input {
@@ -566,22 +562,17 @@ input[type="number"] {
 #transactions .dategroup:not(:last-child) {
   margin-bottom: 26px;
 }
-#transactions .transaction {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 12px 30px 12px 12px;
-  border-top: 1px solid var(--list-item-divider-color);
-  min-height: 44px;
-  cursor: pointer;
-}
-#transactions .transaction:first-child {
-  border-top: none;
-}
 #transactions .date {
   padding: 0 12px 6px;
   font-size: 12px;
   color: var(--subtle-text-color);
+}
+#transactions .list-item-with-arrow {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+#transactions .list-item-with-arrow:last-child {
+  border-bottom: 0;
 }
 #transactions .transaction .title {
   line-height: 1.1em;

@@ -70,14 +70,14 @@ const Tabs: FunctionComponent<Props> = (props) => {
               <p>Start by creating your first tab:</p>
             </div>
           )}
-          <div className="row">
+          <div className="form-row">
             <CreateForm
               tabName={props.createTabInputValue}
               onTabNameChange={props.onCreateTabInputChange}
               onSubmit={props.onCreateNewTab}
             />
           </div>
-          <div className="row">
+          <div className="form-row">
             {hideImportForm ? (
               <p className="fake-link" onClick={handleShowImportFormClick}>
                 Open shared tab

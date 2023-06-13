@@ -31,7 +31,7 @@ exports[`renders empty tab view 1`] = `
         </p>
       </div>
       <div
-        className="row"
+        className="form-row"
       >
         <form
           className="create-form"
@@ -52,7 +52,7 @@ exports[`renders empty tab view 1`] = `
         </form>
       </div>
       <div
-        className="row"
+        className="form-row"
       >
         <p
           className="fake-link"
@@ -110,7 +110,7 @@ exports[`renders tab view 1`] = `
         </button>
       </div>
       <div
-        className="row"
+        className="form-row"
       >
         <form
           className="create-form"
@@ -131,7 +131,7 @@ exports[`renders tab view 1`] = `
         </form>
       </div>
       <div
-        className="row"
+        className="form-row"
       >
         <p
           className="fake-link"

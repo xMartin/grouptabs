@@ -15,10 +15,14 @@ exports[`renders empty 1`] = `
         onChange={[Function]}
         value=""
       >
-        <option>
+        <option
+          value="Jan"
+        >
           Jan
         </option>
-        <option>
+        <option
+          value="Martin"
+        >
           Martin
         </option>
         <option
@@ -59,10 +63,14 @@ exports[`renders empty 1`] = `
         onChange={[Function]}
         value=""
       >
-        <option>
+        <option
+          value="Jan"
+        >
           Jan
         </option>
-        <option>
+        <option
+          value="Martin"
+        >
           Martin
         </option>
         <option
@@ -91,10 +99,14 @@ exports[`renders prefilled 1`] = `
         onChange={[Function]}
         value="Martin"
       >
-        <option>
+        <option
+          value="Jan"
+        >
           Jan
         </option>
-        <option>
+        <option
+          value="Martin"
+        >
           Martin
         </option>
         <option
@@ -135,10 +147,14 @@ exports[`renders prefilled 1`] = `
         onChange={[Function]}
         value="Jan"
       >
-        <option>
+        <option
+          value="Jan"
+        >
           Jan
         </option>
-        <option>
+        <option
+          value="Martin"
+        >
           Martin
         </option>
         <option

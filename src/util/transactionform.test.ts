@@ -415,6 +415,74 @@ describe("mapFormDataToTransaction", () => {
       },
     ]);
   });
+
+  it("trims new participant names from a shared transaction", () => {
+    const formData: TransactionFormState = {
+      transactionType: TransactionType.SHARED,
+      date: "2023-01-20",
+      description: "Description",
+      shared: [
+        {
+          id: "1",
+          inputType: InputType.EXISTING,
+          participant: "Me ",
+          status: Status.JOINED,
+        },
+        {
+          id: "2",
+          inputType: InputType.NEW,
+          participant: "Her ",
+          status: Status.PAID,
+          amount: 20,
+        },
+      ],
+      direct: {
+        options: [],
+      },
+    };
+
+    const transaction = mapFormDataToTransaction(formData, "TABID", "ID");
+
+    expect(transaction.participants).toEqual([
+      {
+        participant: "Me ",
+        amount: 0,
+      },
+      {
+        participant: "Her",
+        amount: 20,
+      },
+    ]);
+  });
+
+  it("trims new participant names from a direct transaction", () => {
+    const formData: TransactionFormState = {
+      transactionType: TransactionType.DIRECT,
+      date: "2023-02-20",
+      description: "Description",
+      shared: [],
+      direct: {
+        from: " Ma",
+        to: NEW_PARTICIPANT_OPTION,
+        toNew: " Jan ",
+        amount: 8,
+        options: [],
+      },
+    };
+
+    const transaction = mapFormDataToTransaction(formData, "TABID", "ID");
+
+    expect(transaction.participants).toEqual([
+      {
+        participant: " Ma",
+        amount: 8,
+      },
+      {
+        participant: "Jan",
+        amount: -8,
+      },
+    ]);
+  });
 });
 
 describe("validate", () => {

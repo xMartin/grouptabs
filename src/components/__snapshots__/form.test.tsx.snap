@@ -385,10 +385,14 @@ exports[`renders prefilled form 1`] = `
               onChange={[Function]}
               value="Martin"
             >
-              <option>
+              <option
+                value="Martin"
+              >
                 Martin
               </option>
-              <option>
+              <option
+                value="Jan"
+              >
                 Jan
               </option>
               <option
@@ -429,10 +433,14 @@ exports[`renders prefilled form 1`] = `
               onChange={[Function]}
               value="Jan"
             >
-              <option>
+              <option
+                value="Martin"
+              >
                 Martin
               </option>
-              <option>
+              <option
+                value="Jan"
+              >
                 Jan
               </option>
               <option

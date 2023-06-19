@@ -30,7 +30,7 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
   const renderOptions = () => {
     return data.options.map((participant) => {
       let label = participant;
-      let value;
+      let value = participant;
       if (participant === NEW_PARTICIPANT_OPTION) {
         label = newParticipantOptionLabel;
         value = NEW_PARTICIPANT_OPTION;

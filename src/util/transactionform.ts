@@ -165,8 +165,15 @@ function mapParticipant(
     return;
   }
 
+  // trim new participant names
+  // don't trim existing ones to be backwards compatible
+  const participantName =
+    participant.inputType === InputType.NEW
+      ? participant.participant.trim()
+      : participant.participant;
+
   return {
-    participant: participant.participant,
+    participant: participantName,
     amount:
       participant.status === Status.PAID && participant.amount
         ? participant.amount
@@ -185,15 +192,22 @@ function mapParticipantsOfSharedTransaction(
 function mapParticipantsOfDirectTransaction(
   direct: TransactionFormState["direct"]
 ): Account[] {
+  // trim new participant names
+  // don't trim existing ones to be backwards compatible
+  const from =
+    direct.from === NEW_PARTICIPANT_OPTION
+      ? direct.fromNew?.trim()
+      : direct.from;
+  const to =
+    direct.to === NEW_PARTICIPANT_OPTION ? direct.toNew?.trim() : direct.to;
+
   const participants = [
     {
-      participant:
-        direct.from === NEW_PARTICIPANT_OPTION ? direct.fromNew : direct.from,
+      participant: from,
       amount: direct.amount,
     },
     {
-      participant:
-        direct.to === NEW_PARTICIPANT_OPTION ? direct.toNew : direct.to,
+      participant: to,
       amount: -(direct.amount as number),
     },
   ] as Account[];

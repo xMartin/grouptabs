@@ -7,11 +7,7 @@ interface Props {
 
 const Loader: FunctionComponent<Props> = ({ show, children }) => {
   if (show) {
-    return (
-      <div className="loader tab-loader">
-        <div />
-      </div>
-    );
+    return <div className="loader tab-loader" />;
   }
 
   return <>{children}</>;

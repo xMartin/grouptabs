@@ -1,5 +1,5 @@
 import React, { memo, FunctionComponent } from "react";
-import logo from "../images/logo.png";
+import Brand from "./brand";
 
 interface Props {
   message: string;
@@ -17,8 +17,7 @@ const LoadError: FunctionComponent<Props> = ({ message, onOkClick }) => {
 
   return (
     <div className="load-error">
-      <img src={logo} alt="" />
-      <h2>uneven</h2>
+      <Brand />
       <p>{message}</p>
       <button className="create" onClick={handleButtonClick}>
         OK

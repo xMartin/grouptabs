@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState, useEffect, memo } from "react";
+import Brand from "./brand";
 import TabListButton from "./tablistbutton";
 import CreateForm from "./createform";
 import ImportForm from "./importform";
 import { Tab } from "../types";
-import logo from "../images/logo.png";
 import useScrollIndicator from "../hooks/scrollindicator";
 import { resetMainContentScrollPosition } from "../redux/actioncreators";
 
@@ -43,9 +43,8 @@ const Tabs: FunctionComponent<Props> = (props) => {
 
   return (
     <div className="scene tabsScene">
-      <div className={`header${isScrolled ? " elevated" : ""}`}>
-        <img id="logo" src={logo} alt="" />
-        <h2>uneven</h2>
+      <div className={`header header-brand${isScrolled ? " elevated" : ""}`}>
+        <Brand />
       </div>
       <div className="content content-with-footer" ref={scrollContainerRef}>
         <main>

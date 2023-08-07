@@ -1,5 +1,5 @@
 import React, { memo, FunctionComponent } from "react";
-import logo from "../images/logo.png";
+import Brand from "./brand";
 
 interface Props {
   error: { error: any; info: any };
@@ -8,9 +8,8 @@ interface Props {
 const Error: FunctionComponent<Props> = () => {
   return (
     <div className="scene errorScene">
-      <div className="header">
-        <img id="logo" src={logo} alt="" />
-        <h2>Error</h2>
+      <div className="header header-brand">
+        <Brand />
       </div>
       <p>Oops, unfortunately an error occured.</p>
       <p>

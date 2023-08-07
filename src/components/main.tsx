@@ -33,7 +33,7 @@ const Main: FunctionComponent<Props> = (props) => {
   };
 
   const renderHeader = (showAddButton?: boolean) => (
-    <div className={`header${isScrolled ? " elevated" : ""}`}>
+    <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
       <button className="left" onClick={props.onChangeTabClick}>
         <svg height="16" width="16">
           <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />

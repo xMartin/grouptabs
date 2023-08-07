@@ -7,7 +7,9 @@
     "Liberation Mono", "Courier New", monospace;
   --dark-color: #131313;
   --light-color: #f5f5f5;
-  --color-error: #f31;
+  --red: #ff4444;
+  --green: #baff44;
+  --color-error: var(--red);
   --main-text-color: var(--dark-color);
   --main-background-color: var(--light-color);
   --subtle-text-color: #707070;
@@ -165,15 +167,15 @@ button.create svg path {
   font-size: 30px;
 }
 
-.header button.left {
+.header-app button.left {
   background: transparent;
   padding: 16px 10px;
 }
-.header button.left path {
+.header-app button.left path {
   fill: var(--subtle-text-color);
 }
-.header button.left:hover path,
-.header button.left:focus path {
+.header-app button.left:hover path,
+.header-app button.left:focus path {
   fill: var(--main-text-color);
 }
 
@@ -257,7 +259,6 @@ input[type="number"] {
 }
 
 .header {
-  height: 56px;
   position: relative;
 }
 .header::after {
@@ -288,7 +289,11 @@ input[type="number"] {
 .header.elevated::after {
   opacity: 1;
 }
-.header h2 {
+.header-app {
+  height: 56px;
+  position: relative;
+}
+.header-app h2 {
   position: absolute;
   font-size: 22px;
   left: 50%;
@@ -301,13 +306,17 @@ input[type="number"] {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.header #logo {
+.header-app .logo {
   width: 44px;
   position: absolute;
   left: 50%;
   transform: translateX(-200%);
   border-radius: 50px;
   padding: 6px;
+}
+.header-brand {
+  height: initial;
+  padding: 2em 0;
 }
 
 .content {
@@ -358,6 +367,20 @@ input[type="number"] {
   mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
   mask-repeat: no-repeat;
   mask-position: center;
+}
+
+.brand .logo {
+  display: block;
+  width: 56px;
+  margin: 0 auto 12px;
+}
+.brand svg {
+  display: block;
+  width: 90px;
+  margin: 0 auto;
+}
+.brand svg path {
+  fill: var(--main-text-color);
 }
 
 .empty-info,
@@ -569,16 +592,15 @@ input[type="number"] {
 
 .summary-bar {
   position: absolute;
-  bottom: 5px;
+  bottom: 7px;
   height: 5px;
   border-radius: 5px;
-  background-color: green;
-}
-.summary-bar:not(.zero) {
+  background-color: var(--green);
   min-width: 5px;
+  margin: 0 1px;
 }
 .summary-bar.negative {
-  background-color: red;
+  background-color: var(--red);
 }
 
 #transactions .dategroup:not(:last-child) {
@@ -657,6 +679,8 @@ input[type="number"] {
   height: 70%;
 }
 .loader div {
+  content: "";
+  display: block;
   width: 68px;
   height: 68px;
   background: url(./images/loader.svg);
@@ -665,19 +689,17 @@ input[type="number"] {
   margin-top: -68px; /* height of loader icon */
   margin-bottom: 6px;
 }
+.app-loader img {
+  margin-top: 5px;
+  width: 68px;
+}
 
 .load-error {
   text-align: center;
-  padding: 2em;
+  padding: 0 2em 2em;
 }
-.load-error img {
-  width: 44px;
-  border-radius: 50px;
-  padding: 6px;
-}
-.load-error h2 {
-  font-size: 22px;
-  margin: 0 0 2em;
+.load-error .brand {
+  margin-bottom: 3em;
 }
 .load-error button {
   margin-top: 2em;

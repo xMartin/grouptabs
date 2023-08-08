@@ -100,11 +100,11 @@ exports[`renders empty tab view 1`] = `
        –
        
       <a
-        href="https://grouptabs.net/"
+        href="https://getuneven.com/"
         rel="noopener"
         target="_blank"
       >
-        grouptabs.net
+        getuneven.com
       </a>
     </footer>
   </div>
@@ -211,11 +211,11 @@ exports[`renders tab view 1`] = `
        –
        
       <a
-        href="https://grouptabs.net/"
+        href="https://getuneven.com/"
         rel="noopener"
         target="_blank"
       >
-        grouptabs.net
+        getuneven.com
       </a>
     </footer>
   </div>

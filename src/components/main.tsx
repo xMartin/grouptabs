@@ -27,13 +27,13 @@ const Main: FunctionComponent<Props> = (props) => {
 
   const handleNewEntryClick = () => {
     if (!props.tabId) {
-      throw new Error("Tab ID missing.");
+      throw new Error("Group ID missing.");
     }
     props.onNavigateToAddTransaction(props.tabId);
   };
 
   const renderHeader = (showAddButton?: boolean) => (
-    <div className={`header${isScrolled ? " elevated" : ""}`}>
+    <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
       <button className="left" onClick={props.onChangeTabClick}>
         <svg height="16" width="16">
           <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
@@ -68,13 +68,13 @@ const Main: FunctionComponent<Props> = (props) => {
     <>
       <div className="empty-info">
         <p>
-          A tab consists of transactions. When you add a transaction you also
-          define the people that are part of it, the participants.
+          A group consists of payments. When you add a payment you also define
+          the people that are part of it, the participants.
         </p>
-        <p>Start by adding your first transaction:</p>
+        <p>Start by adding your first payment:</p>
         <div className="row">
           <button className="full-width create" onClick={handleNewEntryClick}>
-            Add transaction
+            Add payment
           </button>
         </div>
       </div>
@@ -85,7 +85,7 @@ const Main: FunctionComponent<Props> = (props) => {
   const renderShareInfo = () => (
     <div className="share-info">
       <p>
-        Share this tab ID for collaboration with others:
+        Share this group ID for collaboration with others:
         <br />
         <code>{props.tabInfo?.tabId || props.tabId}</code>
       </p>
@@ -95,7 +95,7 @@ const Main: FunctionComponent<Props> = (props) => {
   const renderContent = () => {
     if (!props.tabInfo) {
       return (
-        <LoadError message="Error: Tab data missing. Are you offline? Try refreshing." />
+        <LoadError message="Error: Group data missing. Are you offline? Try refreshing." />
       );
     }
 

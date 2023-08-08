@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./app";
 
-it("renders Grouptabs heading", () => {
+it("renders empty text", () => {
   const props: any = {
     location: {
       type: "",
@@ -34,5 +34,7 @@ it("renders Grouptabs heading", () => {
     onSetAllJoined: jest.fn(),
   };
   render(<App {...props} />);
-  expect(screen.getAllByText("Grouptabs")[0]).toBeInTheDocument();
+  expect(
+    screen.getAllByText("Start by creating your first group:")[0]
+  ).toBeInTheDocument();
 });

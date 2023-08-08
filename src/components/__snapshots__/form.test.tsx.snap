@@ -554,7 +554,7 @@ exports[`renders prefilled form 1`] = `
       className="fake-link delete"
       onClick={[Function]}
     >
-      Delete transaction
+      Delete payment
     </span>
   </div>
 </form>

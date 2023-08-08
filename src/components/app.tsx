@@ -11,7 +11,7 @@ import {
   ROUTE_TRANSACTION,
 } from "../redux/actioncreators";
 
-const titleBase = "Grouptabs";
+const titleBase = "uneven";
 
 function setTitle(input?: string) {
   const documentTitle = document.title;
@@ -53,7 +53,7 @@ export default class App extends Component<Props> {
         setTitle(tabName);
         break;
       case ROUTE_NEW_TRANSACTION:
-        setTitle(tabName ? "New transaction (" + tabName + ")" : "");
+        setTitle(tabName ? "New payment (" + tabName + ")" : "");
         break;
       case ROUTE_TRANSACTION:
         const transaction = this.props.transaction;

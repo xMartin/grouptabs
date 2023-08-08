@@ -57,7 +57,7 @@ const Form: FunctionComponent<Props> = (props) => {
 
   const handleDelete = () => {
     // eslint-disable-next-line no-restricted-globals
-    if (confirm("Do you really want to delete the transaction?")) {
+    if (confirm("Do you really want to delete the payment?")) {
       props.onDelete();
     }
   };
@@ -157,7 +157,7 @@ const Form: FunctionComponent<Props> = (props) => {
       <div className={"row" + (props.mode === "edit" ? " button-row" : "")}>
         {props.mode === "edit" ? (
           <span className="fake-link delete" onClick={handleDelete}>
-            Delete transaction
+            Delete payment
           </span>
         ) : null}
       </div>

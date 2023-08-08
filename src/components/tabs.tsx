@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState, useEffect, memo } from "react";
+import Brand from "./brand";
 import TabListButton from "./tablistbutton";
 import CreateForm from "./createform";
 import ImportForm from "./importform";
 import { Tab } from "../types";
-import logo from "../images/logo.png";
 import useScrollIndicator from "../hooks/scrollindicator";
 import { resetMainContentScrollPosition } from "../redux/actioncreators";
 
@@ -43,9 +43,8 @@ const Tabs: FunctionComponent<Props> = (props) => {
 
   return (
     <div className="scene tabsScene">
-      <div className={`header${isScrolled ? " elevated" : ""}`}>
-        <img id="logo" src={logo} alt="" />
-        <h2>Grouptabs</h2>
+      <div className={`header header-brand${isScrolled ? " elevated" : ""}`}>
+        <Brand />
       </div>
       <div className="content content-with-footer" ref={scrollContainerRef}>
         <main>
@@ -64,10 +63,11 @@ const Tabs: FunctionComponent<Props> = (props) => {
           ) : (
             <div className="empty-info">
               <p>
-                Track shared expenses in a group of people. Every group has its
-                own tab like "Summer roadtrip" or "Badminton".
+                Track shared expenses in a group of people. You can create
+                groups for projects or topics like "Summer roadtrip" or
+                "Badminton".
               </p>
-              <p>Start by creating your first tab:</p>
+              <p>Start by creating your first group:</p>
             </div>
           )}
           <div className="form-row">
@@ -80,7 +80,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
           <div className="form-row">
             {hideImportForm ? (
               <p className="fake-link" onClick={handleShowImportFormClick}>
-                Open shared tab
+                Import group
               </p>
             ) : (
               <ImportForm
@@ -96,9 +96,9 @@ const Tabs: FunctionComponent<Props> = (props) => {
         <footer>
           Version: {process.env.REACT_APP_GT_VERSION || "N/A"} –{" "}
           {/* eslint-disable react/jsx-no-target-blank */}
-          <a href="https://grouptabs.net/" target="_blank" rel="noopener">
+          <a href="https://getuneven.com/" target="_blank" rel="noopener">
             {/* eslint-enable react/jsx-no-target-blank */}
-            grouptabs.net
+            getuneven.com
           </a>
         </footer>
       </div>

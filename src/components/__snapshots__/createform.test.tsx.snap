@@ -8,7 +8,7 @@ exports[`renders form 1`] = `
   <input
     className="full-width"
     onChange={[Function]}
-    placeholder="Tab name …"
+    placeholder="Group title …"
     type="text"
     value="Badminton"
   />

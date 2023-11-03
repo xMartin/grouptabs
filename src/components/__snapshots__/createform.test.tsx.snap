@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders form 1`] = `
+<form
+  className="create-form"
+  onSubmit={[Function]}
+>
+  <input
+    className="full-width"
+    onChange={[Function]}
+    placeholder="Group title …"
+    type="text"
+    value="Badminton"
+  />
+  <button
+    className="create"
+  >
+    Create
+  </button>
+</form>
+`;

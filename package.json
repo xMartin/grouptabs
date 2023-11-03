@@ -10,19 +10,35 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "events": "^3.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^16.11.58",
+    "@types/pouchdb": "^6.4.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/redux-first-router": "^2.1.7",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
+    "debug": "^4.3.2",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "lodash.orderby": "^4.6.0",
+    "lodash.throttle": "^4.1.1",
+    "pouchdb-adapter-memory": "^8.0.1",
+    "pouchdb-browser": "^8.0.1",
+    "react-redux": "^8.0.0",
+    "redux": "^4.2.0",
+    "redux-first-router": "^2.1.5",
+    "redux-thunk": "^2.4.0",
+    "reselect": "^4.1.2",
     "typescript": "^5.0.2",
+    "uuid": "^9.0.0",
     "vite": "^4.4.5"
   }
 }

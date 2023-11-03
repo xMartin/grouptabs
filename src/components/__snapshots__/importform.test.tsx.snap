@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders form 1`] = `
+<form
+  className="import-form"
+  onSubmit={[Function]}
+>
+  <div
+    className="row-label"
+  >
+    Import group:
+  </div>
+  <input
+    autoFocus={true}
+    className="full-width"
+    onChange={[Function]}
+    placeholder="Group ID …"
+    type="text"
+    value="xy123hq"
+  />
+  <button>
+    Import
+  </button>
+  <div
+    className="error-message"
+  />
+</form>
+`;

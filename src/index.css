@@ -1,69 +1,706 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  /* fonts from bootstrap */
+  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --dark-color: #131313;
+  --light-color: #f5f5f5;
+  --red: #ff4444;
+  --green: #baff44;
+  --color-error: var(--red);
+  --main-text-color: var(--dark-color);
+  --main-background-color: var(--light-color);
+  --subtle-text-color: #707070;
+  --button-background-color: #ddd;
+  --button-disabled-background-color: var(--subtle-text-color);
+  --button-selected-background-color: #bbb;
+  --text-input-background-color: #fff;
+  --participant-status-none-color: #888;
+  --list-item-divider-color: #e5e5e5;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main-text-color: var(--light-color);
+    --main-background-color: var(--dark-color);
+    --subtle-text-color: #818181;
+    --button-background-color: #525252;
+    --button-selected-background-color: #686868;
+    --text-input-background-color: #343434;
+    --participant-status-none-color: #a5a5a5;
+    --list-item-divider-color: var(--text-input-background-color);
+  }
+}
+:root {
+  --color-cta: var(--main-text-color);
+  --color-cta-opposite: var(--main-background-color);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html,
+body,
+#root {
+  height: 100%; /* vh doesn't take variable browser chrome into account */
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  color: var(--main-text-color);
+  font-size: 18px;
+  background: var(--main-background-color);
+  font-family: var(--font-family-sans-serif);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+a,
+a:link,
+a:visited,
+a:active {
+  color: var(--color-cta);
+}
+
+code {
+  font-family: var(--font-family-monospace);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+td,
+th {
+  padding: 16px 12px;
+}
+th {
+  text-align: left;
+  font-weight: normal;
+}
+td.amount {
+  text-align: right;
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font: inherit;
+  background: var(--button-background-color);
+  color: inherit;
+  border: none;
+  box-sizing: border-box;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 12px;
+  margin: 0;
+  border-radius: 5px;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+button[disabled] {
+  cursor: default;
+  color: var(--button-disabled-background-color);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+button.selected {
+  background: var(--button-selected-background-color);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.amount-fraction {
+  font-size: 60%;
+  vertical-align: top;
+  margin-left: 0.2em;
+}
+
+select {
+  cursor: pointer;
+  margin: 0;
+  padding: 12px;
+  padding-right: 24px;
+  color: var(--main-text-color);
+  border-radius: 5px;
+  border: none;
+  background-color: var(--button-background-color);
+  background-image: linear-gradient(
+      45deg,
+      transparent 50%,
+      var(--button-disabled-background-color) 50%
+    ),
+    linear-gradient(135deg, gray 50%, transparent 50%);
+  background-position: calc(100% - 22px) calc(1em + 5px),
+    calc(100% - 17px) calc(1em + 5px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Chrome needs this for some reason … */
+  font-size: 18px !important;
+  font-family: var(--font-family-sans-serif) !important;
+}
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 var(--main-background-color);
+}
+
+button.full-width,
+select.full-width {
+  display: block;
+  width: 100%;
+}
+
+button.create {
+  padding: 0 13px;
+  background: var(--color-cta);
+  color: var(--color-cta-opposite);
+  z-index: 10;
+}
+button.create svg path {
+  fill: var(--color-cta-opposite);
+}
+
+.header button.create {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 5px;
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.5);
+  border-radius: 100px; /* Pill-style rounded button */
+}
+/* larger '+' Plus in button */
+.mainScene .header button.create {
+  font-size: 30px;
+}
+
+.header-app button.left {
+  background: transparent;
+  padding: 16px 10px;
+}
+.header-app button.left path {
+  fill: var(--subtle-text-color);
+}
+.header-app button.left:hover path,
+.header-app button.left:focus path {
+  fill: var(--main-text-color);
+}
+
+.editEntryScene .button-row {
+  margin-top: 2em;
+  text-align: center;
+}
+.editEntryScene button.all-joined {
+  float: right;
+}
+.tab {
+  display: block;
+  width: 50%;
+  float: left;
+}
+.tab.active {
+  background: inherit;
+  color: inherit;
+  font-weight: bold;
+}
+
+.fake-link {
+  color: var(--subtle-text-color);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.fake-link.delete {
+  color: var(--color-error);
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"] {
+  box-sizing: border-box;
+  width: 100%;
+  background: var(--text-input-background-color);
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  color: inherit;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 12px;
+  font: inherit;
+  margin: 0; /* Safari has 2px */
+}
+
+.scenes {
+  height: 100%;
+  max-width: 500px;
+  min-width: 320px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.scenes-container {
+  height: 100%;
+  display: flex;
+  width: 300%;
+  transition: transform 400ms;
+}
+.scenes-container-active-2 {
+  transform: translate3d(-33.33%, 0, 0);
+}
+.scenes-container-active-3 {
+  transform: translate3d(-66.66%, 0, 0);
+}
+.scene {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 500px) and (min-height: 780px) {
+  .scene {
+    padding-top: 4vh;
+    height: calc(100% - 4vh);
   }
-  a:hover {
-    color: #747bff;
+  .content {
+    padding-bottom: 4vh;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+.header {
+  position: relative;
+}
+.header::after {
+  opacity: 0;
+  transition: opacity 400ms;
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  height: 10px;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.1) 10%,
+    transparent
+  );
+  z-index: 1;
+}
+@media (prefers-color-scheme: dark) {
+  .header::after {
+    background: linear-gradient(
+      rgba(0, 0, 0),
+      rgba(0, 0, 0, 0.8) 10%,
+      transparent
+    );
   }
+}
+.header.elevated::after {
+  opacity: 1;
+}
+.header-app {
+  height: 56px;
+  position: relative;
+}
+.header-app h2 {
+  position: absolute;
+  font-size: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 0;
+  top: 0;
+  margin: 0;
+  max-width: 66%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header-app .logo {
+  width: 44px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-200%);
+  border-radius: 50px;
+  padding: 6px;
+}
+.header-brand {
+  height: initial;
+  padding: 2em 0;
+}
+
+.content {
+  padding-top: 0.5em;
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content-with-footer {
+  display: flex;
+  flex-direction: column;
+}
+.content-with-footer main {
+  flex: 1;
+}
+.content-with-footer footer {
+  padding: 10px 10px 15px;
+  text-align: center;
+  font-size: 80%;
+  color: var(--subtle-text-color);
+}
+
+.list-item-with-arrow {
+  position: relative;
+  box-sizing: border-box;
+  padding: 16px 30px 16px 12px;
+  border: 0 solid var(--list-item-divider-color);
+  border-top-width: 1px;
+  min-height: 44px;
+  cursor: pointer;
+  /* in case of button element */
+  border-radius: 0;
+  background: transparent;
+  text-align: left;
+}
+.list-item-with-arrow:last-child {
+  border-bottom-width: 1px;
+}
+.list-item-with-arrow::after {
+  content: "";
+  width: 9px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  background: var(--subtle-text-color);
+  mask-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg opacity='.5' xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns%23' xmlns='http://www.w3.org/2000/svg' height='15' width='9' version='1.1' xmlns:cc='http://creativecommons.org/ns%23' xmlns:dc='http://purl.org/dc/elements/1.1/'%3E%3Cpath d='m1.5 0-1 1 6.5 6.5-6.5 6.5 1 1 7.5-7.5z'/%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+.brand .logo {
+  display: block;
+  width: 56px;
+  margin: 0 auto 12px;
+}
+.brand svg {
+  display: block;
+  width: 90px;
+  margin: 0 auto;
+}
+.brand svg path {
+  fill: var(--main-text-color);
+}
+
+.empty-info,
+.share-info {
+  padding: 10px;
+}
+.empty-info p,
+.share-info p {
+  margin: 0 0 1em;
+}
+.share-info {
+  margin-top: 1em;
+  color: var(--subtle-text-color);
+  text-align: center;
+}
+
+.form-row {
+  padding: 3px 6px;
+  position: relative;
+}
+.form-row-input {
+  position: relative;
+}
+
+.form-row-input.description input {
+  padding-right: 90px;
+  text-overflow: ellipsis;
+}
+
+.form-row-input.transaction-type {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto !important;
+}
+.form-row-input.transaction-type select {
+  margin-top: 3px;
+  font-size: 80% !important;
+  opacity: 0.5;
+  background-color: transparent;
+  border: none;
+}
+
+.direct-transaction {
+  padding: 24px 0;
+}
+.direct-transaction-amount {
+  display: flex;
+  justify-content: center;
+  margin: 12px 6px;
+}
+.direct-transaction-amount svg {
+  display: block;
+  padding: 16px 30px 8px;
+}
+.direct-transaction-amount svg path {
+  fill: var(--subtle-text-color);
+}
+.direct-transaction-amount input {
+  width: 120px;
+  text-align: center;
+}
+
+.row-label {
+  margin: 1em 2% 0.3em;
+}
+
+.editEntryScene .form,
+.editEntryScene .button-row,
+.listScene table {
+  margin-bottom: 1em;
+}
+
+.row.toggle {
+  margin-top: 1em;
+  overflow: hidden; /* clear */
+}
+
+.editEntryScene .form-row-input {
+  display: table;
+  width: 100%;
+  overflow: hidden;
+}
+.editEntryScene .date-input {
+  display: flex;
+  flex-wrap: wrap;
+}
+.editEntryScene .date-input > * {
+  width: auto;
+  flex-grow: 1;
+  border-radius: 0;
+}
+.editEntryScene .date-input > :first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.editEntryScene .date-input > :last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.participantInput,
+.newParticipantInput {
+  display: flex;
+  margin-bottom: 2px;
+}
+.participantInput,
+.newParticipantInput,
+.newParticipantInput .participant input {
+  color: var(--participant-status-none-color);
+}
+.participant input,
+.joinedButtonWrapper button,
+.paid-button.selected {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.newParticipantInput .joinedButtonWrapper button,
+.newParticipantInput .paid-button,
+.participantInput .paid-button:not(.selected),
+.amountInput input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.participantInput > *,
+.newParticipantInput > * {
+  height: 44px;
+  vertical-align: middle;
+}
+.participantInput.selected,
+.newParticipantInput.selected,
+.newParticipantInput.selected .participant input {
+  color: inherit;
+}
+.participantInput.paid .participant,
+.newParticipantInput.paid .participant input {
+  font-weight: bold;
+}
+.participantInput .participant {
+  padding-left: 12px;
+  padding-right: 10px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.newParticipantInput .participant {
+  flex-grow: 1;
+}
+.participantInput .participationStatus,
+.newParticipantInput .participationStatus {
+  display: flex;
+  text-align: right;
+}
+.participantInput button,
+.newParticipantInput button {
+  color: var(--participant-status-none-color);
+}
+.participantInput button.selected,
+.newParticipantInput button.selected {
+  background: var(--button-selected-background-color);
+  color: inherit;
+}
+.participantInput .amountInput,
+.newParticipantInput .amountInput {
+  width: 82px;
+}
+.participantInput .amountInput input[type="number"],
+.newParticipantInput .amountInput input[type="number"] {
+  text-align: right;
+}
+.button-row {
+  margin: 0 2%;
+}
+.participantsAllJoined {
+  float: right;
+}
+
+.tabsScene .row.tabs {
+  margin: 20px 0;
+}
+.tabsScene .row p,
+.tabsScene .form-row p {
+  text-align: center;
+}
+
+.create-form input {
+  padding-right: 78px;
+  text-overflow: ellipsis;
+}
+
+.create-form button,
+.import-form button {
+  position: relative;
+  float: right;
+  top: -44px;
+  margin-bottom: -44px;
+  font-size: 18px;
+}
+
+.summary {
+  margin-bottom: 38px;
+}
+.summary tr {
+  /* position: relative is not defined for table row elements and
+  doesn't work as expected in Safari so we display it as flex */
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary-bar {
+  position: absolute;
+  bottom: 7px;
+  height: 5px;
+  border-radius: 5px;
+  background-color: var(--green);
+  min-width: 5px;
+  margin: 0 1px;
+}
+.summary-bar.negative {
+  background-color: var(--red);
+}
+
+#transactions .dategroup:not(:last-child) {
+  margin-bottom: 26px;
+}
+#transactions .date {
+  padding: 0 12px 6px;
+  font-size: 12px;
+  color: var(--subtle-text-color);
+}
+#transactions .list-item-with-arrow {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+#transactions .list-item-with-arrow:last-child {
+  border-bottom: 0;
+}
+#transactions .transaction .title {
+  line-height: 1.1em;
+  width: 100%;
+  padding: 0;
+}
+#transactions .transaction .total {
+  padding: 0;
+}
+#transactions .transaction .payments {
+  margin-top: 2px;
+  font-size: 12px;
+}
+
+.total-sum {
+  color: var(--subtle-text-color);
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 12px 30px 12px 12px;
+  border-top: 1px solid var(--list-item-divider-color);
+  text-align: right;
+}
+
+.error-message {
+  font-size: 80%;
+  color: var(--color-error);
+}
+
+.import-form .error-message {
+  margin-top: 4px;
+  text-align: center;
+}
+
+.errorScene p {
+  text-align: center;
+}
+
+.loader {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+}
+.app-loader {
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--main-background-color);
+  transition: opacity 0.5s;
+}
+.app-loader.hidden {
+  opacity: 0;
+}
+.tab-loader {
+  height: 70%;
+}
+.loader div {
+  content: "";
+  display: block;
+  width: 68px;
+  height: 68px;
+  background: url(./images/loader.svg);
+}
+.app-loader div {
+  margin-top: -68px; /* height of loader icon */
+  margin-bottom: 6px;
+}
+.app-loader img {
+  margin-top: 5px;
+  width: 68px;
+}
+
+.load-error {
+  text-align: center;
+  padding: 0 2em 2em;
+}
+.load-error .brand {
+  margin-bottom: 3em;
+}
+.load-error button {
+  margin-top: 2em;
 }

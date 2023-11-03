@@ -1,102 +1,28 @@
 {
-  "name": "grouptabs-app",
-  "description": "Web app that lets you track shared expenses, using React/Redux and PouchDB/CouchDB",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/xMartin/grouptabs.git"
-  },
-  "author": "xMartin <xmartin@siarp.de>",
-  "bugs": {
-    "url": "https://github.com/xMartin/grouptabs/issues"
-  },
-  "homepage": "https://grouptabs.net/",
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^14.1.1",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.58",
-    "@types/pouchdb": "^6.4.0",
-    "@types/react": "^18.0.5",
-    "@types/react-dom": "^18.0.1",
-    "@types/react-test-renderer": "^18.0.0",
-    "@types/redux-first-router": "^2.1.7",
-    "@types/uuid": "^9.0.1",
-    "assert": "^2.0.0",
-    "buffer": "^6.0.3",
-    "debug": "^4.3.2",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
-    "lodash.orderby": "^4.6.0",
-    "lodash.throttle": "^4.1.1",
-    "pouchdb-adapter-memory": "^8.0.1",
-    "pouchdb-browser": "^8.0.1",
-    "prettier": "^2.4.1",
-    "process": "^0.11.10",
-    "react": "^18.0.0",
-    "react-app-rewired": "^2.2.1",
-    "react-dom": "^18.0.0",
-    "react-redux": "^8.0.0",
-    "react-scripts": "5.0.1",
-    "react-test-renderer": "^18.0.0",
-    "redux": "^4.2.0",
-    "redux-first-router": "^2.1.5",
-    "redux-thunk": "^2.4.0",
-    "reselect": "^4.1.2",
-    "stream-browserify": "^3.0.0",
-    "typescript": "^4.4.4",
-    "util": "^0.12.4",
-    "uuid": "^9.0.0",
-    "workbox-background-sync": "^5.1.4",
-    "workbox-broadcast-update": "^5.1.4",
-    "workbox-cacheable-response": "^5.1.4",
-    "workbox-core": "^5.1.4",
-    "workbox-expiration": "^5.1.4",
-    "workbox-google-analytics": "^5.1.4",
-    "workbox-navigation-preload": "^5.1.4",
-    "workbox-precaching": "^5.1.4",
-    "workbox-range-requests": "^5.1.4",
-    "workbox-routing": "^5.1.4",
-    "workbox-strategies": "^5.1.4",
-    "workbox-streams": "^5.1.4"
-  },
+  "name": "vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "postinstall": "husky install",
-    "start": "REACT_APP_GT_VERSION=${REACT_APP_GT_VERSION:-`git describe HEAD`} react-app-rewired start",
-    "build": "REACT_APP_GT_VERSION=${REACT_APP_GT_VERSION:-`git describe HEAD`} react-app-rewired build",
-    "pretest": "tsc",
-    "test": "LC_ALL=en_US react-app-rewired test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.7%",
-      "not dead",
-      "not op_mini all",
-      "not ie 11"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "license": "GPL-3.0",
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ],
-    "README.md": [
-      "prettier --write"
-    ],
-    "release-notes.yml": [
-      "prettier --write"
-    ]
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
   }
 }

@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
-// @ts-ignore
-import throttle from "lodash.throttle";
+import throttle from "lodash/throttle";
 
 type ScrollIndicatorCallback = (node: HTMLElement | null) => void;
 

@@ -9,8 +9,7 @@ import {
   TransactionFormSharedState,
 } from "../types";
 import { v4 as uuidv4 } from "uuid";
-// @ts-ignore
-import orderBy from "lodash.orderby";
+import orderBy from "lodash/orderby";
 import { formatDate, parseDate } from "./date";
 import { mapTransaction } from "./transaction";
 

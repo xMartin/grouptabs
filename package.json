@@ -20,10 +20,12 @@
   },
   "dependencies": {
     "events": "^3.3.0",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.201",
     "@types/node": "^16.11.58",
     "@types/pouchdb": "^6.4.0",
     "@types/react": "^18.2.15",
@@ -37,8 +39,6 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
-    "lodash.orderby": "^4.6.0",
-    "lodash.throttle": "^4.1.1",
     "pouchdb-adapter-memory": "^8.0.1",
     "pouchdb-browser": "^8.0.1",
     "react-redux": "^8.0.0",

@@ -24,7 +24,7 @@ const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {
   }
 };
 
-const routes: RoutesMap<{}, AllState> = {
+const routes: RoutesMap<object, AllState> = {
   ROUTE_TABS: {
     path: "/",
     thunk: function (dispatch) {

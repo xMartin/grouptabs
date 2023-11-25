@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders empty form 1`] = `
 <form
@@ -74,7 +74,7 @@ exports[`renders empty form 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "none",
         }
       }
@@ -85,7 +85,7 @@ exports[`renders empty form 1`] = `
         <div
           className="form-row"
           style={
-            Object {
+            {
               "display": "none",
             }
           }
@@ -143,7 +143,7 @@ exports[`renders empty form 1`] = `
         <div
           className="form-row"
           style={
-            Object {
+            {
               "display": "none",
             }
           }
@@ -183,7 +183,7 @@ exports[`renders empty form 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "",
         }
       }
@@ -277,7 +277,7 @@ exports[`renders empty form 1`] = `
           className="form-row-input"
         >
           <button
-            onClick={[MockFunction]}
+            onClick={[MockFunction spy]}
             type="button"
           >
             + new participant
@@ -366,7 +366,7 @@ exports[`renders prefilled form 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "none",
         }
       }
@@ -455,7 +455,7 @@ exports[`renders prefilled form 1`] = `
     </div>
     <div
       style={
-        Object {
+        {
           "display": "",
         }
       }
@@ -538,7 +538,7 @@ exports[`renders prefilled form 1`] = `
           className="form-row-input"
         >
           <button
-            onClick={[MockFunction]}
+            onClick={[MockFunction spy]}
             type="button"
           >
             + new participant

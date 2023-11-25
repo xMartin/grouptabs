@@ -20,7 +20,6 @@ import { reducer as routeTransitionReducer } from "./redux/routetransition";
 import { middleware as routeTransitionMiddleware } from "./redux/routetransition";
 import App from "./app";
 import routes from "./routes";
-//import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import "./index.css";
 
 const debugSetting =
@@ -68,7 +67,8 @@ const middlewares = applyMiddleware(
   routeTransitionMiddleware
 );
 
-const compose = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;
+const compose =
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;
 const store: Store<AllState> = createStore(
   rootReducer,
   compose(router.enhancer, middlewares)
@@ -101,8 +101,3 @@ function hideAppLoader() {
     loader.style.display = "none";
   }, 500);
 }
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://cra.link/PWA
-//serviceWorkerRegistration.register();

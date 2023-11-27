@@ -94,7 +94,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
           </div>
         </main>
         <footer>
-          Version: { import.meta.env.VITE_GT_VERSION || "N/A" } –{" "}
+          Version: {import.meta.env.VITE_APP_VERSION || "N/A"} –{" "}
           <a href="https://getuneven.com/" target="_blank" rel="noopener">
             getuneven.com
           </a>

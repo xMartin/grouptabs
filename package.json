@@ -14,10 +14,10 @@
   "type": "module",
   "scripts": {
     "postinstall": "husky install",
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "VITE_APP_VERSION=${VITE_APP_VERSION:-`git describe HEAD`} vite",
+    "build": "tsc && VITE_APP_VERSION=${VITE_APP_VERSION:-`git describe HEAD`} vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
+    "preview": "VITE_APP_VERSION=${VITE_APP_VERSION:-`git describe HEAD`} vite preview",
     "pretest": "tsc",
     "test": "LC_ALL=en_US vitest",
     "test:ui": "LC_ALL=en_US vitest --ui"

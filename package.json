@@ -1,5 +1,5 @@
 {
-  "name": "grouptabs-app",
+  "name": "uneven-app",
   "description": "Web app that lets you track shared expenses, using React/Redux and PouchDB/CouchDB",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "bugs": {
     "url": "https://github.com/xMartin/grouptabs/issues"
   },
-  "homepage": "https://grouptabs.net/",
+  "homepage": "https://getuneven.com/",
   "private": true,
   "type": "module",
   "scripts": {

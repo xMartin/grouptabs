@@ -1,27 +1,51 @@
-# React + TypeScript + Vite
+# uneven app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Track expenses in a group of people!
 
-Currently, two official plugins are available:
+_(Old name "Grouptabs", so you will still find references to that name.)_
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![Subscribe to Release Notes](https://release-notes.com/badges/v1.svg)](https://release-notes.com/@xMartin/Grouptabs)
 
-## Expanding the ESLint configuration
+[uneven](https://getuneven.com/) lets you track shared expenses in a group of friends in a fun way.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+It is an offline-capable installable web app, currently with a mobile (small screens) focus.
 
-- Configure the top-level `parserOptions` property like this:
+It uses PouchDB for persistence and to sync data to a central CouchDB data storage. Collaboration works without user accounts. Just share the tab ID.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+The UI is built using ReactJS and Redux.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The app is built using [Vite](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) with TypeScript.
+
+## Setup
+
+Run `yarn` in the project directory to install dependecies.
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm run dev`
+
+Runs the app in the development mode.
+
+### `yarn test`
+
+Launches the vitest runner in the interactive watch mode.
+
+### `yarn test:ui`
+
+Launches the vitest runner in the browser.
+
+### `yarn build`
+
+Builds the app for production to the `dist` folder.
+
+## Config
+
+Environment variable `VITE_BACKEND_URL` (default "https://backend.grouptabs.net").
+
+## License
+
+uneven is licensed under [GPL v3 or any later version](<https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3)>). Basically you are free to use, modify, share and improve it for any purpose, as long as you include the original changes and also publish any changes you make under the same license. Contributions are very welcome! :)
+
+For more details and the full license, see the [COPYRIGHT.txt](COPYRIGHT.txt) and [LICENSE.txt](LICENSE.txt) files.

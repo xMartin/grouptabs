@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect, memo } from "react";
+import { FunctionComponent, useState, useEffect, memo } from "react";
 import Brand from "./brand";
 import TabListButton from "./tablistbutton";
 import CreateForm from "./createform";
@@ -94,10 +94,8 @@ const Tabs: FunctionComponent<Props> = (props) => {
           </div>
         </main>
         <footer>
-          Version: {process.env.REACT_APP_GT_VERSION || "N/A"} –{" "}
-          {/* eslint-disable react/jsx-no-target-blank */}
+          Version: {import.meta.env.VITE_APP_VERSION || "N/A"} –{" "}
           <a href="https://getuneven.com/" target="_blank" rel="noopener">
-            {/* eslint-enable react/jsx-no-target-blank */}
             getuneven.com
           </a>
         </footer>

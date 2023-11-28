@@ -1,4 +1,3 @@
-import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main";
 import { DocumentType, TransactionType } from "../types";
@@ -10,9 +9,9 @@ it("renders empty view with no tab selected", () => {
         accounts={[]}
         transactions={[]}
         total={0}
-        onChangeTabClick={jest.fn()}
-        onNavigateToAddTransaction={jest.fn()}
-        onDetailsClick={jest.fn()}
+        onChangeTabClick={vi.fn()}
+        onNavigateToAddTransaction={vi.fn()}
+        onDetailsClick={vi.fn()}
       />
     )
     .toJSON();
@@ -33,9 +32,9 @@ it("renders tab with no transactions", () => {
         accounts={[]}
         transactions={[]}
         total={0}
-        onChangeTabClick={jest.fn()}
-        onNavigateToAddTransaction={jest.fn()}
-        onDetailsClick={jest.fn()}
+        onChangeTabClick={vi.fn()}
+        onNavigateToAddTransaction={vi.fn()}
+        onDetailsClick={vi.fn()}
       />
     )
     .toJSON();
@@ -85,9 +84,9 @@ it("renders summary and transaction list", () => {
           },
         ]}
         total={22.8}
-        onChangeTabClick={jest.fn()}
-        onNavigateToAddTransaction={jest.fn()}
-        onDetailsClick={jest.fn()}
+        onChangeTabClick={vi.fn()}
+        onNavigateToAddTransaction={vi.fn()}
+        onDetailsClick={vi.fn()}
       />
     )
     .toJSON();
@@ -102,9 +101,9 @@ it("renders missing tab info error", () => {
         accounts={[]}
         transactions={[]}
         total={0}
-        onChangeTabClick={jest.fn()}
-        onNavigateToAddTransaction={jest.fn()}
-        onDetailsClick={jest.fn()}
+        onChangeTabClick={vi.fn()}
+        onNavigateToAddTransaction={vi.fn()}
+        onDetailsClick={vi.fn()}
       />
     )
     .toJSON();

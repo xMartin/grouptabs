@@ -5,7 +5,7 @@ import {
   GTThunkAction,
   initTransactionForm,
 } from "./redux/actioncreators";
-import { AllState } from "./";
+import { AllState } from "./main";
 import { RouteThunk, RoutesMap } from "redux-first-router";
 import { loadTabIds } from "./db/tabidpersistor";
 
@@ -24,7 +24,7 @@ const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {
   }
 };
 
-const routes: RoutesMap<{}, AllState> = {
+const routes: RoutesMap<object, AllState> = {
   ROUTE_TABS: {
     path: "/",
     thunk: function (dispatch) {

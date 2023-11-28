@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders empty view with no tab selected 1`] = `
 <div
@@ -9,7 +9,7 @@ exports[`renders empty view with no tab selected 1`] = `
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -32,7 +32,7 @@ exports[`renders empty view with no tab selected 1`] = `
     className="content"
     id="main-content"
     style={
-      Object {
+      {
         "position": "relative",
       }
     }
@@ -46,7 +46,7 @@ exports[`renders empty view with no tab selected 1`] = `
         <img
           alt=""
           className="logo"
-          src="logo.png"
+          src="/src/images/logo.png"
         />
         <svg
           height="5.954884mm"
@@ -103,7 +103,7 @@ exports[`renders missing tab info error 1`] = `
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -126,7 +126,7 @@ exports[`renders missing tab info error 1`] = `
     className="content"
     id="main-content"
     style={
-      Object {
+      {
         "position": "relative",
       }
     }
@@ -140,7 +140,7 @@ exports[`renders missing tab info error 1`] = `
         <img
           alt=""
           className="logo"
-          src="logo.png"
+          src="/src/images/logo.png"
         />
         <svg
           height="5.954884mm"
@@ -197,7 +197,7 @@ exports[`renders summary and transaction list 1`] = `
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -222,7 +222,7 @@ exports[`renders summary and transaction list 1`] = `
     className="content"
     id="main-content"
     style={
-      Object {
+      {
         "position": "relative",
       }
     }
@@ -242,7 +242,7 @@ exports[`renders summary and transaction list 1`] = `
               <div
                 className="summary-bar negative"
                 style={
-                  Object {
+                  {
                     "width": "calc(100% - 24px)",
                   }
                 }
@@ -271,7 +271,7 @@ exports[`renders summary and transaction list 1`] = `
               <div
                 className="summary-bar positive"
                 style={
-                  Object {
+                  {
                     "width": "calc(100% - 24px)",
                   }
                 }
@@ -389,7 +389,7 @@ exports[`renders tab with no transactions 1`] = `
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -414,7 +414,7 @@ exports[`renders tab with no transactions 1`] = `
     className="content"
     id="main-content"
     style={
-      Object {
+      {
         "position": "relative",
       }
     }

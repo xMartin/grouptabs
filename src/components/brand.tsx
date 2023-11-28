@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo } from "react";
 import logo from "../images/logo.png";
 
 const Brand: FunctionComponent = () => {

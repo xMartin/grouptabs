@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, memo, FunctionComponent } from "react";
+import { SyntheticEvent, memo, FunctionComponent } from "react";
 import { control } from "../util/form";
 
 interface Props {

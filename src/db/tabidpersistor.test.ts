@@ -4,7 +4,7 @@ const KEY = "tabs";
 
 beforeEach(() => {
   localStorage.clear();
-  console.error = jest.fn();
+  console.error = vi.fn();
 });
 
 describe("loadTabIds", () => {

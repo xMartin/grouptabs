@@ -29,7 +29,7 @@ import {
   setImportTabInputValue,
 } from "./redux/actioncreators";
 import App from "./components/app";
-import { AllState } from "./";
+import { AllState } from "./main";
 import { Transaction } from "./types";
 
 function mapStateToProps(state: AllState) {

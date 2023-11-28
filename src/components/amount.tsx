@@ -1,4 +1,4 @@
-import React, { memo, FunctionComponent } from "react";
+import { memo, FunctionComponent } from "react";
 
 interface Props {
   children: number;

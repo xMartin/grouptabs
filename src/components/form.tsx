@@ -1,4 +1,4 @@
-import React, {
+import {
   SyntheticEvent,
   FunctionComponent,
   memo,
@@ -56,7 +56,6 @@ const Form: FunctionComponent<Props> = (props) => {
   };
 
   const handleDelete = () => {
-    // eslint-disable-next-line no-restricted-globals
     if (confirm("Do you really want to delete the payment?")) {
       props.onDelete();
     }

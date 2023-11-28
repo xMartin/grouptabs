@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, FunctionComponent, memo } from "react";
+import { SyntheticEvent, FunctionComponent, memo } from "react";
 import ParticipantStatusInput from "./participantstatusinput";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";

@@ -1,4 +1,3 @@
-import React from "react";
 import renderer from "react-test-renderer";
 import EditEntry from "./editentry";
 import {
@@ -16,6 +15,7 @@ beforeAll(() => {
   global.Date = class extends Date {
     constructor(date: any, ...args: any[]) {
       if (date) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return super(date, ...args);
       }
@@ -35,16 +35,16 @@ it("renders loader when checking remote tab", () => {
       <EditEntry
         mode="new"
         checkingRemoteTab={true}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onChangeTabClick={vi.fn()}
+        onCloseClick={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     )
     .toJSON();
@@ -57,16 +57,16 @@ it("renders empty form", () => {
       <EditEntry
         mode="new"
         formState={createFormData([])}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onChangeTabClick={vi.fn()}
+        onCloseClick={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     )
     .toJSON();
@@ -78,16 +78,16 @@ it("renders loader in edit mode with no data", () => {
     .create(
       <EditEntry
         mode="edit"
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onChangeTabClick={vi.fn()}
+        onCloseClick={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     )
     .toJSON();
@@ -123,16 +123,16 @@ it("renders prefilled form", () => {
             options: [],
           },
         }}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onChangeTabClick={jest.fn()}
-        onCloseClick={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onChangeTabClick={vi.fn()}
+        onCloseClick={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     )
     .toJSON();

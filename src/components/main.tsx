@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo } from "react";
 import Loader from "./loader";
 import Summary from "./summary";
 import TransactionList from "./transactionlist";

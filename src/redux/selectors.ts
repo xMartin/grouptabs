@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 import { Account, Info, Tab, Transaction, TransactionType } from "../types";
-import { AllState } from "..";
+import { AllState } from "../main";
 import { mapTransaction } from "../util/transaction";
 
 function createTransactionsByRecencyComparator(prefix?: string) {

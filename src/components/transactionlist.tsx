@@ -1,4 +1,4 @@
-import React, { memo, FunctionComponent } from "react";
+import { memo, FunctionComponent } from "react";
 import { formatHumanDate } from "../util/date";
 import TransactionListItem from "./transactionlistitem";
 import { Transaction } from "../types";

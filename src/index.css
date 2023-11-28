@@ -685,11 +685,14 @@ input[type="number"] {
   height: 68px;
   background: url(./images/loader.svg);
 }
+.loader svg path {
+  fill: var(--main-text-color);
+}
 .app-loader div {
   margin-top: -68px; /* height of loader icon */
   margin-bottom: 6px;
 }
-.app-loader img {
+.app-loader svg {
   margin-top: 5px;
   width: 68px;
 }

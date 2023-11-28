@@ -6,7 +6,7 @@ import {
   SET_ALL_JOINED_ON_TRANSACTION_SHARED_FORM,
   setAllJoinedOnTransactionSharedForm,
 } from "./actioncreators";
-import { AllState } from "..";
+import { AllState } from "../main";
 import {
   TransactionType,
   TransactionFormParticipantInputType as InputType,

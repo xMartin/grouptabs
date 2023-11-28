@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo } from "react";
 import { Transaction, TransactionType } from "../types";
 import Amount from "./amount";
 

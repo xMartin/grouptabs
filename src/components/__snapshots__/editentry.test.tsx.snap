@@ -1,13 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders empty form 1`] = `
-Array [
+[
   <div
     className="header header-app"
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -112,7 +112,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "display": "none",
             }
           }
@@ -123,7 +123,7 @@ Array [
             <div
               className="form-row"
               style={
-                Object {
+                {
                   "display": "none",
                 }
               }
@@ -181,7 +181,7 @@ Array [
             <div
               className="form-row"
               style={
-                Object {
+                {
                   "display": "none",
                 }
               }
@@ -221,7 +221,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "display": "",
             }
           }
@@ -315,7 +315,7 @@ Array [
               className="form-row-input"
             >
               <button
-                onClick={[MockFunction]}
+                onClick={[MockFunction spy]}
                 type="button"
               >
                 + new participant
@@ -333,13 +333,13 @@ Array [
 `;
 
 exports[`renders loader in edit mode with no data 1`] = `
-Array [
+[
   <div
     className="header header-app"
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -366,7 +366,7 @@ Array [
         <img
           alt=""
           className="logo"
-          src="logo.png"
+          src="/src/images/logo.png"
         />
         <svg
           height="5.954884mm"
@@ -415,13 +415,13 @@ Array [
 `;
 
 exports[`renders loader when checking remote tab 1`] = `
-Array [
+[
   <div
     className="header header-app"
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -443,13 +443,13 @@ Array [
 `;
 
 exports[`renders prefilled form 1`] = `
-Array [
+[
   <div
     className="header header-app"
   >
     <button
       className="left"
-      onClick={[MockFunction]}
+      onClick={[MockFunction spy]}
     >
       <svg
         height="16"
@@ -554,7 +554,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "display": "none",
             }
           }
@@ -565,7 +565,7 @@ Array [
             <div
               className="form-row"
               style={
-                Object {
+                {
                   "display": "none",
                 }
               }
@@ -602,7 +602,7 @@ Array [
             <div
               className="form-row"
               style={
-                Object {
+                {
                   "display": "none",
                 }
               }
@@ -621,7 +621,7 @@ Array [
         </div>
         <div
           style={
-            Object {
+            {
               "display": "",
             }
           }
@@ -703,7 +703,7 @@ Array [
               className="form-row-input"
             >
               <button
-                onClick={[MockFunction]}
+                onClick={[MockFunction spy]}
                 type="button"
               >
                 + new participant

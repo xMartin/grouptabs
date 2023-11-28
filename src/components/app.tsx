@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import Tabs from "./tabs";
 import Main from "./main";
 import EditEntry from "./editentry";
@@ -41,7 +41,7 @@ export default class App extends Component<Props> {
     this.props.onError(error, info);
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate() {
     this.setPageTitle();
   }
 
@@ -55,12 +55,13 @@ export default class App extends Component<Props> {
       case ROUTE_NEW_TRANSACTION:
         setTitle(tabName ? "New payment (" + tabName + ")" : "");
         break;
-      case ROUTE_TRANSACTION:
+      case ROUTE_TRANSACTION: {
         const transaction = this.props.transaction;
         setTitle(
           transaction ? transaction.description + " (" + tabName + ")" : ""
         );
         break;
+      }
       default:
         setTitle();
     }

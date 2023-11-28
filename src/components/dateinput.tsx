@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, memo } from "react";
+import { SyntheticEvent, memo } from "react";
 import { formatDate, addDays, isToday, isYesterday } from "../util/date";
 
 interface Props {

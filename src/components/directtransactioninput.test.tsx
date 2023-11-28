@@ -1,4 +1,3 @@
-import React from "react";
 import renderer from "react-test-renderer";
 import DirectTransactionInput from "./directtransactioninput";
 import { NEW_PARTICIPANT_OPTION } from "../util/transactionform";
@@ -10,7 +9,7 @@ it("renders empty", () => {
         data={{
           options: ["Jan", "Martin", NEW_PARTICIPANT_OPTION],
         }}
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />
     )
     .toJSON();
@@ -27,7 +26,7 @@ it("renders prefilled", () => {
           amount: 11,
           options: ["Jan", "Martin", NEW_PARTICIPANT_OPTION],
         }}
-        onChange={jest.fn()}
+        onChange={vi.fn()}
       />
     )
     .toJSON();

@@ -33,15 +33,15 @@ export default class Tab {
     private readonly onChanges: ChangesHandler,
     adapter?: string
   ) {
-    const myLog = log.extend(localDbName);
+    const myLog = log.extend(this.localDbName);
     this.logReplication = myLog.extend("replication");
     this.logSync = myLog.extend("sync");
     this.logDoc = myLog.extend("doc");
     this.logChanges = myLog.extend("changes");
     this.logFetch = myLog.extend("fetch");
 
-    this.db = new PouchDB(localDbName, { adapter });
-    this.remoteDb = new PouchDB(remoteDbLocation);
+    this.db = new PouchDB(this.localDbName, { adapter });
+    this.remoteDb = new PouchDB(this.remoteDbLocation);
   }
 
   async connect({

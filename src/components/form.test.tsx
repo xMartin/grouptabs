@@ -1,4 +1,3 @@
-import React from "react";
 import renderer from "react-test-renderer";
 import { render, screen } from "@testing-library/react";
 import Form from "./form";
@@ -18,6 +17,7 @@ beforeAll(() => {
   global.Date = class extends Date {
     constructor(date: any, ...args: any[]) {
       if (date) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         return super(date, ...args);
       }
@@ -37,14 +37,14 @@ it("renders empty form", () => {
       <Form
         mode="new"
         data={createFormData([])}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     )
     .toJSON();
@@ -87,14 +87,14 @@ it("renders prefilled form", () => {
             ],
           }
         )}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     )
     .toJSON();
@@ -125,14 +125,14 @@ describe('"all joined" button', () => {
             },
           ],
         }}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     );
 
@@ -167,14 +167,14 @@ describe('"all joined" button', () => {
             },
           ],
         }}
-        onUpdateForm={jest.fn()}
-        onUpdateSharedForm={jest.fn()}
-        onUpdateDirectForm={jest.fn()}
-        onUpdateParticipant={jest.fn()}
-        onAddParticipant={jest.fn()}
-        onSetAllJoined={jest.fn()}
-        onSave={jest.fn()}
-        onDelete={jest.fn()}
+        onUpdateForm={vi.fn()}
+        onUpdateSharedForm={vi.fn()}
+        onUpdateDirectForm={vi.fn()}
+        onUpdateParticipant={vi.fn()}
+        onAddParticipant={vi.fn()}
+        onSetAllJoined={vi.fn()}
+        onSave={vi.fn()}
+        onDelete={vi.fn()}
       />
     );
 

@@ -1,5 +1,5 @@
 const config = {
-  backendUrl: process.env.REACT_APP_BACKEND_URL || "http://localhost:5984",
+  backendUrl: import.meta.env.VITE_BACKEND_URL || "https://backend.grouptabs.net",
 };
 
 export default config;

@@ -1,5 +1,5 @@
 import DbManager from "../db/manager";
-import { AllState, Services } from "..";
+import { AllState, Services } from "../main";
 import {
   Transaction,
   Info,
@@ -450,7 +450,7 @@ export const ensureConnectedDb =
 
 export const createTab =
   (name: string): GTThunkAction =>
-  async (dispatch, getState, { dbManager }) => {
+  async (dispatch, _getState, { dbManager }) => {
     const id = generateTabId();
 
     const doc: Info = {
@@ -486,7 +486,7 @@ export const importTabFromForm =
 
 export const importTabFromUrl =
   (id: string): GTThunkAction =>
-  (dispatch, getState, { dbManager }) => {
+  (dispatch, _getState, { dbManager }) => {
     return importTab(dispatch, id, dbManager);
   };
 

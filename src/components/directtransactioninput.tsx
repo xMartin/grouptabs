@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, FunctionComponent, memo } from "react";
+import { SyntheticEvent, FunctionComponent, memo } from "react";
 import { TransactionFormState } from "../types";
 import { NEW_PARTICIPANT_OPTION } from "../util/transactionform";
 import { control } from "../util/form";

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo } from "react";
+import { FunctionComponent, memo } from "react";
 import ParticipantStatusInput from "./participantstatusinput";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { PropsFromRedux } from "../app";

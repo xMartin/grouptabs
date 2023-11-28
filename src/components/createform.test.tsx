@@ -1,4 +1,3 @@
-import React from "react";
 import renderer from "react-test-renderer";
 import CreateForm from "./createform";
 
@@ -7,8 +6,8 @@ it("renders form", () => {
     .create(
       <CreateForm
         tabName="Badminton"
-        onTabNameChange={jest.fn()}
-        onSubmit={jest.fn()}
+        onTabNameChange={vi.fn()}
+        onSubmit={vi.fn()}
       />
     )
     .toJSON();

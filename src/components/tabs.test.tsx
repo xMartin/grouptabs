@@ -1,4 +1,3 @@
-import React from "react";
 import renderer from "react-test-renderer";
 import Tabs from "./tabs";
 import { DocumentType } from "../types";
@@ -18,11 +17,11 @@ it("renders tab view", () => {
             },
           },
         ]}
-        onTabClick={jest.fn()}
-        onCreateTabInputChange={jest.fn()}
-        onCreateNewTab={jest.fn()}
-        onImportTabInputChange={jest.fn()}
-        onImportTab={jest.fn()}
+        onTabClick={vi.fn()}
+        onCreateTabInputChange={vi.fn()}
+        onCreateNewTab={vi.fn()}
+        onImportTabInputChange={vi.fn()}
+        onImportTab={vi.fn()}
       />
     )
     .toJSON();
@@ -34,11 +33,11 @@ it("renders empty tab view", () => {
     .create(
       <Tabs
         data={[]}
-        onTabClick={jest.fn()}
-        onCreateTabInputChange={jest.fn()}
-        onCreateNewTab={jest.fn()}
-        onImportTabInputChange={jest.fn()}
-        onImportTab={jest.fn()}
+        onTabClick={vi.fn()}
+        onCreateTabInputChange={vi.fn()}
+        onCreateNewTab={vi.fn()}
+        onImportTabInputChange={vi.fn()}
+        onImportTab={vi.fn()}
       />
     )
     .toJSON();

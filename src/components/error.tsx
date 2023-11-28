@@ -1,4 +1,4 @@
-import React, { memo, FunctionComponent } from "react";
+import { memo, FunctionComponent } from "react";
 import Brand from "./brand";
 
 interface Props {
@@ -13,7 +13,6 @@ const Error: FunctionComponent<Props> = () => {
       </div>
       <p>Oops, unfortunately an error occured.</p>
       <p>
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a href="#" onClick={() => window.location.reload()}>
           Try reloading
         </a>

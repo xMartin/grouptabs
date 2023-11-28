@@ -1,4 +1,4 @@
-import React, { FunctionComponent, memo, useEffect, useRef } from "react";
+import { FunctionComponent, memo, useEffect, useRef } from "react";
 import ParticipantInput from "./participantinput";
 import NewParticipantInput from "./newparticipantinput";
 import {

@@ -1,4 +1,4 @@
-import React, { ReactElement, FunctionComponent, memo } from "react";
+import { ReactElement, FunctionComponent, memo } from "react";
 import Loader from "./loader";
 import Form from "./form";
 import LoadError from "./loaderror";

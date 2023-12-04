@@ -1,4 +1,4 @@
-import { SyntheticEvent, memo } from "react";
+import { FunctionComponent, SyntheticEvent, memo } from "react";
 import { formatDate, addDays, isToday, isYesterday } from "../util/date";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   onChange: (date: string) => void;
 }
 
-const DateInput: React.FC<Props> = ({ date, onChange }) => {
+const DateInput: FunctionComponent<Props> = ({ date, onChange }) => {
   const handleTodayClick = () => {
     onChange(formatDate(new Date()));
   };

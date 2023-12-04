@@ -56,7 +56,7 @@ exports[`renders empty tab view 1`] = `
         className="empty-info"
       >
         <p>
-          Track shared expenses in a group of people. You can create groups for projects or topics like "Summer roadtrip" or "Badminton".
+          Track shared expenses in a group of people. You can create groups for projects or topics like “Summer roadtrip” or “Badminton”.
         </p>
         <p>
           Start by creating your first group:

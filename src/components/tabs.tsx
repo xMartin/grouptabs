@@ -64,8 +64,8 @@ const Tabs: FunctionComponent<Props> = (props) => {
             <div className="empty-info">
               <p>
                 Track shared expenses in a group of people. You can create
-                groups for projects or topics like "Summer roadtrip" or
-                "Badminton".
+                groups for projects or topics like &ldquo;Summer roadtrip&rdquo;
+                or &ldquo;Badminton&rdquo;.
               </p>
               <p>Start by creating your first group:</p>
             </div>
@@ -95,6 +95,7 @@ const Tabs: FunctionComponent<Props> = (props) => {
         </main>
         <footer>
           Version: {import.meta.env.VITE_APP_VERSION || "N/A"} –{" "}
+          {/* eslint-disable-next-line react/jsx-no-target-blank */}
           <a href="https://getuneven.com/" target="_blank" rel="noopener">
             getuneven.com
           </a>

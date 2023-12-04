@@ -46,7 +46,7 @@ function transactions2Accounts(transactions: Transaction[]): Account[] {
     transaction.participants.forEach(
       (participant) => (total += participant.amount || 0)
     );
-    if (transaction.transactionType === "DIRECT") {
+    if (transaction.transactionType === TransactionType.DIRECT) {
       // Same data structure as SHARED.
       // Everyone who paid gets this amount added.
       // Everyone who received gets a the share between all receipients substracted.

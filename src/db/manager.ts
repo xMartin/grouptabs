@@ -67,18 +67,19 @@ export default class DbManager {
   }
 
   private initAllDbsListener() {
-    setInterval(async () => {
+    setInterval(() => {
       const knownTabIds = Object.keys(this.dbs);
       const tabIds = loadTabIds();
       const newTabIds = tabIds.filter(
         (tabId) => knownTabIds.indexOf(tabId) === -1
       );
-      newTabIds.forEach(async (tabId) => {
-        const actionMap = await this.connectTab(tabId);
-        if (!this.onChanges) {
-          throw new Error("Callback not set.");
-        }
-        this.onChanges(actionMap);
+      newTabIds.forEach((tabId) => {
+        void this.connectTab(tabId).then((actionMap) => {
+          if (!this.onChanges) {
+            throw new Error("Callback not set.");
+          }
+          this.onChanges(actionMap);
+        });
       });
     }, 7500);
   }

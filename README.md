@@ -28,6 +28,10 @@ In the project directory, you can run:
 
 Runs the app in the development mode.
 
+### `yarn lint`
+
+Runs eslint with type checking on all .ts and .tsx files.
+
 ### `yarn test`
 
 Launches the vitest runner in the interactive watch mode.

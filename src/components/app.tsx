@@ -110,9 +110,9 @@ export default class App extends Component<Props> {
             importTabInputValue={this.props.importTabInputValue}
             onTabClick={this.props.onSelectTab}
             onCreateTabInputChange={this.props.onCreateTabInputChange}
-            onCreateNewTab={this.props.onCreateTab}
+            onCreateNewTab={this.props.onCreateTab as (name: string) => void}
             onImportTabInputChange={this.props.onImportTabInputChange}
-            onImportTab={this.props.onImportTab}
+            onImportTab={this.props.onImportTab as (id: string) => void}
           />
           <Main
             tabInfo={this.props.tabInfo}
@@ -141,9 +141,9 @@ export default class App extends Component<Props> {
                 remoteTabError={this.props.remoteTabError}
                 importingTab={this.props.importingTab}
                 onChangeTabClick={this.props.onNavigateToTabs}
-                onCloseClick={this.props.onCloseTransaction}
-                onSave={this.props.onAddOrUpdateTransaction}
-                onDelete={this.props.onRemoveTransaction}
+                onCloseClick={this.props.onCloseTransaction as () => void}
+                onSave={this.props.onAddOrUpdateTransaction as () => void}
+                onDelete={this.props.onRemoveTransaction as () => void}
                 onUpdateForm={this.props.onUpdateTransactionForm}
                 onUpdateSharedForm={this.props.onUpdateTransactionSharedForm}
                 onUpdateDirectForm={this.props.onUpdateTransactionDirectForm}

@@ -152,7 +152,7 @@ export default class Tab {
   private sync() {
     this.logSync("start");
     this.isSyncing = true;
-    this.db
+    void this.db
       .sync(this.remoteDb, {
         batch_size: 100,
       })
@@ -178,7 +178,7 @@ export default class Tab {
   }
 
   private emitChanges() {
-    this.db
+    void this.db
       .changes<Document>({
         since: this.lastSequenceNumber,
         include_docs: true,

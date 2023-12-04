@@ -20,7 +20,7 @@ const tabThunk: RouteThunk<AllState> = async (dispatch, getState) => {
   await gtDispatch(ensureConnectedDb());
   if (!checkTabLocally(getState())) {
     const tabId = getState().location.payload.tabId;
-    await dispatch(importTabFromUrl(tabId));
+    await gtDispatch(importTabFromUrl(tabId));
   }
 };
 

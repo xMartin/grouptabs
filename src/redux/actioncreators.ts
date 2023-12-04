@@ -551,6 +551,7 @@ export const removeTransaction =
   };
 
 export const closeTransaction =
+  // eslint-disable-next-line @typescript-eslint/require-await
   (): GTThunkAction => async (dispatch, getState) => {
     const tabId = getState().location.payload.tabId;
     dispatch(selectTab(tabId));
@@ -559,6 +560,7 @@ export const closeTransaction =
   };
 
 export const initTransactionForm =
+  // eslint-disable-next-line @typescript-eslint/require-await
   (): GTThunkAction => async (dispatch, getState) => {
     const state = getState();
     const transactionId = state.location.payload.transactionId;

@@ -490,7 +490,7 @@ export const importTabFromUrl =
     return importTab(dispatch, id, dbManager);
   };
 
-const resetTransactionFormDelayed = (dispatch: Dispatch) => {
+const resetTransactionFormDelayed = (dispatch: Dispatch<GTAction>) => {
   // reset form after scene transition
   setTimeout(() => dispatch(resetTransactionForm()), 400);
 };

@@ -9,8 +9,9 @@ import {
   createStore,
   Store,
   Middleware,
+  isAction,
 } from "redux";
-import ReduxThunk from "redux-thunk";
+import { withExtraArgument as thunkWithExtraArgument } from "redux-thunk";
 import { Provider } from "react-redux";
 import debug from "debug";
 import DbManager from "./db/manager";
@@ -50,12 +51,12 @@ export interface Services {
   dbManager: DbManager;
 }
 const dbManager = new DbManager();
-const thunkMiddleware = ReduxThunk.withExtraArgument({
+const thunkMiddleware = thunkWithExtraArgument({
   dbManager,
 });
 const log = debug("redux:dispatch");
 const logger: Middleware = () => (next) => (action) => {
-  if (action.type) {
+  if (isAction(action)) {
     log(action.type, action);
   }
   return next(action);

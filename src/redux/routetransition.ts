@@ -1,4 +1,5 @@
-import { Middleware, Reducer } from "redux";
+import { Dispatch, Middleware, Reducer, isAction } from "redux";
+import { Action } from "redux-first-router";
 
 const SET_ROUTE_TRANSITION = "SET_ROUTE_TRANSITION";
 
@@ -17,12 +18,13 @@ const createSetRouteTransitionAction = (
 type RouteTransitionAction = SetRouteTransitionAction;
 
 export const middleware: Middleware =
-  ({ dispatch }) =>
+  ({ dispatch }: { dispatch: Dispatch<SetRouteTransitionAction> }) =>
   (next) =>
   (action) => {
     if (
+      isAction(action) &&
       action.type.startsWith("ROUTE_") &&
-      action.meta.location.kind === "push"
+      (action as Action).meta?.location.kind === "push"
     ) {
       dispatch(createSetRouteTransitionAction(true));
 

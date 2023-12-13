@@ -19,7 +19,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "VITE_APP_VERSION=${VITE_APP_VERSION:-`git describe HEAD`} vite preview",
     "test": "LC_ALL=en_US vitest",
-    "test:ui": "LC_ALL=en_US vitest --ui"
+    "test:ui": "LC_ALL=en_US vitest --ui",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5",

@@ -137,7 +137,7 @@ export default class Tab {
       attachments: true,
     });
     this.logFetch("all docs result", result);
-    return result.rows.map((row) => row.doc);
+    return result.rows.map((row) => row.doc) as Document[];
   }
 
   startSyncing() {

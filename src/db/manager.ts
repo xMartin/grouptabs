@@ -47,8 +47,6 @@ export default class DbManager {
     const docsPerDb = await Promise.all(
       this.getAllDbs().map(async (db) => {
         const docs = await db.db.connect({ initialReplicationTimeout: 3200 });
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore (apparently items in docs could be undefined)
         return this.docsToEntities(db.tabId, docs);
       })
     );
@@ -120,8 +118,6 @@ export default class DbManager {
 
     const docs = await db.connect();
     return {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore (apparently items in docs could be undefined)
       createOrUpdate: this.docsToEntities(id, docs),
       delete: [],
     };
@@ -167,15 +163,11 @@ export default class DbManager {
   ) {
     const createOrUpdate = changes
       .filter((change) => !change.deleted)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
-      .map((change) => this.docToEntity(tabId, change.doc));
+      .map((change) => this.docToEntity(tabId, change.doc!));
 
     const delete_ = changes
       .filter((change) => change.deleted)
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore (`as Exclude<typeof change.doc, undefined>` helps)
-      .map((change) => this.docToEntity(tabId, change.doc));
+      .map((change) => this.docToEntity(tabId, change.doc!));
 
     if (!this.onChanges) {
       throw new Error("Callback not set.");

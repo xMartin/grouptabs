@@ -9,7 +9,7 @@ interface SetRouteTransitionAction {
 }
 
 const createSetRouteTransitionAction = (
-  payload: boolean
+  payload: boolean,
 ): SetRouteTransitionAction => ({
   type: SET_ROUTE_TRANSITION,
   payload,
@@ -43,7 +43,7 @@ const initialState: RouteTransitionState = {
 
 export const reducer: Reducer<RouteTransitionState, RouteTransitionAction> = (
   state = initialState,
-  action
+  action,
 ) => {
   switch (action.type) {
     case SET_ROUTE_TRANSITION:

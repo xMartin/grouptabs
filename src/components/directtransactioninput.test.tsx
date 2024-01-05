@@ -10,7 +10,7 @@ it("renders empty", () => {
           options: ["Jan", "Martin", NEW_PARTICIPANT_OPTION],
         }}
         onChange={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -27,7 +27,7 @@ it("renders prefilled", () => {
           options: ["Jan", "Martin", NEW_PARTICIPANT_OPTION],
         }}
         onChange={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

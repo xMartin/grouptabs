@@ -8,7 +8,7 @@ it("renders form", () => {
         tabName="Badminton"
         onTabNameChange={vi.fn()}
         onSubmit={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

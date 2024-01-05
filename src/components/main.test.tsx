@@ -12,7 +12,7 @@ it("renders empty view with no tab selected", () => {
         onChangeTabClick={vi.fn()}
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -35,7 +35,7 @@ it("renders tab with no transactions", () => {
         onChangeTabClick={vi.fn()}
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -87,7 +87,7 @@ it("renders summary and transaction list", () => {
         onChangeTabClick={vi.fn()}
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -104,7 +104,7 @@ it("renders missing tab info error", () => {
         onChangeTabClick={vi.fn()}
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

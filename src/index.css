@@ -120,9 +120,12 @@ select {
       var(--button-disabled-background-color) 50%
     ),
     linear-gradient(135deg, gray 50%, transparent 50%);
-  background-position: calc(100% - 22px) calc(1em + 5px),
+  background-position:
+    calc(100% - 22px) calc(1em + 5px),
     calc(100% - 17px) calc(1em + 5px);
-  background-size: 5px 5px, 5px 5px;
+  background-size:
+    5px 5px,
+    5px 5px;
   background-repeat: no-repeat;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

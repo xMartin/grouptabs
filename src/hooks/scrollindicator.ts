@@ -11,7 +11,7 @@ function useScrollIndicator(): [boolean, ScrollIndicatorCallback] {
       "scroll",
       throttle(() => {
         setIsScrolled(!!node.scrollTop);
-      }, 200)
+      }, 200),
     );
   }, []);
 

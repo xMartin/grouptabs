@@ -22,7 +22,7 @@ it("renders tab view", () => {
         onCreateNewTab={vi.fn()}
         onImportTabInputChange={vi.fn()}
         onImportTab={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -38,7 +38,7 @@ it("renders empty tab view", () => {
         onCreateNewTab={vi.fn()}
         onImportTabInputChange={vi.fn()}
         onImportTab={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

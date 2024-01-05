@@ -58,7 +58,7 @@ interface CheckRemoteTabFailureAction {
 }
 
 const createCheckRemoteTabFailureAction = (
-  error: string
+  error: string,
 ): CheckRemoteTabFailureAction => ({
   type: CHECK_REMOTE_TAB_FAILURE,
   error,
@@ -90,7 +90,7 @@ interface ImportTabSuccessAction {
 }
 
 const createImportTabSuccessAction = (
-  actionMap: ActionMap
+  actionMap: ActionMap,
 ): ImportTabSuccessAction => ({
   type: IMPORT_TAB_SUCCESS,
   actionMap,
@@ -102,7 +102,7 @@ interface UpdateFromDbAction {
 }
 
 const createUpdateFromDbAction = (
-  actionMap: ActionMap
+  actionMap: ActionMap,
 ): UpdateFromDbAction => ({
   type: UPDATE_FROM_DB,
   actionMap,
@@ -114,7 +114,7 @@ interface CreateOrUpdateTransactionAction {
 }
 
 const createCreateOrUpdateTransactionAction = (
-  doc: Transaction
+  doc: Transaction,
 ): CreateOrUpdateTransactionAction => ({
   type: CREATE_OR_UPDATE_TRANSACTION,
   doc,
@@ -126,7 +126,7 @@ interface RemoveTransactionAction {
 }
 
 const createRemoveTransactionAction = (
-  doc: Transaction
+  doc: Transaction,
 ): RemoveTransactionAction => ({
   type: REMOVE_TRANSACTION,
   doc,
@@ -138,7 +138,7 @@ interface SetCreateTabInputValueAction {
 }
 
 export const setCreateTabInputValue = (
-  value: string
+  value: string,
 ): SetCreateTabInputValueAction => ({
   type: SET_CREATE_TAB_INPUT_VALUE,
   value,
@@ -158,7 +158,7 @@ interface SetImportTabInputValueAction {
 }
 
 export const setImportTabInputValue = (
-  value: string
+  value: string,
 ): SetImportTabInputValueAction => ({
   type: SET_IMPORT_TAB_INPUT_VALUE,
   value,
@@ -178,7 +178,7 @@ interface SetTransactionFormAction {
 }
 
 const createSetTransactionFormAction = (
-  payload: TransactionFormState
+  payload: TransactionFormState,
 ): SetTransactionFormAction => ({
   type: SET_TRANSACTION_FORM,
   payload,
@@ -200,7 +200,7 @@ interface UpdateTransactionFormAction<K extends keyof TransactionFormState> {
 
 export const updateTransactionForm = <K extends keyof TransactionFormState>(
   key: K,
-  value: TransactionFormState[K]
+  value: TransactionFormState[K],
 ): UpdateTransactionFormAction<K> => ({
   type: UPDATE_TRANSACTION_FORM,
   key,
@@ -208,7 +208,7 @@ export const updateTransactionForm = <K extends keyof TransactionFormState>(
 });
 
 interface UpdateTransactionSharedFormAction<
-  K extends keyof TransactionFormState["shared"]
+  K extends keyof TransactionFormState["shared"],
 > {
   type: typeof UPDATE_TRANSACTION_SHARED_FORM;
   key: K;
@@ -216,10 +216,10 @@ interface UpdateTransactionSharedFormAction<
 }
 
 export const updateTransactionSharedForm = <
-  K extends keyof TransactionFormState["shared"]
+  K extends keyof TransactionFormState["shared"],
 >(
   key: K,
-  value: TransactionFormState["shared"][K]
+  value: TransactionFormState["shared"][K],
 ): UpdateTransactionSharedFormAction<K> => ({
   type: UPDATE_TRANSACTION_SHARED_FORM,
   key,
@@ -227,7 +227,7 @@ export const updateTransactionSharedForm = <
 });
 
 interface UpdateTransactionDirectFormAction<
-  K extends keyof TransactionFormState["direct"]
+  K extends keyof TransactionFormState["direct"],
 > {
   type: typeof UPDATE_TRANSACTION_DIRECT_FORM;
   key: K;
@@ -235,10 +235,10 @@ interface UpdateTransactionDirectFormAction<
 }
 
 export const updateTransactionDirectForm = <
-  K extends keyof TransactionFormState["direct"]
+  K extends keyof TransactionFormState["direct"],
 >(
   key: K,
-  value: TransactionFormState["direct"][K]
+  value: TransactionFormState["direct"][K],
 ): UpdateTransactionDirectFormAction<K> => ({
   type: UPDATE_TRANSACTION_DIRECT_FORM,
   key,
@@ -246,7 +246,7 @@ export const updateTransactionDirectForm = <
 });
 
 interface UpdateTransactionParticipantAction<
-  K extends "participant" | "status" | "amount"
+  K extends "participant" | "status" | "amount",
 > {
   type: typeof UPDATE_TRANSACTION_PARTICIPANT;
   id: string;
@@ -255,11 +255,11 @@ interface UpdateTransactionParticipantAction<
 }
 
 export const updateTransactionParticipant = <
-  K extends "participant" | "status" | "amount"
+  K extends "participant" | "status" | "amount",
 >(
   id: string,
   key: K,
-  value: TransactionFormSharedState[K]
+  value: TransactionFormSharedState[K],
 ): UpdateTransactionParticipantAction<K> => ({
   type: UPDATE_TRANSACTION_PARTICIPANT,
   id,
@@ -324,7 +324,7 @@ interface NavigateToUpdateTransactionAction {
 
 export const navigateToUpdateTransaction = (
   tabId: string,
-  transactionId: string
+  transactionId: string,
 ): NavigateToUpdateTransactionAction => ({
   type: ROUTE_TRANSACTION,
   payload: {
@@ -339,7 +339,7 @@ interface NavigateToAddTransactionAction {
 }
 
 export const navigateToAddTransaction = (
-  tabId: string
+  tabId: string,
 ): NavigateToAddTransactionAction => ({
   type: ROUTE_NEW_TRANSACTION,
   payload: {
@@ -401,7 +401,7 @@ const importTab = async (
   dispatch: (action: GTThunkAction | GTAction) => void,
   id: string,
   dbManager: DbManager,
-  viaImportForm?: boolean
+  viaImportForm?: boolean,
 ): Promise<void> => {
   dispatch(createCheckRemoteTabAction());
 
@@ -413,7 +413,7 @@ const importTab = async (
         type: DocumentType.INFO,
         name: infoDoc.name,
         tabId: id,
-      })
+      }),
     );
 
     if (viaImportForm) {
@@ -510,7 +510,7 @@ export const addOrUpdateTransaction =
     const transaction = mapFormDataToTransaction(
       formState,
       tabId,
-      transactionId
+      transactionId,
     );
 
     dispatch(createCreateOrUpdateTransactionAction(transaction));
@@ -568,7 +568,7 @@ export const initTransactionForm =
 
     if (transactionId && !transaction) {
       throw new Error(
-        `No transaction in the store with the ID "${transactionId}"`
+        `No transaction in the store with the ID "${transactionId}"`,
       );
     }
 

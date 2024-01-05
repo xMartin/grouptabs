@@ -10,7 +10,7 @@ export function parseDate(input: string) {
 
   if (params.length < 3) {
     throw new Error(
-      `Invalid date format (should start with "yyyy-MM-dd"): ${input}`
+      `Invalid date format (should start with "yyyy-MM-dd"): ${input}`,
     );
   }
 

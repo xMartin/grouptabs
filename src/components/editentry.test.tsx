@@ -45,7 +45,7 @@ it("renders loader when checking remote tab", () => {
         onCloseClick={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -67,7 +67,7 @@ it("renders empty form", () => {
         onCloseClick={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -88,7 +88,7 @@ it("renders loader in edit mode with no data", () => {
         onCloseClick={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -133,7 +133,7 @@ it("renders prefilled form", () => {
         onCloseClick={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

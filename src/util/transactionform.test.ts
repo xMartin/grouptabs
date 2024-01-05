@@ -17,10 +17,10 @@ import { formatDate } from "./date";
 
 describe("createFormData", () => {
   function expectSharedToBeLikeEmpty(
-    participants: TransactionFormState["shared"]
+    participants: TransactionFormState["shared"],
   ) {
     const participantNames = participants.map(
-      (participant) => participant.participant
+      (participant) => participant.participant,
     );
     expect(participantNames).toEqual([undefined, undefined]);
 
@@ -36,10 +36,10 @@ describe("createFormData", () => {
 
   function expectSharedToBeLikeNew(
     participants: TransactionFormState["shared"],
-    expectedParticpantNames: string[]
+    expectedParticpantNames: string[],
   ) {
     const participantNames = participants.map(
-      (participant) => participant.participant
+      (participant) => participant.participant,
     );
     expect(participantNames).toEqual(expectedParticpantNames);
 
@@ -67,7 +67,7 @@ describe("createFormData", () => {
 
   function expectDirectToBeLikeNew(
     data: TransactionFormState["direct"],
-    accounts: Account[]
+    accounts: Account[],
   ) {
     const participants = accounts.map((account) => account.participant);
 
@@ -183,7 +183,7 @@ describe("createFormData", () => {
 
     // Expect participants ordered by name as they all have the same status.
     const participants = result.shared.map(
-      (participant) => participant.participant
+      (participant) => participant.participant,
     );
     expect(participants).toEqual(["Martin", "Koos", "Jan"]);
     const statuss = result.shared.map((participant) => participant.status);
@@ -193,7 +193,7 @@ describe("createFormData", () => {
     expect(amounts).toEqual([11, undefined, undefined]);
 
     const inputTypes = result.shared.map(
-      (participant) => participant.inputType
+      (participant) => participant.inputType,
     );
     expect(new Set(inputTypes)).toEqual(new Set([InputType.EXISTING]));
 

@@ -8,7 +8,10 @@ interface Props {
 
 const TabListButton: FunctionComponent<Props> = ({ data, onClick }) => {
   return (
-    <button className="full-width list-item-with-arrow" onClick={() => onClick(data.id)}>
+    <button
+      className="full-width list-item-with-arrow"
+      onClick={() => onClick(data.id)}
+    >
       {data.info?.name}
     </button>
   );

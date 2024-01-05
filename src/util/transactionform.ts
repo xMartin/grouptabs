@@ -29,7 +29,7 @@ function createParticipantInputDataForEmptyTab(): TransactionFormState["shared"]
 
 function createParticipantInputData(
   accounts: Account[],
-  transaction?: Transaction
+  transaction?: Transaction,
 ): TransactionFormState["shared"] {
   if (!accounts.length) {
     return createParticipantInputDataForEmptyTab();
@@ -47,8 +47,8 @@ function createParticipantInputData(
           value && value.amount > 0
             ? Status.PAID
             : value && value.amount === 0
-            ? Status.JOINED
-            : Status.NONE;
+              ? Status.JOINED
+              : Status.NONE;
         if (value?.amount !== undefined && value.amount > 0) {
           amount = value.amount;
         }
@@ -64,14 +64,14 @@ function createParticipantInputData(
         status,
         amount,
       };
-    }
+    },
   );
 
   // sort participants by 1) amount paid 2) joined 3) alphabetical
   return orderBy(
     participantInputs,
     ["status", "amount", "participant"],
-    ["desc", "desc", "asc"]
+    ["desc", "desc", "asc"],
   );
 }
 
@@ -103,10 +103,10 @@ function transactionParticipants2Inputs(participants: Account[]): Inputs {
 
 function createDirectInputData(
   accounts: Account[],
-  transaction?: Transaction
+  transaction?: Transaction,
 ): TransactionFormState["direct"] {
   const inputProps = transactionParticipants2Inputs(
-    transaction?.participants || []
+    transaction?.participants || [],
   );
 
   const mostNegativeParticipant = accounts[0]?.participant;
@@ -125,7 +125,7 @@ function createDirectInputData(
 
 export function createFormData(
   accounts: Account[],
-  transaction?: Transaction
+  transaction?: Transaction,
 ): TransactionFormState {
   transaction = transaction && mapTransaction(transaction);
 
@@ -133,13 +133,13 @@ export function createFormData(
     accounts,
     transaction?.transactionType === TransactionType.SHARED
       ? transaction
-      : undefined
+      : undefined,
   );
   const direct = createDirectInputData(
     accounts,
     transaction?.transactionType === TransactionType.DIRECT
       ? transaction
-      : undefined
+      : undefined,
   );
   const form: TransactionFormState = {
     transactionType: TransactionType.SHARED,
@@ -158,7 +158,7 @@ export function createFormData(
 }
 
 function mapParticipant(
-  participant: TransactionFormSharedState
+  participant: TransactionFormSharedState,
 ): Account | undefined {
   if (!participant.participant || participant.status === Status.NONE) {
     return;
@@ -181,7 +181,7 @@ function mapParticipant(
 }
 
 function mapParticipantsOfSharedTransaction(
-  participants: TransactionFormState["shared"]
+  participants: TransactionFormState["shared"],
 ): Account[] {
   return participants
     .map(mapParticipant)
@@ -189,7 +189,7 @@ function mapParticipantsOfSharedTransaction(
 }
 
 function mapParticipantsOfDirectTransaction(
-  direct: TransactionFormState["direct"]
+  direct: TransactionFormState["direct"],
 ): Account[] {
   // trim new participant names
   // don't trim existing ones to be backwards compatible
@@ -217,7 +217,7 @@ function mapParticipantsOfDirectTransaction(
 export function mapFormDataToTransaction(
   formData: TransactionFormState,
   tabId: string,
-  id?: string
+  id?: string,
 ): Transaction {
   let participants: Account[];
   if (formData.transactionType === TransactionType.SHARED) {
@@ -240,7 +240,7 @@ export function mapFormDataToTransaction(
 
 function validateShared(participants: TransactionFormState["shared"]): boolean {
   const joinedParticipants = participants.filter(
-    (participant) => participant.status > Status.NONE
+    (participant) => participant.status > Status.NONE,
   );
 
   if (joinedParticipants.length < 2) {
@@ -255,7 +255,7 @@ function validateShared(participants: TransactionFormState["shared"]): boolean {
   }
 
   const payingParticipants = joinedParticipants.filter(
-    (participant) => participant.status === Status.PAID && participant.amount
+    (participant) => participant.status === Status.PAID && participant.amount,
   );
   if (!payingParticipants.length) {
     return false;

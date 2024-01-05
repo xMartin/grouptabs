@@ -44,8 +44,8 @@ const Summary: FunctionComponent<Props> = ({ accounts }) => (
                 account.amount === 0
                   ? "zero"
                   : account.amount < 0
-                  ? "negative"
-                  : "positive"
+                    ? "negative"
+                    : "positive"
               }`}
               style={{
                 width: `calc(${account.percentage}% - ${cellPadding * 2}px)`,

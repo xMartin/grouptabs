@@ -88,7 +88,7 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
               "amount",
               event.currentTarget.value
                 ? parseFloat(event.currentTarget.value)
-                : undefined
+                : undefined,
             )
           }
         />

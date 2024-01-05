@@ -11,7 +11,7 @@ export const loadTabIds = (): string[] => {
       return parsed;
     } else {
       console.error(
-        "Could not read tab IDs from local storage. Falling back to empty list."
+        "Could not read tab IDs from local storage. Falling back to empty list.",
       );
     }
   } catch (error) {

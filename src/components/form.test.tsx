@@ -45,7 +45,7 @@ it("renders empty form", () => {
         onSetAllJoined={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -85,7 +85,7 @@ it("renders prefilled form", () => {
                 amount: 0,
               },
             ],
-          }
+          },
         )}
         onUpdateForm={vi.fn()}
         onUpdateSharedForm={vi.fn()}
@@ -95,7 +95,7 @@ it("renders prefilled form", () => {
         onSetAllJoined={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     )
     .toJSON();
   expect(tree).toMatchSnapshot();
@@ -133,7 +133,7 @@ describe('"all joined" button', () => {
         onSetAllJoined={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     );
 
     expect(screen.getByText("all joined")).toBeInTheDocument();
@@ -175,7 +175,7 @@ describe('"all joined" button', () => {
         onSetAllJoined={vi.fn()}
         onSave={vi.fn()}
         onDelete={vi.fn()}
-      />
+      />,
     );
 
     expect(screen.queryByText("all joined")).not.toBeInTheDocument();

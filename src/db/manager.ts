@@ -48,7 +48,7 @@ export default class DbManager {
       this.getAllDbs().map(async (db) => {
         const docs = await db.db.connect({ initialReplicationTimeout: 3200 });
         return this.docsToEntities(db.tabId, docs);
-      })
+      }),
     );
     let flat: Entity[] = [];
     docsPerDb.forEach((docs) => {
@@ -69,7 +69,7 @@ export default class DbManager {
       const knownTabIds = Object.keys(this.dbs);
       const tabIds = loadTabIds();
       const newTabIds = tabIds.filter(
-        (tabId) => knownTabIds.indexOf(tabId) === -1
+        (tabId) => knownTabIds.indexOf(tabId) === -1,
       );
       newTabIds.forEach((tabId) => {
         void this.connectTab(tabId).then((actionMap) => {
@@ -150,7 +150,7 @@ export default class DbManager {
       dbName,
       remoteDbLocation,
       this.handleChanges.bind(this, tabId),
-      this.isIndexedDbAvailable === false ? "memory" : undefined
+      this.isIndexedDbAvailable === false ? "memory" : undefined,
     );
     this.dbs[tabId] = tab;
     addTabId(tabId);
@@ -159,7 +159,7 @@ export default class DbManager {
 
   private handleChanges(
     tabId: string,
-    changes: PouchDB.Core.ChangesResponseChange<Document>[]
+    changes: PouchDB.Core.ChangesResponseChange<Document>[],
   ) {
     const createOrUpdate = changes
       .filter((change) => !change.deleted)

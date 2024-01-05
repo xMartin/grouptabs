@@ -91,7 +91,10 @@ const EditEntry: FunctionComponent<Props> = (props) => {
     <>
       {renderHeader(
         !isLoading &&
-          !(props.remoteTabError || (props.mode === "edit" && !props.formState))
+          !(
+            props.remoteTabError ||
+            (props.mode === "edit" && !props.formState)
+          ),
       )}
       <Loader show={isLoading}>
         <div className="content" ref={scrollContainerRef}>

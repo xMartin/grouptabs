@@ -32,6 +32,6 @@ export function startPersistingLocation(history: History) {
   }
 
   history.listen(() =>
-    window.localStorage.setItem(storageKey, window.location.href)
+    window.localStorage.setItem(storageKey, window.location.href),
   );
 }

@@ -65,14 +65,14 @@ const middlewares = applyMiddleware(
   logger,
   thunkMiddleware,
   router.middleware,
-  routeTransitionMiddleware
+  routeTransitionMiddleware,
 );
 
 const compose =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose;
 const store: Store<AllState> = createStore(
   rootReducer,
-  compose(router.enhancer, middlewares)
+  compose(router.enhancer, middlewares),
 );
 
 const components = (

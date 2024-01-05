@@ -34,6 +34,6 @@ it("renders empty text", () => {
   };
   render(<App {...props} />);
   expect(
-    screen.getAllByText("Start by creating your first group:")[0]
+    screen.getAllByText("Start by creating your first group:")[0],
   ).toBeInTheDocument();
 });

@@ -60,7 +60,7 @@ const ParticipationStatusInput: FunctionComponent<Props> = ({
               onAmountChange(
                 event.currentTarget.value
                   ? parseFloat(event.currentTarget.value)
-                  : undefined
+                  : undefined,
               )
             }
             autoFocus={readyForAutoFocus.current}

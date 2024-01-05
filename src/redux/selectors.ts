@@ -7,7 +7,7 @@ function createTransactionsByRecencyComparator(prefix?: string) {
   type PrefixedArg = { [id: string]: any };
   return (
     a: Transaction | PrefixedArg,
-    b: Transaction | PrefixedArg
+    b: Transaction | PrefixedArg,
   ): number => {
     a = prefix ? (a as PrefixedArg)[prefix] : (a as Transaction);
     b = prefix ? (b as PrefixedArg)[prefix] : (b as Transaction);
@@ -44,7 +44,7 @@ function transactions2Accounts(transactions: Transaction[]): Account[] {
     let share: number;
     let total = 0;
     transaction.participants.forEach(
-      (participant) => (total += participant.amount || 0)
+      (participant) => (total += participant.amount || 0),
     );
     if (transaction.transactionType === TransactionType.DIRECT) {
       // Same data structure as SHARED.
@@ -125,7 +125,7 @@ export const getCurrentLocation = createSelector(
       return previousLocation;
     }
     return location;
-  }
+  },
 );
 
 export const getTabs = createSelector(
@@ -135,7 +135,7 @@ export const getTabs = createSelector(
       const info = docsById["info-" + tabId] as Info;
       const transactionIds = transactionsByTab[tabId] || [];
       const transactions = transactionIds.map(
-        (transactionId) => docsById[transactionId] as Transaction
+        (transactionId) => docsById[transactionId] as Transaction,
       );
       const mostRecentTransaction = sortTransactions(transactions)[0];
       return {
@@ -154,7 +154,7 @@ export const getTabs = createSelector(
       .sort((a, b) => (a < b ? -1 : 1));
 
     return tabsWithTransactions.concat(tabsWithoutTransactions);
-  }
+  },
 );
 
 export const getTabInfo = createSelector(
@@ -167,7 +167,7 @@ export const getTabInfo = createSelector(
       }
     });
     return tab?.info;
-  }
+  },
 );
 
 export const getTransactions = createSelector(
@@ -179,23 +179,23 @@ export const getTransactions = createSelector(
       return mapTransaction(transaction);
     });
     return sortTransactions(transactions);
-  }
+  },
 );
 
 export const getAccounts = createSelector([getTransactions], (transactions) =>
-  transactions2Accounts(transactions)
+  transactions2Accounts(transactions),
 );
 
 export const getTotal = createSelector([getTransactions], (transactions) =>
   transactions
     .filter(
-      (transaction) => transaction.transactionType === TransactionType.SHARED
+      (transaction) => transaction.transactionType === TransactionType.SHARED,
     )
     .reduce((total, transaction) => {
       const transactionSum = transaction.participants.reduce(
         (sum, participant) => sum + participant.amount,
-        0
+        0,
       );
       return total + transactionSum;
-    }, 0)
+    }, 0),
 );

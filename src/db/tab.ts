@@ -11,7 +11,7 @@ interface Content {
 export type Document = PouchDB.Core.Document<Content>;
 type Database = PouchDB.Database<Document>;
 type ChangesHandler = (
-  results: PouchDB.Core.ChangesResponseChange<Document>[]
+  results: PouchDB.Core.ChangesResponseChange<Document>[],
 ) => void;
 
 export default class Tab {
@@ -31,7 +31,7 @@ export default class Tab {
     private readonly localDbName: string,
     private readonly remoteDbLocation: string,
     private readonly onChanges: ChangesHandler,
-    adapter?: string
+    adapter?: string,
   ) {
     const myLog = log.extend(this.localDbName);
     this.logReplication = myLog.extend("replication");
@@ -82,7 +82,7 @@ export default class Tab {
     };
     // for deleting we don't need a full document but `put` argument types require it
     const response = await this.db.put(
-      deleteDoc as PouchDB.Core.PutDocument<Document>
+      deleteDoc as PouchDB.Core.PutDocument<Document>,
     );
     this.logDoc("delete", "- response:", response);
   }

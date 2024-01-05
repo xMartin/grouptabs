@@ -58,7 +58,7 @@ export default class App extends Component<Props> {
       case ROUTE_TRANSACTION: {
         const transaction = this.props.transaction;
         setTitle(
-          transaction ? transaction.description + " (" + tabName + ")" : ""
+          transaction ? transaction.description + " (" + tabName + ")" : "",
         );
         break;
       }
@@ -98,7 +98,7 @@ export default class App extends Component<Props> {
       <div className="scenes">
         <div
           className={`scenes-container scenes-container-active-${getSceneIndex(
-            this.props.location.type
+            this.props.location.type,
           )}`}
         >
           <Tabs

@@ -66,6 +66,6 @@ test("converts legacy direct transactions' transaction type to DIRECT", () => {
 
   const mappedLegacyDirectTransaction = mapTransaction(legacyDirectTransaction);
   expect(mappedLegacyDirectTransaction.transactionType).toBe(
-    TransactionType.DIRECT
+    TransactionType.DIRECT,
   );
 });

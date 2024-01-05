@@ -47,7 +47,7 @@ const Form: FunctionComponent<Props> = (props) => {
 
     if (!validate(props.data)) {
       alert(
-        "Please fill in all fields and have at least two participants and one person who paid."
+        "Please fill in all fields and have at least two participants and one person who paid.",
       );
       return;
     }
@@ -62,12 +62,12 @@ const Form: FunctionComponent<Props> = (props) => {
   };
 
   const handleSelectTransactionType = (
-    event: SyntheticEvent<HTMLSelectElement>
+    event: SyntheticEvent<HTMLSelectElement>,
   ) => {
     const transactionType = event.currentTarget.value;
     props.onUpdateForm(
       "transactionType",
-      TransactionType[transactionType as keyof typeof TransactionType]
+      TransactionType[transactionType as keyof typeof TransactionType],
     );
   };
 
@@ -76,7 +76,7 @@ const Form: FunctionComponent<Props> = (props) => {
   };
 
   const numberOfNonJoined = props.data.shared.filter(
-    (participant) => participant.status === Status.NONE
+    (participant) => participant.status === Status.NONE,
   ).length;
   const showAllJoinedButton = numberOfNonJoined > 1;
 

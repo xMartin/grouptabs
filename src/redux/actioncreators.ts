@@ -24,6 +24,8 @@ export const IMPORT_TAB_SUCCESS = "IMPORT_TAB_SUCCESS";
 export const UPDATE_FROM_DB = "UPDATE_FROM_DB";
 export const CREATE_OR_UPDATE_TRANSACTION = "CREATE_OR_UPDATE_TRANSACTION";
 export const REMOVE_TRANSACTION = "REMOVE_TRANSACTION";
+export const SET_TAB_SYNCED_SUCCESSFULLY = "SET_TAB_SYNCED_SUCCESSFULLY";
+export const SET_TAB_SYNC_ERROR = "SET_TAB_SYNC_ERROR";
 export const SET_CREATE_TAB_INPUT_VALUE = "SET_CREATE_TAB_INPUT_VALUE";
 export const RESET_CREATE_TAB_INPUT_VALUE = "RESET_CREATE_TAB_INPUT_VALUE";
 export const SET_IMPORT_TAB_INPUT_VALUE = "SET_IMPORT_TAB_INPUT_VALUE";
@@ -130,6 +132,31 @@ const createRemoveTransactionAction = (
 ): RemoveTransactionAction => ({
   type: REMOVE_TRANSACTION,
   doc,
+});
+
+interface SetTabSyncedSuccessfullyAction {
+  type: typeof SET_TAB_SYNCED_SUCCESSFULLY;
+  tabId: string;
+  timestamp: string;
+}
+
+export const setTabSyncedSuccessfully = (
+  tabId: string,
+  date: Date,
+): SetTabSyncedSuccessfullyAction => ({
+  type: SET_TAB_SYNCED_SUCCESSFULLY,
+  tabId,
+  timestamp: date.toISOString(),
+});
+
+interface SetTabSyncErrorAction {
+  type: typeof SET_TAB_SYNC_ERROR;
+  tabId: string;
+}
+
+export const setTabSyncError = (tabId: string): SetTabSyncErrorAction => ({
+  type: SET_TAB_SYNC_ERROR,
+  tabId,
 });
 
 interface SetCreateTabInputValueAction {
@@ -356,6 +383,8 @@ export type GTAction =
   | UpdateFromDbAction
   | CreateOrUpdateTransactionAction
   | RemoveTransactionAction
+  | SetTabSyncedSuccessfullyAction
+  | SetTabSyncErrorAction
   | SetCreateTabInputValueAction
   | ResetCreateTabInputValueAction
   | SetImportTabInputValueAction
@@ -442,9 +471,13 @@ export const ensureConnectedDb =
       return;
     }
 
-    await dbManager.init((actionMap) => {
-      dispatch(createUpdateFromDbAction(actionMap));
-    });
+    await dbManager.init(
+      (actionMap) => {
+        dispatch(createUpdateFromDbAction(actionMap));
+      },
+      (tabId: string) => dispatch(setTabSyncedSuccessfully(tabId, new Date())),
+      (tabId: string) => dispatch(setTabSyncError(tabId)),
+    );
     await dbManager.connect();
   };
 

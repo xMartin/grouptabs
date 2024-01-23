@@ -116,6 +116,8 @@ export default class App extends Component<Props> {
           />
           <Main
             tabInfo={this.props.tabInfo}
+            lastSyncedSuccessfully={this.props.currentTabLastSyncedSucessfully}
+            syncError={this.props.currentTabSyncError}
             tabId={this.props.location.payload.tabId}
             accounts={this.props.accounts}
             transactions={this.props.transactions}

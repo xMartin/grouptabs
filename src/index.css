@@ -19,6 +19,8 @@
   --text-input-background-color: #fff;
   --participant-status-none-color: #888;
   --list-item-divider-color: #e5e5e5;
+  --font-size-small: 12px;
+  --default-transition-time: 400ms;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -158,28 +160,13 @@ button.create svg path {
 }
 
 .header button.create {
-  position: absolute;
-  right: 0;
-  top: 0;
-  margin: 5px;
+  margin: 5px 5px 5px 10px;
   box-shadow: 0 0 10px rgba(100, 100, 100, 0.5);
   border-radius: 100px; /* Pill-style rounded button */
 }
 /* larger '+' Plus in button */
 .mainScene .header button.create {
   font-size: 30px;
-}
-
-.header-app button.left {
-  background: transparent;
-  padding: 16px 10px;
-}
-.header-app button.left path {
-  fill: var(--subtle-text-color);
-}
-.header-app button.left:hover path,
-.header-app button.left:focus path {
-  fill: var(--main-text-color);
 }
 
 .editEntryScene .button-row {
@@ -237,7 +224,7 @@ input[type="number"] {
   height: 100%;
   display: flex;
   width: 300%;
-  transition: transform 400ms;
+  transition: transform var(--default-transition-time);
 }
 .scenes-container-active-2 {
   transform: translate3d(-33.33%, 0, 0);
@@ -261,12 +248,18 @@ input[type="number"] {
   }
 }
 
+/* allow ellipsis in heaading */
+.header-container {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
 .header {
   position: relative;
 }
 .header::after {
   opacity: 0;
-  transition: opacity 400ms;
+  transition: opacity var(--default-transition-time);
   content: "";
   position: absolute;
   left: 0;
@@ -293,33 +286,38 @@ input[type="number"] {
   opacity: 1;
 }
 .header-app {
+  display: flex;
   height: 56px;
-  position: relative;
-}
-.header-app h2 {
-  position: absolute;
-  font-size: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 14px 0;
-  top: 0;
-  margin: 0;
-  max-width: 66%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.header-app .logo {
-  width: 44px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-200%);
-  border-radius: 50px;
-  padding: 6px;
 }
 .header-brand {
   height: initial;
   padding: 2em 0;
+}
+.header-app > h2 {
+  flex: 10;
+  text-align: center;
+  font-size: 22px;
+  font-weight: normal;
+  padding: 14px 0;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header-app button.left {
+  background: transparent;
+  padding: 16px 10px;
+}
+.header-app button.left path {
+  fill: var(--subtle-text-color);
+}
+.header-app button.left:hover path,
+.header-app button.left:focus path {
+  fill: var(--main-text-color);
+}
+.header-app .header-slot-sync-status {
+  flex: 1;
+  padding: 20px 0 12px 10px;
 }
 
 .content {
@@ -611,7 +609,7 @@ input[type="number"] {
 }
 #transactions .date {
   padding: 0 12px 6px;
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: var(--subtle-text-color);
 }
 #transactions .list-item-with-arrow {
@@ -631,7 +629,7 @@ input[type="number"] {
 }
 #transactions .transaction .payments {
   margin-top: 2px;
-  font-size: 12px;
+  font-size: var(--font-size-small);
 }
 
 .total-sum {
@@ -673,7 +671,7 @@ input[type="number"] {
   left: 0;
   width: 100%;
   background: var(--main-background-color);
-  transition: opacity 0.5s;
+  transition: opacity var(--default-transition-time);
 }
 .app-loader.hidden {
   opacity: 0;
@@ -709,4 +707,42 @@ input[type="number"] {
 }
 .load-error button {
   margin-top: 2em;
+}
+
+.sync-status {
+  position: relative;
+  color: var(--subtle-text-color);
+  width: 26px;
+}
+.sync-status .icon {
+  position: relative;
+}
+.sync-status .icon .cloud {
+  display: block;
+}
+.sync-status .icon path {
+  fill: var(--main-text-color);
+}
+.sync-status .icon .status {
+  font-size: 11px;
+  user-select: none;
+  position: absolute;
+  top: -4px;
+  right: 0;
+}
+.sync-status .tooltip {
+  position: absolute;
+  bottom: -27px;
+  right: -6px;
+  z-index: 5; /* above header shadow */
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  background: var(--text-input-background-color);
+  font-size: var(--font-size-small);
+  opacity: 0;
+  transition: opacity var(--default-transition-time);
+}
+.sync-status .icon:hover + .tooltip {
+  opacity: 1;
 }

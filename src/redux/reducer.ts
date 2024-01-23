@@ -16,6 +16,8 @@ import {
   IMPORT_TAB,
   CREATE_OR_UPDATE_TRANSACTION,
   REMOVE_TRANSACTION,
+  SET_TAB_SYNCED_SUCCESSFULLY,
+  SET_TAB_SYNC_ERROR,
   SET_TRANSACTION_FORM,
   RESET_TRANSACTION_FORM,
   SET_ERROR,
@@ -41,6 +43,12 @@ interface AppState {
   importingTab: boolean;
   docsById: { [id: string]: Entity };
   tabs: string[];
+  tabStatus: {
+    [tabId: string]: {
+      lastSyncedSuccessfully: string | null;
+      syncError: boolean;
+    };
+  };
   transactionsByTab: { [tabId: string]: string[] };
   createTabInput?: string;
   importTabInput?: string;
@@ -55,6 +63,7 @@ const initialState: AppState = {
   importingTab: false,
   docsById: {},
   tabs: [],
+  tabStatus: {},
   transactionsByTab: {},
   error: null,
 };
@@ -179,6 +188,33 @@ const reducer: Reducer<AppState, GTAction> = (state = initialState, action) => {
           createOrUpdate: [],
           delete: [action.doc],
         }),
+      };
+
+    case SET_TAB_SYNCED_SUCCESSFULLY:
+      return {
+        ...state,
+        tabStatus: {
+          ...state.tabStatus,
+          [action.tabId]: {
+            ...state.tabStatus[action.tabId],
+            lastSyncedSuccessfully: action.timestamp,
+            syncError: false,
+          },
+        },
+      };
+
+    case SET_TAB_SYNC_ERROR:
+      return {
+        ...state,
+        tabStatus: {
+          ...state.tabStatus,
+          [action.tabId]: {
+            ...state.tabStatus[action.tabId],
+            lastSyncedSuccessfully:
+              state.tabStatus[action.tabId]?.lastSyncedSuccessfully || null,
+            syncError: true,
+          },
+        },
       };
 
     case SET_CREATE_TAB_INPUT_VALUE:

@@ -12,13 +12,21 @@ export default class DbManager {
   private readonly dbs: { [dbName: string]: Tab };
 
   private onChanges?: changesCallback;
+  private onSyncSuccess?: (tabId: string) => void;
+  private onSyncEror?: (tabId: string) => void;
 
   constructor() {
     this.dbs = {};
   }
 
-  async init(callback: changesCallback): Promise<void> {
-    this.onChanges = callback;
+  async init(
+    onChanges: changesCallback,
+    onSyncSuccess?: (tabId: string) => void,
+    onSyncError?: (tabId: string) => void,
+  ): Promise<void> {
+    this.onChanges = onChanges;
+    this.onSyncSuccess = onSyncSuccess;
+    this.onSyncEror = onSyncError;
 
     await this.checkIndexedDb();
     this.initDbs();
@@ -150,6 +158,8 @@ export default class DbManager {
       dbName,
       remoteDbLocation,
       this.handleChanges.bind(this, tabId),
+      this.onSyncSuccess?.bind(this, tabId),
+      this.onSyncEror?.bind(this, tabId),
       this.isIndexedDbAvailable === false ? "memory" : undefined,
     );
     this.dbs[tabId] = tab;

@@ -6,9 +6,12 @@ import TotalSpending from "./totalspending";
 import LoadError from "./loaderror";
 import { Account, Transaction, Info } from "../types";
 import useScrollIndicator from "../hooks/scrollindicator";
+import SyncStatus from "./syncstatus";
 
 interface Props {
   tabInfo?: Info;
+  lastSyncedSuccessfully?: string | null;
+  syncError?: boolean;
   tabId?: string;
   accounts: Account[];
   transactions: Transaction[];
@@ -33,18 +36,26 @@ const Main: FunctionComponent<Props> = (props) => {
   };
 
   const renderHeader = (showAddButton?: boolean) => (
-    <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
-      <button className="left" onClick={props.onChangeTabClick}>
-        <svg height="16" width="16">
-          <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
-        </svg>
-      </button>
-      <h2>{props.tabInfo?.name || ""}</h2>
-      {showAddButton && (
-        <button className="create" onClick={handleNewEntryClick}>
-          +
+    <div className="header-container">
+      <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
+        <button className="left" onClick={props.onChangeTabClick}>
+          <svg height="16" width="16">
+            <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
+          </svg>
         </button>
-      )}
+        <h2>{props.tabInfo?.name || ""}</h2>
+        <div className="header-slot-sync-status">
+          <SyncStatus
+            lastSyncedSuccessfully={props.lastSyncedSuccessfully}
+            syncError={props.syncError}
+          />
+        </div>
+        {showAddButton && (
+          <button className="create" onClick={handleNewEntryClick}>
+            +
+          </button>
+        )}
+      </div>
     </div>
   );
 

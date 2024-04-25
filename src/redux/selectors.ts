@@ -99,11 +99,16 @@ function getDocsById(state: AllState) {
 }
 
 export function getCurrentTabId(state: AllState) {
-  return state.location.payload.tabId || state.location.prev?.payload.tabId;
+  return (state.location.payload.tabId ||
+    state.location.prev?.payload.tabId) as string | undefined;
 }
 
 function getTransactionsByTab(state: AllState) {
   return state.app.transactionsByTab;
+}
+
+function getTabStatus(state: AllState) {
+  return state.app.tabStatus;
 }
 
 function getRouteTransition(state: AllState) {
@@ -173,7 +178,7 @@ export const getTabInfo = createSelector(
 export const getTransactions = createSelector(
   [getDocsById, getCurrentTabId, getTransactionsByTab],
   (docsById, currentTab, transactionsByTab) => {
-    const transactionIds = transactionsByTab[currentTab] || [];
+    const transactionIds = (currentTab && transactionsByTab[currentTab]) || [];
     const transactions = transactionIds.map((transactionId) => {
       const transaction = docsById[transactionId] as Transaction;
       return mapTransaction(transaction);
@@ -198,4 +203,9 @@ export const getTotal = createSelector([getTransactions], (transactions) =>
       );
       return total + transactionSum;
     }, 0),
+);
+
+export const getCurrentTabStatus = createSelector(
+  [getTabStatus, getCurrentTabId],
+  (tabStatus, currentTab) => (currentTab ? tabStatus[currentTab] : undefined),
 );

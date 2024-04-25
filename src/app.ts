@@ -6,6 +6,7 @@ import {
   getTransactions,
   getAccounts,
   getCurrentLocation,
+  getCurrentTabStatus,
 } from "./redux/selectors";
 import {
   navigateToTabs,
@@ -38,6 +39,9 @@ function mapStateToProps(state: AllState) {
     currentLocation: getCurrentLocation(state),
     initialLoadingDone: state.app.initialLoadingDone,
     tabInfo: getTabInfo(state),
+    currentTabLastSyncedSucessfully:
+      getCurrentTabStatus(state)?.lastSyncedSuccessfully,
+    currentTabSyncError: getCurrentTabStatus(state)?.syncError,
     transaction: state.app.docsById[
       state.location.payload.transactionId
     ] as Transaction,

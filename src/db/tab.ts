@@ -10,9 +10,6 @@ interface Content {
 }
 export type Document = PouchDB.Core.Document<Content>;
 type Database = PouchDB.Database<Document>;
-type ChangesHandler = (
-  results: PouchDB.Core.ChangesResponseChange<Document>[],
-) => void;
 
 export default class Tab {
   private readonly db: Database;
@@ -30,7 +27,11 @@ export default class Tab {
   constructor(
     private readonly localDbName: string,
     private readonly remoteDbLocation: string,
-    private readonly onChanges: ChangesHandler,
+    private readonly onChanges: (
+      results: PouchDB.Core.ChangesResponseChange<Document>[],
+    ) => void,
+    private readonly onSyncSuccess?: () => void,
+    private readonly onSyncError?: () => void,
     adapter?: string,
   ) {
     const myLog = log.extend(this.localDbName);
@@ -111,6 +112,7 @@ export default class Tab {
           this.logReplication("complete");
           clearTimeout(timeoutHandle);
           resolve();
+          this.onSyncSuccess?.();
         })
         .on("error", (err) => {
           this.logReplication("error", err);
@@ -118,6 +120,7 @@ export default class Tab {
           // incomplete replication can be handled by next sync
           clearTimeout(timeoutHandle);
           resolve();
+          this.onSyncError?.();
         });
       let timeoutHandle: ReturnType<typeof setTimeout>;
       if (initialReplicationTimeout !== undefined) {
@@ -125,6 +128,7 @@ export default class Tab {
           replication.cancel();
           this.logReplication("canceled (timeout)");
           resolve();
+          this.onSyncError?.();
         }, initialReplicationTimeout);
       }
     });
@@ -160,11 +164,13 @@ export default class Tab {
         this.logSync("error", err);
         this.isSyncing = false;
         this.emitChanges();
+        this.onSyncError?.();
       })
       .on("complete", () => {
         this.logSync("complete");
         this.isSyncing = false;
         this.emitChanges();
+        this.onSyncSuccess?.();
       });
   }
 

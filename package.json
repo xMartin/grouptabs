@@ -23,8 +23,8 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5",
-    "@testing-library/react": "^14.1.2",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^15.0.5",
     "@types/lodash": "^4.14.201",
     "@types/node": "^20.10.0",
     "@types/pouchdb": "^6.4.0",
@@ -44,7 +44,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "events": "^3.3.0",
     "husky": "^9.0.11",
-    "jsdom": "^22.1.0",
+    "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "lodash": "^4.17.21",
     "pouchdb-adapter-memory": "^8.0.1",

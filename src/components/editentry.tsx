@@ -28,16 +28,27 @@ interface Props {
 const EditEntry: FunctionComponent<Props> = (props) => {
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
 
-  const renderHeader = (showSaveButton: boolean): ReactElement => (
-    <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
-      <button className="left" onClick={props.onCloseClick}>
-        <svg height="16" width="16">
-          <path d="m7.4983 0.5c0.8974 0 1.3404 1.0909 0.6973 1.7168l-4.7837 4.7832h11.573c1.3523-0.019125 1.3523 2.0191 0 2h-11.572l4.7832 4.7832c0.98163 0.94251-0.47155 2.3957-1.4141 1.4141l-6.4911-6.49c-0.387-0.3878-0.391-1.0228 0-1.414l6.4905-6.49c0.1883-0.1935 0.4468-0.30268 0.7168-0.3027z" />
-        </svg>
-      </button>
-      <h2>{props.mode === "new" ? "New payment" : "Edit payment"}</h2>
-      {showSaveButton && (
-        <button className="right create" form="edit-entry-form">
+  const isLoading = props.checkingRemoteTab || props.importingTab;
+
+  const renderHeader = (): ReactElement => {
+    const disableSaveButton =
+      isLoading ||
+      !!props.remoteTabError ||
+      (props.mode === "edit" && !props.formState);
+
+    return (
+      <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
+        <button className="left" onClick={props.onCloseClick}>
+          <svg height="16" width="16">
+            <path d="m7.4983 0.5c0.8974 0 1.3404 1.0909 0.6973 1.7168l-4.7837 4.7832h11.573c1.3523-0.019125 1.3523 2.0191 0 2h-11.572l4.7832 4.7832c0.98163 0.94251-0.47155 2.3957-1.4141 1.4141l-6.4911-6.49c-0.387-0.3878-0.391-1.0228 0-1.414l6.4905-6.49c0.1883-0.1935 0.4468-0.30268 0.7168-0.3027z" />
+          </svg>
+        </button>
+        <h2>{props.mode === "new" ? "New payment" : "Edit payment"}</h2>
+        <button
+          className="right create"
+          disabled={disableSaveButton}
+          form="edit-entry-form"
+        >
           <svg height="16" width="16">
             <path
               d="m13.631 3.9906a1.0001 1.0001 0 0 0-0.6875 0.30273l-6.5937 6.5938-3.293-3.293a1.0001 1.0001 0 1 0-1.4141 1.4141l4 4a1.0001 1.0001 0 0 0 1.4141 0l7.3008-7.3008a1.0001 1.0001 0 0 0-0.72656-1.7168z"
@@ -45,9 +56,9 @@ const EditEntry: FunctionComponent<Props> = (props) => {
             />
           </svg>
         </button>
-      )}
-    </div>
-  );
+      </div>
+    );
+  };
 
   const renderContent = () => {
     if (props.remoteTabError) {
@@ -85,17 +96,9 @@ const EditEntry: FunctionComponent<Props> = (props) => {
     );
   };
 
-  const isLoading = props.checkingRemoteTab || props.importingTab;
-
   return (
     <>
-      {renderHeader(
-        !isLoading &&
-          !(
-            props.remoteTabError ||
-            (props.mode === "edit" && !props.formState)
-          ),
-      )}
+      {renderHeader()}
       <Loader show={isLoading}>
         <div className="content" ref={scrollContainerRef}>
           {renderContent()}

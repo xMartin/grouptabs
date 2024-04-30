@@ -23,6 +23,7 @@ exports[`renders empty form 1`] = `
     </h2>
     <button
       className="right create"
+      disabled={false}
       form="edit-entry-form"
     >
       <svg
@@ -353,6 +354,21 @@ exports[`renders loader in edit mode with no data 1`] = `
     <h2>
       Edit payment
     </h2>
+    <button
+      className="right create"
+      disabled={true}
+      form="edit-entry-form"
+    >
+      <svg
+        height="16"
+        width="16"
+      >
+        <path
+          d="m13.631 3.9906a1.0001 1.0001 0 0 0-0.6875 0.30273l-6.5937 6.5938-3.293-3.293a1.0001 1.0001 0 1 0-1.4141 1.4141l4 4a1.0001 1.0001 0 0 0 1.4141 0l7.3008-7.3008a1.0001 1.0001 0 0 0-0.72656-1.7168z"
+          fill="#fff"
+        />
+      </svg>
+    </button>
   </div>,
   <div
     className="content"
@@ -435,6 +451,21 @@ exports[`renders loader when checking remote tab 1`] = `
     <h2>
       New payment
     </h2>
+    <button
+      className="right create"
+      disabled={true}
+      form="edit-entry-form"
+    >
+      <svg
+        height="16"
+        width="16"
+      >
+        <path
+          d="m13.631 3.9906a1.0001 1.0001 0 0 0-0.6875 0.30273l-6.5937 6.5938-3.293-3.293a1.0001 1.0001 0 1 0-1.4141 1.4141l4 4a1.0001 1.0001 0 0 0 1.4141 0l7.3008-7.3008a1.0001 1.0001 0 0 0-0.72656-1.7168z"
+          fill="#fff"
+        />
+      </svg>
+    </button>
   </div>,
   <div
     className="loader tab-loader"
@@ -465,6 +496,7 @@ exports[`renders prefilled form 1`] = `
     </h2>
     <button
       className="right create"
+      disabled={false}
       form="edit-entry-form"
     >
       <svg

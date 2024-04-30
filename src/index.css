@@ -155,6 +155,9 @@ button.create {
   color: var(--color-cta-opposite);
   z-index: 10;
 }
+button.create:disabled {
+  background: var(--button-disabled-background-color);
+}
 button.create svg path {
   fill: var(--color-cta-opposite);
 }

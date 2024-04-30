@@ -28,6 +28,8 @@ interface Props {
 const Main: FunctionComponent<Props> = (props) => {
   const [isScrolled, scrollContainerRef] = useScrollIndicator();
 
+  const isLoading = props.checkingRemoteTab || props.importingTab;
+
   const handleNewEntryClick = () => {
     if (!props.tabId) {
       throw new Error("Group ID missing.");
@@ -35,7 +37,7 @@ const Main: FunctionComponent<Props> = (props) => {
     props.onNavigateToAddTransaction(props.tabId);
   };
 
-  const renderHeader = (showAddButton?: boolean) => (
+  const renderHeader = () => (
     <div className="header-container">
       <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
         <button className="left" onClick={props.onChangeTabClick}>
@@ -50,11 +52,13 @@ const Main: FunctionComponent<Props> = (props) => {
             syncError={props.syncError}
           />
         </div>
-        {showAddButton && (
-          <button className="create" onClick={handleNewEntryClick}>
-            +
-          </button>
-        )}
+        <button
+          className="create"
+          disabled={isLoading || !!props.remoteTabError}
+          onClick={handleNewEntryClick}
+        >
+          +
+        </button>
       </div>
     </div>
   );
@@ -126,11 +130,9 @@ const Main: FunctionComponent<Props> = (props) => {
     return renderSummary();
   };
 
-  const isLoading = props.checkingRemoteTab || props.importingTab;
-
   return (
     <div className="scene mainScene">
-      {renderHeader(!isLoading && !props.remoteTabError)}
+      {renderHeader()}
       <div
         id="main-content"
         className="content"

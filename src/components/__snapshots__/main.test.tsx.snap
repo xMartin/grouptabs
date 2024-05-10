@@ -11,6 +11,7 @@ exports[`renders empty view with no tab selected 1`] = `
       className="header header-app"
     >
       <button
+        aria-label="menu"
         className="left"
         onClick={[MockFunction spy]}
       >
@@ -57,11 +58,24 @@ exports[`renders empty view with no tab selected 1`] = `
         </div>
       </div>
       <button
+        aria-label="Add payment"
         className="create"
         disabled={false}
         onClick={[Function]}
       >
-        +
+        <svg
+          height="16"
+          width="16"
+        >
+          <g>
+            <path
+              d="M8 0C8.55228 0 9 0.447715 9 1L9 15C9 15.5523 8.55228 16 8 16C7.44772 16 7 15.5523 7 15L7 1C7 0.447715 7.44772 0 8 0Z"
+            />
+            <path
+              d="M16 8C16 8.55228 15.5523 9 15 9L1 9C0.447715 9 3.91405e-08 8.55228 8.74228e-08 8C1.35705e-07 7.44771 0.447715 7 1 7L15 7C15.5523 7 16 7.44772 16 8Z"
+            />
+          </g>
+        </svg>
       </button>
     </div>
   </div>
@@ -142,6 +156,7 @@ exports[`renders missing tab info error 1`] = `
       className="header header-app"
     >
       <button
+        aria-label="menu"
         className="left"
         onClick={[MockFunction spy]}
       >
@@ -188,11 +203,24 @@ exports[`renders missing tab info error 1`] = `
         </div>
       </div>
       <button
+        aria-label="Add payment"
         className="create"
         disabled={false}
         onClick={[Function]}
       >
-        +
+        <svg
+          height="16"
+          width="16"
+        >
+          <g>
+            <path
+              d="M8 0C8.55228 0 9 0.447715 9 1L9 15C9 15.5523 8.55228 16 8 16C7.44772 16 7 15.5523 7 15L7 1C7 0.447715 7.44772 0 8 0Z"
+            />
+            <path
+              d="M16 8C16 8.55228 15.5523 9 15 9L1 9C0.447715 9 3.91405e-08 8.55228 8.74228e-08 8C1.35705e-07 7.44771 0.447715 7 1 7L15 7C15.5523 7 16 7.44772 16 8Z"
+            />
+          </g>
+        </svg>
       </button>
     </div>
   </div>
@@ -273,6 +301,7 @@ exports[`renders summary and transaction list 1`] = `
       className="header header-app"
     >
       <button
+        aria-label="menu"
         className="left"
         onClick={[MockFunction spy]}
       >
@@ -321,11 +350,24 @@ exports[`renders summary and transaction list 1`] = `
         </div>
       </div>
       <button
+        aria-label="Add payment"
         className="create"
         disabled={false}
         onClick={[Function]}
       >
-        +
+        <svg
+          height="16"
+          width="16"
+        >
+          <g>
+            <path
+              d="M8 0C8.55228 0 9 0.447715 9 1L9 15C9 15.5523 8.55228 16 8 16C7.44772 16 7 15.5523 7 15L7 1C7 0.447715 7.44772 0 8 0Z"
+            />
+            <path
+              d="M16 8C16 8.55228 15.5523 9 15 9L1 9C0.447715 9 3.91405e-08 8.55228 8.74228e-08 8C1.35705e-07 7.44771 0.447715 7 1 7L15 7C15.5523 7 16 7.44772 16 8Z"
+            />
+          </g>
+        </svg>
       </button>
     </div>
   </div>
@@ -502,6 +544,7 @@ exports[`renders tab with no transactions 1`] = `
       className="header header-app"
     >
       <button
+        aria-label="menu"
         className="left"
         onClick={[MockFunction spy]}
       >
@@ -550,11 +593,24 @@ exports[`renders tab with no transactions 1`] = `
         </div>
       </div>
       <button
+        aria-label="Add payment"
         className="create"
         disabled={false}
         onClick={[Function]}
       >
-        +
+        <svg
+          height="16"
+          width="16"
+        >
+          <g>
+            <path
+              d="M8 0C8.55228 0 9 0.447715 9 1L9 15C9 15.5523 8.55228 16 8 16C7.44772 16 7 15.5523 7 15L7 1C7 0.447715 7.44772 0 8 0Z"
+            />
+            <path
+              d="M16 8C16 8.55228 15.5523 9 15 9L1 9C0.447715 9 3.91405e-08 8.55228 8.74228e-08 8C1.35705e-07 7.44771 0.447715 7 1 7L15 7C15.5523 7 16 7.44772 16 8Z"
+            />
+          </g>
+        </svg>
       </button>
     </div>
   </div>

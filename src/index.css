@@ -162,16 +162,6 @@ button.create svg path {
   fill: var(--color-cta-opposite);
 }
 
-.header button.create {
-  margin: 5px 5px 5px 10px;
-  box-shadow: 0 0 10px rgba(100, 100, 100, 0.5);
-  border-radius: 100px; /* Pill-style rounded button */
-}
-/* larger '+' Plus in button */
-.mainScene .header button.create {
-  font-size: 30px;
-}
-
 .editEntryScene .button-row {
   margin-top: 2em;
   text-align: center;
@@ -290,6 +280,7 @@ input[type="number"] {
 }
 .header-app {
   display: flex;
+  align-items: center;
   height: 56px;
 }
 .header-brand {
@@ -301,15 +292,20 @@ input[type="number"] {
   text-align: center;
   font-size: 22px;
   font-weight: normal;
-  padding: 14px 0;
   margin: 0;
+  padding-bottom: 4px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.header-app button {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .header-app button.left {
   background: transparent;
-  padding: 16px 10px;
 }
 .header-app button.left path {
   fill: var(--subtle-text-color);
@@ -320,7 +316,12 @@ input[type="number"] {
 }
 .header-app .header-slot-sync-status {
   flex: 1;
-  padding: 20px 0 12px 10px;
+  padding-left: 10px;
+}
+.header-app button.create {
+  margin: 0 5px 0 10px;
+  box-shadow: 0 0 10px rgba(100, 100, 100, 0.5);
+  border-radius: 100%;
 }
 
 .content {

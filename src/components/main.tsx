@@ -40,7 +40,11 @@ const Main: FunctionComponent<Props> = (props) => {
   const renderHeader = () => (
     <div className="header-container">
       <div className={`header header-app${isScrolled ? " elevated" : ""}`}>
-        <button className="left" onClick={props.onChangeTabClick}>
+        <button
+          className="left"
+          aria-label="menu"
+          onClick={props.onChangeTabClick}
+        >
           <svg height="16" width="16">
             <path d="m2 2c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12zm0 5c-0.554 0-1 0.446-1 1s0.446 1 1 1h12c0.554 0 1-0.446 1-1s-0.446-1-1-1h-12z" />
           </svg>
@@ -53,11 +57,17 @@ const Main: FunctionComponent<Props> = (props) => {
           />
         </div>
         <button
+          aria-label="Add payment"
           className="create"
           disabled={isLoading || !!props.remoteTabError}
           onClick={handleNewEntryClick}
         >
-          +
+          <svg width="16" height="16">
+            <g>
+              <path d="M8 0C8.55228 0 9 0.447715 9 1L9 15C9 15.5523 8.55228 16 8 16C7.44772 16 7 15.5523 7 15L7 1C7 0.447715 7.44772 0 8 0Z" />
+              <path d="M16 8C16 8.55228 15.5523 9 15 9L1 9C0.447715 9 3.91405e-08 8.55228 8.74228e-08 8C1.35705e-07 7.44771 0.447715 7 1 7L15 7C15.5523 7 16 7.44772 16 8Z" />
+            </g>
+          </svg>
         </button>
       </div>
     </div>

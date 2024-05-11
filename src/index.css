@@ -282,6 +282,7 @@ input[type="number"] {
   display: flex;
   align-items: center;
   height: 56px;
+  padding-right: 12px;
 }
 .header-brand {
   height: initial;
@@ -293,7 +294,7 @@ input[type="number"] {
   font-size: 22px;
   font-weight: normal;
   margin: 0;
-  padding-bottom: 4px;
+  padding-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -319,7 +320,7 @@ input[type="number"] {
   padding-left: 10px;
 }
 .header-app button.create {
-  margin: 0 5px 0 10px;
+  margin-left: 10px;
   box-shadow: 0 0 10px rgba(100, 100, 100, 0.5);
   border-radius: 100%;
 }
@@ -716,7 +717,8 @@ input[type="number"] {
 .sync-status {
   position: relative;
   color: var(--subtle-text-color);
-  width: 26px;
+  width: 23px;
+  padding-top: 1px;
 }
 .sync-status .icon {
   position: relative;
@@ -728,10 +730,10 @@ input[type="number"] {
   fill: var(--main-text-color);
 }
 .sync-status .icon .status {
-  font-size: 11px;
+  font-size: 8px;
   user-select: none;
   position: absolute;
-  top: -4px;
+  top: -2px;
   right: 0;
 }
 .sync-status .tooltip {

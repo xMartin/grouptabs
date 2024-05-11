@@ -36,7 +36,7 @@ exports[`renders empty view with no tab selected 1`] = `
           >
             <svg
               className="cloud"
-              viewBox="0 0 122.88 79.13"
+              viewBox="0 0 123 80"
             >
               <g>
                 <path
@@ -181,7 +181,7 @@ exports[`renders missing tab info error 1`] = `
           >
             <svg
               className="cloud"
-              viewBox="0 0 122.88 79.13"
+              viewBox="0 0 123 80"
             >
               <g>
                 <path
@@ -328,7 +328,7 @@ exports[`renders summary and transaction list 1`] = `
           >
             <svg
               className="cloud"
-              viewBox="0 0 122.88 79.13"
+              viewBox="0 0 123 80"
             >
               <g>
                 <path
@@ -571,7 +571,7 @@ exports[`renders tab with no transactions 1`] = `
           >
             <svg
               className="cloud"
-              viewBox="0 0 122.88 79.13"
+              viewBox="0 0 123 80"
             >
               <g>
                 <path

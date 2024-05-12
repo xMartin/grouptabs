@@ -1,6 +1,7 @@
 import { FunctionComponent, memo } from "react";
 import { useRerenderInterval } from "../hooks/rerender";
 import { useNavigatorOnLine } from "../hooks/onlinestatus";
+import { formatHumanDateAndTime } from "../util/date";
 
 interface Props {
   lastSyncedSuccessfully?: string | null;
@@ -55,9 +56,9 @@ const SyncStatus: FunctionComponent<Props> = (props) => {
           if (syncStatus === LastSyncedStatus.NEVER) {
             return "Not synced, yet";
           }
-          return `Last synced: ${new Date(
-            props.lastSyncedSuccessfully!,
-          ).toLocaleString()}`;
+          return `Last synced ${formatHumanDateAndTime(
+            new Date(props.lastSyncedSuccessfully!),
+          )}`;
         })()}
       </div>
     </div>

@@ -34,14 +34,24 @@ export function formatHumanDate(date: Date | string) {
   }
 
   if (isToday(date)) {
-    return "Today";
+    return "today";
   }
 
   if (isYesterday(date)) {
-    return "Yesterday";
+    return "yesterday";
   }
 
   return date.toLocaleDateString();
+}
+
+export function formatHumanDateAndTime(date: Date | string) {
+  if (typeof date === "string") {
+    date = parseDate(date);
+  }
+
+  const dateString = formatHumanDate(date);
+
+  return `${dateString} ${date.toLocaleTimeString()}`;
 }
 
 export function addDays(date: Date, days: number) {

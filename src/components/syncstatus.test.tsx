@@ -23,7 +23,7 @@ it("renders initial offline status", () => {
   setOnLine(false);
   render(<SyncStatus />);
   expect(screen.queryByText(/❌/i)).toBeInTheDocument();
-  expect(screen.queryByText(/not synced, yet/i)).toBeInTheDocument();
+  expect(screen.queryByText(/Not synced, yet/)).toBeInTheDocument();
 });
 
 it("displays error", () => {
@@ -41,13 +41,21 @@ it("renders recently synced", () => {
   const recentDateString = new Date(new Date().getTime() - 5000).toISOString();
   render(<SyncStatus lastSyncedSuccessfully={recentDateString} />);
   expect(screen.queryByText("✅")).toBeInTheDocument();
-  expect(screen.queryByText(/last synced:/i)).toBeInTheDocument();
+  expect(screen.queryByText(/Last synced/)).toBeInTheDocument();
 });
 
 it("renders last synced timestamp if syncing was a while back", () => {
   const longAgoDateString = new Date(
-    new Date().getTime() - 555000,
+    new Date().getTime() - 1000 * 60 * 60 * 24 * 3,
   ).toISOString();
   render(<SyncStatus lastSyncedSuccessfully={longAgoDateString} />);
-  expect(screen.queryByText(/last synced:/i)).toBeInTheDocument();
+  expect(screen.queryByText(/Last synced/)).toBeInTheDocument();
+});
+
+it("formats date relatively", () => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+  render(<SyncStatus lastSyncedSuccessfully={today.toISOString()} />);
+  expect(screen.queryByText(/today 12:00:00 AM/)).toBeInTheDocument();
 });

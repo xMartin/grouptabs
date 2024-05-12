@@ -7,8 +7,8 @@
     "Liberation Mono", "Courier New", monospace;
   --dark-color: #131313;
   --light-color: #f5f5f5;
-  --red: #ff4444;
-  --green: #baff44;
+  --red: red;
+  --green: green;
   --color-error: var(--red);
   --main-text-color: var(--dark-color);
   --main-background-color: var(--light-color);

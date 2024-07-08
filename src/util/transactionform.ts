@@ -182,10 +182,10 @@ function mapParticipant(
 
 function mapParticipantsOfSharedTransaction(
   participants: TransactionFormState["shared"],
-): Account[] {
+) {
   return participants
     .map(mapParticipant)
-    .filter((participant) => participant) as Account[];
+    .filter((participant) => !!participant);
 }
 
 function mapParticipantsOfDirectTransaction(

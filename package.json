@@ -43,7 +43,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "events": "^3.3.0",
     "husky": "^9.0.11",
-    "jsdom": "^24.0.0",
+    "jsdom": "^25.0.1",
     "lint-staged": "^15.2.2",
     "lodash": "^4.17.21",
     "pouchdb-adapter-memory": "^9.0.0",

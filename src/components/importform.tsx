@@ -1,4 +1,4 @@
-import { SyntheticEvent, FunctionComponent, memo } from "react";
+import { FunctionComponent, memo, FormEventHandler, ChangeEvent } from "react";
 import { control } from "../util/form";
 
 interface Props {
@@ -16,7 +16,7 @@ const ImportForm: FunctionComponent<Props> = ({
   onTabIdChange,
   onSubmit,
 }) => {
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
     if (tabId) {
       onSubmit(tabId);
@@ -33,7 +33,7 @@ const ImportForm: FunctionComponent<Props> = ({
         disabled={checkingRemoteTab}
         autoFocus={true}
         value={control(tabId)}
-        onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
           onTabIdChange(event.currentTarget.value)
         }
       />

@@ -1,9 +1,11 @@
 import {
-  SyntheticEvent,
   FunctionComponent,
   memo,
   useRef,
   useEffect,
+  FormEventHandler,
+  ChangeEventHandler,
+  ChangeEvent,
 } from "react";
 import DateInput from "./dateinput";
 import DirectTransactionInput from "./directtransactioninput";
@@ -42,7 +44,7 @@ const Form: FunctionComponent<Props> = (props) => {
     }
   }, [props.mode, props.visible]);
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
 
     if (!validate(props.data)) {
@@ -61,8 +63,8 @@ const Form: FunctionComponent<Props> = (props) => {
     }
   };
 
-  const handleSelectTransactionType = (
-    event: SyntheticEvent<HTMLSelectElement>,
+  const handleSelectTransactionType: ChangeEventHandler<HTMLSelectElement> = (
+    event,
   ) => {
     const transactionType = event.currentTarget.value;
     props.onUpdateForm(
@@ -90,7 +92,7 @@ const Form: FunctionComponent<Props> = (props) => {
               type="text"
               placeholder="Description"
               value={control(props.data.description)}
-              onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 props.onUpdateForm("description", event.currentTarget.value)
               }
             />

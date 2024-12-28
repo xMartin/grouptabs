@@ -1,4 +1,9 @@
-import { SyntheticEvent, FunctionComponent, memo } from "react";
+import {
+  FunctionComponent,
+  memo,
+  ChangeEventHandler,
+  ChangeEvent,
+} from "react";
 import { TransactionFormState } from "../types";
 import { NEW_PARTICIPANT_OPTION } from "../util/transactionform";
 import { control } from "../util/form";
@@ -17,12 +22,12 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
 }) => {
   const { to, toNew, from, fromNew, amount, options } = data;
 
-  const handleChangeFrom = (event: SyntheticEvent<HTMLSelectElement>) => {
+  const handleChangeFrom: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const from = event.currentTarget.value;
     onChange("from", from);
   };
 
-  const handleChangeTo = (event: SyntheticEvent<HTMLSelectElement>) => {
+  const handleChangeTo: ChangeEventHandler<HTMLSelectElement> = (event) => {
     const to = event.currentTarget.value;
     onChange("to", to);
   };
@@ -66,7 +71,7 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
               type="text"
               placeholder="Name …"
               value={control(fromNew)}
-              onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 onChange("fromNew", event.currentTarget.value)
               }
               autoFocus={true}
@@ -83,7 +88,7 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
           step="any"
           placeholder="0"
           value={control(amount)}
-          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             onChange(
               "amount",
               event.currentTarget.value
@@ -114,7 +119,7 @@ const DirectTransactionInput: FunctionComponent<Props> = ({
               type="text"
               placeholder="Name …"
               value={control(toNew)}
-              onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+              onChange={(event: ChangeEvent<HTMLInputElement>) =>
                 onChange("toNew", event.currentTarget.value)
               }
               autoFocus={true}

@@ -1,10 +1,4 @@
-import {
-  SyntheticEvent,
-  FunctionComponent,
-  memo,
-  useRef,
-  useEffect,
-} from "react";
+import { FunctionComponent, memo, useRef, useEffect, ChangeEvent } from "react";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";
 
@@ -56,7 +50,7 @@ const ParticipationStatusInput: FunctionComponent<Props> = ({
             step="any"
             placeholder="0"
             value={control(amount)}
-            onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
               onAmountChange(
                 event.currentTarget.value
                   ? parseFloat(event.currentTarget.value)

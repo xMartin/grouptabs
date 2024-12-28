@@ -1,4 +1,4 @@
-import { FunctionComponent, SyntheticEvent, memo } from "react";
+import { ChangeEventHandler, FunctionComponent, memo } from "react";
 import { formatDate, addDays, isToday, isYesterday } from "../util/date";
 
 interface Props {
@@ -16,7 +16,7 @@ const DateInput: FunctionComponent<Props> = ({ date, onChange }) => {
     onChange(formatDate(yesterday));
   };
 
-  const handleDateChange = (event: SyntheticEvent<HTMLInputElement>) => {
+  const handleDateChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     const value = event.currentTarget.value;
     onChange(value);
   };

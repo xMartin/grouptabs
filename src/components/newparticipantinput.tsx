@@ -1,4 +1,4 @@
-import { SyntheticEvent, FunctionComponent, memo } from "react";
+import { FunctionComponent, memo, ChangeEvent } from "react";
 import ParticipantStatusInput from "./participantstatusinput";
 import { TransactionFormParticipantStatus as Status } from "../types";
 import { control } from "../util/form";
@@ -44,7 +44,7 @@ const NewParticipantInput: FunctionComponent<Props> = ({
           type="text"
           placeholder="Name …"
           value={control(participant)}
-          onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
             onChange(id, "participant", event.currentTarget.value)
           }
           autoFocus={autoFocusNameInput}

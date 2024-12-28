@@ -1,4 +1,4 @@
-import { SyntheticEvent, memo, FunctionComponent } from "react";
+import { memo, FunctionComponent, ChangeEvent, FormEventHandler } from "react";
 import { control } from "../util/form";
 
 interface Props {
@@ -12,7 +12,7 @@ const CreateForm: FunctionComponent<Props> = ({
   onTabNameChange,
   onSubmit,
 }) => {
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
+  const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
     const name = tabName?.trim();
     if (name) {
@@ -27,7 +27,7 @@ const CreateForm: FunctionComponent<Props> = ({
         className="full-width"
         placeholder="Group title …"
         value={control(tabName)}
-        onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+        onChange={(event: ChangeEvent<HTMLInputElement>) =>
           onTabNameChange(event.currentTarget.value)
         }
       />

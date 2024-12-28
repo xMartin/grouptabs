@@ -1,3 +1,4 @@
+import { act } from "react";
 import renderer from "react-test-renderer";
 import EditEntry from "./editentry";
 import {
@@ -30,8 +31,9 @@ afterAll(() => {
 });
 
 it("renders loader when checking remote tab", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <EditEntry
         mode="new"
         checkingRemoteTab={true}
@@ -46,14 +48,17 @@ it("renders loader when checking remote tab", () => {
         onSave={vi.fn()}
         onDelete={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders empty form", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <EditEntry
         mode="new"
         formState={createFormData([])}
@@ -68,14 +73,17 @@ it("renders empty form", () => {
         onSave={vi.fn()}
         onDelete={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders loader in edit mode with no data", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <EditEntry
         mode="edit"
         onUpdateForm={vi.fn()}
@@ -89,14 +97,17 @@ it("renders loader in edit mode with no data", () => {
         onSave={vi.fn()}
         onDelete={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders prefilled form", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <EditEntry
         mode="edit"
         formState={{
@@ -134,7 +145,9 @@ it("renders prefilled form", () => {
         onSave={vi.fn()}
         onDelete={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });

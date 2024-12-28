@@ -1,3 +1,4 @@
+import { act } from "react";
 import renderer from "react-test-renderer";
 import { render, screen } from "@testing-library/react";
 import Form from "./form";
@@ -32,8 +33,9 @@ afterAll(() => {
 });
 
 it("renders empty form", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Form
         mode="new"
         data={createFormData([])}
@@ -46,14 +48,17 @@ it("renders empty form", () => {
         onSave={vi.fn()}
         onDelete={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders prefilled form", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Form
         mode="edit"
         data={createFormData(
@@ -96,9 +101,11 @@ it("renders prefilled form", () => {
         onSave={vi.fn()}
         onDelete={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 describe('"all joined" button', () => {

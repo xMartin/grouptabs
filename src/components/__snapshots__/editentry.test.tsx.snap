@@ -41,6 +41,7 @@ exports[`renders empty form 1`] = `
   </div>,
   <div
     className="content"
+    ref={[Function]}
   >
     <form
       id="edit-entry-form"
@@ -58,6 +59,11 @@ exports[`renders empty form 1`] = `
             <input
               onChange={[Function]}
               placeholder="Description"
+              ref={
+                {
+                  "current": null,
+                }
+              }
               type="text"
               value=""
             />
@@ -376,6 +382,7 @@ exports[`renders loader in edit mode with no data 1`] = `
   </div>,
   <div
     className="content"
+    ref={[Function]}
   >
     <div
       className="load-error"
@@ -520,6 +527,7 @@ exports[`renders prefilled form 1`] = `
   </div>,
   <div
     className="content"
+    ref={[Function]}
   >
     <form
       id="edit-entry-form"
@@ -537,6 +545,11 @@ exports[`renders prefilled form 1`] = `
             <input
               onChange={[Function]}
               placeholder="Description"
+              ref={
+                {
+                  "current": null,
+                }
+              }
               type="text"
               value="DESCRIPTION"
             />

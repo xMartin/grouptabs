@@ -17,6 +17,11 @@ exports[`renders empty form 1`] = `
         <input
           onChange={[Function]}
           placeholder="Description"
+          ref={
+            {
+              "current": null,
+            }
+          }
           type="text"
           value=""
         />
@@ -309,6 +314,11 @@ exports[`renders prefilled form 1`] = `
         <input
           onChange={[Function]}
           placeholder="Description"
+          ref={
+            {
+              "current": null,
+            }
+          }
           type="text"
           value="DESCRIPTION"
         />

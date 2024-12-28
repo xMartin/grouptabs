@@ -50,6 +50,7 @@ exports[`renders empty tab view 1`] = `
   </div>
   <div
     className="content content-with-footer"
+    ref={[Function]}
   >
     <main>
       <div
@@ -161,6 +162,7 @@ exports[`renders tab view 1`] = `
   </div>
   <div
     className="content content-with-footer"
+    ref={[Function]}
   >
     <main>
       <div

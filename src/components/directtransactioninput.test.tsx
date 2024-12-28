@@ -1,24 +1,29 @@
+import { act } from "react";
 import renderer from "react-test-renderer";
 import DirectTransactionInput from "./directtransactioninput";
 import { NEW_PARTICIPANT_OPTION } from "../util/transactionform";
 
 it("renders empty", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <DirectTransactionInput
         data={{
           options: ["Jan", "Martin", NEW_PARTICIPANT_OPTION],
         }}
         onChange={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders prefilled", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <DirectTransactionInput
         data={{
           from: "Martin",
@@ -28,7 +33,9 @@ it("renders prefilled", () => {
         }}
         onChange={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });

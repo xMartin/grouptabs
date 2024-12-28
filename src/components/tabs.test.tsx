@@ -1,10 +1,12 @@
+import { act } from "react";
 import renderer from "react-test-renderer";
 import Tabs from "./tabs";
 import { DocumentType } from "../types";
 
 it("renders tab view", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Tabs
         data={[
           {
@@ -23,14 +25,17 @@ it("renders tab view", () => {
         onImportTabInputChange={vi.fn()}
         onImportTab={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders empty tab view", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Tabs
         data={[]}
         onTabClick={vi.fn()}
@@ -39,7 +44,9 @@ it("renders empty tab view", () => {
         onImportTabInputChange={vi.fn()}
         onImportTab={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });

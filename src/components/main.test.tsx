@@ -1,10 +1,12 @@
+import { act } from "react";
 import renderer from "react-test-renderer";
 import Main from "./main";
 import { DocumentType, TransactionType } from "../types";
 
 it("renders empty view with no tab selected", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Main
         accounts={[]}
         transactions={[]}
@@ -13,14 +15,17 @@ it("renders empty view with no tab selected", () => {
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders tab with no transactions", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Main
         tabId="6"
         tabInfo={{
@@ -36,14 +41,17 @@ it("renders tab with no transactions", () => {
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders summary and transaction list", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Main
         tabId="2"
         tabInfo={{
@@ -88,14 +96,17 @@ it("renders summary and transaction list", () => {
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });
 
 it("renders missing tab info error", () => {
-  const tree = renderer
-    .create(
+  let tree;
+  act(() => {
+    tree = renderer.create(
       <Main
         tabId="1"
         accounts={[]}
@@ -105,7 +116,9 @@ it("renders missing tab info error", () => {
         onNavigateToAddTransaction={vi.fn()}
         onDetailsClick={vi.fn()}
       />,
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    );
+  });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  expect(tree.toJSON()).toMatchSnapshot();
 });

@@ -8,7 +8,7 @@ exports[`renders empty form 1`] = `
     <button
       aria-label="back"
       className="left"
-      onClick={[MockFunction spy]}
+      onClick={[MockFunction]}
     >
       <svg
         height="16"
@@ -324,7 +324,7 @@ exports[`renders empty form 1`] = `
               className="form-row-input"
             >
               <button
-                onClick={[MockFunction spy]}
+                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant
@@ -349,7 +349,7 @@ exports[`renders loader in edit mode with no data 1`] = `
     <button
       aria-label="back"
       className="left"
-      onClick={[MockFunction spy]}
+      onClick={[MockFunction]}
     >
       <svg
         height="16"
@@ -449,7 +449,7 @@ exports[`renders loader when checking remote tab 1`] = `
     <button
       aria-label="back"
       className="left"
-      onClick={[MockFunction spy]}
+      onClick={[MockFunction]}
     >
       <svg
         height="16"
@@ -494,7 +494,7 @@ exports[`renders prefilled form 1`] = `
     <button
       aria-label="back"
       className="left"
-      onClick={[MockFunction spy]}
+      onClick={[MockFunction]}
     >
       <svg
         height="16"
@@ -756,7 +756,7 @@ exports[`renders prefilled form 1`] = `
               className="form-row-input"
             >
               <button
-                onClick={[MockFunction spy]}
+                onClick={[MockFunction]}
                 type="button"
               >
                 + new participant

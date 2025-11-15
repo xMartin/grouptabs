@@ -13,7 +13,8 @@ let realDate: any;
 beforeAll(() => {
   const currentDate = new Date("2020-02-20T20:20:20.202Z");
   realDate = Date;
-  global.Date = class extends Date {
+  // eslint-disable-next-line no-global-assign
+  Date = class extends Date {
     constructor(date: any, ...args: any[]) {
       if (date) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -27,7 +28,8 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-  global.Date = realDate;
+  // eslint-disable-next-line no-global-assign
+  Date = realDate;
 });
 
 it("renders loader when checking remote tab", () => {

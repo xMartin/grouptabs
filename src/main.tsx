@@ -1,4 +1,3 @@
-import "./init";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { connectRoutes, LocationState } from "redux-first-router";

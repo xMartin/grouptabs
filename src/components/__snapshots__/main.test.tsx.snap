@@ -13,7 +13,7 @@ exports[`renders empty view with no tab selected 1`] = `
       <button
         aria-label="menu"
         className="left"
-        onClick={[MockFunction spy]}
+        onClick={[MockFunction]}
       >
         <svg
           height="16"
@@ -159,7 +159,7 @@ exports[`renders missing tab info error 1`] = `
       <button
         aria-label="menu"
         className="left"
-        onClick={[MockFunction spy]}
+        onClick={[MockFunction]}
       >
         <svg
           height="16"
@@ -305,7 +305,7 @@ exports[`renders summary and transaction list 1`] = `
       <button
         aria-label="menu"
         className="left"
-        onClick={[MockFunction spy]}
+        onClick={[MockFunction]}
       >
         <svg
           height="16"
@@ -549,7 +549,7 @@ exports[`renders tab with no transactions 1`] = `
       <button
         aria-label="menu"
         className="left"
-        onClick={[MockFunction spy]}
+        onClick={[MockFunction]}
       >
         <svg
           height="16"

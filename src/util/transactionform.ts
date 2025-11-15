@@ -37,24 +37,24 @@ function createParticipantInputData(
 
   const participantInputs: TransactionFormState["shared"] = accounts.map(
     (account) => {
-      let status;
+      let status = Status.NONE;
       let amount;
       if (transaction) {
-        const value = transaction.participants.find((participantValue) => {
-          return participantValue.participant === account.participant;
-        });
-        status =
-          value && value.amount > 0
-            ? Status.PAID
-            : value && value.amount === 0
-              ? Status.JOINED
-              : Status.NONE;
-        if (value?.amount !== undefined && value.amount > 0) {
-          amount = value.amount;
+        const value = transaction.participants.find(
+          (participantValue) =>
+            participantValue.participant === account.participant,
+        );
+        if (value) {
+          if (value.amount !== 0) {
+            status = Status.PAID;
+            amount = value.amount;
+          } else {
+            status = Status.JOINED;
+          }
         }
-      } else {
+      } else if (accounts.length === 2) {
         // For exactly two people in the tab, always set JOINED
-        status = accounts.length === 2 ? Status.JOINED : Status.NONE;
+        status = Status.JOINED;
       }
 
       return {

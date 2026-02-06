@@ -13,7 +13,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "22.x",
+    "node": "24.x",
     "yarn": "1.x"
   },
   "scripts": {
@@ -30,7 +30,7 @@
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^15.0.5",
     "@types/lodash": "^4.14.201",
-    "@types/node": "^22.19.1",
+    "@types/node": "^24.10.11",
     "@types/pouchdb": "^6.4.0",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",

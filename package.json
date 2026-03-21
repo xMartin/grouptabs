@@ -63,7 +63,7 @@
     "reselect": "^5.1.1",
     "typescript": "^5.5.3",
     "uuid": "^13.0.0",
-    "vite": "^7.3.1",
+    "vite": "^8.0.1",
     "vite-plugin-pwa": "^1.2.0",
     "vitest": "^4.1.0"
   },
@@ -80,6 +80,6 @@
     ]
   },
   "resolutions": {
-    "vite": "^7.3.1"
+    "vite": "^8.0.1"
   }
 }

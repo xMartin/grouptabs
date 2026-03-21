@@ -24,7 +24,7 @@ Run `yarn` in the project directory to install dependecies.
 
 In the project directory, you can run:
 
-### `npm run dev`
+### `yarn dev`
 
 Runs the app in the development mode.
 
